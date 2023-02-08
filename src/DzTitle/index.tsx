@@ -55,7 +55,7 @@ export const DzTitle: FC<DzTitleProps> &
       {subtitleType ? (
         <SubHeading
           className={cn(
-            '',
+            'text-sm text-black-100',
             classNameSubtitle,
             '',
             disabledClass
