@@ -1,59 +1,79 @@
 {
-  "name": "dz-design-system",
-  "version": "1.0.0",
-  "description": "Design system library with Storybook 6, Tailwind, with TypeScript",
-  "type": "module",
-  "main": "lib/index.js",
-  "module": "lib/index.esm.js",
-  "types": "lib/index.d.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "build": "rollup -c",
-    "prepublishOnly": "yarn build"
-  },
-  "np": {
-    "publish": false,
-    "tests": false
-  },
-  "keywords": [
-    "stroybook",
-    "react",
-    "typescript"
-  ],
-  "author": "Ryan Sturt",
+  "version": "0.1.0",
   "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "design-system",
+  "author": "David Torres",
+  "module": "dist/design-system.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/design-system.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/design-system.esm.js",
+      "limit": "10 KB"
+    }
+  ],
   "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "@rollup/plugin-commonjs": "^17.0.0",
-    "@rollup/plugin-node-resolve": "^11.0.0",
-    "@storybook/addon-actions": "^6.5.16",
+    "@babel/core": "^7.20.12",
+    "@size-limit/preset-small-lib": "^8.1.2",
     "@storybook/addon-essentials": "^6.5.16",
-    "@storybook/addon-interactions": "^6.5.16",
+    "@storybook/addon-info": "^5.3.21",
     "@storybook/addon-links": "^6.5.16",
     "@storybook/addon-postcss": "^2.0.0",
-    "@storybook/builder-webpack4": "^6.5.16",
-    "@storybook/builder-webpack5": "^6.5.16",
-    "@storybook/manager-webpack4": "^6.5.16",
-    "@storybook/manager-webpack5": "^6.5.16",
+    "@storybook/addons": "^6.5.16",
     "@storybook/react": "^6.5.16",
-    "@storybook/testing-library": "^0.0.13",
     "@types/react": "^18.0.27",
-    "babel-loader": "^8.2.2",
-    "concurrently": "^7.6.0",
+    "@types/react-dom": "^18.0.10",
+    "autoprefixer": "^10.4.13",
+    "babel-loader": "^9.1.2",
+    "chromatic": "^6.17.0",
+    "file-system-cache": "1.0.5",
+    "husky": "^8.0.3",
     "postcss": "^8.4.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rollup": "^2.34.2",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-postcss": "^4.0.0",
-    "rollup-plugin-typescript2": "^0.29.0",
-    "typescript": "^4.1.2"
-  },
-  "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-is": "^18.2.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "size-limit": "^8.1.2",
+    "tailwindcss": "^3.2.4",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5"
   },
   "dependencies": {
     "classnames": "^2.3.2"
