@@ -1,0 +1,31 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs/';
+
+import { color } from './shared/styles';
+
+<Meta title="Colors" />
+
+# Colors
+
+<ColorPalette>
+  <ColorItem title="black-10" subtitle="Black-10" colors={[color.black_10]} />
+  <ColorItem title="black-20" subtitle="Black-20" colors={[color.black_20]} />
+  <ColorItem title="black-40" subtitle="Black-40" colors={[color.black_40]} />
+  <ColorItem title="black-60" subtitle="Black-60" colors={[color.black_60]} />
+  <ColorItem title="black-80" subtitle="Black-80" colors={[color.black_80]} />
+  <ColorItem title="black-100" subtitle="Black" colors={[color.black_100]} />
+  <ColorItem title="red-100" subtitle="Red" colors={[color.red_100]} />
+  <ColorItem title="green-100" subtitle="Green" colors={[color.green_100]} />
+  <ColorItem title="white-100" subtitle="White" colors={[color.white_100]} />
+
+  <ColorItem
+    title="Monochrome"
+    colors={[
+      color.black_10,
+      color.black_20,
+      color.black_40,
+      color.black_60,
+      color.black_80,
+      color.black_100
+    ]}
+  />
+</ColorPalette>

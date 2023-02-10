@@ -1,16 +1,35 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzTitle, DzTitleProps } from '../src/DzTitle';
+import {
+  DzTitle,
+  DzTitleProps,
+  TEXT_SIZE_NAMES,
+  TITLE_TAGS,
+  SUBTITLE_TAGS,
+} from '../src/atoms/DzTitle';
 
 const meta: Meta = {
-  title: 'Typography',
+  title: 'Atoms/Typography/Title',
   component: DzTitle,
   argTypes: {
-    children: {
-      control: {
-        type: 'text',
-      },
+    titleSize: {
+      control: 'select',
+      options: TEXT_SIZE_NAMES,
+      defaultValue: TEXT_SIZE_NAMES[0],
     },
+    title: { type: 'string', defaultValue: 'Default Title' },
+    titleType: {
+      control: 'select',
+      options: TITLE_TAGS,
+      defaultValue: TITLE_TAGS[0],
+    },
+    subtitleType: {
+      control: 'select',
+      options: SUBTITLE_TAGS,
+      defaultValue: SUBTITLE_TAGS[0],
+    },
+    classNameTitle: { control: { type: null } },
+    classNameSubtitle: { control: { type: null } },
   },
   parameters: {
     controls: { expanded: true },
@@ -19,13 +38,6 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<DzTitleProps> = args => <DzTitle {...args} />;
+const Template: Story<DzTitleProps> = (args) => <DzTitle {...args} />;
 
-// By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
-// https://storybook.js.org/docs/react/workflows/unit-testing
 export const DefaultDzTitle = Template.bind({});
-
-DefaultDzTitle.args = {
-  titleType: 'h1',
-  title: 'Hello'
-};

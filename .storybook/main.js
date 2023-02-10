@@ -1,6 +1,7 @@
+const path = require("path");
 module.exports = {
-  stories: ['../stories/**/*.stories.@(ts|tsx|js|jsx)'],
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials', {
+  stories: ['../stories/**/*.stories.@(ts|tsx|js|jsx|mdx)'],
+  addons: ['@storybook/addon-links', '@storybook/addon-essentials', '@storybook/addon-a11y', {
     name: '@storybook/addon-postcss',
     options: {
       postcssLoaderOptions: {
@@ -12,4 +13,8 @@ module.exports = {
   typescript: {
     check: true, // type-check stories during Storybook build
   },
+  webpackFinal: async (config) => {
+    config.resolve.alias['@'] = path.resolve(__dirname, '../src/')
+    return config
+  }
 };

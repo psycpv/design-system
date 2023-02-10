@@ -11,15 +11,18 @@
     "node": ">=10"
   },
   "scripts": {
+    "chromatic": "chromatic --exit-zero-on-changes",
     "start": "tsdx watch",
-    "build": "tsdx build",
+    "build": "tsdx build && yarn build-tailwind",
+    "build-tailwind": "NODE_ENV=production npx tailwindcss -o ./dist/tailwind.css --minify",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
-    "prepare": "tsdx build",
+    "prepare": "yarn build",
     "size": "size-limit",
     "analyze": "size-limit --why",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "chromatic": "npx chromatic --project-token=eaaa6dc1072f"
   },
   "peerDependencies": {
     "react": ">=16"
@@ -36,7 +39,9 @@
     "trailingComma": "es5"
   },
   "name": "design-system",
-  "author": "David Torres",
+  "author": {
+    "name": "David Torres"
+  },
   "module": "dist/design-system.esm.js",
   "size-limit": [
     {
@@ -51,31 +56,50 @@
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@size-limit/preset-small-lib": "^8.1.2",
+    "@storybook/addon-a11y": "^6.5.16",
     "@storybook/addon-essentials": "^6.5.16",
     "@storybook/addon-info": "^5.3.21",
     "@storybook/addon-links": "^6.5.16",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/addons": "^6.5.16",
     "@storybook/react": "^6.5.16",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "@types/styled-components": "^5.1.26",
+    "@types/uuid": "^9.0.0",
     "autoprefixer": "^10.4.13",
     "babel-loader": "^9.1.2",
     "chromatic": "^6.17.0",
     "file-system-cache": "1.0.5",
     "husky": "^8.0.3",
+    "identity-obj-proxy": "^3.0.0",
     "postcss": "^8.4.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
     "rollup-plugin-postcss": "^4.0.2",
     "size-limit": "^8.1.2",
+    "styled-components": "^5.3.6",
     "tailwindcss": "^3.2.4",
     "tsdx": "^0.14.1",
     "tslib": "^2.5.0",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "typescript-styled-plugin": "^0.18.2"
   },
   "dependencies": {
-    "classnames": "^2.3.2"
-  }
+    "classnames": "^2.3.2",
+    "uuid": "^9.0.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+      "@/(.*)": "<rootDir>/src/$1"
+    }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "design-system@0.1.0"
 }

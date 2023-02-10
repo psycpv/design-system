@@ -1,0 +1,30 @@
+import { Meta, Typeset } from '@storybook/addon-docs/';
+import { typography } from './shared/styles';
+
+<Meta title="Typography/Base" />
+
+# Typography
+
+The type scale includes a range of contrasting type-sizes that support the needs of our product and content. Aiming to simplify and unify our product surfaces, we have one consistent type scale that is optimized to provide the best legibility across all screen sizes. The type scale follows t-shirt sizing for a clear and applicable naming structure that does not limit or confuse application.
+
+Across breakpoints we generally shift up/down one t-shirt size. So while you should follow each 'page' design, a core rule would be text would drop from 'lg' to 'md' going from desktop to tablet/mobile.
+
+Additionally, we should only need to host 2 weights of Avenir — Medium and Medium Italic under the current Design System.
+
+**Font:** Avenir — Medium // Medium Italic
+
+**Weights:** 500(regular)
+
+<Typeset
+  fontFamily={typography.type.primary}
+  fontSizes={[
+    Number(typography.size.xs),
+    Number(typography.size.sm),
+    Number(typography.size.md),
+    Number(typography.size.lg),
+    Number(typography.size.xl),
+    Number(typography.size.xxl),
+    Number(typography.size.xxxl),
+  ]}
+  fontWeight={typography.weight.regular}
+/>
