@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { cn } from '@/utils/classnames';
 import React, { createElement, FC, Fragment, HTMLAttributes } from 'react';
 
 export const TEXT_SIZE_NAMES = [
@@ -37,8 +37,8 @@ const styles = {
     text-black-60
   `,
   disabled: `
-    text-black-40
-    pointer-events-none
+    !text-black-40
+    !pointer-events-none
   `,
   small: `
     text-sm

@@ -8,7 +8,7 @@ const meta: Meta = {
   argTypes: {
     onClick: { action: 'clicked' },
     variant: { control: 'select', options: BUTTON_VARIANT_NAMES },
-    children: { type: 'string', defaultValue: 'Default button' },
+    children: { type: 'string', defaultValue: 'Button' },
   },
   parameters: {
     controls: { expanded: true },

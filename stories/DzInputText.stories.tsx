@@ -6,10 +6,15 @@ const meta: Meta = {
   title: 'Atoms/Buttons, Radio Buttons & Check Boxes/InputText',
   component: DzInputText,
   argTypes: {
-    OnChange: { action: 'changed' },
+    onChange: { action: 'changed' },
     title: { type: 'string', defaultValue: 'Input Title' },
     subtitle: { type: 'string', defaultValue: 'Input Subtitle' },
-    placeholderText: { type: 'string', defaultValue: 'Input Placeholder' },
+    placeholdertext: { type: 'string', defaultValue: 'Input Placeholder' },
+    errorMsg: {
+      type: 'string',
+      defaultValue: 'Input Value Error Message/Reason',
+    },
+    validator: { control: { type: null } }
   },
   parameters: {
     controls: { expanded: true },
@@ -18,6 +23,6 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<InputTextProps> = args => <DzInputText {...args}/>
+const Template: Story<InputTextProps> = (args) => <DzInputText {...args} />;
 
 export const PrimaryInputText = Template.bind({});

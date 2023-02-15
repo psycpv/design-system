@@ -1,4 +1,4 @@
-import cn from 'classnames';
+import { cn } from '@/utils/classnames';
 import React, {
   FC,
   Fragment,
@@ -54,10 +54,10 @@ const styles = {
     border
   `,
   disabled: `
-    bg-white-100
-    border-black-40
-    border
-    pointer-events-none
+    !bg-white-100
+    !border-black-40
+    !border
+    !pointer-events-none
   `,
 };
 

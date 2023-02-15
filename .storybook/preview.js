@@ -3,4 +3,21 @@ import '../tailwind.css';
 export const parameters = {
   // https://storybook.js.org/docs/react/essentials/actions#automatically-matching-args
   actions: { argTypesRegex: '^on.*' },
+  backgrounds: {
+    default: 'dzFigmaGrey',
+    values: [
+      {
+        name: 'dzFigmaGrey',
+        value: '#E5E5E5',
+      },
+      {
+        name: 'dzFigmaBlack',
+        value: '#000000',
+      },
+      {
+        name: 'dzFigmaWhite',
+        value: '#FFFFFF',
+      },
+    ],
+  },
 };

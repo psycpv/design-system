@@ -1,35 +1,36 @@
-import cn from 'classnames';
+import composeRefs from '@seznam/compose-react-refs';
+import { cn } from '@/utils/classnames';
 import React, {
+  useRef,
   ForwardedRef,
   forwardRef,
   ForwardRefExoticComponent,
   ButtonHTMLAttributes,
 } from 'react';
 
+import useHover from '@/hooks/useHover';
 import CheckmarkIcon from '@/svgIcons/checkmark';
 import ChevronLeft from '@/svgIcons/chevronLeft';
 import ChevronRight from '@/svgIcons/chevronRight';
 
+const VARIANTS = {
+  PRIMARY: 'primary',
+  SECONDARY: 'secondary',
+  TERTIARY: 'tertiary',
+};
+const SIZES = {
+  SMALL: 'small',
+  LARGE: 'large',
+};
 export const BUTTON_VARIANT_NAMES = [
-  'primary',
-  'secondary',
-  'tertiary',
+  VARIANTS.PRIMARY,
+  VARIANTS.SECONDARY,
+  VARIANTS.TERTIARY,
 ] as const;
 
-export const BUTTON_STATES = [
-  'default',
-  'hover',
-  'focus',
-  'active',
-  'loading',
-  'disabled',
-  'success',
-] as const;
-
-export const BUTTON_SIZE_NAMES = ['small', 'large'] as const;
+export const BUTTON_SIZE_NAMES = [SIZES.SMALL, SIZES.LARGE] as const;
 
 export type ButtonVariant = typeof BUTTON_VARIANT_NAMES[number];
-export type ButtonState = typeof BUTTON_STATES[number];
 export type ButtonSize = typeof BUTTON_SIZE_NAMES[number];
 export interface DzButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
@@ -48,12 +49,6 @@ export interface DzButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const styles: any = {
   btn: `
     hover:underline
-    focus:bg-black-60 
-    focus:text-white-100
-    hover:bg-black-60
-    hover:text-white-100
-    active:bg-black-80
-    active:text-white-100
     disabled:pointer-events-none
   `,
   iconDiv: `
@@ -73,20 +68,32 @@ const styles: any = {
     text-black-100
     disabled:text-black-40
     disabled:border-black-40
+    focus:bg-black-60 
+    focus:text-white-100
+    hover:bg-black-60
+    hover:text-white-100
+    active:bg-black-80
+    active:text-white-100
   `,
   secondary: `
     bg-black-100
     text-white-100
     disabled:bg-black-40
+    focus:bg-black-60 
+    focus:text-white-100
+    hover:bg-black-60
+    hover:text-white-100
+    active:bg-black-80
+    active:text-white-100
   `,
   tertiary: `
     bg-transparent
     text-black-100
     focus:bg-black-10
     focus:text-black-100
-    hover:bg-black-10
+    hover:bg-white-100
     hover:text-black-100
-    active:bg-black-20
+    active:bg-transparent
     active:text-black-100
     disabled:text-black-40
   `,
@@ -98,18 +105,37 @@ const styles: any = {
     py-[0.3125rem]
     px-[1.5625rem]
   `,
+  childrenContainer: `
+    px-[1.6875rem]
+  `,
+};
+
+const iconColor = (
+  variant: ButtonVariant,
+  isHover: boolean,
+  disabled: boolean
+): string => {
+  if (disabled && variant!=VARIANTS.SECONDARY) return '#CDCDCD';
+  switch (variant) {
+    case VARIANTS.PRIMARY:
+      return isHover ? 'white' : 'black';
+    case VARIANTS.SECONDARY:
+      return 'white';
+    case VARIANTS.TERTIARY:
+      return 'black';
+
+    default:
+      return 'black';
+  }
 };
 
 export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
   (
     {
       children,
-      variant = 'primary',
-      size = 'large',
-      focus,
-      hover,
-      active,
-      disabled,
+      variant = VARIANTS.PRIMARY,
+      size = SIZES.SMALL,
+      disabled = false,
       success,
       onClick,
       maxWidth,
@@ -120,6 +146,9 @@ export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
     },
     forwardedRef: ForwardedRef<HTMLButtonElement>
   ) => {
+    const hoverRef = useRef<HTMLButtonElement | null>(null);
+    const isHover = useHover(hoverRef);
+    const fillIcon = iconColor(variant, isHover, disabled);
     const handleClick = (
       event: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
@@ -129,14 +158,20 @@ export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
     };
     const childrenWithIcons =
       success || showLeftArrow || showRightArrow ? (
-        <span className={styles.iconContainer}>
-          <div className={styles.iconDiv}>
-            {success ? <CheckmarkIcon /> : null}
-            {showLeftArrow ? <ChevronLeft /> : null}
+        <span className={cn(styles.iconContainer)}>
+          <div className={cn(styles.iconDiv)}>
+            {success ? (
+              <CheckmarkIcon aria-hidden="true" fill={fillIcon} />
+            ) : null}
+            {showLeftArrow ? (
+              <ChevronLeft aria-hidden="true" fill={fillIcon} />
+            ) : null}
           </div>
-          {children}
-          <div className={styles.iconDiv}>
-            {showRightArrow ? <ChevronRight /> : null}
+          <div className={cn(styles.childrenContainer)}>{children}</div>
+          <div className={cn(styles.iconDiv)}>
+            {showRightArrow ? (
+              <ChevronRight aria-hidden="true" fill={fillIcon} />
+            ) : null}
           </div>
         </span>
       ) : (
@@ -145,7 +180,8 @@ export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
 
     return (
       <button
-        ref={forwardedRef}
+        type="button"
+        ref={composeRefs(hoverRef, forwardedRef) as any}
         className={cn(styles.btn, styles?.[variant], styles?.[size])}
         style={{ maxWidth: maxWidth, minWidth: minWidth }}
         onClick={handleClick}
@@ -160,11 +196,8 @@ export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
 
 DzButton.displayName = 'DzButton';
 DzButton.defaultProps = {
-  variant: 'primary',
-  size: 'large',
-  focus: false,
-  hover: false,
-  active: false,
+  variant: VARIANTS.PRIMARY,
+  size: SIZES.SMALL,
   maxWidth: '100%',
   disabled: false,
   success: false,

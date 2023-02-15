@@ -1,23 +1,24 @@
-import cn from 'classnames';
+import { cn } from '@/utils/classnames';
 import { DzInput } from './DzInput';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export interface RadioProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   title: string;
   subtitle?: string;
   disabled?: boolean;
-  error?: boolean;
+  hasError?: boolean;
+  checked?:boolean;
   hover?: boolean;
   focus?: boolean;
-  selected?: boolean;
+  ariaDescribedBy?: string;
 }
 
 const styles = {
   hideCheck: `
     hidden
   `,
-  radio:`
+  radio: `
     appearance-none
     cursor-pointer
     h-6
@@ -39,75 +40,105 @@ const styles = {
     checked:text-white-100
     disabled:pointer-events-none
   `,
-  checked:`
+  checked: `
     text-black-100
   `,
-  unchecked:`
+  unchecked: `
     text-black-60
   `,
-  disabled:`
-    text-black-40
-    hover:text-black-40
-    pointer-events-none
+  disabled: `
+    !text-black-40
+    !hover:text-black-40
+    !pointer-events-none
   `,
-  labelContainer:`
+  labelContainer: `
     relative
     flex
     gap-[0.625rem]
   `,
-  textContainer:`
+  textContainer: `
     flex
     flex-col
     gap-[0.375rem]
-    max-w-[11.875rem]
   `,
-  title:`
+  title: `
     text-sm
     hover:text-black-100
     focus:text-black-100
     hover:underline
     focus:underline
   `,
-  subtitle:`
+  subtitle: `
     text-xs
-  `
-}
+  `,
+  error: `
+    !text-red-100
+    !border-red-100
+  `,
+};
 
 export const DzRadioButton: React.FC<RadioProps> = ({
   disabled,
-  selected,
   title,
   subtitle,
+  hasError = false,
   onChange,
+  ariaDescribedBy = '',
+  checked = false,
   ...rest
 }) => {
-  const [checked, setChecked] = useState<boolean>(false);
-  const checkedStyle = checked ? styles.checked : styles.unchecked;
+  const [hasBeenChecked, setHasBeenChecked] = useState<boolean>(
+    checked ?? false
+  );
+  const [isValidValue, setIsValidValue] = useState<boolean>(!hasError);
+
+  const checkedStyle = hasBeenChecked ? styles.checked : styles.unchecked;
   const weightStyle = (isSubtitle = false) =>
     isSubtitle ? styles.unchecked : checkedStyle;
   const disabledStyle = disabled ? styles.disabled : '';
+  const errorClass = !isValidValue ? styles.error : '';
+
+  useEffect(() => {
+    setIsValidValue(!hasError);
+  }, [hasError]);
+
+  useEffect(() => {
+    setHasBeenChecked(checked);
+  }, [checked]);
+
   const handleSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event?.target) setChecked(event?.target?.checked);
+    // if (event?.target) setHasBeenChecked(event?.target?.checked);
     if (!disabled && onChange) {
       onChange(event);
     }
   };
+
   return (
     <label className={cn(styles.labelContainer, 'group')}>
       <DzInput
-        className={cn(styles.radio, 'peer')}
+        className={cn(styles.radio, 'peer', errorClass)}
         type="radio"
         disabled={disabled}
         onChange={handleSelect}
+        aria-describedby={ariaDescribedBy ?? `${title}-description`}
+        checked={checked}
         {...rest}
       />
-      <div className={styles.textContainer}>
-        <span className={cn(styles.title, weightStyle(), disabledStyle)}>
+      <div className={cn(styles.textContainer)}>
+        <span
+          id={`${title}-description`}
+          className={cn(styles.title, weightStyle(), disabledStyle, errorClass)}
+        >
           {title}
         </span>
         {subtitle ? (
           <span
-            className={cn(styles.subtitle, weightStyle(true), disabledStyle)}
+            className={cn(
+              styles.subtitle,
+              weightStyle(true),
+              disabledStyle,
+              errorClass
+            )}
           >
             {subtitle}
           </span>
