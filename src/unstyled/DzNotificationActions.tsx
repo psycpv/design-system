@@ -5,7 +5,7 @@ import { XMarkIcon } from '@heroicons/react/20/solid';
 
 export interface DzNotificationActionsProps {}
 
-export const DzNotificationActions: React.FunctionComponent<DzNotificationActionsProps> = props => {
+export const DzNotificationActions: React.FunctionComponent<DzNotificationActionsProps> = () => {
   const [show, setShow] = useState(true);
   return (
     <>

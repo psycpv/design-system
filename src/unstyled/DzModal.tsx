@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/24/outline';
 export interface DzModalProps {}
 
-export const DzModal: React.FunctionComponent<DzModalProps> = props => {
+export const DzModal: React.FunctionComponent<DzModalProps> = () => {
   const [open, setOpen] = useState(true);
   return (
     <Transition.Root show={open} as={Fragment}>

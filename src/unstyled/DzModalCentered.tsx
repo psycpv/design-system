@@ -4,7 +4,7 @@ import { CheckIcon } from '@heroicons/react/24/outline';
 
 export interface DzModalCenteredProps {}
 
-export const DzModalCentered: React.FunctionComponent<DzModalCenteredProps> = props => {
+export const DzModalCentered: React.FunctionComponent<DzModalCenteredProps> = () => {
   const [open, setOpen] = useState(true);
 
   const cancelButtonRef = useRef(null);

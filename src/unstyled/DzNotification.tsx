@@ -4,7 +4,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 export interface DzNotificationProps {}
 
-export const DzNotification: React.FunctionComponent<DzNotificationProps> = props => {
+export const DzNotification: React.FunctionComponent<DzNotificationProps> = () => {
   const [show, setShow] = useState(true);
   return (
     <>

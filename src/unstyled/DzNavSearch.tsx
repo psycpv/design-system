@@ -8,7 +8,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
 }
 
-export const DzNavSearch: React.FunctionComponent<DzNavSearchProps> = props => {
+export const DzNavSearch: React.FunctionComponent<DzNavSearchProps> = () => {
   return (
     <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (

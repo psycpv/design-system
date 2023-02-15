@@ -8,7 +8,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
 }
 
-export const DzNavSimpleLf: React.FunctionComponent<DzNavSimpleLfProps> = props => {
+export const DzNavSimpleLf: React.FunctionComponent<DzNavSimpleLfProps> = () => {
   return (
     <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (

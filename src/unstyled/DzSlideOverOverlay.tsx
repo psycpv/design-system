@@ -4,7 +4,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 
 export interface DzSlideOverOverlayProps {}
 
-export const DzSlideOverOverlay: React.FunctionComponent<DzSlideOverOverlayProps> = props => {
+export const DzSlideOverOverlay: React.FunctionComponent<DzSlideOverOverlayProps> = () => {
   const [open, setOpen] = useState(true);
   return (
     <Transition.Root show={open} as={Fragment}>

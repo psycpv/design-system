@@ -2,7 +2,7 @@ import React from 'react';
 
 export interface DzPaginationCardProps {}
 
-export const DzPaginationCard: React.FunctionComponent<DzPaginationCardProps> = props => {
+export const DzPaginationCard: React.FunctionComponent<DzPaginationCardProps> = () => {
   return (
     <nav
       className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6"

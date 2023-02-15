@@ -1,5 +1,5 @@
 import { cn } from '@/utils/classnames';
-import React, { FC, useState, useEffect, useRef } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { DzCheckbox, CheckProps } from './DzCheckbox';
 import { DzRadioButton, RadioProps } from './DzRadioButton';
 import { DzText, TEXT_SIZES, TEXT_TYPES } from './DzText';
@@ -67,9 +67,7 @@ export const DzInputGroups: FC<DzInputGroupProps> = ({
   subtitle = '',
   disabled = false,
   formName = '',
-  multiSelect = true,
   items = [],
-  errorMsg = '',
   hasError = false,
 }) => {
   const [isValidValue, setIsValidValue] = useState<boolean>(!hasError);

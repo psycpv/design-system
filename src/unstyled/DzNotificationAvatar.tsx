@@ -3,7 +3,7 @@ import { Transition } from '@headlessui/react';
 
 export interface DzNotificationAvatarProps {}
 
-export const DzNotificationAvatar: React.FunctionComponent<DzNotificationAvatarProps> = props => {
+export const DzNotificationAvatar: React.FunctionComponent<DzNotificationAvatarProps> = () => {
   const [show, setShow] = useState(true);
   return (
     <>

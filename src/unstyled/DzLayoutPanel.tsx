@@ -2,7 +2,7 @@ import React from 'react';
 
 export interface DzLayoutPanelProps {}
 
-export const DzLayoutPanel: React.FunctionComponent<DzLayoutPanelProps> = props => {
+export const DzLayoutPanel: React.FunctionComponent<DzLayoutPanelProps> = () => {
   return (
     <div className="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
       <div className="px-4 py-5 sm:px-6">
