@@ -71,7 +71,7 @@ export const DzInputGroups: FC<DzInputGroupProps> = ({
   hasError = false,
 }) => {
   const [isValidValue, setIsValidValue] = useState<boolean>(!hasError);
-  const [formNameId] = useState<string>(formName || `${uuidv4}-${title}`);
+  const [formNameId] = useState<string>(formName || `${uuidv4()}-${title}`);
   const [formState, setFormState] = useState<InputStateElement[]>([]);
   const errorClass = !isValidValue ? styles.error : '';
 
@@ -100,7 +100,6 @@ export const DzInputGroups: FC<DzInputGroupProps> = ({
         {...props}
         name={formNameId}
         disabled={disabled}
-        checked={isChecked(props.id, formState)}
       />
     ) : (
       <DzRadioButton {...props} name={formNameId} disabled={disabled} />

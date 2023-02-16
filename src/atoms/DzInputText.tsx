@@ -1,6 +1,6 @@
 import { cn } from '@/utils/classnames';
 import DzInput from './DzInput';
-import {DzText, TEXT_SIZES, TEXT_TYPES} from './DzText';
+import { DzText, TEXT_SIZES, TEXT_TYPES } from './DzText';
 import React, { useState, useEffect, FC, ChangeEvent } from 'react';
 import useDebounce from '@/hooks/useDebounce';
 
@@ -107,7 +107,7 @@ export const DzInputText: FC<InputTextProps> = ({
 
   useEffect(() => {
     setIsValidValue(!hasError);
-  }, [hasError])
+  }, [hasError]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target) setValue(event.target.value);
@@ -181,7 +181,9 @@ export const DzInputText: FC<InputTextProps> = ({
           onChange={handleChange}
           {...rest}
         />
-        <div className={cn(styles.extraContentContainer)}>{extraInformation}</div>
+        <div className={cn(styles.extraContentContainer)}>
+          {extraInformation}
+        </div>
       </div>
       {errorMessage}
     </div>

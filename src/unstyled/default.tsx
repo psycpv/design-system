@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {FC} from 'react';
 
 export interface xxxProps {
 }
 
-export const xxx: React.FunctionComponent<xxxProps> = () => {
+export const xxx: FC<xxxProps> = () => {
   return <></>;
 };
 

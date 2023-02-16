@@ -4,6 +4,7 @@ import {
   DzInputGroups,
   DzInputGroupProps,
   TYPES,
+  INPUT_GROUP_TYPES
 } from '../src/atoms/DzInputGroup';
 import { INPUT_GROUPS_MOCK } from '../constants/mocks/DzInputGroup';
 
@@ -11,6 +12,7 @@ const meta: Meta = {
   title: 'Atoms/Buttons, Radio Buttons & Check Boxes/InputGroup',
   component: DzInputGroups,
   argTypes: {
+    type :{ control: 'select', options: INPUT_GROUP_TYPES },
     title: { type: 'string', defaultValue: 'Title' },
     subtitle: { type: 'string', defaultValue: 'Subtitle copy' },
   },

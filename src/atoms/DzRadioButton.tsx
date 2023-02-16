@@ -88,7 +88,7 @@ export const DzRadioButton: React.FC<RadioProps> = ({
   ...rest
 }) => {
   const [hasBeenChecked, setHasBeenChecked] = useState<boolean>(
-    checked ?? false
+   false
   );
   const [isValidValue, setIsValidValue] = useState<boolean>(!hasError);
 
@@ -107,7 +107,7 @@ export const DzRadioButton: React.FC<RadioProps> = ({
   }, [checked]);
 
   const handleSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // if (event?.target) setHasBeenChecked(event?.target?.checked);
+    if (event?.target) setHasBeenChecked(event?.target?.checked);
     if (!disabled && onChange) {
       onChange(event);
     }
@@ -121,7 +121,6 @@ export const DzRadioButton: React.FC<RadioProps> = ({
         disabled={disabled}
         onChange={handleSelect}
         aria-describedby={ariaDescribedBy ?? `${title}-description`}
-        checked={checked}
         {...rest}
       />
       <div className={cn(styles.textContainer)}>
