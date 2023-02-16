@@ -72,22 +72,15 @@ export const DzInputGroups: FC<DzInputGroupProps> = ({
 }) => {
   const [isValidValue, setIsValidValue] = useState<boolean>(!hasError);
   const [formNameId] = useState<string>(formName || `${uuidv4()}-${title}`);
-  const [formState, setFormState] = useState<InputStateElement[]>([]);
+  const [_, setFormState] = useState<InputStateElement[]>([]);
   const errorClass = !isValidValue ? styles.error : '';
 
   const handleChange = (e: any) => {
     setFormState(state => {
       const stateCopy = [...state];
       stateCopy.push({ id: e.target.id, value: e.target.value });
-      return stateCopy
+      return stateCopy;
     });
-  };
-
-  const isChecked = (
-    id: string | undefined,
-    state: InputStateElement[]
-  ): boolean => {
-    return state.some((element: InputStateElement) => element.id === id);
   };
 
   useEffect(() => {
@@ -96,11 +89,7 @@ export const DzInputGroups: FC<DzInputGroupProps> = ({
 
   const getListItem = (type: InputGroupTypes, props: ItemProps) =>
     type === TYPES.CHECKBOX ? (
-      <DzCheckbox
-        {...props}
-        name={formNameId}
-        disabled={disabled}
-      />
+      <DzCheckbox {...props} name={formNameId} disabled={disabled} />
     ) : (
       <DzRadioButton {...props} name={formNameId} disabled={disabled} />
     );
