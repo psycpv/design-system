@@ -1,0 +1,150 @@
+import React, { FC } from 'react';
+import { cn } from '@/utils/classnames';
+import ChevronLeft from '@/svgIcons/chevronLeft';
+import ChevronRight from '@/svgIcons/chevronRight';
+import { usePagination, DOTS } from '@/hooks/usePagination';
+
+export interface DzPaginationProps {
+  prevText: string;
+  nextText: string;
+  currentPage: number;
+  totalCount: number;
+  siblingCount: number;
+  pageSize: number;
+  onPageChange: Function;
+}
+
+const styles = {
+  paginationContainer: `
+    flex
+    items-center
+    justify-between
+    px-4
+    sm:px-0
+  `,
+  previousContainer: `
+    inline-flex
+    items-center
+    pt-4
+    pr-1
+    text-sm
+    font-medium
+    text-black-60
+    cursor-pointer
+    hover:text-black-100
+  `,
+  dots: `
+    inline-flex
+    items-center
+    border-t-2
+    border-transparent
+    px-4
+    pt-4
+    text-sm
+    font-medium
+    text-black-60
+  `,
+  selectedPage: `
+    inline-flex
+    items-center
+    border-t-2
+    border-black-100
+    px-4
+    pt-4
+    text-sm
+    font-medium
+    text-black-100
+  `,
+  pageNumber: `
+    inline-flex
+    items-center
+    border-t-2
+    border-transparent
+    px-4
+    pt-4
+    text-sm
+    cursor-pointer
+    font-medium
+    text-black-60
+    hover:border-black-100
+    hover:text-black-100
+  `,
+  nextContainer: `
+    inline-flex
+    items-center
+    pt-4
+    pl-1
+    text-sm
+    font-medium
+    text-black-60
+    cursor-pointer
+    hover:text-black-100
+  `,
+};
+
+export const DzPagination: FC<DzPaginationProps> = ({
+  prevText,
+  nextText,
+  currentPage,
+  totalCount,
+  siblingCount,
+  pageSize,
+  onPageChange,
+}) => {
+  const onNext = () => {
+    onPageChange(currentPage + 1);
+  };
+
+  const onPrevious = () => {
+    onPageChange(currentPage - 1);
+  };
+  const paginationRange = usePagination({
+    currentPage,
+    totalCount,
+    siblingCount,
+    pageSize,
+  });
+
+  return (
+    <div className={cn(styles.paginationContainer)}>
+      <div className="-mt-px flex w-0 flex-1">
+        <div className={cn(styles.previousContainer)}>
+          <ChevronLeft
+            className="mr-3 h-5 w-5"
+            aria-hidden="true"
+            onClick={onPrevious}
+          />
+          {prevText}
+        </div>
+      </div>
+      <div className="hidden md:-mt-px md:flex">
+        {paginationRange.map(page => {
+          const selected = page === currentPage;
+          if (page === DOTS) {
+            return <span className={cn(styles.dots)}>...</span>;
+          }
+          return (
+            <div
+              className={cn(selected ? styles.selectedPage : styles.pageNumber)}
+              onClick={() => onPageChange(page)}
+            >
+              {page}
+            </div>
+          );
+        })}
+      </div>
+      <div className="-mt-px flex w-0 flex-1 justify-end">
+        <div className={cn(styles.nextContainer)}>
+          {nextText}
+          <ChevronRight
+            className="ml-3 h-5 w-5 "
+            aria-hidden="true"
+            onClick={onNext}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DzPagination;
