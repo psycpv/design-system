@@ -132,7 +132,7 @@ export const DzInputText: FC<InputTextProps> = ({
       textSize={TEXT_SIZES.XS}
       textType={TEXT_TYPES.LABEL}
       text={title}
-      htmlFor={subtitle}
+      htmlFor={title}
       disabled={disabled}
     />
   ) : null;
