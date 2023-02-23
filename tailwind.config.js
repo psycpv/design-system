@@ -22,14 +22,22 @@ module.exports = {
           100: '#000000',
         },
         red: {
+          10: 'rgba(254, 112, 57, 0.1)',
+          40: '#B75D3B',
+          60: 'rgba(235, 20, 20, 0.1)',
           100: '#C33022',
         },
         green: {
+          10: 'rgba(94, 149, 94, 0.1)',
           100: '#3F5A3F',
         },
         white: {
           100: '#FFFFFF',
         },
+        yellow: {
+          10: 'rgba(255, 209, 23, 0.1)',
+          40: '#8E7305'
+        }
       },
       spacing: {
         28: '7rem',
@@ -68,5 +76,5 @@ module.exports = {
       },
     },
   },
-  plugins: [ require('@tailwindcss/forms')],
-}
+  plugins: [require('@tailwindcss/forms')],
+};

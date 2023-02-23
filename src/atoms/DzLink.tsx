@@ -53,7 +53,7 @@ export const DzLink = forwardRef<HTMLAnchorElement, DzLinkProps>(
       variant = VARIANTS.NAV,
       router,
       useRoute,
-      LinkElement ='a',
+      LinkElement = 'a',
       ...rest
     },
     ref
@@ -93,7 +93,7 @@ export const DzLink = forwardRef<HTMLAnchorElement, DzLinkProps>(
         rel="noopener noreferrer"
         href={href}
         {...rest}
-        className={linkStyle}
+        className={cn(linkStyle)}
       >
         {children}
       </a>

@@ -1,16 +1,47 @@
 import { cn } from '@/utils/classnames';
 import React, { createElement, FC, Fragment, HTMLAttributes } from 'react';
 
+export const TEXT_SIZES = {
+  SMALL: 'small',
+  LARGE: 'large',
+  MEDIUM: 'medium',
+  XL: 'extraLarge',
+  XS: 'extraSmall',
+  XXXL: 'xxxl',
+};
+export const TEXT_TYPES = {
+  H1: 'h1',
+  H2: 'h2',
+  H3: 'h3',
+  H4: 'h4',
+  H5: 'h5',
+  H6: 'h6',
+  P: 'p',
+};
 export const TEXT_SIZE_NAMES = [
-  'small',
-  'large',
-  'medium',
-  'extraLarge',
-  'extraSmall',
-  'xxxl',
+  TEXT_SIZES.SMALL,
+  TEXT_SIZES.LARGE,
+  TEXT_SIZES.MEDIUM,
+  TEXT_SIZES.XL,
+  TEXT_SIZES.XS,
+  TEXT_SIZES.XXXL,
 ] as const;
-export const TITLE_TAGS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] as const;
-export const SUBTITLE_TAGS = ['h2', 'h3', 'h4', 'h5', 'h6', 'p'] as const;
+export const TITLE_TAGS = [
+  TEXT_TYPES.H1,
+  TEXT_TYPES.H2,
+  TEXT_TYPES.H3,
+  TEXT_TYPES.H4,
+  TEXT_TYPES.H5,
+  TEXT_TYPES.H6,
+] as const;
+export const SUBTITLE_TAGS = [
+  TEXT_TYPES.P,
+  TEXT_TYPES.H2,
+  TEXT_TYPES.H3,
+  TEXT_TYPES.H4,
+  TEXT_TYPES.H5,
+  TEXT_TYPES.H6,
+] as const;
 export type TextSize = typeof TEXT_SIZE_NAMES[number];
 export type TitleType = typeof TITLE_TAGS[number];
 export type SubTitleType = typeof SUBTITLE_TAGS[number];
@@ -27,7 +58,7 @@ export interface DzTitleProps {
   subtitleSize?: TextSize;
 }
 
-const styles = {
+const styles: any = {
   heading: `
     text-lg
     text-black-100
@@ -63,13 +94,13 @@ const styles = {
 export const DzTitle: FC<DzTitleProps> &
   HTMLAttributes<HTMLParagraphElement> &
   HTMLAttributes<HTMLHeadingElement> = ({
-  titleType = 'h1',
-  subtitleType = 'p',
+  titleType = TEXT_TYPES.H1,
+  subtitleType = TEXT_TYPES.P,
   title,
   subtitle,
   disabled = false,
-  titleSize = 'small',
-  subtitleSize = 'small',
+  titleSize = TEXT_SIZES.SMALL,
+  subtitleSize = TEXT_SIZES.SMALL,
   classNameTitle,
   classNameSubtitle,
   ...rest
@@ -78,13 +109,14 @@ export const DzTitle: FC<DzTitleProps> &
   const Heading = ({ ...props }: HTMLAttributes<HTMLHeadingElement>) =>
     createElement(titleType, props, title);
 
-  const SubHeading = subtitleType && subtitle
-    ? ({
-        ...props
-      }: HTMLAttributes<HTMLHeadingElement> &
-        HTMLAttributes<HTMLHeadingElement>) =>
-        createElement(subtitleType, props, subtitle)
-    : () => <Fragment />;
+  const SubHeading =
+    subtitleType && subtitle
+      ? ({
+          ...props
+        }: HTMLAttributes<HTMLHeadingElement> &
+          HTMLAttributes<HTMLHeadingElement>) =>
+          createElement(subtitleType, props, subtitle)
+      : () => <Fragment />;
 
   return (
     <div>

@@ -13,12 +13,12 @@ import CheckmarkIcon from '@/svgIcons/checkmark';
 import ChevronLeft from '@/svgIcons/chevronLeft';
 import ChevronRight from '@/svgIcons/chevronRight';
 
-const VARIANTS = {
+export const VARIANTS = {
   PRIMARY: 'primary',
   SECONDARY: 'secondary',
   TERTIARY: 'tertiary',
 };
-const SIZES = {
+export const SIZES = {
   SMALL: 'small',
   LARGE: 'large',
 };
@@ -44,6 +44,7 @@ export interface DzButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   showLeftArrow?: boolean;
   maxWidth?: string;
   minWidth?: string;
+  className?: string;
 }
 
 const styles: any = {
@@ -115,7 +116,7 @@ const iconColor = (
   isHover: boolean,
   disabled: boolean
 ): string => {
-  if (disabled && variant!=VARIANTS.SECONDARY) return '#CDCDCD';
+  if (disabled && variant != VARIANTS.SECONDARY) return '#CDCDCD';
   switch (variant) {
     case VARIANTS.PRIMARY:
       return isHover ? 'white' : 'black';
@@ -142,6 +143,7 @@ export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
       minWidth,
       showRightArrow,
       showLeftArrow,
+      className = '',
       ...rest
     },
     forwardedRef: ForwardedRef<HTMLButtonElement>
@@ -182,7 +184,7 @@ export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
       <button
         type="button"
         ref={composeRefs(hoverRef, forwardedRef) as any}
-        className={cn(styles.btn, styles?.[variant], styles?.[size])}
+        className={cn(styles.btn, styles?.[variant], styles?.[size], className)}
         style={{ maxWidth: maxWidth, minWidth: minWidth }}
         onClick={handleClick}
         disabled={disabled}
