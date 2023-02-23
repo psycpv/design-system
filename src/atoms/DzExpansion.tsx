@@ -17,11 +17,18 @@ import { DzLink } from './DzLink';
 import { cn } from '@/utils/classnames';
 import ArrowDown from '@/svgIcons/arrowDown';
 
+interface ExpansionSection {
+  slug?: string;
+  title: string;
+  content?: string;
+}
+
 export interface DzExpansionProps {
   title: string;
   subtitle?: string;
   link?: string;
   linkText?: string;
+  sections?: ExpansionSection[];
 }
 
 interface TitleTypeProps {
@@ -75,35 +82,15 @@ const styles = {
   `,
   panel: `
     mt-[0.9375rem]
-  `
+  `,
 };
-
-const sections = [
-  {
-    slug: 'slug',
-    title: 'Title Text',
-    content:
-      "Chicharrones marfa tumeric squid four loko flexitarian celiac hell of hot chicken jianbing salvia enamel pin woke. Migas you probably haven't heard of them church-key pok pok banh mi yr ennui ethical subway tile authentic. Sartorial retro roof party, gastropub bicycle rights drinking vinegar microdosing swag DIY deep v. Viral hella pop-up, banh mi squid poke chambray yuccie biodiesel occupy scenester.",
-  },
-  {
-    slug: 'slug',
-    title: 'Title Text',
-    content:
-      "Chicharrones marfa tumeric squid four loko flexitarian celiac hell of hot chicken jianbing salvia enamel pin woke. Migas you probably haven't heard of them church-key pok pok banh mi yr ennui ethical subway tile authentic. Sartorial retro roof party, gastropub bicycle rights drinking vinegar microdosing swag DIY deep v. Viral hella pop-up, banh mi squid poke chambray yuccie biodiesel occupy scenester.",
-  },
-  {
-    slug: 'slug',
-    title: 'Title Text',
-    content:
-      "Chicharrones marfa tumeric squid four loko flexitarian celiac hell of hot chicken jianbing salvia enamel pin woke. Migas you probably haven't heard of them church-key pok pok banh mi yr ennui ethical subway tile authentic. Sartorial retro roof party, gastropub bicycle rights drinking vinegar microdosing swag DIY deep v. Viral hella pop-up, banh mi squid poke chambray yuccie biodiesel occupy scenester.",
-  },
-];
 
 export const DzExpansion: FC<DzExpansionProps> = ({
   title = '',
   subtitle = '',
   linkText = '',
   link = '/',
+  sections = [],
 }) => {
   const getTitle = ({
     titleType,
@@ -144,6 +131,15 @@ export const DzExpansion: FC<DzExpansionProps> = ({
       <hr className={cn(styles.divider)} />
       <div className={cn(styles.contentList)}>
         {sections.map(section => {
+          const { slug, title, content } = section;
+          const showSlug = slug ? (
+            <DzText
+              className={cn(styles.slug)}
+              textType={TYPES_TEXT.P}
+              text={slug}
+              textSize={SIZE_TEXT.XS}
+            />
+          ) : null;
           return (
             <>
               <div className={cn(styles.item)}>
@@ -153,16 +149,11 @@ export const DzExpansion: FC<DzExpansionProps> = ({
                       <Disclosure.Button className={'w-full'}>
                         <div className={cn(styles.headerComponent)}>
                           <div className={cn(styles.textContainer)}>
-                            <DzText
-                              className={cn(styles.slug)}
-                              textType={TYPES_TEXT.P}
-                              text={section?.slug}
-                              textSize={SIZE_TEXT.XS}
-                            />
+                            {showSlug}
                             {getTitle({
                               titleType: TEXT_TYPES.H5,
                               titleSize: TEXT_SIZES.LARGE,
-                              title: section.title,
+                              title: title,
                             })}
                           </div>
 
@@ -180,7 +171,7 @@ export const DzExpansion: FC<DzExpansionProps> = ({
                         leaveTo="opacity-0"
                       >
                         <Disclosure.Panel className={cn(styles.panel)} static>
-                          {section.content}
+                          {content}
                         </Disclosure.Panel>
                       </Transition>
                     </>

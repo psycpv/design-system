@@ -73,8 +73,10 @@ module.exports = {
         small: '0 5px 10px rgba(0, 0, 0, 0.12)',
         medium: '0 8px 30px rgba(0, 0, 0, 0.12)',
         drop: '0px 2px 18px rgba(0, 0, 0, 0.06)',
+        top: '0px -25px 38px -24px rgba(0, 0, 0, 0.12)',
+        down: '0px 25px 38px -24px rgba(0, 0, 0, 0.12)'
       },
     },
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [require('@tailwindcss/forms'), require('tailwind-scrollbar')({ nocompatible: true })],
 };
