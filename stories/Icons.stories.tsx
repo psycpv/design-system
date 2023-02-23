@@ -7,14 +7,22 @@ import { Checkmark } from '../src/svgIcons/checkmark';
 import { ChevronLeft } from '../src/svgIcons/chevronLeft';
 import { ChevronRight } from '../src/svgIcons/chevronRight';
 import { Menu } from '../src/svgIcons/menu';
+import { BoldArrowDown } from '../src/svgIcons/boldArrowDown';
+import { Close } from '../src/svgIcons/close';
+import { ExclamationCircle } from '../src/svgIcons/exclamationCircle';
+import {ArrowDown} from '../src/svgIcons/arrowDown';
 
 const ICONS = {
   ARROW_LEFT: 'arrowLeft',
   ARROW_RIGHT: 'arrowRight',
+  ARROW_DOWN: 'arrowDown',
   CHECKMARK: 'checkmark',
   CHEVRON_LEFT: 'chevron-left',
   CHEVRON_RIGHT: 'chevron-right',
   MENU: 'menu',
+  BOLD_ARROW_DOWN: 'boldArrowDown',
+  CLOSE: 'close',
+  EXCLAMATION_CIRCLE: 'exclamationCircle',
 };
 
 const meta: Meta = {
@@ -26,7 +34,7 @@ const meta: Meta = {
       control: {
         type: null,
       },
-    }
+    },
   },
   parameters: {
     controls: { expanded: true },
@@ -49,6 +57,14 @@ const Template: Story<IconProps> = args => {
       return <ChevronRight {...args} />;
     case ICONS.MENU:
       return <Menu {...args} />;
+    case ICONS.BOLD_ARROW_DOWN:
+      return <BoldArrowDown {...args} />;
+    case ICONS.CLOSE:
+      return <Close {...args} />;
+    case ICONS.EXCLAMATION_CIRCLE:
+      return <ExclamationCircle {...args} />;
+    case ICONS.ARROW_DOWN:
+      return <ArrowDown {...args}/>;
     default:
       return null;
   }
@@ -71,3 +87,15 @@ ChevronRightIcon.args = { type: ICONS.CHEVRON_RIGHT, width: 12, height: 22 };
 
 export const MenuIcon = Template.bind({});
 MenuIcon.args = { type: ICONS.MENU, width: 36, height: 36 };
+
+export const BoldArrowDownIcon = Template.bind({});
+BoldArrowDownIcon.args = { type: ICONS.BOLD_ARROW_DOWN, width: 20, height: 12 };
+
+export const CloseIcon = Template.bind({});
+CloseIcon.args = { type: ICONS.CLOSE, width: 24, height: 22 };
+
+export const ExclamationCircleIcon = Template.bind({});
+ExclamationCircleIcon.args = { type: ICONS.EXCLAMATION_CIRCLE, width: 32, height: 32 };
+
+export const ArrowDownIcon = Template.bind({});
+ArrowDownIcon.args = { type: ICONS.ARROW_DOWN, width: 20, height: 12 };

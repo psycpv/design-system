@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
-
 import { DzSvg } from './DzSvg';
 import { IconProps } from './types';
 
-// #4D4D4D
 export const BoldArrowDown: FC<IconProps> = ({
   width = 10,
   height = 6,

@@ -267,7 +267,7 @@ export const DzBanner: FC<DzBannerProps> = ({
 
   const renderLink =
     type === TYPES.TOAST && linkText && link ? (
-      <DzLink LinkElement="a" href={link} className={cn(link)}>
+      <DzLink LinkElement="a" href={link} className={cn(styles.link)}>
         {linkText}
       </DzLink>
     ) : null;
