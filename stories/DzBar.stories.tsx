@@ -34,5 +34,11 @@ export default meta;
 
 const Template: Story<DzBarProps> = args => <DzBar {...args} />;
 
-export const PrimaryDzBar = Template.bind({});
-PrimaryDzBar.args = {};
+export const ProgressBar = Template.bind({});
+ProgressBar.args = {};
+
+export const TabBars = Template.bind({});
+TabBars.args = {variant: VARIANTS.CAROUSEL_TAB};
+
+export const Slider = Template.bind({});
+Slider.args = {variant: VARIANTS.SLIDER};

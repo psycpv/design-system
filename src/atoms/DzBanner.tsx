@@ -5,7 +5,7 @@ import CloseIcon from '@/svgIcons/close';
 import ExclamationCircle from '@/svgIcons/exclamationCircle';
 import DzLink from './DzLink';
 
-export const VARIANTS = {
+export const MESSAGE_VARIANTS = {
   DEFAULT: 'default',
   SUCCESS: 'success',
   ALERT: 'alert',
@@ -49,20 +49,20 @@ export const BANNER_TYPES_NAMES = [
   TYPES.TOAST,
 ] as const;
 export const BANNER_VARIANT_NAMES = [
-  VARIANTS.DEFAULT,
-  VARIANTS.SUCCESS,
-  VARIANTS.ALERT,
-  VARIANTS.WARNING,
-  VARIANTS.ERROR,
+  MESSAGE_VARIANTS.DEFAULT,
+  MESSAGE_VARIANTS.SUCCESS,
+  MESSAGE_VARIANTS.ALERT,
+  MESSAGE_VARIANTS.WARNING,
+  MESSAGE_VARIANTS.ERROR,
 ] as const;
 export type BannerType = typeof BANNER_TYPES_NAMES[number];
-export type BannerVariant = typeof BANNER_VARIANT_NAMES[number];
+export type BannerMessageVariant = typeof BANNER_VARIANT_NAMES[number];
 export type BannerAlertVariant = typeof ALERT_VARIANT_NAMES[number];
 export type BannerToastVariant = typeof TOAST_VARIANT_NAMES[number];
 
 export interface DzBannerProps {
   type?: BannerType;
-  variant?: BannerVariant;
+  messageVariant?: BannerMessageVariant;
   alertVariation?: BannerAlertVariant;
   toastVariant?: BannerToastVariant;
   title: string;
@@ -152,6 +152,7 @@ const styles: any = {
     toastType: `
       flex
       flex-row
+      py-2.5
     `,
   },
   subContainer: {
@@ -199,9 +200,10 @@ const styles: any = {
     text-xs
   `,
 };
+
 export const DzBanner: FC<DzBannerProps> = ({
   type = TYPES.MESSAGE,
-  variant = VARIANTS.DEFAULT,
+  messageVariant = MESSAGE_VARIANTS.DEFAULT,
   alertVariation = ALERT_VARIANT.DEFAULT,
   toastVariant = TOAST_VARIANT.DARK,
   title = '',
@@ -211,12 +213,15 @@ export const DzBanner: FC<DzBannerProps> = ({
   link = '',
   onClickClose = () => null,
 }) => {
-  const alertTypeStyles = type === TYPES.ALERT ? styles?.[alertVariation] : '';
-  const alertTitleStyles =
-    type === TYPES.ALERT ? styles?.title?.[alertVariation] : '';
-  const toastTitleStyles =
-    type === TYPES.TOAST ? styles?.title?.[toastVariant] : '';
-  const toastTypeStyles = type === TYPES.TOAST ? styles?.[toastVariant] : '';
+  const variantStyles = {
+    [TYPES.MESSAGE]: (isText: boolean = false) =>
+      isText ? styles.title?.[messageVariant] : styles?.[messageVariant],
+    [TYPES.ALERT]: (isText: boolean = false) =>
+      isText ? styles.title?.[alertVariation] : styles?.[alertVariation],
+    [TYPES.TOAST]: (isText: boolean = false) =>
+      isText ? styles.title?.[toastVariant] : styles?.[toastVariant],
+  };
+
   const hasLinkStyles = link && linkText ? styles.linkLayout : '';
   const titleToastContainer =
     type === TYPES.TOAST ? styles?.titleToastCont : '';
@@ -234,11 +239,7 @@ export const DzBanner: FC<DzBannerProps> = ({
 
   const titleSection = title ? (
     <DzText
-      className={cn(
-        styles.title?.[variant],
-        alertTitleStyles,
-        toastTitleStyles
-      )}
+      className={cn(variantStyles[type](true))}
       textSize={TEXT_SIZES.XS}
       textType={TEXT_TYPES.LABEL}
       text={title}
@@ -252,7 +253,7 @@ export const DzBanner: FC<DzBannerProps> = ({
         textSize={TEXT_SIZES.XS}
         textType={TEXT_TYPES.P}
         text={subtitle}
-        className={cn(styles.title?.[variant], toastTitleStyles)}
+        className={cn(variantStyles[type](true))}
       />
     ) : null;
 
@@ -275,10 +276,10 @@ export const DzBanner: FC<DzBannerProps> = ({
     <div
       className={cn(
         styles.bannerContainer,
-        styles?.[variant],
+
+        variantStyles[type](),
         styles?.container[type],
-        alertTypeStyles,
-        toastTypeStyles,
+
         hasLinkStyles
       )}
     >

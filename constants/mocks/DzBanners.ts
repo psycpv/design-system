@@ -1,0 +1,1 @@
+export const alertTitle = 'This is placeholder text. Ut sodales nunc vitae est lacinia, nec tempus risus aliquam. Vestibulum sollicitudin eget tellus ac venenatis. '

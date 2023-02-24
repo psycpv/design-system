@@ -32,5 +32,14 @@ export default meta;
 
 const Template: Story<DzPillProps> = args => <DzPill {...args} />;
 
-export const PrimaryDzPill = Template.bind({});
-PrimaryDzPill.args = {};
+export const ArtistPill = Template.bind({});
+ArtistPill.args = {};
+
+export const DesktopPill = Template.bind({});
+DesktopPill.args = {variant: VARIANTS.DESKTOP};
+
+export const MobilePill = Template.bind({});
+MobilePill.args = {variant: VARIANTS.MOBILE};
+
+export const FilterPill = Template.bind({});
+FilterPill.args = {variant: VARIANTS.FILTER};
