@@ -1,10 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { DzColumn, GridColProps, DzGridColumns } from '../src/layout/DzGrid';
-import {
-  DzModalPopover,
-  DzModalPopoverProps,
-} from '../src/atoms/DzModalPopover';
+import { DzModalPopover } from '../src/atoms/DzModalPopover';
 
 const meta: Meta = {
   title: 'Layout/Grid/DzGrid',
