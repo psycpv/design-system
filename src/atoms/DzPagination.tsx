@@ -108,12 +108,8 @@ export const DzPagination: FC<DzPaginationProps> = ({
   return (
     <div className={cn(styles.paginationContainer)}>
       <div className="-mt-px flex w-0 flex-1">
-        <div className={cn(styles.previousContainer)}>
-          <ChevronLeft
-            className="mr-3 h-5 w-5"
-            aria-hidden="true"
-            onClick={onPrevious}
-          />
+        <div className={cn(styles.previousContainer)} onClick={onPrevious}>
+          <ChevronLeft className="mr-3 h-5 w-5" aria-hidden="true" />
           {prevText}
         </div>
       </div>
@@ -134,13 +130,9 @@ export const DzPagination: FC<DzPaginationProps> = ({
         })}
       </div>
       <div className="-mt-px flex w-0 flex-1 justify-end">
-        <div className={cn(styles.nextContainer)}>
+        <div className={cn(styles.nextContainer)} onClick={onNext}>
           {nextText}
-          <ChevronRight
-            className="ml-3 h-5 w-5 "
-            aria-hidden="true"
-            onClick={onNext}
-          />
+          <ChevronRight className="ml-3 h-5 w-5 " aria-hidden="true" />
         </div>
       </div>
     </div>
