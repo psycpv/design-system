@@ -1,5 +1,11 @@
 import { Meta, Typeset } from '@storybook/addon-docs/';
 import { typography } from './shared/styles';
+import {
+  DzTitle,
+  DzTitleProps,
+  TEXT_SIZES,
+  TEXT_TYPES,
+} from '../src/atoms/DzTitle.tsx';
 
 <Meta title="Typography/Base" />
 
@@ -15,6 +21,13 @@ Additionally, we should only need to host 2 weights of Avenir — Medium and Med
 
 **Weights:** 500(regular)
 
+<br />
+<br />
+
+## Avenir — Medium
+
+Avenir Medium is currently the singular weight used on the site. Hierarchy is defined through the Type Scale shown below and the use of Black100 and Black60. Page designs should clarify how this applies and any exceptions for unique needs.
+
 <Typeset
   fontFamily={typography.type.primary}
   fontSizes={[
@@ -26,5 +39,21 @@ Additionally, we should only need to host 2 weights of Avenir — Medium and Med
     Number(typography.size.xxl),
     Number(typography.size.xxxl),
   ]}
+  sampleText={typography.sampleText}
   fontWeight={typography.weight.regular}
 />
+<div className='max-w-[690px]'>
+  {Object.keys(typography.singeSamples).map(type => {
+    const parts = typography.singeSamples[type];
+    return <div className='!mb-5'>{parts.map(part => {
+      return(<div>
+        <DzTitle
+                titleType={TEXT_TYPES.H1}
+                titleSize={TEXT_SIZES[type.toUpperCase()]}
+                title={part}
+              />
+      </div>)
+      })}</div>
+  })}
+</div>
+

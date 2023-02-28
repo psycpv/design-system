@@ -61,7 +61,7 @@ export const DzModalPopover: FC<DzModalPopoverProps> = ({
     <DzTitle
       titleType={TEXT_TYPES.H3}
       title={title}
-      titleSize={TEXT_SIZES.LARGE}
+      titleSize={TEXT_SIZES.LG}
     />
   ) : null;
   const closeRender = !hideClose ? (

@@ -86,7 +86,7 @@ export const DzModal: FC<DzModalProps> = ({
       <DzTitle
         titleType={TEXT_TYPES.H3}
         title={title}
-        titleSize={TEXT_SIZES.LARGE}
+        titleSize={TEXT_SIZES.LG}
       />
       <div>
         <CloseIcon
