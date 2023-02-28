@@ -8,7 +8,7 @@ export interface RadioProps
   subtitle?: string;
   disabled?: boolean;
   hasError?: boolean;
-  checked?:boolean;
+  checked?: boolean;
   hover?: boolean;
   focus?: boolean;
   ariaDescribedBy?: string;
@@ -55,6 +55,7 @@ const styles = {
     relative
     flex
     gap-[0.625rem]
+    bg-white-100
   `,
   textContainer: `
     flex
@@ -78,6 +79,7 @@ const styles = {
 };
 
 export const DzRadioButton: React.FC<RadioProps> = ({
+  id,
   disabled,
   title,
   subtitle,
@@ -87,9 +89,7 @@ export const DzRadioButton: React.FC<RadioProps> = ({
   checked = false,
   ...rest
 }) => {
-  const [hasBeenChecked, setHasBeenChecked] = useState<boolean>(
-   false
-  );
+  const [hasBeenChecked, setHasBeenChecked] = useState<boolean>(false);
   const [isValidValue, setIsValidValue] = useState<boolean>(!hasError);
 
   const checkedStyle = hasBeenChecked ? styles.checked : styles.unchecked;
@@ -125,7 +125,7 @@ export const DzRadioButton: React.FC<RadioProps> = ({
       />
       <div className={cn(styles.textContainer)}>
         <span
-          id={`${title}-description`}
+          id={`${id ?? ''}-${title}-description`}
           className={cn(styles.title, weightStyle(), disabledStyle, errorClass)}
         >
           {title}

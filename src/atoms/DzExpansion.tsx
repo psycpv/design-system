@@ -151,7 +151,7 @@ export const DzExpansion: FC<DzExpansionProps> = ({
                           <div className={cn(styles.textContainer)}>
                             {showSlug}
                             {getTitle({
-                              titleType: TEXT_TYPES.H5,
+                              titleType: TEXT_TYPES.H4,
                               titleSize: TEXT_SIZES.LG,
                               title: title,
                             })}

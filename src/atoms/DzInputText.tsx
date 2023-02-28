@@ -14,6 +14,7 @@ export interface InputTextProps
   hasError?: boolean;
   validator?: Function;
   errorMsg?: string;
+  formName?: string;
 }
 
 const styles = {
@@ -22,6 +23,7 @@ const styles = {
     flex-col
     justify-start
     gap-[0.9375rem]
+    bg-white-100
   `,
   inputWrap: `
     relative
@@ -87,6 +89,7 @@ export const DzInputText: FC<InputTextProps> = ({
   hasError = false,
   errorMsg = '',
   onChange,
+  formName = '',
   ...rest
 }) => {
   const [value, setValue] = useState<string>('');
@@ -173,7 +176,15 @@ export const DzInputText: FC<InputTextProps> = ({
           errorClass
         )}
       >
+        <DzText
+          className="sr-only"
+          htmlFor={formName || title}
+          textType={TEXT_TYPES.LABEL}
+          text={title || 'Input Text'}
+        />
         <DzInput
+          id={formName || title}
+          name={formName || title}
           className={cn(styles.input)}
           type="text"
           disabled={disabled}

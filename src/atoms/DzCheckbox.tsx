@@ -56,6 +56,7 @@ const styles = {
     relative
     flex
     gap-[0.625rem]
+    bg-white-100
   `,
   textContainer: `
     flex
@@ -84,6 +85,7 @@ const styles = {
 };
 
 export const DzCheckbox: React.FC<CheckProps> = ({
+  id,
   disabled,
   selected,
   title,
@@ -129,7 +131,7 @@ export const DzCheckbox: React.FC<CheckProps> = ({
       />
       <div className={cn(styles.textContainer)}>
         <span
-          id={`${title}-description`}
+          id={`${id ?? ''}-${title}-description`}
           className={cn(styles.title, weightStyle(), disabledStyle, errorClass)}
         >
           {title}

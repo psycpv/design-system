@@ -8,7 +8,6 @@ export const INPUT_GROUPS_MOCK = [
   },
   {
     id: 2,
-    // checked: true,
     title: 'Active (with line of text that runs 2 lines)',
     subtitle: 'Subtitle copy',
     disabled: false,
