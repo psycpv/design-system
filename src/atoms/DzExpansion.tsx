@@ -3,9 +3,9 @@ import { Transition, Disclosure } from '@headlessui/react';
 import {
   DzTitle,
   TitleType,
-  TextSize,
-  TEXT_TYPES,
-  TEXT_SIZES,
+  TitleSize,
+  TITLE_TYPES,
+  TITLE_SIZES,
 } from './DzTitle';
 import {
   DzText,
@@ -33,8 +33,8 @@ export interface DzExpansionProps {
 
 interface TitleTypeProps {
   titleType: TitleType;
-  titleSize: TextSize;
-  subtitleSize?: TextSize;
+  titleSize: TitleSize;
+  subtitleSize?: TitleSize;
   title: string;
   subtitle?: string;
 }
@@ -120,9 +120,9 @@ export const DzExpansion: FC<DzExpansionProps> = ({
     <div className={cn(styles.expansion)}>
       <div className={cn(styles.headWrapper)}>
         {getTitle({
-          titleType: TEXT_TYPES.H3,
-          titleSize: TEXT_SIZES.LARGE,
-          subtitleSize: TEXT_SIZES.LARGE,
+          titleType: TITLE_TYPES.H3,
+          titleSize: TITLE_SIZES.LARGE,
+          subtitleSize: TITLE_SIZES.LARGE,
           title,
           subtitle,
         })}
@@ -151,8 +151,8 @@ export const DzExpansion: FC<DzExpansionProps> = ({
                           <div className={cn(styles.textContainer)}>
                             {showSlug}
                             {getTitle({
-                              titleType: TEXT_TYPES.H5,
-                              titleSize: TEXT_SIZES.LARGE,
+                              titleType: TITLE_TYPES.H5,
+                              titleSize: TITLE_SIZES.LARGE,
                               title: title,
                             })}
                           </div>

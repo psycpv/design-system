@@ -37,10 +37,8 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "design-system",
-  "author": {
-    "name": "David Torres"
-  },
+  "name": "@zwirner/design-system",
+  "author": "David Torres",
   "module": "dist/design-system.esm.js",
   "size-limit": [
     {
@@ -104,6 +102,13 @@
       "@/(.*)": "<rootDir>/src/$1"
     }
   },
-  "readme": "ERROR: No README data found!",
-  "_id": "design-system@0.1.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zwirner/design-system.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Zwirner/design-system/issues"
+  },
+  "homepage": "https://github.com/Zwirner/design-system#readme",
+  "description": "Fresh and cool React Design System for the David Zwirner digital products"
 }

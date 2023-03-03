@@ -1,7 +1,7 @@
 import React, { FC, MouseEventHandler } from 'react';
 import { cn } from '@/utils/classnames';
-import { DzTitle, TEXT_SIZES, TEXT_TYPES } from '@/atoms/DzTitle';
-import { DzButton, DzButtonProps, VARIANTS } from '@/atoms/DzButton';
+import { DzTitle, TITLE_SIZES, TITLE_TYPES } from '@/atoms/DzTitle';
+import { DzButton, DzButtonProps, BUTTON_VARIANTS } from '@/atoms/DzButton';
 import { DzText, TEXT_TYPES as TEXT_TYPES_SUB } from '@/atoms/DzText';
 import CloseIcon from '@/svgIcons/close';
 
@@ -56,9 +56,9 @@ export const DzModalPopover: FC<DzModalPopoverProps> = ({
 }) => {
   const renderTitle = title ? (
     <DzTitle
-      titleType={TEXT_TYPES.H3}
+      titleType={TITLE_TYPES.H3}
       title={title}
-      titleSize={TEXT_SIZES.LARGE}
+      titleSize={TITLE_SIZES.LARGE}
     />
   ) : null;
   const closeRender = !hideClose ? (
@@ -71,7 +71,7 @@ export const DzModalPopover: FC<DzModalPopoverProps> = ({
     !hideButtons && primaryBtnText ? (
       <DzButton
         onClick={onClickPrimary}
-        variant={VARIANTS.TERTIARY}
+        variant={BUTTON_VARIANTS.TERTIARY}
         className="text-sm"
         {...primaryBtnProps}
       >
@@ -82,7 +82,7 @@ export const DzModalPopover: FC<DzModalPopoverProps> = ({
     !hideButtons && secondaryBtnText ? (
       <DzButton
         onClick={onClickSecondary}
-        variant={VARIANTS.SECONDARY}
+        variant={BUTTON_VARIANTS.SECONDARY}
         className="text-sm"
         {...secondaryBtnProps}
       >

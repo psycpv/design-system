@@ -13,22 +13,22 @@ import CheckmarkIcon from '@/svgIcons/checkmark';
 import ChevronLeft from '@/svgIcons/chevronLeft';
 import ChevronRight from '@/svgIcons/chevronRight';
 
-export const VARIANTS = {
+export const BUTTON_VARIANTS = {
   PRIMARY: 'primary',
   SECONDARY: 'secondary',
   TERTIARY: 'tertiary',
 };
-export const SIZES = {
+export const BUTTON_SIZES = {
   SMALL: 'small',
   LARGE: 'large',
 };
 export const BUTTON_VARIANT_NAMES = [
-  VARIANTS.PRIMARY,
-  VARIANTS.SECONDARY,
-  VARIANTS.TERTIARY,
+  BUTTON_VARIANTS.PRIMARY,
+  BUTTON_VARIANTS.SECONDARY,
+  BUTTON_VARIANTS.TERTIARY,
 ] as const;
 
-export const BUTTON_SIZE_NAMES = [SIZES.SMALL, SIZES.LARGE] as const;
+export const BUTTON_SIZE_NAMES = [BUTTON_SIZES.SMALL, BUTTON_SIZES.LARGE] as const;
 
 export type ButtonVariant = typeof BUTTON_VARIANT_NAMES[number];
 export type ButtonSize = typeof BUTTON_SIZE_NAMES[number];
@@ -117,13 +117,13 @@ const iconColor = (
   isHover: boolean,
   disabled: boolean
 ): string => {
-  if (disabled && variant != VARIANTS.SECONDARY) return '#CDCDCD';
+  if (disabled && variant != BUTTON_VARIANTS.SECONDARY) return '#CDCDCD';
   switch (variant) {
-    case VARIANTS.PRIMARY:
+    case BUTTON_VARIANTS.PRIMARY:
       return isHover ? 'white' : 'black';
-    case VARIANTS.SECONDARY:
+    case BUTTON_VARIANTS.SECONDARY:
       return 'white';
-    case VARIANTS.TERTIARY:
+    case BUTTON_VARIANTS.TERTIARY:
       return 'black';
 
     default:
@@ -135,8 +135,8 @@ export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
   (
     {
       children,
-      variant = VARIANTS.PRIMARY,
-      size = SIZES.SMALL,
+      variant = BUTTON_VARIANTS.PRIMARY,
+      size = BUTTON_SIZES.SMALL,
       disabled = false,
       success,
       onClick,
@@ -199,8 +199,8 @@ export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
 
 DzButton.displayName = 'DzButton';
 DzButton.defaultProps = {
-  variant: VARIANTS.PRIMARY,
-  size: SIZES.SMALL,
+  variant: BUTTON_VARIANTS.PRIMARY,
+  size: BUTTON_SIZES.SMALL,
   maxWidth: '100%',
   disabled: false,
   success: false,

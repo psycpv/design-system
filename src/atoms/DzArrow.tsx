@@ -22,7 +22,7 @@ export interface DzArrowProps {
   onClick?: Function;
 }
 
-const styles = {
+const styles : any = {
   arrowContainer: `
     relative
     w-10
@@ -62,7 +62,13 @@ const styles = {
 };
 
 export const DzArrow: FC<DzArrowProps> = (props: DzArrowProps) => {
-  const { direction, variant = 'primary', className, disabled, onClick } = props;
+  const {
+    direction,
+    variant = 'primary',
+    className,
+    disabled,
+    onClick,
+  } = props;
   const [ArrowComponent, setArrowComponent] = useState<JSX.Element>(
     <Fragment />
   );
@@ -80,7 +86,10 @@ export const DzArrow: FC<DzArrowProps> = (props: DzArrowProps) => {
     if (ArwComponent) {
       const component = (
         <ArwComponent
-          className={cn(styles.arrowIcon, styles?.[`arrow${direction}`])}
+          className={cn(
+            styles.arrowIcon,
+            styles[`arrow${direction}`]
+          )}
           width="100%"
           height="100%"
           fill={arrowColor(variant === 'primary' ? 'white' : 'black')}
@@ -111,5 +120,3 @@ DzArrow.defaultProps = {
   variant: 'primary',
   disabled: false,
 };
-
-export default DzArrow;

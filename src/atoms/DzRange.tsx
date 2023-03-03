@@ -16,7 +16,7 @@ export interface RangeProps {
   max: number
   step: number
   value?: number[]
-  onChange?: (range: [min: number, max: number]) => void
+  onChange?: (range: number[]) => void
 }
 
 export const DzRange: React.FC<RangeProps> = ({

@@ -29,7 +29,7 @@ export interface DzBarProps {
   rangeProps?: RangeProps;
   tabBarSteps?: number;
   activeTab?: number;
-  onChangeRange?:(range: [min: number, max: number]) => void
+  onChangeRange?:(range: number[]) => void
 
 }
 export type BarVariant = typeof BAR_VARIANT_NAMES[number];
