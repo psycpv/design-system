@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
-import { IconProps } from '@/svgIcons/types';
+import { IconProps } from './types';
 
 export const Icon = styled.svg<IconProps>`
  relative

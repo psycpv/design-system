@@ -3,8 +3,6 @@
   "include": ["src", "types"],
   "exclude": ["node_modules/*", "dist/*", "www/*"],
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": { "@/*": ["./src/*"] },
     "allowSyntheticDefaultImports": true,
     "module": "esnext",
     "lib": ["dom", "esnext"],
