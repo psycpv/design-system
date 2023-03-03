@@ -62,10 +62,10 @@ export const DzRange: React.FC<RangeProps> = ({
       setMaxWidth(maxRef.current.offsetWidth)
     }
 
-    window.addEventListener("resize", handleResize, { passive: true })
+    (window as Window).addEventListener("resize", handleResize, { passive: true })
 
     return () => {
-      window.removeEventListener("resize", handleResize)
+      (window as Window).removeEventListener("resize", handleResize)
     }
   }, [])
 
