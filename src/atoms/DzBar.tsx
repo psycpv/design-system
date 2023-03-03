@@ -5,7 +5,7 @@ import React, {
   useEffect,
 } from 'react';
 import styled from 'styled-components';
-import { cn } from '@/utils/classnames';
+import { cn } from '../utils/classnames';
 import { DzText, TEXT_TYPES } from './DzText';
 import { v4 as uuidv4 } from 'uuid';
 export const VARIANTS = {

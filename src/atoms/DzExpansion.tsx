@@ -14,8 +14,8 @@ import {
 } from './DzText';
 
 import { DzLink } from './DzLink';
-import { cn } from '@/utils/classnames';
-import ArrowDown from '@/svgIcons/arrowDown';
+import { cn } from '../utils/classnames';
+import ArrowDown from '../svgIcons/arrowDown';
 
 interface ExpansionSection {
   slug?: string;

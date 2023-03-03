@@ -1,4 +1,4 @@
-import { cn } from '@/utils/classnames';
+import { cn } from '../utils/classnames';
 import React, { FC, useState, useEffect } from 'react';
 import { DzCheckbox, CheckProps } from './DzCheckbox';
 import { DzRadioButton, RadioProps } from './DzRadioButton';

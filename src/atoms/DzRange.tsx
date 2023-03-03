@@ -1,7 +1,7 @@
 import * as React from "react"
 import { useEffect, useRef, useState } from "react"
 import styled, { css } from "styled-components"
-import {useUpdateEffect} from '@/hooks/useUpdateEffect';
+import {useUpdateEffect} from '../hooks/useUpdateEffect';
 export const FLAT_SHADOW = "0 1px 1px 0 rgba(0, 0, 0, 0.05)"
 
 type Range = { min: number; max: number }

@@ -1,5 +1,5 @@
 import composeRefs from '@seznam/compose-react-refs';
-import { cn } from '@/utils/classnames';
+import { cn } from '../utils/classnames';
 import React, {
   useRef,
   ForwardedRef,
@@ -8,10 +8,10 @@ import React, {
   ButtonHTMLAttributes,
 } from 'react';
 
-import useHover from '@/hooks/useHover';
-import CheckmarkIcon from '@/svgIcons/checkmark';
-import ChevronLeft from '@/svgIcons/chevronLeft';
-import ChevronRight from '@/svgIcons/chevronRight';
+import useHover from '../hooks/useHover';
+import CheckmarkIcon from '../svgIcons/checkmark';
+import ChevronLeft from '../svgIcons/chevronLeft';
+import ChevronRight from '../svgIcons/chevronRight';
 
 export const BUTTON_VARIANTS = {
   PRIMARY: 'primary',

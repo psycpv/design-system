@@ -1,4 +1,4 @@
-import { cn } from '@/utils/classnames';
+import { cn } from '../utils/classnames';
 import React, { createElement, FC, Fragment, HTMLAttributes } from 'react';
 
 export const TITLE_SIZES = {

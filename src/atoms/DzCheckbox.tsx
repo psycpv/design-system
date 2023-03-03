@@ -1,5 +1,5 @@
-import { cn } from '@/utils/classnames';
-import CheckmarkIcon from '@/svgIcons/checkmark';
+import { cn } from '../utils/classnames';
+import CheckmarkIcon from '../svgIcons/checkmark';
 import { DzInput } from './DzInput';
 import React, { useState, useEffect } from 'react';
 

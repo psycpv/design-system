@@ -1,8 +1,8 @@
 import React, { FC, MouseEventHandler } from 'react';
-import { cn } from '@/utils/classnames';
+import { cn } from '../utils/classnames';
 import { DzText, TEXT_SIZES, TEXT_TYPES } from './DzText';
-import CloseIcon from '@/svgIcons/close';
-import ExclamationCircle from '@/svgIcons/exclamationCircle';
+import CloseIcon from '../svgIcons/close';
+import ExclamationCircle from '../svgIcons/exclamationCircle';
 import DzLink from './DzLink';
 
 export const MESSAGE_VARIANTS = {

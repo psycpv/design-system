@@ -1,7 +1,7 @@
 import React, { FC, useRef, ReactNode, MouseEventHandler } from 'react';
 import { Dialog } from '@headlessui/react';
-import CloseIcon from '@/svgIcons/close';
-import { cn } from '@/utils/classnames';
+import CloseIcon from '../svgIcons/close';
+import { cn } from '../utils/classnames';
 import { DzButton, DzButtonProps, BUTTON_SIZES, BUTTON_VARIANTS } from './DzButton';
 import { DzTitle, TITLE_TYPES, TITLE_SIZES } from './DzTitle';
 

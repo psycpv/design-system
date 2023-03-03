@@ -1,9 +1,9 @@
 import React, { FC, MouseEventHandler } from 'react';
-import { cn } from '@/utils/classnames';
-import { DzTitle, TITLE_SIZES, TITLE_TYPES } from '@/atoms/DzTitle';
-import { DzButton, DzButtonProps, BUTTON_VARIANTS } from '@/atoms/DzButton';
-import { DzText, TEXT_TYPES as TEXT_TYPES_SUB } from '@/atoms/DzText';
-import CloseIcon from '@/svgIcons/close';
+import { cn } from '../utils/classnames';
+import { DzTitle, TITLE_SIZES, TITLE_TYPES } from '../atoms/DzTitle';
+import { DzButton, DzButtonProps, BUTTON_VARIANTS } from '../atoms/DzButton';
+import { DzText, TEXT_TYPES as TEXT_TYPES_SUB } from '../atoms/DzText';
+import CloseIcon from '../svgIcons/close';
 
 export interface DzModalPopoverProps {
   title?: string;

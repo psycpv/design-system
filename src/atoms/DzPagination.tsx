@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { cn } from '@/utils/classnames';
-import ChevronLeft from '@/svgIcons/chevronLeft';
-import ChevronRight from '@/svgIcons/chevronRight';
-import { usePagination, DOTS } from '@/hooks/usePagination';
+import { cn } from '../utils/classnames';
+import ChevronLeft from '../svgIcons/chevronLeft';
+import ChevronRight from '../svgIcons/chevronRight';
+import { usePagination, DOTS } from '../hooks/usePagination';
 
 export interface DzPaginationProps {
   prevText: string;

@@ -1,4 +1,4 @@
-import { cn } from '@/utils/classnames';
+import { cn } from '../utils/classnames';
 import React, {
   FC,
   Fragment,
@@ -82,7 +82,7 @@ export const DzArrow: FC<DzArrowProps> = (props: DzArrowProps) => {
   };
 
   useEffect(() => {
-    const ArwComponent = lazy(() => import(`@/svgIcons/arrow${direction}`));
+    const ArwComponent = lazy(() => import(`../svgIcons/arrow${direction}`));
     if (ArwComponent) {
       const component = (
         <ArwComponent

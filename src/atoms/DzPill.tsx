@@ -1,6 +1,6 @@
 import React, { FC, MouseEventHandler } from 'react';
-import { cn } from '@/utils/classnames';
-import CloseIcon from '@/svgIcons/close';
+import { cn } from '../utils/classnames';
+import CloseIcon from '../svgIcons/close';
 
 export const PILL_VARIANTS = {
   ARTIST: 'artist',
