@@ -12,6 +12,9 @@ const meta: Meta = {
   },
   parameters: {
     controls: { expanded: true },
+    backgrounds: {
+      default: 'dzFigmaWhite',
+    },
   },
 };
 

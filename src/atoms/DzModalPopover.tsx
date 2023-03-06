@@ -14,6 +14,7 @@ export interface DzModalPopoverProps {
   secondaryBtnText?: string;
   primaryBtnProps?: DzButtonProps;
   secondaryBtnProps?: DzButtonProps;
+  className?: string;
   onClickPrimary?: MouseEventHandler<HTMLButtonElement>;
   onClickSecondary?: MouseEventHandler<HTMLButtonElement>;
   onClickClose?: MouseEventHandler<any>;
@@ -26,6 +27,7 @@ const styles = {
     flex-col
     gap-[5px]
     shadow-lg
+    bg-white-100
   `,
   headerContainer: `
     flex
@@ -50,6 +52,7 @@ export const DzModalPopover: FC<DzModalPopoverProps> = ({
   secondaryBtnText,
   primaryBtnProps = {},
   secondaryBtnProps = {},
+  className = '',
   onClickPrimary = () => null,
   onClickSecondary = () => null,
   onClickClose = () => null,
@@ -58,7 +61,7 @@ export const DzModalPopover: FC<DzModalPopoverProps> = ({
     <DzTitle
       titleType={TITLE_TYPES.H3}
       title={title}
-      titleSize={TITLE_SIZES.LARGE}
+      titleSize={TITLE_SIZES.LG}
     />
   ) : null;
   const closeRender = !hideClose ? (
@@ -91,7 +94,7 @@ export const DzModalPopover: FC<DzModalPopoverProps> = ({
     ) : null;
 
   return (
-    <div className={cn(styles.tooltipParent)}>
+    <div className={cn(styles.tooltipParent, className)}>
       <div className={cn(styles.headerContainer)}>
         {renderTitle}
         {closeRender}

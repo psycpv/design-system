@@ -2,11 +2,12 @@ import { cn } from '../utils/classnames';
 import React, { createElement, FC, Fragment, HTMLAttributes } from 'react';
 
 export const TITLE_SIZES = {
-  SMALL: 'small',
-  LARGE: 'large',
-  MEDIUM: 'medium',
-  XL: 'extraLarge',
   XS: 'extraSmall',
+  SM: 'small',
+  LG: 'large',
+  MD: 'medium',
+  XL: 'extraLarge',
+  XXL: 'exExLarge',
   XXXL: 'xxxl',
 };
 export const TITLE_TYPES = {
@@ -19,10 +20,11 @@ export const TITLE_TYPES = {
   P: 'p',
 };
 export const TITLE_SIZE_NAMES = [
-  TITLE_SIZES.SMALL,
-  TITLE_SIZES.LARGE,
-  TITLE_SIZES.MEDIUM,
+  TITLE_SIZES.SM,
+  TITLE_SIZES.LG,
+  TITLE_SIZES.MD,
   TITLE_SIZES.XL,
+  TITLE_SIZES.XXL,
   TITLE_SIZES.XS,
   TITLE_SIZES.XXXL,
 ] as const;
@@ -83,6 +85,9 @@ const styles: any = {
   extraLarge: `
     text-xl
   `,
+  exExLarge: `
+    text-xxl
+  `,
   xxxl: `
     text-xxxl
   `,
@@ -99,8 +104,8 @@ export const DzTitle: FC<DzTitleProps> &
   title,
   subtitle,
   disabled = false,
-  titleSize = TITLE_SIZES.SMALL,
-  subtitleSize = TITLE_SIZES.SMALL,
+  titleSize = TITLE_SIZES.SM,
+  subtitleSize = TITLE_SIZES.SM,
   classNameTitle,
   classNameSubtitle,
   ...rest

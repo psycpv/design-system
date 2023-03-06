@@ -121,8 +121,8 @@ export const DzExpansion: FC<DzExpansionProps> = ({
       <div className={cn(styles.headWrapper)}>
         {getTitle({
           titleType: TITLE_TYPES.H3,
-          titleSize: TITLE_SIZES.LARGE,
-          subtitleSize: TITLE_SIZES.LARGE,
+          titleSize: TITLE_SIZES.LG,
+          subtitleSize: TITLE_SIZES.LG,
           title,
           subtitle,
         })}
@@ -151,8 +151,8 @@ export const DzExpansion: FC<DzExpansionProps> = ({
                           <div className={cn(styles.textContainer)}>
                             {showSlug}
                             {getTitle({
-                              titleType: TITLE_TYPES.H5,
-                              titleSize: TITLE_SIZES.LARGE,
+                              titleType: TITLE_TYPES.H4,
+                              titleSize: TITLE_SIZES.LG,
                               title: title,
                             })}
                           </div>

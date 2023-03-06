@@ -46,6 +46,7 @@ const styles = {
   listItem: `
     p-5
     max-w-fit
+    bg-white-100
   `,
   itemListBorder: `
     border-t
