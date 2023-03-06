@@ -28,7 +28,10 @@ export const BUTTON_VARIANT_NAMES = [
   BUTTON_VARIANTS.TERTIARY,
 ] as const;
 
-export const BUTTON_SIZE_NAMES = [BUTTON_SIZES.SMALL, BUTTON_SIZES.LARGE] as const;
+export const BUTTON_SIZE_NAMES = [
+  BUTTON_SIZES.SMALL,
+  BUTTON_SIZES.LARGE,
+] as const;
 
 export type ButtonVariant = typeof BUTTON_VARIANT_NAMES[number];
 export type ButtonSize = typeof BUTTON_SIZE_NAMES[number];

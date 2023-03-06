@@ -27,6 +27,9 @@ module.exports = {
         extract: !!options.writeMeta,
       })
     )
+
+    config.inlineDynamicImports = true
+
     return config
   },
 }

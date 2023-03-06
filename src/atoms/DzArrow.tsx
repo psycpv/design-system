@@ -22,7 +22,7 @@ export interface DzArrowProps {
   onClick?: Function;
 }
 
-const styles : any = {
+const styles: any = {
   arrowContainer: `
     relative
     w-10
@@ -82,18 +82,20 @@ export const DzArrow: FC<DzArrowProps> = (props: DzArrowProps) => {
   };
 
   useEffect(() => {
-    const ArwComponent = lazy(() => import(`../svgIcons/arrow${direction}`));
+    const ArwComponent = lazy(() =>
+      direction === 'Left'
+        ? import('../svgIcons/arrowLeft')
+        : import('../svgIcons/arrowRight')
+    );
     if (ArwComponent) {
       const component = (
         <ArwComponent
-          className={cn(
-            styles.arrowIcon,
-            styles[`arrow${direction}`]
-          )}
+          className={cn(styles.arrowIcon, styles[`arrow${direction}`])}
           width="100%"
           height="100%"
           fill={arrowColor(variant === 'primary' ? 'white' : 'black')}
-          onClick={handleClick}
+          // TODO Fix onClick event handling
+          // onClick={handleClick}
         />
       );
       setArrowComponent(component);
