@@ -3,7 +3,6 @@ import { Meta, Story } from '@storybook/react';
 import {
   DzTitle,
   DzTitleProps,
-  TEXT_SIZE_NAMES,
   TITLE_TAGS,
   SUBTITLE_TAGS,
 } from '../src/atoms/DzTitle';

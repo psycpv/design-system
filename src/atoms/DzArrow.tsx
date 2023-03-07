@@ -75,12 +75,6 @@ export const DzArrow: FC<DzArrowProps> = (props: DzArrowProps) => {
   const disabledStyle = disabled ? styles.disabled : '';
   const arrowColor = (cl: string) => (disabled ? '#CDCDCD' : cl);
 
-  const handleClick = (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    if (!disabled && onClick) {
-      onClick(event);
-    }
-  };
-
   useEffect(() => {
     const ArwComponent = lazy(() =>
       direction === 'Left'
