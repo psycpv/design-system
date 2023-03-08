@@ -23,6 +23,9 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
+  "publishConfig": {
+    "@zwirner:registry": "https://npm.pkg.github.com"
+  },
   "peerDependencies": {
     "react": ">=16"
   },
