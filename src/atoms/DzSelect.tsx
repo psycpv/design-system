@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react';
-import { cn } from '@/utils/classnames';
+import { cn } from '../utils/classnames';
 import { DzText, TEXT_SIZES, TEXT_TYPES } from './DzText';
 import { Listbox, Transition } from '@headlessui/react';
-import { BoldArrowDown } from '@/svgIcons/boldArrowDown';
+import { BoldArrowDown } from '../svgIcons/boldArrowDown';
 import { DzCheckbox } from './DzCheckbox';
 
 export interface SelectOption {

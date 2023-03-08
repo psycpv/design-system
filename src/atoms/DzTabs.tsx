@@ -1,6 +1,6 @@
 import React, { FC, Fragment, ReactElement, Children } from 'react';
 import { Tab } from '@headlessui/react';
-import { cn } from '@/utils/classnames';
+import { cn } from '../utils/classnames';
 
 const TAB_TYPES = {
   NAV: 'nav',

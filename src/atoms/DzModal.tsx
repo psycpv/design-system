@@ -1,9 +1,9 @@
 import React, { FC, useRef, ReactNode, MouseEventHandler } from 'react';
 import { Dialog } from '@headlessui/react';
-import CloseIcon from '@/svgIcons/close';
-import { cn } from '@/utils/classnames';
-import { DzButton, DzButtonProps, SIZES, VARIANTS } from './DzButton';
-import { DzTitle, TEXT_TYPES, TEXT_SIZES } from './DzTitle';
+import CloseIcon from '../svgIcons/close';
+import { cn } from '../utils/classnames';
+import { DzButton, DzButtonProps, BUTTON_SIZES, BUTTON_VARIANTS } from './DzButton';
+import { DzTitle, TITLE_TYPES, TITLE_SIZES } from './DzTitle';
 
 export interface DzModalProps {
   children: ReactNode | string;
@@ -84,9 +84,9 @@ export const DzModal: FC<DzModalProps> = ({
   const renderHeaderTitle = title ? (
     <Dialog.Title className={cn(styles.titleHeader)}>
       <DzTitle
-        titleType={TEXT_TYPES.H3}
+        titleType={TITLE_TYPES.H3}
         title={title}
-        titleSize={TEXT_SIZES.LG}
+        titleSize={TITLE_SIZES.LG}
       />
       <div>
         <CloseIcon
@@ -116,9 +116,9 @@ export const DzModal: FC<DzModalProps> = ({
         </div>
         <div className={cn(styles.bottomSection)}>
           <DzButton
-            size={SIZES.LARGE}
+            size={BUTTON_SIZES.LARGE}
             onClick={onClickPrimary}
-            variant={VARIANTS.PRIMARY}
+            variant={BUTTON_VARIANTS.PRIMARY}
             className="text-sm"
             {...primaryBtnProps}
           >

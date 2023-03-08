@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { DzSvg } from './DzSvg';
 import { IconProps } from './types';
+
 export const ArrowDown: FC<IconProps> = ({
   width = 10,
   height = 6,

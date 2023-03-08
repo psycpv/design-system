@@ -1,5 +1,5 @@
 import React, { FC, useState, ChangeEventHandler } from 'react';
-import { cn } from '@/utils/classnames';
+import { cn } from '../utils/classnames';
 import { DzText, TEXT_SIZES, TEXT_TYPES } from './DzText';
 import { v4 as uuidv4 } from 'uuid';
 

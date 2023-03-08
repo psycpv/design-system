@@ -1,20 +1,26 @@
-const path = require("path");
+const path = require('path');
 module.exports = {
+  core: { builder: 'webpack5' },
   stories: ['../stories/**/*.stories.@(ts|tsx|js|jsx|mdx)'],
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials', '@storybook/addon-a11y', {
-    name: '@storybook/addon-postcss',
-    options: {
-      postcssLoaderOptions: {
-        implementation: require('postcss'),
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-a11y',
+    {
+      name: '@storybook/addon-postcss',
+      options: {
+        postcssLoaderOptions: {
+          implementation: require('postcss'),
+        },
       },
     },
-  }],
+  ],
   // https://storybook.js.org/docs/react/configure/typescript#mainjs-configuration
   typescript: {
     check: true, // type-check stories during Storybook build
   },
-  webpackFinal: async (config) => {
-    config.resolve.alias['@'] = path.resolve(__dirname, '../src/')
-    return config
-  }
+  webpackFinal: async config => {
+    config.resolve.alias['@'] = path.resolve(__dirname, '../src/');
+    return config;
+  },
 };

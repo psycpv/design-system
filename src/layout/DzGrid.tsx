@@ -1,6 +1,6 @@
 import React, { ReactNode, useMemo } from 'react';
 import styled, { css } from 'styled-components';
-import { cn } from '@/utils/classnames';
+import { cn } from '../utils/classnames';
 
 export interface ColumnCell {
   /** number (between 1 and 12) of columns to span */
@@ -23,9 +23,9 @@ export interface GridColProps extends ColumnProps {
   position?: 'relative' | 'absolute';
 }
 
-export interface ColumnProps extends ColumnCell , CellProps {
+export interface ColumnProps extends ColumnCell, CellProps {
   wrap?: boolean;
-};
+}
 
 /** Number of columns a cell may span */
 export type ColumnSpan = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -130,7 +130,6 @@ const gridColumnStyles = {
   `,
 };
 
-
 /**
  * A 12-column fluid grid
  */
@@ -150,7 +149,12 @@ export const DzGridColumns: React.FC<GridColProps> = ({
  * A column sits within the GridColumns and spans the columns,
  * sitting between gutters.
  */
- export const DzColumn: React.FC<ColumnProps> = ({ span, start, wrap, ...rest }) => {
+export const DzColumn: React.FC<ColumnProps> = ({
+  span,
+  start,
+  wrap,
+  ...rest
+}) => {
   const gridColumnValue = useMemo(() => {
     return calculateGridColumn({ span, start });
   }, [span, start]);

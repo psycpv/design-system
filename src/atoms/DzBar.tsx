@@ -5,7 +5,7 @@ import React, {
   useEffect,
 } from 'react';
 import styled from 'styled-components';
-import { cn } from '@/utils/classnames';
+import { cn } from '../utils/classnames';
 import { DzText, TEXT_TYPES } from './DzText';
 import { v4 as uuidv4 } from 'uuid';
 export const VARIANTS = {
@@ -29,7 +29,7 @@ export interface DzBarProps {
   rangeProps?: RangeProps;
   tabBarSteps?: number;
   activeTab?: number;
-  onChangeRange?:(range: [min: number, max: number]) => void
+  onChangeRange?:(range: number[]) => void
 
 }
 export type BarVariant = typeof BAR_VARIANT_NAMES[number];

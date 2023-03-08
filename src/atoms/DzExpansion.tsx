@@ -3,9 +3,9 @@ import { Transition, Disclosure } from '@headlessui/react';
 import {
   DzTitle,
   TitleType,
-  TextSize,
-  TEXT_TYPES,
-  TEXT_SIZES,
+  TitleSize,
+  TITLE_TYPES,
+  TITLE_SIZES,
 } from './DzTitle';
 import {
   DzText,
@@ -14,8 +14,8 @@ import {
 } from './DzText';
 
 import { DzLink } from './DzLink';
-import { cn } from '@/utils/classnames';
-import ArrowDown from '@/svgIcons/arrowDown';
+import { cn } from '../utils/classnames';
+import ArrowDown from '../svgIcons/arrowDown';
 
 interface ExpansionSection {
   slug?: string;
@@ -33,8 +33,8 @@ export interface DzExpansionProps {
 
 interface TitleTypeProps {
   titleType: TitleType;
-  titleSize: TextSize;
-  subtitleSize?: TextSize;
+  titleSize: TitleSize;
+  subtitleSize?: TitleSize;
   title: string;
   subtitle?: string;
 }
@@ -120,9 +120,9 @@ export const DzExpansion: FC<DzExpansionProps> = ({
     <div className={cn(styles.expansion)}>
       <div className={cn(styles.headWrapper)}>
         {getTitle({
-          titleType: TEXT_TYPES.H3,
-          titleSize: TEXT_SIZES.LG,
-          subtitleSize: TEXT_SIZES.LG,
+          titleType: TITLE_TYPES.H3,
+          titleSize: TITLE_SIZES.LG,
+          subtitleSize: TITLE_SIZES.LG,
           title,
           subtitle,
         })}
@@ -151,8 +151,8 @@ export const DzExpansion: FC<DzExpansionProps> = ({
                           <div className={cn(styles.textContainer)}>
                             {showSlug}
                             {getTitle({
-                              titleType: TEXT_TYPES.H4,
-                              titleSize: TEXT_SIZES.LG,
+                              titleType: TITLE_TYPES.H4,
+                              titleSize: TITLE_SIZES.LG,
                               title: title,
                             })}
                           </div>

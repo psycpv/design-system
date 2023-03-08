@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import {
   DzPill,
   DzPillProps,
-  VARIANTS,
+  PILL_VARIANTS,
   PILL_VARIANT_NAMES,
 } from '../src/atoms/DzPill';
 
@@ -14,7 +14,7 @@ const meta: Meta = {
     variant: {
       control: 'select',
       options: PILL_VARIANT_NAMES,
-      defaultValue: VARIANTS.ARTIST,
+      defaultValue: PILL_VARIANTS.ARTIST,
     },
     title: { type: 'string', defaultValue: 'Pill Title' },
     onClickClose: { action: 'close clicked' },
@@ -36,10 +36,10 @@ export const ArtistPill = Template.bind({});
 ArtistPill.args = {};
 
 export const DesktopPill = Template.bind({});
-DesktopPill.args = {variant: VARIANTS.DESKTOP};
+DesktopPill.args = {variant: PILL_VARIANTS.DESKTOP};
 
 export const MobilePill = Template.bind({});
-MobilePill.args = {variant: VARIANTS.MOBILE};
+MobilePill.args = {variant: PILL_VARIANTS.MOBILE};
 
 export const FilterPill = Template.bind({});
-FilterPill.args = {variant: VARIANTS.FILTER};
+FilterPill.args = {variant: PILL_VARIANTS.FILTER};

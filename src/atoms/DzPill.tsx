@@ -1,18 +1,18 @@
 import React, { FC, MouseEventHandler } from 'react';
-import { cn } from '@/utils/classnames';
-import CloseIcon from '@/svgIcons/close';
+import { cn } from '../utils/classnames';
+import CloseIcon from '../svgIcons/close';
 
-export const VARIANTS = {
+export const PILL_VARIANTS = {
   ARTIST: 'artist',
   DESKTOP: 'desktop',
   MOBILE: 'mobile',
   FILTER: 'filter',
 };
 export const PILL_VARIANT_NAMES = [
-  VARIANTS.ARTIST,
-  VARIANTS.DESKTOP,
-  VARIANTS.MOBILE,
-  VARIANTS.FILTER,
+  PILL_VARIANTS.ARTIST,
+  PILL_VARIANTS.DESKTOP,
+  PILL_VARIANTS.MOBILE,
+  PILL_VARIANTS.FILTER,
 ] as const;
 export type PillVariant = typeof PILL_VARIANT_NAMES[number];
 
@@ -93,7 +93,7 @@ const styles: any = {
   },
 };
 export const DzPill: FC<DzPillProps> = ({
-  variant = VARIANTS.DESKTOP,
+  variant = PILL_VARIANTS.DESKTOP,
   title = '',
   showIcon = false,
   active = false,
@@ -102,7 +102,7 @@ export const DzPill: FC<DzPillProps> = ({
   className = '',
 }) => {
   const closeIcon =
-    (variant === VARIANTS.ARTIST || variant === VARIANTS.FILTER) && showIcon ? (
+    (variant === PILL_VARIANTS.ARTIST || variant === PILL_VARIANTS.FILTER) && showIcon ? (
       <CloseIcon
         width={10}
         height={10}
@@ -112,7 +112,7 @@ export const DzPill: FC<DzPillProps> = ({
       />
     ) : null;
   const statusRender =
-    variant === VARIANTS.ARTIST ? (
+    variant === PILL_VARIANTS.ARTIST ? (
       <div className={cn(styles.statusCircle)}></div>
     ) : null;
   const activeClass = active ? styles.active : '';

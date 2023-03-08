@@ -3,7 +3,6 @@ import { Meta, Story } from '@storybook/react';
 import {
   DzInputGroups,
   DzInputGroupProps,
-  TYPES,
   INPUT_GROUP_TYPES
 } from '../src/atoms/DzInputGroup';
 import { INPUT_GROUPS_MOCK } from '../constants/mocks/DzInputGroup';
@@ -29,7 +28,7 @@ export default meta;
 const Template: Story<DzInputGroupProps> = args => <DzInputGroups {...args} />;
 
 export const CheckboxGroup = Template.bind({});
-CheckboxGroup.args = { type: TYPES.CHECKBOX, items: INPUT_GROUPS_MOCK };
+CheckboxGroup.args = { type: INPUT_GROUP_TYPES.CHECKBOX, items: INPUT_GROUPS_MOCK };
 
 export const RadiobuttonGroup = Template.bind({});
-RadiobuttonGroup.args = { type: TYPES.RADIO, items: INPUT_GROUPS_MOCK };
+RadiobuttonGroup.args = { type: INPUT_GROUP_TYPES.RADIO, items: INPUT_GROUPS_MOCK };

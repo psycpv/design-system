@@ -1,4 +1,4 @@
-import { cn } from '@/utils/classnames';
+import { cn } from '../utils/classnames';
 import React, {
   FC,
   Fragment,
@@ -22,7 +22,7 @@ export interface DzArrowProps {
   onClick?: Function;
 }
 
-const styles = {
+const styles: any = {
   arrowContainer: `
     relative
     w-10
@@ -62,29 +62,34 @@ const styles = {
 };
 
 export const DzArrow: FC<DzArrowProps> = (props: DzArrowProps) => {
-  const { direction, variant = 'primary', className, disabled, onClick } = props;
+  const {
+    direction,
+    variant = 'primary',
+    className,
+    disabled,
+    onClick,
+  } = props;
   const [ArrowComponent, setArrowComponent] = useState<JSX.Element>(
     <Fragment />
   );
   const disabledStyle = disabled ? styles.disabled : '';
   const arrowColor = (cl: string) => (disabled ? '#CDCDCD' : cl);
 
-  const handleClick = (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    if (!disabled && onClick) {
-      onClick(event);
-    }
-  };
-
   useEffect(() => {
-    const ArwComponent = lazy(() => import(`@/svgIcons/arrow${direction}`));
+    const ArwComponent = lazy(() =>
+      direction === 'Left'
+        ? import('../svgIcons/arrowLeft')
+        : import('../svgIcons/arrowRight')
+    );
     if (ArwComponent) {
       const component = (
         <ArwComponent
-          className={cn(styles.arrowIcon, styles?.[`arrow${direction}`])}
+          className={cn(styles.arrowIcon, styles[`arrow${direction}`])}
           width="100%"
           height="100%"
           fill={arrowColor(variant === 'primary' ? 'white' : 'black')}
-          onClick={handleClick}
+          // TODO Fix onClick event handling
+          // onClick={handleClick}
         />
       );
       setArrowComponent(component);
@@ -111,5 +116,3 @@ DzArrow.defaultProps = {
   variant: 'primary',
   disabled: false,
 };
-
-export default DzArrow;

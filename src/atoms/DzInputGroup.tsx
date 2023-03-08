@@ -1,17 +1,20 @@
-import { cn } from '@/utils/classnames';
+import { cn } from '../utils/classnames';
 import React, { FC, useState, useEffect } from 'react';
 import { DzCheckbox, CheckProps } from './DzCheckbox';
 import { DzRadioButton, RadioProps } from './DzRadioButton';
 import { DzText, TEXT_SIZES, TEXT_TYPES } from './DzText';
 import { v4 as uuidv4 } from 'uuid';
 
-export const TYPES = {
+export const INPUT_GROUP_TYPES = {
   CHECKBOX: 'checkbox',
   RADIO: 'radio',
 };
 
-export const INPUT_GROUP_TYPES = [TYPES.CHECKBOX, TYPES.RADIO] as const;
-export type InputGroupTypes = typeof INPUT_GROUP_TYPES[number];
+export const INPUT_GROUP_TYPES_NAMES = [
+  INPUT_GROUP_TYPES.CHECKBOX,
+  INPUT_GROUP_TYPES.RADIO,
+] as const;
+export type InputGroupTypes = typeof INPUT_GROUP_TYPES_NAMES[number];
 export type ItemProps = CheckProps | RadioProps;
 
 export interface DzInputGroupProps {
@@ -63,7 +66,7 @@ interface InputStateElement {
 }
 
 export const DzInputGroups: FC<DzInputGroupProps> = ({
-  type = TYPES.CHECKBOX,
+  type = INPUT_GROUP_TYPES.CHECKBOX,
   title = '',
   subtitle = '',
   disabled = false,
@@ -89,7 +92,7 @@ export const DzInputGroups: FC<DzInputGroupProps> = ({
   }, [hasError]);
 
   const getListItem = (type: InputGroupTypes, props: ItemProps) =>
-    type === TYPES.CHECKBOX ? (
+    type === INPUT_GROUP_TYPES.CHECKBOX ? (
       <DzCheckbox {...props} name={formNameId} disabled={disabled} />
     ) : (
       <DzRadioButton {...props} name={formNameId} disabled={disabled} />
