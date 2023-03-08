@@ -5,6 +5,7 @@ import {
   DzTitleProps,
   TITLE_TAGS,
   SUBTITLE_TAGS,
+  TITLE_SIZE_NAMES,
 } from '../src/atoms/DzTitle';
 
 const meta: Meta = {
@@ -13,8 +14,8 @@ const meta: Meta = {
   argTypes: {
     titleSize: {
       control: 'select',
-      options: TEXT_SIZE_NAMES,
-      defaultValue: TEXT_SIZE_NAMES[0],
+      options: TITLE_SIZE_NAMES,
+      defaultValue: TITLE_SIZE_NAMES[0],
     },
     title: { type: 'string', defaultValue: 'Default Title' },
     titleType: {
@@ -37,6 +38,6 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<DzTitleProps> = (args) => <DzTitle {...args} />;
+const Template: Story<DzTitleProps> = args => <DzTitle {...args} />;
 
 export const DefaultDzTitle = Template.bind({});
