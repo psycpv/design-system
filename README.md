@@ -6,6 +6,42 @@ Congrats! You just saved yourself hours of work by bootstrapping this project wi
 
 > If you’re new to TypeScript and React, checkout [this handy cheatsheet](https://github.com/sw-yx/react-typescript-cheatsheet/)
 
+## Publishing to Github
+
+Github will trigger a workflow to create a node package everytime a new release is created. The only thing you need to do is create a release and Github will do everything else for you.
+
+## Working with the design system locally
+
+Accessing the latest changes in this repository from external repos before publishing a new package version is possible.
+
+First of all, you need to clone this repo. (Preferrable if it is in the same folder than the external repo)
+
+```bash
+git clone https://github.com/Zwirner/design-system.git
+```
+
+Now you have to create a symbolic link to your repo:
+
+```bash
+yarn link
+```
+
+In the external project folder, you have to run this command to create the link between both projects:
+
+```bash
+yarn link ../design-system
+```
+
+> Please note that the previous command will not work if you cloned the repo in a different directory than the one we recommended in this guide. In that clase, you only need to adjust the `design-system` path and execute the command.
+
+If everything went good, you will find new lines in the `package.json` file indicating the link you just created:
+
+```json
+"resolutions": {
+    "@zwirner/design-system": "portal:~/SOME-DIRECTORY/design-system"
+  }
+```
+
 ## Commands
 
 TSDX scaffolds your new library inside `/src`, and also sets up a [Parcel-based](https://parceljs.org) playground for it inside `/example`.
@@ -156,10 +192,6 @@ Per Palmer Group guidelines, [always use named exports.](https://github.com/palm
 There are many ways to ship styles, including with CSS-in-JS. TSDX has no opinion on this, configure how you like.
 
 For vanilla CSS, you can include it at the root directory and add it to the `files` section in your `package.json`, so that it can be imported separately by your users and run through their bundler's loader.
-
-## Publishing to NPM
-
-We recommend using [np](https://github.com/sindresorhus/np).
 
 ## Usage with Lerna
 
