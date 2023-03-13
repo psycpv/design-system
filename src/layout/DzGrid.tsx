@@ -154,9 +154,7 @@ export const DzColumn: React.FC<ColumnProps> = ({
   wrap,
   ...rest
 }) => {
-  const gridColumnValue = useMemo(() => {
-    return calculateGridColumn({ span, start });
-  }, [span, start]);
+  const gridColumnValue = calculateGridColumn({ span, start });
 
   return (
     <>
