@@ -125,7 +125,6 @@ const gridColumnStyles = {
   gridCol: `
     grid
     grid-cols-12
-    m-2
     gap-5
   `,
 };
