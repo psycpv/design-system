@@ -3,7 +3,7 @@ import React, {
   FC,
   Fragment,
   lazy,
-  MouseEvent,
+  MouseEventHandler,
   useEffect,
   useState,
 } from 'react';
@@ -19,7 +19,7 @@ export interface DzArrowProps {
   variant?: ArrowVariant;
   disabled?: boolean;
   className?: any;
-  onClick?: Function;
+  onClick?: MouseEventHandler<HTMLDivElement>;
 }
 
 const styles: any = {
@@ -88,8 +88,7 @@ export const DzArrow: FC<DzArrowProps> = (props: DzArrowProps) => {
           width="100%"
           height="100%"
           fill={arrowColor(variant === 'primary' ? 'white' : 'black')}
-          // TODO Fix onClick event handling
-          // onClick={handleClick}
+          onClick={onClick}
         />
       );
       setArrowComponent(component);
