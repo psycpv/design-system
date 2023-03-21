@@ -6,7 +6,7 @@ import {
   TITLE_TAGS,
   SUBTITLE_TAGS,
   TITLE_SIZE_NAMES,
-} from '../src/atoms/DzTitle';
+} from '../../src/atoms/DzTitle';
 
 const meta: Meta = {
   title: 'Atoms/Typography/Title',

@@ -5,7 +5,7 @@ import {
   DzPillProps,
   PILL_VARIANTS,
   PILL_VARIANT_NAMES,
-} from '../src/atoms/DzPill';
+} from '../../src/atoms/DzPill';
 
 const meta: Meta = {
   title: 'Atoms/Helpers/DzPill',

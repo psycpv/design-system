@@ -1,8 +1,8 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzColumn, GridColProps, DzGridColumns } from '../src/layout/DzGrid';
-import { DzModalPopover } from '../src/atoms/DzModalPopover';
-import { cn } from '../src/utils/classnames';
+import { DzColumn, GridColProps, DzGridColumns } from '../../src/layout/DzGrid';
+import { DzModalPopover } from '../../src/atoms/DzModalPopover';
+import { cn } from '../../src/utils/classnames';
 
 const TYPES = {
   DESKTOP: 'desktop',

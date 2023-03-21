@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzExpansion, DzExpansionProps } from '../src/atoms/DzExpansion';
-import { sections } from '../constants/mocks/DzExpansion';
+import { DzExpansion, DzExpansionProps } from '../../src/atoms/DzExpansion';
+import { sections } from '../../constants/mocks/DzExpansion';
 const meta: Meta = {
   title: 'Atoms/Expansions/DzExpansion',
   component: DzExpansion,

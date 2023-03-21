@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzModal, DzModalProps } from '../src/atoms/DzModal';
-import { child1, child2 } from '../constants/mocks/DzModal';
-import { DzButton } from '../src/atoms/DzButton';
+import { DzModal, DzModalProps } from '../../src/atoms/DzModal';
+import { child1, child2 } from '../../constants/mocks/DzModal';
+import { DzButton } from '../../src/atoms/DzButton';
 
 const meta: Meta = {
   title: 'Atoms/Modals/DzModal',

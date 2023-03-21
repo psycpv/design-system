@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import {
   DzModalPopover,
   DzModalPopoverProps,
-} from '../src/atoms/DzModalPopover';
+} from '../../src/atoms/DzModalPopover';
 
 const meta: Meta = {
   title: 'Atoms/Helpers/DzModalPopover',

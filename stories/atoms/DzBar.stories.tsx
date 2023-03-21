@@ -5,7 +5,7 @@ import {
   DzBarProps,
   VARIANTS,
   BAR_VARIANT_NAMES,
-} from '../src/atoms/DzBar';
+} from '../../src/atoms/DzBar';
 
 const meta: Meta = {
   title: 'Atoms/Helpers/DzBar',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzCheckbox, CheckProps } from '../src/atoms/DzCheckbox';
+import { DzCheckbox, CheckProps } from '../../src/atoms/DzCheckbox';
 
 const meta: Meta = {
   title: 'Atoms/Buttons, Radio Buttons & Check Boxes/Checkbox',

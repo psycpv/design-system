@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzLabel, DzLabelProps } from '../src/atoms/DzLabel';
+import { DzLabel, DzLabelProps } from '../../src/atoms/DzLabel';
 
 const meta: Meta = {
   title: 'Atoms/Helpers/DzLabel',

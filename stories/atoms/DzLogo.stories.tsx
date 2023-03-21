@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzLogo, DzLogoProps } from '../src/atoms/DzLogo';
+import { DzLogo, DzLogoProps } from '../../src/atoms/DzLogo';
 
 const meta: Meta = {
   title: 'Atoms/Icons/DzLogo',

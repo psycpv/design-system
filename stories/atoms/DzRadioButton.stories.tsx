@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzRadioButton, RadioProps } from '../src/atoms/DzRadioButton';
+import { DzRadioButton, RadioProps } from '../../src/atoms/DzRadioButton';
 
 const meta: Meta = {
   title: 'Atoms/Buttons, Radio Buttons & Check Boxes/RadioButton',

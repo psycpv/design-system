@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzButton, DzButtonProps, BUTTON_VARIANT_NAMES } from '../src/atoms/DzButton';
+import { DzButton, DzButtonProps, BUTTON_VARIANT_NAMES } from '../../src/atoms/DzButton';
 
 const meta: Meta = {
   title: 'Atoms/Buttons, Radio Buttons & Check Boxes/Button',

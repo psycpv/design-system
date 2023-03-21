@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzTextBox , DzTextBoxProps} from '../src/atoms/DzTextBox';
+import { DzTextBox , DzTextBoxProps} from '../../src/atoms/DzTextBox';
 
 const meta: Meta = {
   title: 'Atoms/Inputs & Selections/TextBox',

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzPagination, DzPaginationProps } from '../src/atoms/DzPagination';
+import { DzPagination, DzPaginationProps } from '../../src/atoms/DzPagination';
 
 const meta: Meta = {
   title: 'Atoms/Controls/DzPagination',

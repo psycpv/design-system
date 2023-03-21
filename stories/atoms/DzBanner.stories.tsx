@@ -11,8 +11,8 @@ import {
   BANNER_TYPES_NAMES,
   ALERT_VARIANT_NAMES,
   TOAST_VARIANT_NAMES,
-} from '../src/atoms/DzBanner';
-import { alertTitle } from '../constants/mocks/DzBanners';
+} from '../../src/atoms/DzBanner';
+import { alertTitle } from '../../constants/mocks/DzBanners';
 
 const meta: Meta = {
   title: 'Atoms/Helpers/DzBanner',

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzSelect, DzSelectProps } from '../src/atoms/DzSelect';
-import { options } from '../constants/mocks/DzSelect';
+import { DzSelect, DzSelectProps } from '../../src/atoms/DzSelect';
+import { options } from '../../constants/mocks/DzSelect';
 
 const meta: Meta = {
   title: 'Atoms/Inputs & Selections/Select',

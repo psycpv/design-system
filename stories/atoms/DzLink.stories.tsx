@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzLink , DzLinkProps} from '../src/atoms/DzLink';
+import { DzLink , DzLinkProps} from '../../src/atoms/DzLink';
 
 const meta: Meta = {
   title: 'Atoms/Controls/DzLink',

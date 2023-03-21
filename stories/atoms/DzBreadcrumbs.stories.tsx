@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzBreadcrumbs, DzBreadcrumbsProps } from '../src/atoms/DzBreadcrumbs';
-import { pages } from '../constants/mocks/DzBreadcrumbs';
+import { DzBreadcrumbs, DzBreadcrumbsProps } from '../../src/atoms/DzBreadcrumbs';
+import { pages } from '../../constants/mocks/DzBreadcrumbs';
 
 const meta: Meta = {
   title: 'Atoms/Controls/DzBreadcrumbs',

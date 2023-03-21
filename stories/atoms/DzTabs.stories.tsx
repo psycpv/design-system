@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzTabs, DzTabsProps, TAB_VARIANTS, TAB_SIZE_VARIANT } from '../src/atoms/DzTabs';
-import { tabs } from '../constants/mocks/DzTabs';
+import { DzTabs, DzTabsProps, TAB_VARIANTS, TAB_SIZE_VARIANT } from '../../src/atoms/DzTabs';
+import { tabs } from '../../constants/mocks/DzTabs';
 
 const meta: Meta = {
   title: 'Atoms/Controls/DzTabs',

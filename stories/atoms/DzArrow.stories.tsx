@@ -5,7 +5,7 @@ import {
   DzArrowProps,
   ARROW_VARIANT_NAMES,
   ARROW_DIRECTION,
-} from '../src/atoms/DzArrow';
+} from '../../src/atoms/DzArrow';
 
 const meta: Meta = {
   title: 'Atoms/Helpers/Arrow',
