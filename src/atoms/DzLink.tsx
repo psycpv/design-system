@@ -18,7 +18,7 @@ export type DzLinkProps = {
   useRoute?: boolean;
   router?: any;
   className?: string;
-  LinkElement: any;
+  LinkElement?: any;
   linkProps?: any;
 } & ComponentPropsWithRef<'a'>;
 

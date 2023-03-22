@@ -76,6 +76,9 @@ module.exports = {
         top: '0px -25px 38px -24px rgba(0, 0, 0, 0.12)',
         down: '0px 25px 38px -24px rgba(0, 0, 0, 0.12)'
       },
+      screens: {
+        'xs': '576px',
+      }
     },
   },
   plugins: [require('tailwind-scrollbar')({ nocompatible: true })],

@@ -1,6 +1,11 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzButton, DzButtonProps, BUTTON_VARIANT_NAMES } from '../../src/atoms/DzButton';
+import {
+  DzButton,
+  DzButtonProps,
+  BUTTON_VARIANT_NAMES,
+  BUTTON_SIZE_NAMES,
+} from '../../src/atoms/DzButton';
 
 const meta: Meta = {
   title: 'Atoms/Buttons, Radio Buttons & Check Boxes/Button',
@@ -8,6 +13,7 @@ const meta: Meta = {
   argTypes: {
     onClick: { action: 'clicked' },
     variant: { control: 'select', options: BUTTON_VARIANT_NAMES },
+    size: { control: 'select', options: BUTTON_SIZE_NAMES },
     children: { type: 'string', defaultValue: 'Button' },
   },
   parameters: {
@@ -17,7 +23,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<DzButtonProps> = args => <DzButton {...args}/>
+const Template: Story<DzButtonProps> = args => <DzButton {...args} />;
 
 export const PrimaryButton = Template.bind({});
 PrimaryButton.args = { variant: BUTTON_VARIANT_NAMES[0] };
