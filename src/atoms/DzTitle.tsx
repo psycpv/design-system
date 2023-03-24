@@ -66,7 +66,6 @@ const styles: any = {
     text-black-100
   `,
   subheading: `
-    text-md
     text-black-60
   `,
   disabled: `

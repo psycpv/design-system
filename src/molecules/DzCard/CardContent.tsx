@@ -5,7 +5,6 @@ import {
   DzLinkProps,
   DzMedia,
   DzMediaProps,
-  TEXT_TYPES,
   TEXT_SIZES,
   DzTitle,
   TITLE_TYPES,
@@ -104,7 +103,6 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
       {category ? (
         <DzText
           className={cn(styles.slugText)}
-          textType={TEXT_TYPES.P}
           textSize={TEXT_SIZES.XS}
           text={category}
         />
@@ -134,11 +132,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
         />
       ) : null}
       {description ? (
-        <DzText
-          className={cn(styles.description)}
-          textType={TEXT_TYPES.P}
-          text={description}
-        />
+        <DzText className={cn(styles.description)} text={description} />
       ) : null}
       {linkCTA ? (
         <div className={cn(styles.linkCta)}>
