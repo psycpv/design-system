@@ -63,7 +63,6 @@ export interface DzTitleProps {
 
 const styles: any = {
   heading: `
-    text-lg
     text-black-100
   `,
   subheading: `
@@ -130,8 +129,8 @@ export const DzTitle: FC<DzTitleProps> &
       <Heading
         className={cn(
           styles.heading,
-          classNameTitle,
           styles[titleSize],
+          classNameTitle,
           disabledClass
         )}
         {...rest}

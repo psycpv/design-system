@@ -36,8 +36,8 @@ module.exports = {
         },
         yellow: {
           10: 'rgba(255, 209, 23, 0.1)',
-          40: '#8E7305'
-        }
+          40: '#8E7305',
+        },
       },
       spacing: {
         28: '7rem',
@@ -74,12 +74,15 @@ module.exports = {
         medium: '0 8px 30px rgba(0, 0, 0, 0.12)',
         drop: '0px 2px 18px rgba(0, 0, 0, 0.06)',
         top: '0px -25px 38px -24px rgba(0, 0, 0, 0.12)',
-        down: '0px 25px 38px -24px rgba(0, 0, 0, 0.12)'
+        down: '0px 25px 38px -24px rgba(0, 0, 0, 0.12)',
       },
       screens: {
-        'xs': '576px',
-      }
+        xs: '576px',
+      },
     },
   },
-  plugins: [require('tailwind-scrollbar')({ nocompatible: true })],
+  plugins: [
+    require('tailwind-scrollbar')({ nocompatible: true }),
+    require('@tailwindcss/container-queries'),
+  ],
 };

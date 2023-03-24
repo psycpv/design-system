@@ -106,8 +106,8 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
     secondaryCTA,
   } = data as CardArtworkData;
   return (
-    <div className={cn(styles.cardContainer)}>
-      <DzMedia {...media}/>
+    <div className={cn(styles.cardContainer, '@container')}>
+      <DzMedia {...media} />
       <div className={cn(styles.artwork.infoContainer)}>
         <div className={cn(styles.artwork.leftPanel)}>
           <DzTitle

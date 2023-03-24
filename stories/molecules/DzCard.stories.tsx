@@ -63,3 +63,15 @@ ArtworkDzCard.args = { data: artWorkData, span: 12, type: CARD_TYPES.ARTWORK };
 
 export const ContentDzCard = Template.bind({});
 ContentDzCard.args = { data: contentData, span: 12, type: CARD_TYPES.CONTENT };
+
+
+export const ArtworkDzCard10 = Template.bind({});
+ArtworkDzCard10.args = { data: artWorkData, span: 10, type: CARD_TYPES.ARTWORK };
+
+
+export const ArtworkDzCard4 = Template.bind({});
+ArtworkDzCard4.args = { data: artWorkData, span: 4, type: CARD_TYPES.ARTWORK };
+
+export const ArtworkDzCard2 = Template.bind({});
+ArtworkDzCard2.args = { data: artWorkData, span: 2, type: CARD_TYPES.ARTWORK };
+

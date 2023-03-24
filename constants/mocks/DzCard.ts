@@ -6,6 +6,7 @@ import { MEDIA_TYPES } from '../../src/atoms/DzMedia';
 
 export const artWorkData: CardArtworkData = {
   media: {
+    url: '/',
     type: MEDIA_TYPES.IMAGE,
     imgProps: {
       src:

@@ -21,14 +21,14 @@ export interface CardContentProps {
 
 export interface CardContentData {
   media: DzMediaProps;
-  category: string;
+  category?: string;
   title: string;
-  subtitle: string;
-  secondaryTitle: string;
-  secondarySubtitle: string;
-  description: string;
-  linkCTA: LinkCTA;
-  primaryCTA: PrimaryCTA;
+  subtitle?: string;
+  secondaryTitle?: string;
+  secondarySubtitle?: string;
+  description?: string;
+  linkCTA?: LinkCTA;
+  primaryCTA?: PrimaryCTA;
 }
 
 interface PrimaryCTA {
@@ -101,12 +101,16 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
   return (
     <div className={cn(styles.cardContainer)}>
       <DzMedia {...media} />
-      <DzText
-        className={cn(styles.slugText)}
-        textType={TEXT_TYPES.P}
-        textSize={TEXT_SIZES.XS}
-        text={category}
-      />
+      {category ? (
+        <DzText
+          className={cn(styles.slugText)}
+          textType={TEXT_TYPES.P}
+          textSize={TEXT_SIZES.XS}
+          text={category}
+        />
+      ) : null}
+
+      {/* Primary Headline (required) */}
       <DzTitle
         title={title}
         className={cn(styles.titleContainer)}
@@ -116,20 +120,26 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
         subtitle={subtitle}
         subtitleType={TITLE_TYPES.H3}
       />
-      <DzTitle
-        title={secondaryTitle}
-        className={cn(styles.secondaryTitleContainer)}
-        classNameTitle={cn(styles.secondaryTitle)}
-        classNameSubtitle={cn(styles.secondaryTitle)}
-        titleType={TITLE_TYPES.H2}
-        subtitle={secondarySubtitle}
-        subtitleType={TITLE_TYPES.H3}
-      />
-      <DzText
-        className={cn(styles.description)}
-        textType={TEXT_TYPES.P}
-        text={description}
-      />
+
+      {/* All fields are optional and should flow as configured when the fields are turned on/off */}
+      {secondaryTitle || secondarySubtitle ? (
+        <DzTitle
+          title={secondaryTitle}
+          className={cn(styles.secondaryTitleContainer)}
+          classNameTitle={cn(styles.secondaryTitle)}
+          classNameSubtitle={cn(styles.secondaryTitle)}
+          titleType={TITLE_TYPES.H2}
+          subtitle={secondarySubtitle}
+          subtitleType={TITLE_TYPES.H3}
+        />
+      ) : null}
+      {description ? (
+        <DzText
+          className={cn(styles.description)}
+          textType={TEXT_TYPES.P}
+          text={description}
+        />
+      ) : null}
       {linkCTA ? (
         <div className={cn(styles.linkCta)}>
           <DzLink

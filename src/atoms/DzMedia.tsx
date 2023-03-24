@@ -1,5 +1,6 @@
-import React, { FC, SourceHTMLAttributes, useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 import { cn } from '../utils/classnames';
+import { DzLink, DzLinkProps } from './DzLink';
 
 export const MEDIA_TYPES = {
   IMAGE: 'image',
@@ -15,45 +16,66 @@ export type MediaType = typeof MEDIA_TYPES_NAMES[number];
 
 export interface DzMediaProps {
   type: MediaType;
+  url?: string;
   ImgElement?: any;
   imgProps?: any;
   imgClass?: any;
-  pictureClass?: any;
-  sourceProps?: SourceHTMLAttributes<HTMLSourceElement>;
+  linkProps?: DzLinkProps;
+  className?: any;
 }
 const styles: any = {
   mediaContainer: `
     w-full
     bg-white-100
-    aspect-video
   `,
-  imageMedia:`
-    aspect-video
+  imageMedia: `
+    !aspect-video
     object-contain
-  `
+  `,
 };
 export const DzMedia: FC<DzMediaProps> = ({
   type,
   ImgElement,
   imgClass,
-  pictureClass,
   imgProps = {},
-  sourceProps = {},
+  url = '',
+  linkProps = {},
+  className = ''
 }) => {
   const renderImage = useMemo(() => {
     if (!ImgElement) {
       return (
-        <picture className={cn(pictureClass)}>
-          <source {...sourceProps} />
-          <img className={cn(styles.imageMedia, imgClass)} loading={'lazy'} {...imgProps} />
-        </picture>
+        <img
+          className={cn(imgClass, styles.imageMedia)}
+          // Change this to eager on demand specially for header components
+          loading={'lazy'}
+          {...imgProps}
+        />
       );
     }
-    return <ImgElement className={cn(styles.imageMedia, imgClass)} {...imgProps} />;
-  }, [ImgElement]);
+    return (
+      <ImgElement
+        className={cn(styles.imageMedia, imgClass)}
+        {...imgProps}
+      />
+    );
+  }, [ImgElement, imgProps, imgClass]);
+
+  const LinkElem = useMemo(() => {
+    if (url) {
+      return (
+        <DzLink {...linkProps} href="/" className={cn(styles.mediaContainer, className)}>
+          {renderImage}
+        </DzLink>
+      );
+    }
+    return <div className={cn(styles.mediaContainer, className)}>{renderImage}</div>;
+  }, [url, renderImage]);
+
   if (type === MEDIA_TYPES.IMAGE) {
-    return <div className={cn(styles.mediaContainer)}>{renderImage}</div>;
+    return LinkElem;
   }
+
   return (
     <video controls width="250" height="200" muted>
       <source src="/media/cc0-videos/flower.webm" type="video/webm" />
