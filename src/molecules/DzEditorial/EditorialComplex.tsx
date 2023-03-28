@@ -15,6 +15,7 @@ const styles: any = {
     md:gap-5
     w-full
     relative
+    scroll-smooth
   `,
   leftPane: `
     basis-1/2

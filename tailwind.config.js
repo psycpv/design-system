@@ -76,6 +76,23 @@ module.exports = {
         top: '0px -25px 38px -24px rgba(0, 0, 0, 0.12)',
         down: '0px 25px 38px -24px rgba(0, 0, 0, 0.12)',
       },
+      keyframes: {
+        zoomIn: {
+          '0%': { transform: 'scale(1)' },
+          '100%': { transform: 'scale(1.2)' },
+        },
+        zoomOut: {
+          '0%': { transform: 'scale(1.2)' },
+          '100%': { transform: 'scale(1)' },
+        }
+      },
+      transitionTimingFunction: {
+        'dz-zoom': 'cubic-bezier(.73,.71,.65,.99)',
+      },
+      animation: {
+        slowZoomIn: '15s ease-in 0.3s 1 both zoomIn',
+        slowZoomOut: '15s ease-in 0.3s 1 both zoomOut',
+      },
       screens: {
         xs: '576px',
       },
