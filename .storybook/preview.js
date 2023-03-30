@@ -24,37 +24,37 @@ export const parameters = {
   viewport: {
     viewports: {
       largeDesktop: {
-        name: 'Large Desktop 12 col',
+        name: 'Desktop 1440px',
         styles: {
-          width: '1440px',
+          width: '1472px',
           height: "100%",
         },
       },
       desktop: {
-        name: 'Desktop 12 col',
+        name: 'Desktop 1024px',
         styles: {
-          width: '1024px',
+          width: '1056px',
           height: "100%",
         },
       },
       tablet: {
-        name: 'Tablet device',
+        name: 'Tablet device 768px',
         styles: {
-          width: '768px',
+          width: '800px',
           height: "100%",
         },
       },
       smallDevice: {
-        name: 'Small device',
+        name: 'Small device 576px',
         styles: {
-          width: '576px',
+          width: '608px',
           height: "100%",
         },
       },
       extraSmallDevice: {
-        name: 'Extra small device',
+        name: 'Extra small device 320px',
         styles: {
-          width: '320px',
+          width: '352px',
           height: "100%",
         },
       },

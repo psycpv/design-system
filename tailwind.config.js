@@ -39,6 +39,16 @@ module.exports = {
           40: '#8E7305',
         },
       },
+      containers: {
+        '6colMbl': '8.375rem',
+        '2col': '13.9375rem',
+        '3col': '20.9375rem',
+        '4col': '29.125rem',
+        '6col': '44.375rem',
+        '10col': '74.75rem',
+        '12col': '90rem',
+        '12colMbl': '20rem'
+      },
       spacing: {
         28: '7rem',
       },
@@ -84,7 +94,7 @@ module.exports = {
         zoomOut: {
           '0%': { transform: 'scale(1.2)' },
           '100%': { transform: 'scale(1)' },
-        }
+        },
       },
       transitionTimingFunction: {
         'dz-zoom': 'cubic-bezier(.73,.71,.65,.99)',

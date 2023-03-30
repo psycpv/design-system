@@ -8,7 +8,6 @@ import {
   TITLE_TYPES,
   DzButton,
   DzButtonProps,
-  BUTTON_SIZES,
 } from '../../atoms';
 import { cn } from '../../utils/classnames';
 import { priceFormatter } from '../../utils/formatters';
@@ -41,49 +40,88 @@ export interface CardArtworkProps {
 const styles: any = {
   artwork: {
     infoContainer: `
+      flex-col
       flex
       justify-between
+      md:@4col/cardContainer:flex-row
+      md:@4col/cardContainer:-mt-2.5
+      md:@6col/cardContainer:mt-0
     `,
     leftPanel: `
-      mt-5
+      flex
+      flex-col
+      @6colMbl/cardContainer:gap-2.5
+      md:@2col/cardContainer:gap-2.5
+      md:@3col/cardContainer:gap-2.5
+      md:@4col/cardContainer:gap-2.5
     `,
     artistName: `
-      xs:text-md
-      md:text-lg
+      @6colMbl/cardContainer:text-sm
+      @12colMbl/cardContainer:text-md
+      md:@4col/cardContainer:text-md
+      md:@10col/cardContainer:text-lg
     `,
     rightPanel: `
       mt-5
+      md:@4col/cardContainer:m-0
       flex
       flex-col
       gap-5
     `,
     artWorkTitle: `
-      xs:text-md
-      md:text-lg
+      @6colMbl/cardContainer:text-sm
+      @12colMbl/cardContainer:text-md
+      md:@4col/cardContainer:text-md
+      md:@10col/cardContainer:text-lg
       italic
     `,
     artworkYear: `
-      xs:text-md
-      md:text-lg
+      @6colMbl/cardContainer:text-sm
+      @12colMbl/cardContainer:text-md
+      md:@4col/cardContainer:text-md
+      md:@10col/cardContainer:text-lg
       uppercase
     `,
     tombstoneContainer: `
-      mt-2.5
+      
     `,
     tombstoneText: `
       text-black-60
     `,
     priceContainer: `
-      mt-2.5
+      
     `,
     priceTitle: `
-      text-sm
-      xs:text-md
+      @6colMbl/cardContainer:text-md
+      md:@2col/cardContainer:text-sm
+      md:@4col/cardContainer:text-md
     `,
   },
-  cardContainer: `
-    w-full
+  mediaImg: `
+    @6colMbl/cardContainer:min-h-[12.5rem]
+    @12colMbl/cardContainer:min-h-[22.5rem]
+    md:@2col/cardContainer:min-h-[15rem]
+    md:@3col/cardContainer:min-h-[18.75rem]
+    md:@4col/cardContainer:min-h-[22.5rem]
+    md:@6col/cardContainer:min-h-[33.75rem]
+    md:@10col/cardContainer:min-h-[45rem]
+    md:@12col/cardContainer:min-h-[51.25rem]
   `,
+  cardContainer: `
+    @container/cardContainer
+    w-full
+    flex
+    flex-col
+    gap-5
+  `,
+  buttons:`
+    @12colMbl/cardContainer:py-[0.8125rem]
+    @12colMbl/cardContainer:px-[1.5625rem]
+    md:@2col/cardContainer:py-[0.3125rem]
+    md:@2col/cardContainer:px-[1.5625rem]
+    md:@4col/cardContainer:py-[0.8125rem]
+    md:@4col/cardContainer:px-[1.5625rem]
+  `
 };
 
 export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
@@ -106,29 +144,32 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
     secondaryCTA,
   } = data as CardArtworkData;
   return (
-    <div className={cn(styles.cardContainer, '@container')}>
-      <DzMedia {...media} />
+    <div className={cn(styles.cardContainer)}>
+      <DzMedia imgClass={cn(styles.mediaImg)} {...media} />
       <div className={cn(styles.artwork.infoContainer)}>
         <div className={cn(styles.artwork.leftPanel)}>
-          <DzTitle
-            classNameTitle={cn(styles.artwork.artistName)}
-            titleType={TITLE_TYPES.H3}
-            title={artistName}
-          />
-          <DzTitle
-            titleType={TITLE_TYPES.H3}
-            title={
-              <>
-                <span className={cn(styles.artwork.artWorkTitle)}>
-                  {artworkTitle}
-                </span>
-                ,{' '}
-                <span className={cn(styles.artwork.artworkYear)}>
-                  {artworkYear}
-                </span>
-              </>
-            }
-          />
+          <div>
+            <DzTitle
+              classNameTitle={cn(styles.artwork.artistName)}
+              titleType={TITLE_TYPES.H3}
+              title={artistName}
+            />
+            <DzTitle
+              titleType={TITLE_TYPES.H3}
+              title={
+                <>
+                  <span className={cn(styles.artwork.artWorkTitle)}>
+                    {artworkTitle}
+                  </span>
+                  ,{' '}
+                  <span className={cn(styles.artwork.artworkYear)}>
+                    {artworkYear}
+                  </span>
+                </>
+              }
+            />
+          </div>
+
           <div className={cn(styles.artwork.tombstoneContainer)}>
             {medium ? (
               <DzText
@@ -169,16 +210,16 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
           <div className={cn(styles.artwork.rightPanel)}>
             {primaryCTA ? (
               <DzButton
-                size={isExtraSmall ? BUTTON_SIZES.SMALL : BUTTON_SIZES.LARGE}
                 {...(primaryCTA.ctaProps ?? {})}
+                className={cn(styles.buttons)}
               >
                 {primaryCTA.text}
               </DzButton>
             ) : null}
             {secondaryCTA ? (
               <DzButton
-                size={isExtraSmall ? BUTTON_SIZES.SMALL : BUTTON_SIZES.LARGE}
                 {...(secondaryCTA.ctaProps ?? {})}
+                className={cn(styles.buttons)}
               >
                 {secondaryCTA.text}
               </DzButton>
