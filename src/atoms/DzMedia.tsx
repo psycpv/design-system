@@ -1,6 +1,14 @@
-import React, { FC, useMemo } from 'react';
+import React, {
+  FC,
+  useMemo,
+  useEffect,
+  ImgHTMLAttributes,
+  VideoHTMLAttributes,
+} from 'react';
 import { cn } from '../utils/classnames';
 import { DzLink, DzLinkProps } from './DzLink';
+import Plyr from 'plyr-react';
+// import 'plyr-react/plyr.css';
 
 export const MEDIA_TYPES = {
   IMAGE: 'image',
@@ -14,7 +22,7 @@ export const MEDIA_TYPES_NAMES = [
 
 export type MediaType = typeof MEDIA_TYPES_NAMES[number];
 
-export interface DzMediaProps {
+export interface DzMediaProps extends ImgHTMLAttributes<HTMLImageElement> {
   type: MediaType;
   url?: string;
   ImgElement?: any;
@@ -22,6 +30,7 @@ export interface DzMediaProps {
   imgClass?: any;
   linkProps?: DzLinkProps;
   className?: any;
+  videoProps?: any;
 }
 const styles: any = {
   mediaContainer: `
@@ -40,8 +49,10 @@ export const DzMedia: FC<DzMediaProps> = ({
   imgProps = {},
   url = '',
   linkProps = {},
-  className = ''
+  className = '',
+  videoProps = {},
 }) => {
+  useEffect(() => {}, []);
   const renderImage = useMemo(() => {
     if (!ImgElement) {
       return (
@@ -54,22 +65,25 @@ export const DzMedia: FC<DzMediaProps> = ({
       );
     }
     return (
-      <ImgElement
-        className={cn(styles.imageMedia, imgClass)}
-        {...imgProps}
-      />
+      <ImgElement className={cn(styles.imageMedia, imgClass)} {...imgProps} />
     );
   }, [ImgElement, imgProps, imgClass]);
 
   const LinkElem = useMemo(() => {
     if (url) {
       return (
-        <DzLink {...linkProps} href="/" className={cn(styles.mediaContainer, className)}>
+        <DzLink
+          {...linkProps}
+          href="/"
+          className={cn(styles.mediaContainer, className)}
+        >
           {renderImage}
         </DzLink>
       );
     }
-    return <div className={cn(styles.mediaContainer, className)}>{renderImage}</div>;
+    return (
+      <div className={cn(styles.mediaContainer, className)}>{renderImage}</div>
+    );
   }, [url, renderImage]);
 
   if (type === MEDIA_TYPES.IMAGE) {
@@ -77,15 +91,9 @@ export const DzMedia: FC<DzMediaProps> = ({
   }
 
   return (
-    <video controls width="250" height="200" muted>
-      <source src="/media/cc0-videos/flower.webm" type="video/webm" />
-      <source src="/media/cc0-videos/flower.mp4" type="video/mp4" />
-      Download the
-      <a href="/media/cc0-videos/flower.webm">WEBM</a>
-      or
-      <a href="/media/cc0-videos/flower.mp4">MP4</a>
-      video.
-    </video>
+    <div key="asd">
+      <Plyr {...videoProps} />
+    </div>
   );
 };
 

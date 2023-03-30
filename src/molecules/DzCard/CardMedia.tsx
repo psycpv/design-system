@@ -1,5 +1,11 @@
 import React, { FC } from 'react';
-import { DzText, DzMedia, DzMediaProps, TEXT_TYPES, TEXT_SIZES } from '../../atoms';
+import {
+  DzText,
+  DzMedia,
+  DzMediaProps,
+  TEXT_TYPES,
+  TEXT_SIZES,
+} from '../../atoms';
 import { cn } from '../../utils/classnames';
 
 export interface CardMediaData {
@@ -20,6 +26,18 @@ const styles: any = {
   },
   cardContainer: `
     w-full
+    @container/cardContainer
+  `,
+  mediaImg: `
+    w-full
+    @6colMbl/cardContainer:min-h-[12.5rem]
+    @12colMbl/cardContainer:min-h-[22.5rem]
+    md:@2col/cardContainer:min-h-[12.5rem]
+    md:@3col/cardContainer:min-h-[18.75rem]
+    md:@4col/cardContainer:min-h-[22.5rem]
+    md:@6col/cardContainer:min-h-[33.75rem]
+    md:@10col/cardContainer:min-h-[45rem]
+    md:@12col/cardContainer:min-h-[51.25rem]
   `,
 };
 
@@ -27,7 +45,7 @@ export const CardMedia: FC<CardMediaProps> = ({ data }) => {
   const { media, description } = data as CardMediaData;
   return (
     <div className={cn(styles.cardContainer)}>
-      <DzMedia {...media}/>
+      <DzMedia imgClass={cn(styles.mediaImg)} {...media} />
       <DzText
         className={cn(styles.media.descriptionText)}
         textType={TEXT_TYPES.P}

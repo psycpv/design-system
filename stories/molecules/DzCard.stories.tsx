@@ -21,6 +21,9 @@ const meta: Meta = {
     backgrounds: {
       default: 'dzFigmaWhite',
     },
+    viewport: {
+      defaultViewport: 'largeDesktop',
+    },
   },
 };
 
@@ -43,35 +46,87 @@ export default meta;
 
 interface CardStoryProps extends DzCardProps {
   span: ColumnSpan | ColumnSpan[];
+  showGrid?: boolean;
 }
-const Template: Story<CardStoryProps> = ({ span, ...rest }) => {
+const Template: Story<CardStoryProps> = ({
+  showGrid = false,
+  span,
+  ...rest
+}) => {
   return (
-    <DzGridColumns>
-      {/* <GridColumnsDebug /> */}
-      <DzColumn className="z-10 relative" span={span}>
-        <DzCard {...rest} />
-      </DzColumn>
-    </DzGridColumns>
+    <div className="fullContainer">
+      <DzGridColumns>
+        {showGrid ? <GridColumnsDebug /> : null}
+        <DzColumn className="z-10 relative" span={span}>
+          <DzCard {...rest} />
+        </DzColumn>
+      </DzGridColumns>
+    </div>
   );
 };
 
-export const MediaDzCard = Template.bind({});
-MediaDzCard.args = { data: mediaData, span: 12, type: CARD_TYPES.MEDIA };
+const mediaProps = { data: mediaData, type: CARD_TYPES.MEDIA, showGrid: false };
+const artworkProps = {
+  data: artWorkData,
+  type: CARD_TYPES.ARTWORK,
+  showGrid: false,
+};
+const contentProps = {
+  data: contentData,
+  type: CARD_TYPES.CONTENT,
+  showGrid: false,
+};
 
-export const ArtworkDzCard = Template.bind({});
-ArtworkDzCard.args = { data: artWorkData, span: 12, type: CARD_TYPES.ARTWORK };
+export const MediaDzCardCol12 = Template.bind({});
+MediaDzCardCol12.args = { span: 12, ...mediaProps };
 
-export const ContentDzCard = Template.bind({});
-ContentDzCard.args = { data: contentData, span: 12, type: CARD_TYPES.CONTENT };
+export const MediaDzCardCol10 = Template.bind({});
+MediaDzCardCol10.args = { span: 10, ...mediaProps };
 
+export const MediaDzCardCol6 = Template.bind({});
+MediaDzCardCol6.args = { span: [6, 6], ...mediaProps };
 
-export const ArtworkDzCard10 = Template.bind({});
-ArtworkDzCard10.args = { data: artWorkData, span: 10, type: CARD_TYPES.ARTWORK };
+export const MediaDzCardCol4 = Template.bind({});
+MediaDzCardCol4.args = { span: 4, ...mediaProps };
 
+export const MediaDzCardCol3 = Template.bind({});
+MediaDzCardCol3.args = { span: 3, ...mediaProps };
 
-export const ArtworkDzCard4 = Template.bind({});
-ArtworkDzCard4.args = { data: artWorkData, span: 4, type: CARD_TYPES.ARTWORK };
+export const MediaDzCardCol2 = Template.bind({});
+MediaDzCardCol2.args = { span: 2, ...mediaProps };
 
-export const ArtworkDzCard2 = Template.bind({});
-ArtworkDzCard2.args = { data: artWorkData, span: 2, type: CARD_TYPES.ARTWORK };
+export const ArtworkDzCardCol12 = Template.bind({});
+ArtworkDzCardCol12.args = { span: 12, ...artworkProps };
 
+export const ArtworkDzCardCol10 = Template.bind({});
+ArtworkDzCardCol10.args = { span: 10, ...artworkProps };
+
+export const ArtworkDzCardCol6 = Template.bind({});
+ArtworkDzCardCol6.args = { span: [6, 6], ...artworkProps };
+
+export const ArtworkDzCardCol4 = Template.bind({});
+ArtworkDzCardCol4.args = { span: 4, ...artworkProps };
+
+export const ArtworkDzCardCol3 = Template.bind({});
+ArtworkDzCardCol3.args = { span: 3, ...artworkProps };
+
+export const ArtworkDzCardCol2 = Template.bind({});
+ArtworkDzCardCol2.args = { span: 2, ...artworkProps };
+
+export const ContentDzCardCol12 = Template.bind({});
+ContentDzCardCol12.args = { span: 12, ...contentProps };
+
+export const ContentDzCardCol10 = Template.bind({});
+ContentDzCardCol10.args = { span: 10, ...contentProps };
+
+export const ContentDzCardCol6 = Template.bind({});
+ContentDzCardCol6.args = { span: [6, 6], ...contentProps };
+
+export const ContentDzCardCol4 = Template.bind({});
+ContentDzCardCol4.args = { span: 4, ...contentProps };
+
+export const ContentDzCardCol3 = Template.bind({});
+ContentDzCardCol3.args = { span: 3, ...contentProps };
+
+export const ContentDzCardCol2 = Template.bind({});
+ContentDzCardCol2.args = { span: 2, ...contentProps };

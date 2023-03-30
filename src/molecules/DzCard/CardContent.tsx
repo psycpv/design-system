@@ -8,9 +8,9 @@ import {
   TEXT_SIZES,
   DzTitle,
   TITLE_TYPES,
+  TITLE_SIZES,
   DzLink,
   DzButton,
-  BUTTON_SIZES,
 } from '../../atoms';
 import { cn } from '../../utils/classnames';
 
@@ -45,43 +45,57 @@ interface LinkCTA {
 const styles: any = {
   cardContainer: `
     w-full
+    flex
+    flex-col
+    gap-5
+    @container/cardContainer
   `,
-  titleContainer: `
-    mt-2.5
-  `,
-  secondaryTitleContainer: `
-    mt-2.5
-    xm:mt-5
+  infoContainer: `
+    flex
+    flex-col
+    gap-2.5
+    md:@2col/cardContainer:gap-2.5
+    md:@6col/cardContainer:gap-5
   `,
   title: `
     text-md
     xs:text-lg
-    sm:text-xl
-    md:text-xxl
+    md:@2col/cardContainer:text-md
+    md:@3col/cardContainer:text-lg
+    md:@4col/cardContainer:text-xl
+    md:@6col/cardContainer:text-xxl
   `,
   secondaryTitle: `
     text-sm
     xs:text-md
-    sm:text-lg
+    md:@2col/cardContainer:text-sm
+    md:@3col/cardContainer:text-md
+    md:@4col/cardContainer:text-lg
   `,
   description: `
-    my-2.5
-    xm:my-5
     text-sm
-    sm:text-md
+    xs:text-md
+    md:@2col/cardContainer:text-sm
+    md:@4col/cardContainer:text-md
   `,
   linkCta: `
-    mt-2.5
-    pt-2.5
-    xs:my-5
-    xs:pt-5
+    py-5
+    md:@2col/cardContainer:py-5
   `,
   btnCta: `
-    mt-2.5
-    xs:mt-5
+    md:@2col/cardContainer:py-[0.8125rem]
+    md:@2col/cardContainer:px-[1.5625rem]
   `,
   slugText: `
-    mt-2.5
+    md:@2col/cardContainer:text-sm
+  `,
+  mediaImg: `
+    md:@2col/cardContainer:min-h-[12.5rem]
+    md:@3col/cardContainer:min-h-[18.75rem]
+    md:@4col/cardContainer:min-h-[22.5rem]
+    md:@6col/cardContainer:min-h-[33.75rem]
+    md:@10col/cardContainer:min-h-[45rem]
+    md:@12col/cardContainer:min-h-[51.25rem]
   `,
 };
 
@@ -99,61 +113,63 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
   } = data as CardContentData;
   return (
     <div className={cn(styles.cardContainer)}>
-      <DzMedia {...media} />
-      {category ? (
-        <DzText
-          className={cn(styles.slugText)}
-          textSize={TEXT_SIZES.XS}
-          text={category}
-        />
-      ) : null}
+      <DzMedia imgClass={cn(styles.mediaImg)} {...media} />
+      <div className={cn(styles.infoContainer)}>
+        {category ? (
+          <DzText
+            className={cn(styles.slugText)}
+            textSize={TEXT_SIZES.XS}
+            text={category}
+          />
+        ) : null}
 
-      {/* Primary Headline (required) */}
-      <DzTitle
-        title={title}
-        className={cn(styles.titleContainer)}
-        classNameTitle={cn(styles.title)}
-        classNameSubtitle={cn(styles.title)}
-        titleType={TITLE_TYPES.H2}
-        subtitle={subtitle}
-        subtitleType={TITLE_TYPES.H3}
-      />
-
-      {/* All fields are optional and should flow as configured when the fields are turned on/off */}
-      {secondaryTitle || secondarySubtitle ? (
+        {/* Primary Headline (required) */}
         <DzTitle
-          title={secondaryTitle}
-          className={cn(styles.secondaryTitleContainer)}
-          classNameTitle={cn(styles.secondaryTitle)}
-          classNameSubtitle={cn(styles.secondaryTitle)}
+          title={title}
+          titleSize={TITLE_SIZES.MD}
+          classNameTitle={cn(styles.title)}
+          classNameSubtitle={cn(styles.title)}
           titleType={TITLE_TYPES.H2}
-          subtitle={secondarySubtitle}
+          subtitle={subtitle}
           subtitleType={TITLE_TYPES.H3}
         />
-      ) : null}
-      {description ? (
-        <DzText className={cn(styles.description)} text={description} />
-      ) : null}
-      {linkCTA ? (
-        <div className={cn(styles.linkCta)}>
-          <DzLink
-            {...(linkCTA.linkProps ?? {})}
-            href={linkCTA.url}
-            LinkElement={linkCTA.linkElement}
-          >
-            {linkCTA.text}
-          </DzLink>
-        </div>
-      ) : null}
-      {primaryCTA ? (
-        <DzButton
-          className={cn(styles.btnCta)}
-          size={BUTTON_SIZES.SMALL}
-          {...(primaryCTA.ctaProps ?? {})}
-        >
-          {primaryCTA.text}
-        </DzButton>
-      ) : null}
+
+        {/* All fields are optional and should flow as configured when the fields are turned on/off */}
+        {secondaryTitle || secondarySubtitle ? (
+          <DzTitle
+            title={secondaryTitle}
+            classNameTitle={cn(styles.secondaryTitle)}
+            classNameSubtitle={cn(styles.secondaryTitle)}
+            titleType={TITLE_TYPES.H2}
+            subtitle={secondarySubtitle}
+            subtitleType={TITLE_TYPES.H3}
+          />
+        ) : null}
+        {description ? (
+          <DzText className={cn(styles.description)} text={description} />
+        ) : null}
+        {linkCTA ? (
+          <div className={cn(styles.linkCta)}>
+            <DzLink
+              {...(linkCTA.linkProps ?? {})}
+              href={linkCTA.url}
+              LinkElement={linkCTA.linkElement}
+            >
+              {linkCTA.text}
+            </DzLink>
+          </div>
+        ) : null}
+        {primaryCTA ? (
+          <div>
+            <DzButton
+              className={cn(styles.btnCta)}
+              {...(primaryCTA.ctaProps ?? {})}
+            >
+              {primaryCTA.text}
+            </DzButton>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 };

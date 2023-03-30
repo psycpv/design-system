@@ -50,13 +50,6 @@ const styles = {
     bg-white-100
     px-5
     max-h-[12rem]
-    overflow-y-auto
-    scrollbar
-    scrollbar-h-[0.1875rem]
-    scrollbar-w-[0.1875rem]
-    scrollbar-thumb-black-60
-    scrollbar-track-black-20
-    scrollbar-rounded-[0.1875rem]
   `,
   closeIcon: `
     ml-5

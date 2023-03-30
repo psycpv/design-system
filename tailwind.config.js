@@ -39,6 +39,16 @@ module.exports = {
           40: '#8E7305',
         },
       },
+      containers: {
+        '6colMbl': '8.375rem',
+        '2col': '13.9375rem',
+        '3col': '20.9375rem',
+        '4col': '29.125rem',
+        '6col': '44.375rem',
+        '10col': '74.75rem',
+        '12col': '90rem',
+        '12colMbl': '20rem'
+      },
       spacing: {
         28: '7rem',
       },
@@ -75,6 +85,23 @@ module.exports = {
         drop: '0px 2px 18px rgba(0, 0, 0, 0.06)',
         top: '0px -25px 38px -24px rgba(0, 0, 0, 0.12)',
         down: '0px 25px 38px -24px rgba(0, 0, 0, 0.12)',
+      },
+      keyframes: {
+        zoomIn: {
+          '0%': { transform: 'scale(1)' },
+          '100%': { transform: 'scale(1.2)' },
+        },
+        zoomOut: {
+          '0%': { transform: 'scale(1.2)' },
+          '100%': { transform: 'scale(1)' },
+        },
+      },
+      transitionTimingFunction: {
+        'dz-zoom': 'cubic-bezier(.73,.71,.65,.99)',
+      },
+      animation: {
+        slowZoomIn: '15s ease-in 0.3s 1 both zoomIn',
+        slowZoomOut: '15s ease-in 0.3s 1 both zoomOut',
       },
       screens: {
         xs: '576px',
