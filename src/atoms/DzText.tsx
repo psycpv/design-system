@@ -35,7 +35,7 @@ type TextElements = HTMLAttributes<HTMLParagraphElement> &
   HTMLAttributes<HTMLSpanElement>;
 
 export interface DzTextProps extends TextElements {
-  textType: TextType;
+  textType?: TextType;
   text: string;
   className?: any;
   disabled?: boolean;

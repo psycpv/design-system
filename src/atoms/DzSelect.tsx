@@ -150,14 +150,11 @@ export const DzSelect: React.FunctionComponent<DzSelectProps> = ({
     />
   ) : null;
 
-  console.log('selected', selected);
-
   return (
     <div>
       <Listbox
         value={useCheckbox ? multipleSelect : selected}
         onChange={(args: any) => {
-          console.log('args:::', args);
           if (!useCheckbox) {
             setSelected(args);
           } else {

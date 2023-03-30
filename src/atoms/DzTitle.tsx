@@ -1,5 +1,5 @@
 import { cn } from '../utils/classnames';
-import React, { createElement, FC, Fragment, HTMLAttributes } from 'react';
+import React, { createElement, FC, Fragment, HTMLAttributes, ReactNode } from 'react';
 
 export const TITLE_SIZES = {
   XS: 'extraSmall',
@@ -51,8 +51,9 @@ export type SubTitleType = typeof SUBTITLE_TAGS[number];
 export interface DzTitleProps {
   titleType: TitleType;
   subtitleType?: SubTitleType;
-  title: string;
+  title: string | ReactNode;
   subtitle?: string;
+  className?: any;
   classNameTitle?: any;
   classNameSubtitle?: any;
   disabled?: boolean;
@@ -62,11 +63,9 @@ export interface DzTitleProps {
 
 const styles: any = {
   heading: `
-    text-lg
     text-black-100
   `,
   subheading: `
-    text-md
     text-black-60
   `,
   disabled: `
@@ -106,6 +105,7 @@ export const DzTitle: FC<DzTitleProps> &
   disabled = false,
   titleSize = TITLE_SIZES.SM,
   subtitleSize = TITLE_SIZES.SM,
+  className,
   classNameTitle,
   classNameSubtitle,
   ...rest
@@ -124,12 +124,12 @@ export const DzTitle: FC<DzTitleProps> &
       : () => <Fragment />;
 
   return (
-    <div>
+    <div className={cn(className)}>
       <Heading
         className={cn(
           styles.heading,
-          classNameTitle,
           styles[titleSize],
+          classNameTitle,
           disabledClass
         )}
         {...rest}
