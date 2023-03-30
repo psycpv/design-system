@@ -1,4 +1,5 @@
 import '../tailwind.css';
+import 'plyr-react/plyr.css';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 // https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
 export const parameters = {

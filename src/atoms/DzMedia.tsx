@@ -8,7 +8,7 @@ import React, {
 import { cn } from '../utils/classnames';
 import { DzLink, DzLinkProps } from './DzLink';
 import Plyr from 'plyr-react';
-import 'plyr-react/plyr.css';
+// import 'plyr-react/plyr.css';
 
 export const MEDIA_TYPES = {
   IMAGE: 'image',
@@ -90,31 +90,10 @@ export const DzMedia: FC<DzMediaProps> = ({
     return LinkElem;
   }
 
-  const { source, options } = videoProps;
-
-  const plyrProps = {
-    source, // https://github.com/sampotts/plyr#the-source-setter
-    options,
-    // Direct props for inner video tag (mdn.io/video)
-  };
-
   return (
     <div key="asd">
-      <Plyr {...plyrProps} />
+      <Plyr {...videoProps} />
     </div>
-
-    // <div className="plyr__video-embed" id="player">
-    //   <iframe
-    //     src="https://player.vimeo.com/video/812862186?h=d3919b94c1&loop=true&autoplay=true&muted=false&gesture=media&playsinline=true&byline=false&portrait=false&title=false&speed=true&transparent=false&controls=false&background=true"
-    //     allowFullScreen
-    //     allowTransparency
-    //     allow="autoplay"
-    //   ></iframe>
-    // </div>
-    // <video {...videoProps}>
-    //   <source src="/media/cc0-videos/flower.webm" type="video/webm" />
-    //   <source src="/media/cc0-videos/flower.mp4" type="video/mp4" />
-    // </video>
   );
 };
 
