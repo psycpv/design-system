@@ -78,127 +78,134 @@ const styles = {
   `,
 };
 
-export const DzInputText: FC<InputTextProps> = ({
-  disabled,
-  placeholder,
-  title,
-  subtitle,
-  extras = '',
-  required = false,
-  validator = () => true,
-  hasError = false,
-  errorMsg = '',
-  onChange,
-  formName = '',
-  ...rest
-}) => {
-  const [value, setValue] = useState<string>('');
-  const [isValidValue, setIsValidValue] = useState<boolean>(!hasError);
-  const [classContent, setClassContent] = useState<string>('');
-  const debouncedValue = useDebounce<string>(value, 100);
-  const disabledClass = disabled ? styles.disabled : '';
-  const errorClass = !isValidValue ? styles.error : '';
+export const DzInputText = React.forwardRef<HTMLInputElement, InputTextProps>(
+  (
+    {
+      disabled,
+      placeholder,
+      title,
+      subtitle,
+      extras = '',
+      required = false,
+      validator = () => true,
+      hasError = false,
+      errorMsg = '',
+      onChange,
+      formName = '',
+      className = '',
+      ...rest
+    },
+    ref
+  ) => {
+    const [value, setValue] = useState<string>('');
+    const [isValidValue, setIsValidValue] = useState<boolean>(!hasError);
+    const [classContent, setClassContent] = useState<string>('');
+    const debouncedValue = useDebounce<string>(value, 100);
+    const disabledClass = disabled ? styles.disabled : '';
+    const errorClass = !isValidValue ? styles.error : '';
 
-  useEffect(() => {
-    setIsValidValue(validator(value));
-    if (value) {
-      setClassContent(styles.content);
-    } else {
-      setClassContent('');
-    }
-  }, [debouncedValue]);
+    useEffect(() => {
+      setIsValidValue(validator(value));
+      if (value) {
+        setClassContent(styles.content);
+      } else {
+        setClassContent('');
+      }
+    }, [debouncedValue]);
 
-  useEffect(() => {
-    setIsValidValue(!hasError);
-  }, [hasError]);
+    useEffect(() => {
+      setIsValidValue(!hasError);
+    }, [hasError]);
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target) setValue(event.target.value);
-    if (!disabled && onChange) {
-      onChange(event);
-    }
-  };
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+      if (event.target) setValue(event.target.value);
+      if (!disabled && onChange) {
+        onChange(event);
+      }
+    };
 
-  const errorMessage =
-    errorMsg && !isValidValue ? (
-      <DzText
-        className={cn(styles.error)}
-        textSize={TEXT_SIZES.XS}
-        textType={TEXT_TYPES.SPAN}
-        text={errorMsg}
-        id={`error-${title}`}
-      />
-    ) : null;
-
-  const titleSection = title ? (
-    <DzText
-      textSize={TEXT_SIZES.XS}
-      textType={TEXT_TYPES.LABEL}
-      text={title}
-      htmlFor={title}
-      disabled={disabled}
-    />
-  ) : null;
-
-  const subTitle = subtitle ? (
-    <DzText
-      className="text-black-60"
-      textSize={TEXT_SIZES.XS}
-      textType={TEXT_TYPES.P}
-      text={subtitle}
-      disabled={disabled}
-    />
-  ) : null;
-
-  const extraInformation =
-    extras || required ? (
-      <DzText
-        className={cn(styles.extras, disabledClass)}
-        textSize={TEXT_SIZES.XS}
-        textType={TEXT_TYPES.SPAN}
-        text={required ? '*' : extras}
-        disabled={disabled}
-        id={`${title}-${extras}`}
-      />
-    ) : null;
-
-  return (
-    <div className={cn(styles.inputContainer)}>
-      <div>
-        {titleSection}
-        {subTitle}
-      </div>
-      <div
-        className={cn(
-          classContent,
-          disabledClass,
-          styles.inputWrap,
-          errorClass
-        )}
-      >
+    const errorMessage =
+      errorMsg && !isValidValue ? (
         <DzText
-          className="sr-only"
-          htmlFor={formName || title}
-          textType={TEXT_TYPES.LABEL}
-          text={title || 'Input Text'}
+          className={cn(styles.error)}
+          textSize={TEXT_SIZES.XS}
+          textType={TEXT_TYPES.SPAN}
+          text={errorMsg}
+          id={`error-${title}`}
         />
-        <DzInput
-          id={formName || title}
-          name={formName || title}
-          className={cn(styles.input)}
-          type="text"
+      ) : null;
+
+    const titleSection = title ? (
+      <DzText
+        textSize={TEXT_SIZES.XS}
+        textType={TEXT_TYPES.LABEL}
+        text={title}
+        htmlFor={title}
+        disabled={disabled}
+      />
+    ) : null;
+
+    const subTitle = subtitle ? (
+      <DzText
+        className="text-black-60"
+        textSize={TEXT_SIZES.XS}
+        textType={TEXT_TYPES.P}
+        text={subtitle}
+        disabled={disabled}
+      />
+    ) : null;
+
+    const extraInformation =
+      extras || required ? (
+        <DzText
+          className={cn(styles.extras, disabledClass)}
+          textSize={TEXT_SIZES.XS}
+          textType={TEXT_TYPES.SPAN}
+          text={required ? '*' : extras}
           disabled={disabled}
-          placeholder={placeholder}
-          onChange={handleChange}
-          {...rest}
+          id={`${title}-${extras}`}
         />
-        <div className={cn(styles.extraContentContainer)}>
-          {extraInformation}
+      ) : null;
+
+    return (
+      <div className={cn(styles.inputContainer, className)}>
+        <div>
+          {titleSection}
+          {subTitle}
         </div>
+        <div
+          className={cn(
+            classContent,
+            disabledClass,
+            styles.inputWrap,
+            errorClass
+          )}
+        >
+          <DzText
+            className="sr-only"
+            htmlFor={formName || title}
+            textType={TEXT_TYPES.LABEL}
+            text={title || 'Input Text'}
+          />
+          <DzInput
+            ref={ref}
+            id={formName || title}
+            name={formName || title}
+            className={cn(styles.input)}
+            type="text"
+            disabled={disabled}
+            placeholder={placeholder}
+            onChange={handleChange}
+            {...rest}
+          />
+          <div className={cn(styles.extraContentContainer)}>
+            {extraInformation}
+          </div>
+        </div>
+        {errorMessage}
       </div>
-      {errorMessage}
-    </div>
-  );
-};
+    );
+  }
+);
 
 export default DzInputText;

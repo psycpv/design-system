@@ -1,9 +1,9 @@
 import { cn } from '../utils/classnames';
 import { DzInput } from './DzInput';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, PropsWithRef } from 'react';
 
 export interface RadioProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+  extends PropsWithRef<React.InputHTMLAttributes<HTMLInputElement>> {
   title: string;
   subtitle?: string;
   disabled?: boolean;
@@ -78,73 +78,84 @@ const styles = {
   `,
 };
 
-export const DzRadioButton: React.FC<RadioProps> = ({
-  id,
-  disabled,
-  title,
-  subtitle,
-  hasError = false,
-  onChange,
-  ariaDescribedBy = '',
-  checked = false,
-  ...rest
-}) => {
-  const [hasBeenChecked, setHasBeenChecked] = useState<boolean>(false);
-  const [isValidValue, setIsValidValue] = useState<boolean>(!hasError);
+export const DzRadioButton = React.forwardRef<HTMLInputElement, RadioProps>(
+  (
+    {
+      id,
+      disabled,
+      title,
+      subtitle,
+      hasError = false,
+      onChange,
+      ariaDescribedBy = '',
+      checked = false,
+      ...rest
+    },
+    ref
+  ) => {
+    const [hasBeenChecked, setHasBeenChecked] = useState<boolean>(false);
+    const [isValidValue, setIsValidValue] = useState<boolean>(!hasError);
 
-  const checkedStyle = hasBeenChecked ? styles.checked : styles.unchecked;
-  const weightStyle = (isSubtitle = false) =>
-    isSubtitle ? styles.unchecked : checkedStyle;
-  const disabledStyle = disabled ? styles.disabled : '';
-  const errorClass = !isValidValue ? styles.error : '';
+    const checkedStyle = hasBeenChecked ? styles.checked : styles.unchecked;
+    const weightStyle = (isSubtitle = false) =>
+      isSubtitle ? styles.unchecked : checkedStyle;
+    const disabledStyle = disabled ? styles.disabled : '';
+    const errorClass = !isValidValue ? styles.error : '';
 
-  useEffect(() => {
-    setIsValidValue(!hasError);
-  }, [hasError]);
+    useEffect(() => {
+      setIsValidValue(!hasError);
+    }, [hasError]);
 
-  useEffect(() => {
-    setHasBeenChecked(checked);
-  }, [checked]);
+    useEffect(() => {
+      setHasBeenChecked(checked);
+    }, [checked]);
 
-  const handleSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event?.target) setHasBeenChecked(event?.target?.checked);
-    if (!disabled && onChange) {
-      onChange(event);
-    }
-  };
+    const handleSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (event?.target) setHasBeenChecked(event?.target?.checked);
+      if (!disabled && onChange) {
+        onChange(event);
+      }
+    };
 
-  return (
-    <label className={cn(styles.labelContainer, 'group')}>
-      <DzInput
-        className={cn(styles.radio, 'peer', errorClass)}
-        type="radio"
-        disabled={disabled}
-        onChange={handleSelect}
-        aria-describedby={ariaDescribedBy ?? `${title}-description`}
-        {...rest}
-      />
-      <div className={cn(styles.textContainer)}>
-        <span
-          id={`${id ?? ''}-${title}-description`}
-          className={cn(styles.title, weightStyle(), disabledStyle, errorClass)}
-        >
-          {title}
-        </span>
-        {subtitle ? (
+    return (
+      <label className={cn(styles.labelContainer, 'group')}>
+        <DzInput
+          ref={ref}
+          className={cn(styles.radio, 'peer', errorClass)}
+          type="radio"
+          disabled={disabled}
+          onChange={handleSelect}
+          aria-describedby={ariaDescribedBy ?? `${title}-description`}
+          {...rest}
+        />
+        <div className={cn(styles.textContainer)}>
           <span
+            id={`${id ?? ''}-${title}-description`}
             className={cn(
-              styles.subtitle,
-              weightStyle(true),
+              styles.title,
+              weightStyle(),
               disabledStyle,
               errorClass
             )}
           >
-            {subtitle}
+            {title}
           </span>
-        ) : null}
-      </div>
-    </label>
-  );
-};
+          {subtitle ? (
+            <span
+              className={cn(
+                styles.subtitle,
+                weightStyle(true),
+                disabledStyle,
+                errorClass
+              )}
+            >
+              {subtitle}
+            </span>
+          ) : null}
+        </div>
+      </label>
+    );
+  }
+);
 
 export default DzRadioButton;
