@@ -8,7 +8,6 @@ import React, {
 import { cn } from '../utils/classnames';
 import { DzLink, DzLinkProps } from './DzLink';
 import Plyr from 'plyr-react';
-// import 'plyr-react/plyr.css';
 
 export const MEDIA_TYPES = {
   IMAGE: 'image',

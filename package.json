@@ -1,5 +1,5 @@
 {
-  "version": "0.0.6",
+  "version": "0.0.7",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -28,7 +28,8 @@
   },
   "peerDependencies": {
     "react": ">=16",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "plyr-react": "^5.1.2"
   },
   "husky": {
     "hooks": {
