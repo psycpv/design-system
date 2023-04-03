@@ -96,9 +96,9 @@ export const DzInputGroups: FC<DzInputGroupProps> = ({
 
   const getListItem = (type: InputGroupTypes, props: ItemProps) =>
     type === INPUT_GROUP_TYPES.CHECKBOX ? (
-      <DzCheckbox name={formNameId} disabled={disabled} {...props} />
+      <DzCheckbox name={formNameId} disabled={disabled} {...props} hasError={hasError} />
     ) : (
-      <DzRadioButton name={formNameId} disabled={disabled} {...props} />
+      <DzRadioButton name={formNameId} disabled={disabled} {...props} hasError={hasError} />
     );
 
   const itemsRender = items

@@ -13,6 +13,7 @@ export interface CheckProps
   focus?: boolean;
   selected?: boolean;
   ariaDescribedBy?: string;
+  className?: string;
 }
 
 const styles = {
@@ -95,6 +96,7 @@ export const DzCheckbox = React.forwardRef<HTMLInputElement, CheckProps>(
       hasError = false,
       ariaDescribedBy = '',
       onChange,
+      className = '',
       ...rest
     },
     ref
@@ -121,7 +123,7 @@ export const DzCheckbox = React.forwardRef<HTMLInputElement, CheckProps>(
     };
 
     return (
-      <label className={cn(styles.labelContainer, 'group')}>
+      <label className={cn(styles.labelContainer, 'group', className)}>
         <DzInput
           ref={ref}
           className={cn(styles.checkbox, 'peer', errorClass)}
