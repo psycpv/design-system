@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { EditorialComplex, EditorialComplexProps } from './EditorialComplex';
 import { EditorialSimple, EditorialSimpleProps } from './EditorialSimple';
 import { EditorialQuote, EditorialQuoteProps } from './EditorialQuote';
+export { EDITORIAL_TEXT_TYPES, EDITORIAL_TEXT_NAMES } from './EditorialText';
 
 export const EDITORIAL_TYPES = {
   SIMPLE: 'simple',
@@ -21,7 +22,7 @@ export type DzEditorialDataType =
   | EditorialComplexProps
   | EditorialSimpleProps
   | EditorialQuoteProps;
-  
+
 export interface DzEditorialProps {
   type: EditorialType;
   data: DzEditorialDataType;

@@ -37,6 +37,7 @@ const styles: any = {
     object-cover
     md:object-contain
     md:h-[auto]
+    md:w-full
     absolute
     top-2/4
     -translate-y-1/2

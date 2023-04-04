@@ -37,10 +37,11 @@ export const EditorialText: FC<EditorialTextProps> = ({ paragraphs }) => {
   if (!paragraphs) return null;
   return (
     <>
-      {paragraphs.map(p => {
+      {paragraphs.map((p, k) => {
         if (p.type === EDITORIAL_TEXT_TYPES.PARAGRAPH) {
           return (
             <DzText
+              key={`${p}-${k}`}
               className={cn(styles.singleParagraph)}
               text={p.text}
               textType={TEXT_TYPES.P}
@@ -49,6 +50,7 @@ export const EditorialText: FC<EditorialTextProps> = ({ paragraphs }) => {
         }
         return (
           <DzTitle
+            key={`${p}-${k}`}
             classNameTitle={cn(styles.quote)}
             titleType={TITLE_TYPES.H3}
             title={p.text}
