@@ -89,11 +89,15 @@ export const DzMedia: FC<DzMediaProps> = ({
     return LinkElem;
   }
 
-  return (
-    <div key="asd">
-      <Plyr {...videoProps} />
-    </div>
-  );
+  if (type === MEDIA_TYPES.VIDEO) {
+    return (
+      <div>
+        <Plyr {...videoProps} />
+      </div>
+    );
+  }
+
+  return null;
 };
 
 export default DzMedia;
