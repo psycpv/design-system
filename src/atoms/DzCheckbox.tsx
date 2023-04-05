@@ -1,10 +1,10 @@
 import { cn } from '../utils/classnames';
 import CheckmarkIcon from '../svgIcons/checkmark';
 import { DzInput } from './DzInput';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, PropsWithRef } from 'react';
 
 export interface CheckProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+  extends PropsWithRef<React.InputHTMLAttributes<HTMLInputElement>> {
   title: string;
   subtitle?: string;
   disabled?: boolean;
@@ -13,6 +13,7 @@ export interface CheckProps
   focus?: boolean;
   selected?: boolean;
   ariaDescribedBy?: string;
+  className?: string;
 }
 
 const styles = {
@@ -84,73 +85,86 @@ const styles = {
   `,
 };
 
-export const DzCheckbox: React.FC<CheckProps> = ({
-  id,
-  disabled,
-  selected,
-  title,
-  subtitle,
-  hasError = false,
-  ariaDescribedBy = '',
-  onChange,
-  ...rest
-}) => {
-  const [hasBeenChecked, setHasBeenChecked] = useState<boolean>(
-    rest?.checked ?? false
-  );
-  const [isValidValue, setIsValidValue] = useState<boolean>(!hasError);
-  const checkedStyle = hasBeenChecked ? styles.checked : styles.unchecked;
-  const weightStyle = (isSubtitle = false) =>
-    isSubtitle ? styles.unchecked : checkedStyle;
-  const disabledStyle = disabled ? styles.disabled : '';
-  const errorClass = !isValidValue ? styles.error : '';
+export const DzCheckbox = React.forwardRef<HTMLInputElement, CheckProps>(
+  (
+    {
+      id,
+      disabled,
+      selected,
+      title,
+      subtitle,
+      hasError = false,
+      ariaDescribedBy = '',
+      onChange,
+      className = '',
+      ...rest
+    },
+    ref
+  ) => {
+    const [hasBeenChecked, setHasBeenChecked] = useState<boolean>(
+      rest?.checked ?? false
+    );
+    const [isValidValue, setIsValidValue] = useState<boolean>(!hasError);
+    const checkedStyle = hasBeenChecked ? styles.checked : styles.unchecked;
+    const weightStyle = (isSubtitle = false) =>
+      isSubtitle ? styles.unchecked : checkedStyle;
+    const disabledStyle = disabled ? styles.disabled : '';
+    const errorClass = !isValidValue ? styles.error : '';
 
-  useEffect(() => {
-    setIsValidValue(!hasError);
-  }, [hasError]);
+    useEffect(() => {
+      setIsValidValue(!hasError);
+    }, [hasError]);
 
-  const handleSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event?.target) setHasBeenChecked(event?.target?.checked);
-    if (!disabled && onChange) {
-      onChange(event);
-    }
-  };
-  return (
-    <label className={cn(styles.labelContainer, 'group')}>
-      <DzInput
-        className={cn(styles.checkbox, 'peer', errorClass)}
-        type="checkbox"
-        disabled={disabled}
-        onChange={handleSelect}
-        aria-describedby={ariaDescribedBy ?? `${title}-description`}
-        {...rest}
-      />
-      <CheckmarkIcon
-        fill="white"
-        className={cn(styles.checkmark, 'hidden', 'peer-checked:block')}
-      />
-      <div className={cn(styles.textContainer)}>
-        <span
-          id={`${id ?? ''}-${title}-description`}
-          className={cn(styles.title, weightStyle(), disabledStyle, errorClass)}
-        >
-          {title}
-        </span>
-        {subtitle ? (
+    const handleSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (event?.target) setHasBeenChecked(event?.target?.checked);
+      if (!disabled && onChange) {
+        onChange(event);
+      }
+    };
+
+    return (
+      <label className={cn(styles.labelContainer, 'group', className)}>
+        <DzInput
+          ref={ref}
+          className={cn(styles.checkbox, 'peer', errorClass)}
+          type="checkbox"
+          disabled={disabled}
+          onChange={handleSelect}
+          aria-describedby={ariaDescribedBy ?? `${title}-description`}
+          {...rest}
+        />
+        <CheckmarkIcon
+          fill="white"
+          className={cn(styles.checkmark, 'hidden', 'peer-checked:block')}
+        />
+        <div className={cn(styles.textContainer)}>
           <span
+            id={`${id ?? ''}-${title}-description`}
             className={cn(
-              styles.subtitle,
-              weightStyle(true),
+              styles.title,
+              weightStyle(),
               disabledStyle,
               errorClass
             )}
           >
-            {subtitle}
+            {title}
           </span>
-        ) : null}
-      </div>
-    </label>
-  );
-};
+          {subtitle ? (
+            <span
+              className={cn(
+                styles.subtitle,
+                weightStyle(true),
+                disabledStyle,
+                errorClass
+              )}
+            >
+              {subtitle}
+            </span>
+          ) : null}
+        </div>
+      </label>
+    );
+  }
+);
 
 export default DzCheckbox;

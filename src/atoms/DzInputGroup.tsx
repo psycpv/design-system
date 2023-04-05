@@ -27,6 +27,7 @@ export interface DzInputGroupProps {
   hasError?: boolean;
   errorMsg?: string;
   formName?: string;
+  className?: string;
 }
 
 const styles = {
@@ -73,6 +74,8 @@ export const DzInputGroups: FC<DzInputGroupProps> = ({
   formName = '',
   items = [],
   hasError = false,
+  errorMsg = '',
+  className = '',
 }) => {
   const [isValidValue, setIsValidValue] = useState<boolean>(!hasError);
   const [formNameId] = useState<string>(formName || `${uuidv4()}-${title}`);
@@ -93,9 +96,9 @@ export const DzInputGroups: FC<DzInputGroupProps> = ({
 
   const getListItem = (type: InputGroupTypes, props: ItemProps) =>
     type === INPUT_GROUP_TYPES.CHECKBOX ? (
-      <DzCheckbox {...props} name={formNameId} disabled={disabled} />
+      <DzCheckbox name={formNameId} disabled={disabled} {...props} hasError={hasError} />
     ) : (
-      <DzRadioButton {...props} name={formNameId} disabled={disabled} />
+      <DzRadioButton name={formNameId} disabled={disabled} {...props} hasError={hasError} />
     );
 
   const itemsRender = items
@@ -130,24 +133,38 @@ export const DzInputGroups: FC<DzInputGroupProps> = ({
     />
   ) : null;
 
+  const TitleWrapper = title && subtitle ? 'div' : React.Fragment;
+
   const legendRender = title ? (
     <legend className="sr-only">{title}</legend>
   ) : null;
 
+  const errorMessage =
+    errorMsg && !isValidValue ? (
+      <DzText
+        className={cn(styles.error)}
+        textSize={TEXT_SIZES.XS}
+        textType={TEXT_TYPES.SPAN}
+        text={errorMsg}
+        id={`error-${title}`}
+      />
+    ) : null;
+
   return (
     <fieldset>
       {legendRender}
-      <div className={cn(styles.inputGroupWrapper)}>
-        <div>
+      <div className={cn(styles.inputGroupWrapper, className)}>
+        <TitleWrapper>
           {titleSection}
           {subTitle}
-        </div>
+        </TitleWrapper>
         <ul
           onChange={handleChange}
           className={cn(errorClass, styles.itemListContainer)}
         >
           {itemsRender}
         </ul>
+        {errorMessage}
       </div>
     </fieldset>
   );
