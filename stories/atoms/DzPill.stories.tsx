@@ -19,6 +19,7 @@ const meta: Meta = {
     title: { type: 'string', defaultValue: 'Pill Title' },
     onClickClose: { action: 'close clicked' },
     onClickPill: { action: 'Pill clicked' },
+    className: { control: { type: null } },
   },
   parameters: {
     controls: { expanded: true },
@@ -36,10 +37,10 @@ export const ArtistPill = Template.bind({});
 ArtistPill.args = {};
 
 export const DesktopPill = Template.bind({});
-DesktopPill.args = {variant: PILL_VARIANTS.DESKTOP};
+DesktopPill.args = { variant: PILL_VARIANTS.DESKTOP };
 
 export const MobilePill = Template.bind({});
-MobilePill.args = {variant: PILL_VARIANTS.MOBILE};
+MobilePill.args = { variant: PILL_VARIANTS.MOBILE };
 
 export const FilterPill = Template.bind({});
-FilterPill.args = {variant: PILL_VARIANTS.FILTER};
+FilterPill.args = { variant: PILL_VARIANTS.FILTER };

@@ -1,6 +1,9 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzBreadcrumbs, DzBreadcrumbsProps } from '../../src/atoms/DzBreadcrumbs';
+import {
+  DzBreadcrumbs,
+  DzBreadcrumbsProps,
+} from '../../src/atoms/DzBreadcrumbs';
 import { pages } from '../../constants/mocks/DzBreadcrumbs';
 
 const meta: Meta = {
@@ -18,5 +21,5 @@ export default meta;
 
 const Template: Story<DzBreadcrumbsProps> = args => <DzBreadcrumbs {...args} />;
 
-export const PrimaryDzBreadcrumbs = Template.bind({});
-PrimaryDzBreadcrumbs.args = { pages };
+export const Breadcrumbs = Template.bind({});
+Breadcrumbs.args = { pages };

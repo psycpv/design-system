@@ -47,6 +47,7 @@ const styles: any = {
     px-2.5
     py-1.5
     ring-black-60
+    text-xs
   `,
   pill: `
     flex
@@ -65,7 +66,7 @@ const styles: any = {
     active:text-black-100
     hover:bg-black-10
     focus:bg-black-10
-    active:bg-black-10
+    active:bg-black-20
   `,
   closeIcon: `
     my-auto
@@ -102,7 +103,8 @@ export const DzPill: FC<DzPillProps> = ({
   className = '',
 }) => {
   const closeIcon =
-    (variant === PILL_VARIANTS.ARTIST || variant === PILL_VARIANTS.FILTER) && showIcon ? (
+    (variant === PILL_VARIANTS.ARTIST || variant === PILL_VARIANTS.FILTER) &&
+    showIcon ? (
       <CloseIcon
         width={10}
         height={10}
