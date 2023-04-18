@@ -3,7 +3,7 @@ import { cn } from '../utils/classnames';
 import { DzText, TEXT_SIZES, TEXT_TYPES } from './DzText';
 import CloseIcon from '../svgIcons/close';
 import ExclamationCircle from '../svgIcons/exclamationCircle';
-import DzLink from './DzLink';
+import { DzLink, LINK_VARIANTS } from './DzLink';
 
 export const MESSAGE_VARIANTS = {
   DEFAULT: 'default',
@@ -142,6 +142,27 @@ const styles: any = {
     tError: `
       text-white-100
     `,
+    alertType: `
+      w-full
+      text-xs
+    `,
+    toastType: `
+      text-sm
+    `,
+  },
+  subtitle: {
+    tDark: `
+      text-white-100
+    `,
+    tSuccess: `
+      text-white-100
+    `,
+    tError: `
+      text-white-100
+    `,
+    toastType: `
+      text-xs
+    `,
   },
   container: {
     alertType: `
@@ -176,10 +197,7 @@ const styles: any = {
     bg-red-60
   `,
   closeIcon: `
-    absolute
-    right-0
-    mr-5
-    bottom-[0.9rem]
+    relative
     cursor-pointer
   `,
   titleToastCont: `
@@ -187,17 +205,28 @@ const styles: any = {
     flex-col
   `,
   infoIcon: `
+    mt-[0.125rem]
     mr-2.5
-    my-auto
   `,
   linkLayout: `
     justify-between
     content-center
   `,
-  link: `
-    text-white-100
-    my-auto
-    text-xs
+  link: {
+    toastType: `
+      text-white-100
+      text-xs
+      !decoration-white-100 
+      !hover:!decoration-white-100
+    `
+  },
+  alertType: `
+    flex
+    items-start
+    md:items-center
+    justify-items-center
+    w-full
+    text-center
   `,
 };
 
@@ -222,6 +251,15 @@ export const DzBanner: FC<DzBannerProps> = ({
       isText ? styles.title?.[toastVariant] : styles?.[toastVariant],
   };
 
+  const subVariantStyles = {
+    [TYPES.MESSAGE]: (isText: boolean = false) =>
+      isText ? styles.subtitle?.[messageVariant] : styles?.[messageVariant],
+    [TYPES.ALERT]: (isText: boolean = false) =>
+      isText ? styles.subtitle?.[alertVariation] : styles?.[alertVariation],
+    [TYPES.TOAST]: (isText: boolean = false) =>
+      isText ? styles.subtitle?.[toastVariant] : styles?.[toastVariant],
+  };
+
   const hasLinkStyles = link && linkText ? styles.linkLayout : '';
   const titleToastContainer =
     type === TYPES.TOAST ? styles?.titleToastCont : '';
@@ -233,15 +271,15 @@ export const DzBanner: FC<DzBannerProps> = ({
         width={14}
         height={14}
         viewBox="0 0 16 16"
-        className={cn('mr-2.5 my-auto')}
+        className={cn(styles.infoIcon)}
       />
     ) : null;
 
   const titleSection = title ? (
     <DzText
-      className={cn(variantStyles[type](true))}
-      textSize={TEXT_SIZES.XS}
-      textType={TEXT_TYPES.LABEL}
+      className={cn(variantStyles[type](true), styles.title?.[type])}
+      textSize={TEXT_SIZES.MEDIUM}
+      textType={TEXT_TYPES.P}
       text={title}
       htmlFor={title}
     />
@@ -250,10 +288,10 @@ export const DzBanner: FC<DzBannerProps> = ({
   const subTitle =
     subtitle && (type === TYPES.MESSAGE || type === TYPES.TOAST) ? (
       <DzText
-        textSize={TEXT_SIZES.XS}
+        className={cn(subVariantStyles[type](true), styles.subtitle?.[type])}
+        textSize={TEXT_SIZES.SMALL}
         textType={TEXT_TYPES.P}
         text={subtitle}
-        className={cn(variantStyles[type](true))}
       />
     ) : null;
 
@@ -268,7 +306,12 @@ export const DzBanner: FC<DzBannerProps> = ({
 
   const renderLink =
     type === TYPES.TOAST && linkText && link ? (
-      <DzLink LinkElement="a" href={link} className={cn(styles.link)}>
+      <DzLink
+        LinkElement="a"
+        href={link}
+        className={cn(styles.link?.[type])}
+        variant={LINK_VARIANTS.TEXT}
+      >
         {linkText}
       </DzLink>
     ) : null;
@@ -276,10 +319,8 @@ export const DzBanner: FC<DzBannerProps> = ({
     <div
       className={cn(
         styles.bannerContainer,
-
         variantStyles[type](),
         styles?.container[type],
-
         hasLinkStyles
       )}
     >
