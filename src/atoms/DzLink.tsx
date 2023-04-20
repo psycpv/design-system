@@ -38,7 +38,6 @@ export type DzLinkProps = {
 
 const styles: any = {
   element: `
-    decoration-transparent
     transition-text-decoration
     duration-300
     ease-in
@@ -46,13 +45,13 @@ const styles: any = {
     decoration-1
   `,
   nav: `
+    decoration-transparent
     hover:underline
     hover:decoration-current
     decoration-black-60 
   `,
   text: `
-    underline 
-    decoration-current
+    underline
     decoration-black-40 
     hover:decoration-black-60
   `,
