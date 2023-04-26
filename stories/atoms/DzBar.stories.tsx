@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import {
   DzBar,
   DzBarProps,
-  VARIANTS,
+  BAR_VARIANTS,
   BAR_VARIANT_NAMES,
 } from '../../src/atoms/DzBar';
 
@@ -14,7 +14,7 @@ const meta: Meta = {
     variant: {
       control: 'select',
       options: BAR_VARIANT_NAMES,
-      defaultValue: VARIANTS.PROGRESS,
+      defaultValue: BAR_VARIANTS.PROGRESS,
     },
     valueProgress: {
       type: 'number',
@@ -38,7 +38,7 @@ export const ProgressBar = Template.bind({});
 ProgressBar.args = {};
 
 export const TabBars = Template.bind({});
-TabBars.args = {variant: VARIANTS.CAROUSEL_TAB};
+TabBars.args = { variant: BAR_VARIANTS.CAROUSEL_TAB };
 
 export const Slider = Template.bind({});
-Slider.args = {variant: VARIANTS.SLIDER};
+Slider.args = { variant: BAR_VARIANTS.SLIDER };

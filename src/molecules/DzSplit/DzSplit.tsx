@@ -82,7 +82,7 @@ const styles: any = {
   animateImg: `
     motion-safe:animate-slowZoomOut
     transition
-    dz-zoom
+    dz-timing
   `,
 };
 

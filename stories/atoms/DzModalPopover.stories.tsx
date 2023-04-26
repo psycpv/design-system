@@ -38,5 +38,5 @@ const Template: Story<DzModalPopoverProps> = args => (
   <DzModalPopover {...args} />
 );
 
-export const PrimaryDzModalPopover = Template.bind({});
-PrimaryDzModalPopover.args = {};
+export const Tooltip = Template.bind({});
+Tooltip.args = {};

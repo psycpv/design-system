@@ -25,8 +25,8 @@ const styles = {
     p-5
     flex
     flex-col
-    gap-[5px]
-    shadow-lg
+    gap-2.5
+    shadow-drop
     bg-white-100
   `,
   headerContainer: `

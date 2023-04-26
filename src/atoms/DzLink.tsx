@@ -2,13 +2,26 @@ import React from 'react';
 import { cn } from '../utils/classnames';
 import { ComponentPropsWithRef, forwardRef, ReactNode } from 'react';
 
-const VARIANTS = {
+export const LINK_VARIANTS = {
   NAV: 'nav',
   TEXT: 'text',
 };
 
-export const LINK_VARIANTS = [VARIANTS.NAV, VARIANTS.TEXT] as const;
-export type LinkVariants = typeof LINK_VARIANTS[number];
+export const TEXT_LINK_SIZES = {
+  SMALL: 'small',
+  LARGE: 'large',
+};
+
+export const TEXT_LINK_SIZES_NAMES = [
+  TEXT_LINK_SIZES.SMALL,
+  TEXT_LINK_SIZES.LARGE,
+] as const;
+export const LINK_VARIANTS_NAMES = [
+  LINK_VARIANTS.NAV,
+  LINK_VARIANTS.TEXT,
+] as const;
+export type TextLinkSize = typeof TEXT_LINK_SIZES_NAMES[number];
+export type LinkVariants = typeof LINK_VARIANTS_NAMES[number];
 
 export type DzLinkProps = {
   href: string;
@@ -20,26 +33,36 @@ export type DzLinkProps = {
   className?: string;
   LinkElement?: any;
   linkProps?: any;
+  textLinkSize?: TextLinkSize;
 } & ComponentPropsWithRef<'a'>;
 
 const styles: any = {
-  link: `
-    hover:underline 
-    underline-offset-8 
-    decoration-1 
-    decoration-black-60
+  element: `
+    transition-text-decoration
+    duration-300
+    ease-in
+    underline-offset-[0.375rem]
+    decoration-1
   `,
   nav: `
-    text-sm
+    decoration-transparent
+    hover:underline
+    hover:decoration-current
+    decoration-black-60 
   `,
   text: `
+    underline
     decoration-black-40 
-    text-md 
-    underline 
     hover:decoration-black-60
   `,
   inactive: `
     text-black-40
+  `,
+  small: `
+    text-sm
+  `,
+  large: `
+    text-md
   `,
 };
 export const DzLink = forwardRef<HTMLAnchorElement, DzLinkProps>(
@@ -47,13 +70,14 @@ export const DzLink = forwardRef<HTMLAnchorElement, DzLinkProps>(
     {
       children,
       href,
-      openNewTab,
+      openNewTab = false,
       className = '',
       linkProps,
-      variant = VARIANTS.NAV,
+      variant = LINK_VARIANTS.NAV,
       router,
       useRoute,
       LinkElement = 'a',
+      textLinkSize = TEXT_LINK_SIZES.SMALL,
       ...rest
     },
     ref
@@ -66,8 +90,9 @@ export const DzLink = forwardRef<HTMLAnchorElement, DzLinkProps>(
         : href && !href.startsWith('/') && !href.startsWith('#');
 
     const linkStyle = cn(
-      styles.link,
+      styles.element,
       styles?.[variant],
+      styles?.[textLinkSize],
       useRoute ? inactiveStyle : '',
       className
     );
