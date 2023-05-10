@@ -85,6 +85,8 @@ module.exports = {
         drop: '0px 2px 18px rgba(0, 0, 0, 0.06)',
         top: '0px -25px 38px -24px rgba(0, 0, 0, 0.12)',
         down: '0px 25px 38px -24px rgba(0, 0, 0, 0.12)',
+        bottomBorderBlack20: '0px 1px 0px 0px #E8E8E8',
+        bottomBorderBlack60: '0px 1px 0px 0px #757575'
       },
       keyframes: {
         zoomIn: {

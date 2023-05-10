@@ -1,6 +1,13 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzTabs, DzTabsProps, TAB_VARIANTS, TAB_SIZE_VARIANT } from '../../src/atoms/DzTabs';
+import {
+  DzTabs,
+  DzTabsProps,
+  TAB_VARIANTS,
+  TAB_TYPES,
+  TAB_SIZE,
+  TAB_SIZE_VARIANT,
+} from '../../src/atoms/DzTabs';
 import { tabs } from '../../constants/mocks/DzTabs';
 
 const meta: Meta = {
@@ -29,5 +36,8 @@ const Template: Story<DzTabsProps> = args => (
   </DzTabs>
 );
 
-export const PrimaryDzTabs = Template.bind({});
-PrimaryDzTabs.args = { tabs };
+export const ContentTabs = Template.bind({});
+ContentTabs.args = { tabs, variant: TAB_TYPES.CONTENT, size: TAB_SIZE.PARTIAL };
+
+export const NavigationTabs = Template.bind({});
+NavigationTabs.args = { tabs, variant: TAB_TYPES.NAV };

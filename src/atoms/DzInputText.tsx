@@ -1,7 +1,7 @@
 import { cn } from '../utils/classnames';
 import DzInput from './DzInput';
 import { DzText, TEXT_SIZES, TEXT_TYPES } from './DzText';
-import React, { useState, useEffect, FC, ChangeEvent } from 'react';
+import React, { forwardRef, useState, useEffect, ReactNode, ChangeEvent } from 'react';
 import useDebounce from '../hooks/useDebounce';
 
 export interface InputTextProps
@@ -15,6 +15,8 @@ export interface InputTextProps
   validator?: Function;
   errorMsg?: string;
   formName?: string;
+  extraChildren?: ReactNode;
+  customClassContent?: string;
 }
 
 const styles = {
@@ -78,7 +80,7 @@ const styles = {
   `,
 };
 
-export const DzInputText = React.forwardRef<HTMLInputElement, InputTextProps>(
+export const DzInputText = forwardRef<HTMLInputElement, InputTextProps>(
   (
     {
       disabled,
@@ -86,6 +88,7 @@ export const DzInputText = React.forwardRef<HTMLInputElement, InputTextProps>(
       title,
       subtitle,
       extras = '',
+      extraChildren = null,
       required = false,
       validator = () => true,
       hasError = false,
@@ -93,6 +96,7 @@ export const DzInputText = React.forwardRef<HTMLInputElement, InputTextProps>(
       onChange,
       formName = '',
       className = '',
+      customClassContent = '',
       ...rest
     },
     ref
@@ -169,16 +173,20 @@ export const DzInputText = React.forwardRef<HTMLInputElement, InputTextProps>(
 
     return (
       <div className={cn(styles.inputContainer, className)}>
-        <div>
-          {titleSection}
-          {subTitle}
-        </div>
+        {titleSection || subTitle ? (
+          <div>
+            {titleSection}
+            {subTitle}
+          </div>
+        ) : null}
+
         <div
           className={cn(
             classContent,
             disabledClass,
             styles.inputWrap,
-            errorClass
+            errorClass,
+            customClassContent
           )}
         >
           <DzText
@@ -200,6 +208,7 @@ export const DzInputText = React.forwardRef<HTMLInputElement, InputTextProps>(
           />
           <div className={cn(styles.extraContentContainer)}>
             {extraInformation}
+            {extraChildren}
           </div>
         </div>
         {errorMessage}
