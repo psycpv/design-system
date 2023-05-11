@@ -1,15 +1,28 @@
-import React, { FC, Fragment, useState } from 'react';
+import React, {
+  FC,
+  Fragment,
+  useState,
+  MouseEventHandler,
+  useCallback,
+} from 'react';
 import { cn } from '../../utils/classnames';
 import MenuLogo from '../../svgIcons/menu';
 import Search from '../../svgIcons/search';
 
+import { DzLink } from '../../atoms/DzLink';
 import CloseLogo from '../../svgIcons/close';
 import { Popover, Transition } from '@headlessui/react';
 import { DzInputText } from '../../atoms/DzInputText';
-import {MenuItems} from './MenuItems'
+import { MenuItems } from './MenuItems';
+import OutlineFacebook from '../../svgIcons/outlineFacebook';
+import OutlineTwitter from '../../svgIcons/outlineTwitter';
+import OutlineInstagram from '../../svgIcons/outlineInstagram';
+import OutlineWeChat from '../../svgIcons/outlineWeChat';
 
 export interface MenuItemsMobileProps {
   items: any[];
+  socialMedia: any;
+  handleSearch: MouseEventHandler<any>;
 }
 
 const styles: any = {
@@ -70,30 +83,21 @@ const styles: any = {
     border-y
     border-black-20
   `,
-  submenuItem: `
-    p-5
-  `,
-  mobileOption: `
-    p-5
-    flex
-    justify-between
-  `,
-  caretIcon: `
-    p-2 
-  `,
-  rootLink: `
-    w-full
-  `,
-  panelItems: `
-    pl-[0.9375rem]
-  `,
-  upArrow: `
-    rotate-180
-  `,
 };
 
-export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({ items = [] }) => {
+export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
+  items = [],
+  socialMedia = {},
+  handleSearch = () => null,
+}) => {
+  const { weChat, instagram, twitter, facebook } = socialMedia;
   const [value, toggle] = useState(false);
+  const handleKeyDown = useCallback((e: any) => {
+    if (e.code === 'Enter') {
+      handleSearch(e);
+    }
+  }, []);
+
   return (
     <>
       <Popover as={Fragment}>
@@ -123,15 +127,45 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({ items = [] }) => {
           <Popover.Panel static className={cn(styles.submenuContainer)}>
             <div className={cn(styles.subMenu)}>
               <DzInputText
+                onKeyDown={handleKeyDown}
                 customClassContent={cn(styles.search)}
                 placeholder="Search"
                 extraChildren={<Search />}
               />
-              <MenuItems items={items} isMobile/>
+              <MenuItems items={items} isMobile />
               <div className={cn(styles.other)}>Newsletter</div>
               <ul className={cn(styles.misc)}>
-                <li>Twitter</li> <li>Facebook</li> <li>Instagram</li>{' '}
-                <li>WeChat</li>
+                {twitter ? (
+                  <li>
+                    <DzLink href={twitter} openNewTab>
+                      <OutlineTwitter />
+                    </DzLink>
+                  </li>
+                ) : null}
+
+                {facebook ? (
+                  <li>
+                    <DzLink href={facebook} openNewTab>
+                      <OutlineFacebook />
+                    </DzLink>
+                  </li>
+                ) : null}
+
+                {instagram ? (
+                  <li>
+                    <DzLink href={instagram} openNewTab>
+                      <OutlineInstagram />
+                    </DzLink>
+                  </li>
+                ) : null}
+
+                {weChat ? (
+                  <li>
+                    <DzLink href={weChat} openNewTab>
+                      <OutlineWeChat />
+                    </DzLink>
+                  </li>
+                ) : null}
               </ul>
               <div className={cn(styles.copyright)}>
                 ® Copyright David Zwirner 2023

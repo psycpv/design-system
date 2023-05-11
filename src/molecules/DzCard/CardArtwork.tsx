@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import {
   DzMedia,
   DzMediaProps,
@@ -11,8 +11,6 @@ import {
 } from '../../atoms';
 import { cn } from '../../utils/classnames';
 import { priceFormatter } from '../../utils/formatters';
-import { BREAKPOINTS } from '../../layout/breakpoints';
-import useWindowSize from '../../hooks/useWindowSize';
 
 interface CardCTA {
   text: string;
@@ -125,11 +123,6 @@ const styles: any = {
 };
 
 export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
-  const { width } = useWindowSize();
-  const isExtraSmall = useMemo(() => {
-    return width < BREAKPOINTS.XS;
-  }, [width]);
-
   const {
     media,
     artistName,

@@ -1,11 +1,43 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo, MouseEventHandler } from 'react';
 import { cn } from '../../utils/classnames';
 import { DzLogo } from '../../atoms';
 import { MenuItems } from './MenuItems';
-import {MenuItemsMobile} from './MenuItemsMobile'
+import { MenuItemsMobile } from './MenuItemsMobile';
+import { BREAKPOINTS } from '../../layout/breakpoints';
+import useWindowSize from '../../hooks/useWindowSize';
+
+interface SocialMedia {
+  _type: string;
+  weChat: string;
+  instagram: string;
+  twitter: string;
+  facebook: string;
+}
+
+interface Page {
+  url: string;
+}
+
+interface HeaderItem {
+  title: string;
+  newTab?: boolean;
+  desktopEnabled: boolean;
+  mobileEnabled: boolean;
+  _type: string;
+  link?: string;
+  submenu?: any;
+  anchor?: string;
+  page?: Page;
+}
+
+interface MenuShape {
+  items: HeaderItem[];
+}
 
 export interface DzHeaderProps {
-  menu: any;
+  menu: MenuShape;
+  socialMedia: SocialMedia;
+  handleSearch: MouseEventHandler<any>;
 }
 
 const styles: any = {
@@ -39,7 +71,7 @@ const styles: any = {
     items-center
     justify-end
   `,
-  logoMenu:`
+  logoMenu: `
     cursor-pointer
   `,
   subMenu: `
@@ -56,8 +88,16 @@ const styles: any = {
   `,
 };
 
-export const DzHeader: FC<DzHeaderProps> = ({ menu = {} }) => {
+export const DzHeader: FC<DzHeaderProps> = ({
+  menu = {},
+  socialMedia = {},
+  handleSearch = () => null,
+}) => {
   const { items = [] } = menu ?? {};
+  const { width } = useWindowSize();
+  const isSmall = useMemo(() => {
+    return width < BREAKPOINTS.MD;
+  }, [width]);
 
   return (
     <header className={cn(styles.headerContainer)}>
@@ -67,12 +107,19 @@ export const DzHeader: FC<DzHeaderProps> = ({ menu = {} }) => {
           svgProps={{ height: '20', width: '163' }}
         />
       </div>
-      <nav className={cn(styles.rightSideDesktop)}>
-        <MenuItems items={items} />
-      </nav>
-      <nav className={cn(styles.rightSideMobile)}>
-        <MenuItemsMobile items={items}/>
-      </nav>
+      {isSmall ? (
+        <nav className={cn(styles.rightSideMobile)}>
+          <MenuItemsMobile
+            items={items}
+            handleSearch={handleSearch}
+            socialMedia={socialMedia}
+          />
+        </nav>
+      ) : (
+        <nav className={cn(styles.rightSideDesktop)}>
+          <MenuItems items={items} />
+        </nav>
+      )}
     </header>
   );
 };

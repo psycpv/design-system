@@ -11,7 +11,7 @@ export const menuData = {
     {
       _type: 'menuItemSubmenu',
       title: 'Exhibitions',
-      mobileEnabled: false,
+      mobileEnabled: true,
       desktopEnabled: true,
       submenu: {
         _type: 'menu',
@@ -71,7 +71,7 @@ export const menuData = {
     {
       _type: 'menuItemSubmenu',
       title: 'ExtraNested',
-      mobileEnabled: false,
+      mobileEnabled: true,
       desktopEnabled: true,
       submenu: {
         _type: 'menu',
@@ -94,7 +94,7 @@ export const menuData = {
               items: [
                 {
                   newTab: true,
-                  desktopEnabled: true,
+                  desktopEnabled: false,
                   mobileEnabled: true,
                   _type: 'menuItemLink',
                   link: 'http://localhost:3333/vision',
@@ -107,4 +107,12 @@ export const menuData = {
       },
     },
   ],
+};
+
+export const socialMedia = {
+  _type: 'social',
+  weChat: 'https://www.davidzwirner.com/wechat',
+  instagram: 'https://www.instagram.com/davidzwirner/',
+  twitter: 'https://twitter.com/davidzwirner',
+  facebook: 'https://www.facebook.com/davidzwirner',
 };

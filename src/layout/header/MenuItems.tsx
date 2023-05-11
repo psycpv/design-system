@@ -16,7 +16,6 @@ const styles: any = {
     gap-10
     items-center
     justify-end
-    wrap
   `,
   menuContainerMobile: `
     max-h-[36.1875rem]
@@ -36,7 +35,8 @@ const styles: any = {
 
 export const renderPerType = {
   menuItemLink: data => {
-    const { title, newTab, desktopEnabled, mobileEnabled, link } = data ?? {};
+    const { title, newTab, link } = data ?? {};
+
     return (
       <DzLink href={link} openNewTab={newTab}>
         {title}
@@ -44,8 +44,9 @@ export const renderPerType = {
     );
   },
   menuItemSubmenu: (data, isMobile) => {
-    const { title, mobileEnabled, desktopEnabled, submenu } = data ?? {};
+    const { title, submenu } = data ?? {};
     const { items } = submenu ?? {};
+
     return isMobile ? (
       <MobileSubmenus title={title} rootUrl="" items={items} />
     ) : (
@@ -53,12 +54,12 @@ export const renderPerType = {
     );
   },
   menuItemPage: data => {
-    const { title, newTab, desktopEnabled, mobileEnabled, anchor, page } =
-      data ?? {};
-    const { url } = page ?? {};
+    const { title, newTab, anchor, page } = data ?? {};
+    const { url = '' } = page ?? {};
+    const urlWithAnchor = anchor ? `${url}#${anchor}` : url;
 
     return (
-      <DzLink href={url} openNewTab={newTab}>
+      <DzLink href={urlWithAnchor} openNewTab={newTab}>
         {title}
       </DzLink>
     );
@@ -71,6 +72,10 @@ export const renderItems = (items, isMobile = false) => {
     const renderFunction = renderPerType?.[_type];
     const itemListClass = isMobile ? styles.submenuItemMobile : '';
     const listItemStyles = _type === 'menuItemSubmenu' ? '' : itemListClass;
+
+    const { mobileEnabled, desktopEnabled } = item;
+    if (isMobile && !mobileEnabled) return null;
+    if (!isMobile && !desktopEnabled) return null;
 
     return renderFunction ? (
       <li
