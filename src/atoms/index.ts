@@ -23,3 +23,4 @@ export * from './DzText';
 export * from './DzTextBox';
 export * from './DzTitle';
 export * from './DzMedia';
+export * from './DzCarousel';
