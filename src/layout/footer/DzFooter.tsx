@@ -61,9 +61,12 @@ const styles: any = {
   `,
   socialContainer: `
     flex
-    gap-[3.75rem]
+    md:gap-[3.75rem]
     w-full
-    justify-end
+    md:justify-end
+    pt-2
+    md:pt-0
+    justify-between
   `,
   bottomContainer: `
     px-5
