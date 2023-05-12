@@ -38,6 +38,7 @@ export interface DzHeaderProps {
   menu: MenuShape;
   socialMedia: SocialMedia;
   handleSearch: MouseEventHandler<any>;
+  headerClass?: string;
 }
 
 const styles: any = {
@@ -89,9 +90,10 @@ const styles: any = {
 };
 
 export const DzHeader: FC<DzHeaderProps> = ({
-  menu = {},
-  socialMedia = {},
+  menu,
+  socialMedia,
   handleSearch = () => null,
+  headerClass = '',
 }) => {
   const { items = [] } = menu ?? {};
   const { width } = useWindowSize();
@@ -100,7 +102,7 @@ export const DzHeader: FC<DzHeaderProps> = ({
   }, [width]);
 
   return (
-    <header className={cn(styles.headerContainer)}>
+    <header className={cn(styles.headerContainer, headerClass)}>
       <div className={cn(styles.leftSide)}>
         <DzLogo
           className={cn(styles.logo)}

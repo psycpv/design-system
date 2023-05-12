@@ -46,6 +46,7 @@ interface Copies {
 export interface DzFooterProps {
   data: any;
   newsletterAction: Function;
+  footerClass?: string;
 }
 
 const styles: any = {
@@ -93,18 +94,19 @@ const styles: any = {
   `,
 };
 export const DzFooter: FC<DzFooterProps> = ({
-  data = {},
+  data,
   newsletterAction = () => null,
+  footerClass = '',
 }) => {
   const { width } = useWindowSize();
   const isSmall = useMemo(() => {
     return width < BREAKPOINTS.MD;
   }, [width]);
 
-  const { links = [], socialMedia = {}, copies = {} } = data;
-  const { weChat, instagram, twitter, facebook } = socialMedia;
+  const { links = [], socialMedia = {}, copies = {} } = data ?? {};
+  const { weChat, instagram, twitter, facebook } = socialMedia ?? {};
   return (
-    <footer className={cn(styles.footer)}>
+    <footer className={cn(styles.footer, footerClass)}>
       <div className={cn(styles.bottomContainer)}>
         <div className={cn(styles.leftContainer)}>
           <DzText className={cn(styles.copyright)} text={copies?.rights} />
