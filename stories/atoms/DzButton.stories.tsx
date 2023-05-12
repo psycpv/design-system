@@ -5,6 +5,7 @@ import {
   DzButtonProps,
   BUTTON_VARIANT_NAMES,
   BUTTON_SIZE_NAMES,
+  BUTTON_SIZES,
 } from '../../src/atoms/DzButton';
 
 const meta: Meta = {
@@ -25,11 +26,14 @@ export default meta;
 
 const Template: Story<DzButtonProps> = args => <DzButton {...args} />;
 
-export const PrimaryButton = Template.bind({});
-PrimaryButton.args = { variant: BUTTON_VARIANT_NAMES[0] };
+export const PrimaryButtonSmall = Template.bind({});
+PrimaryButtonSmall.args = { variant: BUTTON_VARIANT_NAMES[0]};
+
+export const PrimaryButtonLarge = Template.bind({});
+PrimaryButtonLarge.args = { variant: BUTTON_VARIANT_NAMES[0], size: BUTTON_SIZES.LARGE };
 
 export const SecondaryButton = Template.bind({});
-SecondaryButton.args = { variant: BUTTON_VARIANT_NAMES[1] };
+SecondaryButton.args = { variant: BUTTON_VARIANT_NAMES[1], size: BUTTON_SIZES.LARGE };
 
 export const TertiaryButton = Template.bind({});
 TertiaryButton.args = { variant: BUTTON_VARIANT_NAMES[2] };

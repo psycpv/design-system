@@ -9,6 +9,7 @@ import {
   DzTitle,
   TITLE_TYPES,
   TITLE_SIZES,
+  LINK_VARIANTS,
   DzLink,
   DzButton,
 } from '../../atoms';
@@ -70,7 +71,7 @@ const styles: any = {
     xs:text-md
     md:@2col/cardContainer:text-sm
     md:@3col/cardContainer:text-md
-    md:@4col/cardContainer:text-lg
+    md:@4col/cardContainer:text-md
   `,
   description: `
     text-sm
@@ -154,6 +155,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
               {...(linkCTA.linkProps ?? {})}
               href={linkCTA.url}
               LinkElement={linkCTA.linkElement}
+              variant={LINK_VARIANTS.TEXT}
             >
               {linkCTA.text}
             </DzLink>

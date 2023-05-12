@@ -54,7 +54,7 @@ const styles: any = {
     gap-2.5
     p-2.5
     pt-5
-    ml-2.5
+    pl-5
     md:ml-0
     md:p-5
     md:pl-0

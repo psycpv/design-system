@@ -1,4 +1,5 @@
 import { Meta, Typeset } from '@storybook/addon-docs/';
+import { TEXT_TYPES, TEXT_SIZES } from '../src/atoms/DzText.tsx';
 import { typography } from './shared/styles';
 import {
   DzTitle,
@@ -42,18 +43,23 @@ Avenir Medium is currently the singular weight used on the site. Hierarchy is de
   sampleText={typography.sampleText}
   fontWeight={typography.weight.regular}
 />
-<div className='max-w-[690px]'>
-  {Object.keys(typography.singeSamples).map(type => {
-    const parts = typography.singeSamples[type];
-    return <div className='!mb-5'>{parts.map(part => {
-      return(<div>
-        <DzTitle
+<div className="max-w-[690px]">
+  {Object.keys(typography.singleSamples).map(type => {
+    const parts = typography.singleSamples[type];
+    return (
+      <div className="!mb-5" key={type}>
+        {parts.map((part, key) => {
+          return (
+            <div key={`${key}-${type}`}>
+              <DzTitle
                 titleType={TEXT_TYPES.H1}
                 titleSize={TEXT_SIZES[type.toUpperCase()]}
                 title={part}
               />
-      </div>)
-      })}</div>
+            </div>
+          );
+        })}
+      </div>
+    );
   })}
 </div>
-

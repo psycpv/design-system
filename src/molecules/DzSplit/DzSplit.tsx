@@ -10,6 +10,7 @@ import {
   DzTitle,
   TITLE_SIZES,
   TITLE_TYPES,
+  LINK_VARIANTS,
 } from '../../atoms';
 
 export const SPLIT_TYPES = {
@@ -106,7 +107,7 @@ export const DzSplit: FC<DzSplitProps> = ({
     type === SPLIT_TYPES.SHORT
       ? 'min-h-[15.6875rem] md:min-h-[32.3125rem]'
       : 'min-h-[27.875rem] md:min-h-[57.5rem]';
-  
+
   return (
     <div
       className={cn(
@@ -118,7 +119,11 @@ export const DzSplit: FC<DzSplitProps> = ({
     >
       <div className={cn(styles.leftContainer, containerTypeStyle)}>
         <DzMedia
-          imgClass={cn(styles.media, containerTypeStyle, animate ? styles.animateImg : '')}
+          imgClass={cn(
+            styles.media,
+            containerTypeStyle,
+            animate ? styles.animateImg : ''
+          )}
           {...media}
         />
       </div>
@@ -157,6 +162,7 @@ export const DzSplit: FC<DzSplitProps> = ({
               {...(linkCTA.linkProps ?? {})}
               href={linkCTA.url}
               LinkElement={linkCTA.linkElement}
+              variant={LINK_VARIANTS.TEXT}
             >
               {linkCTA.text}
             </DzLink>

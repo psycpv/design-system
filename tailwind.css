@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  padding: 0 !important;
+}
+
 @layer base {
   @font-face {
     font-family: avenir-regular;

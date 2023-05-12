@@ -36,7 +36,7 @@ export const typography = {
     '8xl': 100,
   },
   sampleText: `Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz 0123456789&%$£`,
-  singeSamples: {
+  singleSamples: {
     xxxl: ['xxxl', 'Extra Extra', 'Extra Large', '66/74'],
     xxl: ['xxl', 'Extra Extra Large', '44/52'],
     xl: ['xl', 'Extra Large', '30/36'],
