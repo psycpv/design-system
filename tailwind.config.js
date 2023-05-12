@@ -109,7 +109,7 @@ module.exports = {
       animation: {
         slowZoomIn: '15s ease-in 0.3s 1 both zoomIn',
         slowZoomOut: '15s ease-in 0.3s 1 both zoomOut',
-        fadeIn: 'fade-in 0.5s ease-in both'
+        fadeIn: 'fadeIn 0.3s ease-in both'
       },
       screens: {
         xs: '576px',

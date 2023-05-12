@@ -5,7 +5,8 @@ import {
   DzArrowProps,
   ARROW_MODES,
   ARROW_MODES_NAMES,
-  ARROW_DIRECTION,
+  ARROW_DIRECTIONS,
+  ARROW_DIRECTIONS_NAMES,
 } from '../../src/atoms/DzArrow';
 
 const meta: Meta = {
@@ -17,8 +18,8 @@ const meta: Meta = {
     className: { control: { type: null } },
     direction: {
       control: 'select',
-      options: ARROW_DIRECTION,
-      defaultValue: ARROW_DIRECTION[0],
+      options: ARROW_DIRECTIONS_NAMES,
+      defaultValue: ARROW_DIRECTIONS.RIGHT,
     },
   },
   parameters: {
