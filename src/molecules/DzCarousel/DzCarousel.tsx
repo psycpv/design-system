@@ -1,7 +1,6 @@
 // @ts-nocheck
-import React, { ReactNode, useEffect, useRef } from 'react';
+import React, { ReactNode, useRef } from 'react';
 import { register } from 'swiper/element/bundle';
-import 'swiper/css';
 
 register();
 
@@ -35,3 +34,5 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
     </swiper-container>
   );
 };
+
+export default DzCarousel;
