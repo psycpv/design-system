@@ -1,11 +1,11 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzCarousel, DzCarouselProps } from '../../src/atoms/DzCarousel';
+import { DzCarousel, DzCarouselProps } from '../../src/molecules/DzCarousel/DzCarousel';
 import { CARD_TYPES, DzCard } from '../../src/molecules/DzCard/DzCard';
 import { contentData } from '../../constants/mocks/DzCard';
 
 const meta: Meta = {
-  title: 'Atoms/Helpers/DzCarousel',
+  title: 'Molecules/Elements/DzCarousel',
   component: DzCarousel,
   argTypes: {
     slidesPerView: { control: 'number' },
