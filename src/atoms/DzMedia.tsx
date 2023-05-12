@@ -38,7 +38,7 @@ const styles: any = {
   `,
   imageMedia: `
     !aspect-video
-    object-contain
+    object-cover
   `,
 };
 export const DzMedia: FC<DzMediaProps> = ({

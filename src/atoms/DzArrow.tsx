@@ -20,9 +20,17 @@ export const ARROW_MODES_NAMES = [
 ] as const;
 export type ArrowMode = typeof ARROW_MODES_NAMES[number];
 
-export const ARROW_DIRECTION = ['Left', 'Right'] as const;
+export const ARROW_DIRECTIONS = {
+  LEFT: 'Left',
+  RIGHT: 'Right',
+};
 
-export type ArrowDirection = typeof ARROW_DIRECTION[number];
+export const ARROW_DIRECTIONS_NAMES = [
+  ARROW_DIRECTIONS.LEFT,
+  ARROW_DIRECTIONS.RIGHT,
+] as const;
+
+export type ArrowDirection = typeof ARROW_DIRECTIONS_NAMES[number];
 
 export interface DzArrowProps {
   direction: ArrowDirection;
