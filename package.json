@@ -14,7 +14,7 @@
     "chromatic": "chromatic --exit-zero-on-changes",
     "start": "tsdx watch --format esm --onSuccess 'yarn build-tailwind'",
     "build": "tsdx build --format esm && yarn build-tailwind",
-    "build-tailwind": "NODE_ENV=production npx tailwindcss -o ./dist/tailwind.css --minify  && cp ./node_modules/swiper/swiper.css ./dist",
+    "build-tailwind": "NODE_ENV=production npx tailwindcss -o ./dist/tailwind.css --minify",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
     "prepare": "yarn build",
