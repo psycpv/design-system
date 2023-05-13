@@ -4,4 +4,6 @@ export * from './DzHero/DzHero';
 export * from './DzEditorial/DzEditorial';
 export * from './DzSplit/DzSplit';
 export * from './DzTitleMolecule/DzTitleMolecule';
+export * from './DzCarousel/DzCarousel';
 export * from './DzHeroCarousel/DzHeroCarousel';
+export * from './DzTabsCards/DzTabsCards';
