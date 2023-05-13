@@ -29,6 +29,7 @@ export interface CardContentData {
   description?: string;
   linkCTA?: LinkCTA;
   primaryCTA?: PrimaryCTA;
+  hideImage?: boolean;
 }
 
 interface PrimaryCTA {
@@ -100,7 +101,9 @@ const styles: any = {
   `,
 };
 
-export const CardContent: FC<CardContentProps> = ({ data }) => {
+export const CardContent: FC<CardContentProps> = ({
+  data
+}) => {
   const {
     media,
     category,
@@ -111,10 +114,14 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
     description,
     linkCTA,
     primaryCTA,
+    hideImage = false,
   } = data as CardContentData;
   return (
     <div className={cn(styles.cardContainer)}>
-      <DzMedia imgClass={cn(styles.mediaImg)} {...media} />
+      {!hideImage ? (
+        <DzMedia imgClass={cn(styles.mediaImg)} {...media} />
+      ) : null}
+
       <div className={cn(styles.infoContainer)}>
         {category ? (
           <DzText
