@@ -2,12 +2,12 @@ import React, { FC, Fragment, ReactElement, Children } from 'react';
 import { Tab } from '@headlessui/react';
 import { cn } from '../utils/classnames';
 
-const TAB_TYPES = {
+export const TAB_TYPES = {
   NAV: 'nav',
   CONTENT: 'content',
 };
 
-const TAB_SIZE = {
+export const TAB_SIZE = {
   FULL: 'full',
   PARTIAL: 'partial',
 };
@@ -32,28 +32,36 @@ export interface DzTabsProps {
 
 const styles: any = {
   tabList: `
-    border-b
-    border-black-40
+    shadow-bottomBorderBlack20
     flex
   `,
   selectedTab: `
-    border-black-60
     text-black-100
+    shadow-bottomBorderBlack60
   `,
   unselectedTab: `
     border-transparent
     text-black-60
     hover:text-black-100
     hover:underline
+    hover:decoration-current
   `,
   defaultTab: `
     cursor-pointer
     text-center
-    border-b-2
     font-medium
     text-sm
     py-4
     outline-none
+  `,
+  underline:`
+    decoration-transparent
+    duration-300
+    ease-in
+    underline-offset-[0.375rem]
+    decoration-1
+    transition-text-decoration
+    decoration-black-60 
   `,
   full: `
     w-full
@@ -89,6 +97,7 @@ export const DzTabs: FC<DzTabsProps> = ({
                 className={cn(
                   selected ? styles.selectedTab : styles.unselectedTab,
                   styles.defaultTab,
+                  styles.underline,
                   styles[size]
                 )}
                 aria-current={selected ? ariaCurrentType : undefined}

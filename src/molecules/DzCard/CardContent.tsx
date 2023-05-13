@@ -9,6 +9,7 @@ import {
   DzTitle,
   TITLE_TYPES,
   TITLE_SIZES,
+  LINK_VARIANTS,
   DzLink,
   DzButton,
 } from '../../atoms';
@@ -28,6 +29,7 @@ export interface CardContentData {
   description?: string;
   linkCTA?: LinkCTA;
   primaryCTA?: PrimaryCTA;
+  hideImage?: boolean;
 }
 
 interface PrimaryCTA {
@@ -70,7 +72,7 @@ const styles: any = {
     xs:text-md
     md:@2col/cardContainer:text-sm
     md:@3col/cardContainer:text-md
-    md:@4col/cardContainer:text-lg
+    md:@4col/cardContainer:text-md
   `,
   description: `
     text-sm
@@ -99,7 +101,9 @@ const styles: any = {
   `,
 };
 
-export const CardContent: FC<CardContentProps> = ({ data }) => {
+export const CardContent: FC<CardContentProps> = ({
+  data
+}) => {
   const {
     media,
     category,
@@ -110,10 +114,14 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
     description,
     linkCTA,
     primaryCTA,
+    hideImage = false,
   } = data as CardContentData;
   return (
     <div className={cn(styles.cardContainer)}>
-      <DzMedia imgClass={cn(styles.mediaImg)} {...media} />
+      {!hideImage ? (
+        <DzMedia imgClass={cn(styles.mediaImg)} {...media} />
+      ) : null}
+
       <div className={cn(styles.infoContainer)}>
         {category ? (
           <DzText
@@ -154,6 +162,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
               {...(linkCTA.linkProps ?? {})}
               href={linkCTA.url}
               LinkElement={linkCTA.linkElement}
+              variant={LINK_VARIANTS.TEXT}
             >
               {linkCTA.text}
             </DzLink>
