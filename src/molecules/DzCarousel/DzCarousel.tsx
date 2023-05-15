@@ -13,7 +13,6 @@ import { BUTTON_VARIANTS, DzButton } from '../../atoms';
 import { ChevronLeft, ChevronRight } from '../../svgIcons';
 import { Transition } from '@headlessui/react';
 import { Swiper } from 'swiper/types';
-
 interface SwiperContainer
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLElement>,
