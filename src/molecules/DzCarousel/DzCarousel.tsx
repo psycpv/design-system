@@ -12,6 +12,7 @@ import useWindowSize from '../../hooks/useWindowSize';
 import { BUTTON_VARIANTS, DzButton } from '../../atoms';
 import { ChevronLeft, ChevronRight } from '../../svgIcons';
 import { Transition } from '@headlessui/react';
+import { Swiper } from 'swiper/types';
 
 interface SwiperContainer
   extends React.DetailedHTMLProps<
@@ -48,16 +49,16 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
   slidesPerViewMobile = 1,
   swiperProps,
 }) => {
-  const swiperElRef = useRef(null);
+  const swiperElRef = useRef<HTMLInputElement & { swiper: Swiper }>(null);
   const { width } = useWindowSize();
   const isSmall = useMemo(() => width < BREAKPOINTS.MD, [width]);
   const [currentIndex, setCurrentIndex] = useState(
-    swiperElRef.current?.swiper?.activeIndex ?? 0
+    swiperElRef?.current?.swiper.activeIndex ?? 0
   );
   const [showNav, setShowNav] = useState(false);
 
   useEffect(() => {
-    swiperElRef.current.addEventListener('slidechange', e => {
+    swiperElRef?.current?.addEventListener('slidechange', (e: any) => {
       const [swiper] = e.detail;
       setCurrentIndex(swiper.activeIndex);
     });
@@ -112,7 +113,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         <DzButton
           className="flex items-center justify-center absolute left-0 top-1/2 z-10 h-20 w-20"
           variant={BUTTON_VARIANTS.SECONDARY}
-          onClick={() => swiperElRef.current.swiper.slidePrev()}
+          onClick={() => swiperElRef.current?.swiper.slidePrev()}
         >
           <ChevronLeft
             fill="white"
@@ -136,7 +137,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         <DzButton
           className="flex items-center justify-center absolute right-0 top-1/2 z-10 h-20 w-20"
           variant={BUTTON_VARIANTS.SECONDARY}
-          onClick={() => swiperElRef.current.swiper.slideNext()}
+          onClick={() => swiperElRef.current?.swiper.slideNext()}
         >
           <ChevronRight
             fill="white"
