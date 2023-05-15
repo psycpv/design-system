@@ -47,9 +47,11 @@ const styles: any = {
     text-black-60
   `,
   gridCol: `
-    !gap-10
     md:gap-5
   `,
+  cardCol:`
+    mb-10
+  `
 };
 
 const tabsRender = tabs => {
@@ -79,7 +81,7 @@ const tabsPanels = ({ tabs, span, isSmall = false }) => {
         <DzGridColumns className={cn(styles.gridCol)}>
           {cards.map(card => {
             return (
-              <DzColumn span={span}>
+              <DzColumn span={span} className={cn(styles.cardCol)}>
                 <DzCard
                   type={CARD_TYPES.CONTENT}
                   data={{ ...card, hideImage: isSmall }}
