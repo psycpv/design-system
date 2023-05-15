@@ -52,15 +52,24 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
   const swiperElRef = useRef<HTMLInputElement & { swiper: Swiper }>(null);
   const { width } = useWindowSize();
   const isSmall = useMemo(() => width < BREAKPOINTS.MD, [width]);
-  const [currentIndex, setCurrentIndex] = useState(
-    swiperElRef?.current?.swiper.activeIndex ?? 0
-  );
   const [showNav, setShowNav] = useState(false);
+  const [showRightNav, setShowRightNav] = useState(false);
+  const [showLeftNav, setShowLeftNav] = useState(false);
 
   useEffect(() => {
+    setShowLeftNav(!swiperElRef?.current?.swiper.isBeginning);
+    setShowRightNav(!swiperElRef?.current?.swiper.isEnd);
+
+    console.log(
+      'CHANGE ',
+      swiperElRef?.current?.swiper.isBeginning,
+      !swiperElRef?.current?.swiper.isEnd
+    );
+
     swiperElRef?.current?.addEventListener('slidechange', (e: any) => {
       const [swiper] = e.detail;
-      setCurrentIndex(swiper.activeIndex);
+      setShowLeftNav(!swiper.isBeginning);
+      setShowRightNav(!swiper.isEnd);
     });
   }, []);
 
@@ -80,7 +89,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
 
   return (
     <div
-      style={{ position: 'relative' }}
+      className="relative"
       onMouseEnter={() => setShowNav(true)}
       onMouseLeave={() => setShowNav(false)}
     >
@@ -101,7 +110,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
       </swiper-container>
 
       <Transition
-        show={showNav && currentIndex === 0}
+        show={showNav && showLeftNav}
         as={Fragment}
         enter="transition ease-in duration-300"
         enterFrom="-translate-x-full"
@@ -126,7 +135,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
 
       <Transition
         as={Fragment}
-        show={showNav && currentIndex !== children.length - 1}
+        show={showNav && showRightNav}
         enter="transition ease-in duration-300"
         enterFrom="translate-x-full"
         enterTo="translate-x-0"
