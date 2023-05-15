@@ -1,5 +1,7 @@
-import React, { ReactNode, useRef } from 'react';
+import React, { ReactNode, useRef, useMemo } from 'react';
 import { register } from 'swiper/element/bundle';
+import { BREAKPOINTS } from '../../layout/breakpoints';
+import useWindowSize from '../../hooks/useWindowSize';
 
 interface SwiperContainer
   extends React.DetailedHTMLProps<
@@ -25,14 +27,36 @@ register();
 
 export interface DzCarouselProps {
   children: ReactNode[];
-  slidesPerView: number;
+  slidesPerViewDesktop?: number | string;
+  slidesPerViewMobile?: number | string;
+  swiperProps?: any;
 }
 
 export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
   children,
-  slidesPerView = 5,
+  slidesPerViewDesktop = 5,
+  slidesPerViewMobile = 1,
+  swiperProps,
 }) => {
   const swiperElRef = useRef(null);
+  const { width } = useWindowSize();
+  const isSmall = useMemo(() => {
+    return width < BREAKPOINTS.MD;
+  }, [width]);
+
+  const slidesPerView = isSmall ? slidesPerViewMobile : slidesPerViewDesktop;
+  const swiperContainerProps = isSmall
+    ? {
+        'space-between': 20,
+        class: 'pb-14 pr-14',
+        'slides-offset-after': '-50',
+      }
+    : {
+        'space-between': 40,
+        'grab-cursor': true,
+        class: 'pb-14 pr-40',
+        'slides-offset-after': '-150',
+      };
 
   return (
     <swiper-container
@@ -41,11 +65,10 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
       navigation="true"
       scrollbar="true"
       pagination="false"
-      space-between="40"
-      class="pb-14 pr-40"
       navigation-next-el="null"
-      slides-offset-after="-150"
       keyboard-enabled="true"
+      {...swiperContainerProps}
+      {...swiperProps}
     >
       {children?.map(ch => (
         <swiper-slide>{ch}</swiper-slide>

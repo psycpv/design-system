@@ -48,7 +48,6 @@ const styles: any = {
   `,
   infoContainer: `
     w-full
-    md:max-w-[43.125rem]
     flex
     flex-col
     gap-2.5
