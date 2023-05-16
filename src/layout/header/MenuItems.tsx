@@ -1,8 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { DesktopSubmenu } from './DesktopSubmenus';
 import { DzLink } from '../../atoms';
 import { cn } from '../../utils/classnames';
 import { MobileSubmenus } from './MobileSubmenus';
+import useWindowSize from '../../hooks/useWindowSize';
+import { BREAKPOINTS } from '../../layout/breakpoints';
 
 export interface MenuItemsProps {
   items: any[];
@@ -13,7 +15,6 @@ const styles: any = {
   menuContainer: `
     md:flex
     w-full
-    gap-10
     items-center
     justify-end
   `,
@@ -93,10 +94,16 @@ export const MenuItems: FC<MenuItemsProps> = ({
   isMobile = false,
 }) => {
   if (!items) return null;
+  const { width } = useWindowSize();
+  const isMediumLarge = useMemo(() => {
+    return BREAKPOINTS.MD < width && width < 930;
+  }, [width]);
+  const gapContainer = isMediumLarge ? 'gap-6' : 'gap-10';
   return (
     <ul
       className={cn(
-        isMobile ? styles.menuContainerMobile : styles.menuContainer
+        isMobile ? styles.menuContainerMobile : styles.menuContainer,
+        gapContainer
       )}
     >
       {renderItems(items, isMobile)}

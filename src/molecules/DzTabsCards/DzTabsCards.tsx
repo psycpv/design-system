@@ -14,9 +14,17 @@ export interface DzTabsCardsProps {
 
 const styles: any = {
   tab: `
-    hover:outline-1
     outline-black-10
     outline-offset-4
+    underline
+    decoration-transparent
+    decoration-black-60
+    hover:decoration-current
+    duration-300
+    ease-in
+    hover:outline-1
+    hover:text-black-100
+    underline-offset-[0.375rem]
   `,
   tabsContainer: `
     mb-10
@@ -36,15 +44,11 @@ const styles: any = {
     hover:text-black-100
     hover:underline
     hover:decoration-current
+    duration-300
+    ease-in
   `,
   tabTitle: `
     md:text-xl
-  `,
-  selected: `
-    text-black-100
-  `,
-  unselected: `
-    text-black-60
   `,
   gridCol: `
     md:gap-5
@@ -64,7 +68,7 @@ const tabsRender = tabs => {
             textSize={TEXT_SIZES.LARGE}
             className={cn(
               styles.tabTitle,
-              selected ? styles.selected : styles.unselected
+              selected ? styles.selectedTab : styles.unselectedTab
             )}
           />
         )}

@@ -52,7 +52,6 @@ const styles: any = {
     z-50
   `,
   logo: `
-    pl-2.5
     h-5
   `,
   leftSide: `

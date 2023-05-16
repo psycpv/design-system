@@ -13,7 +13,6 @@ import { BUTTON_VARIANTS, DzButton } from '../../atoms';
 import { ChevronLeft, ChevronRight } from '../../svgIcons';
 import { Transition } from '@headlessui/react';
 import { Swiper } from 'swiper/types';
-
 interface SwiperContainer
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLElement>,
@@ -78,13 +77,15 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
     ? {
         'space-between': 20,
         class: 'pb-14 pr-14',
-        'slides-offset-after': '-50',
+        'slides-offset-after': '-40',
+        'slides-offset-before': '20'
       }
     : {
-        'space-between': 40,
+        'space-between': 120,
         'grab-cursor': true,
-        class: 'pb-14 pr-40',
-        'slides-offset-after': '-150',
+        class: 'pb-14',
+        'slides-offset-after': '20',
+        'slides-offset-before': '20'
       };
 
   return (
@@ -120,7 +121,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         leaveTo="-translate-x-full"
       >
         <DzButton
-          className="flex items-center justify-center absolute left-0 top-1/2 z-10 h-20 w-20"
+          className="flex items-center justify-center absolute left-0 top-1/2 z-10 h-20 w-20 translate-y-[-50%] translate-x-0"
           variant={BUTTON_VARIANTS.SECONDARY}
           onClick={() => swiperElRef.current?.swiper.slidePrev()}
         >
@@ -144,7 +145,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         leaveTo="translate-x-full"
       >
         <DzButton
-          className="flex items-center justify-center absolute right-0 top-1/2 z-10 h-20 w-20"
+          className="flex items-center justify-center absolute right-0 top-1/2 z-10 h-20 w-20 translate-y-[-50%] translate-x-0"
           variant={BUTTON_VARIANTS.SECONDARY}
           onClick={() => swiperElRef.current?.swiper.slideNext()}
         >

@@ -21,6 +21,7 @@ export interface InterstitialFullWidthProps {
   split?: boolean;
   media: DzMediaProps;
   textColor?: TextColors;
+  customClass?: string;
 }
 
 const styles: any = {
@@ -76,6 +77,9 @@ const styles: any = {
     -translate-y-1/2
     text-center
   `,
+  description:`
+    md:text-md
+  `
 };
 
 export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
@@ -85,10 +89,11 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
   description,
   primaryCta,
   media,
+  customClass = '',
 }) => {
   const textClassColor = `text-${textColor}`;
   return (
-    <div className={cn(styles.nonSplit)}>
+    <div className={cn(styles.nonSplit, customClass)}>
       <DzMedia
         className={cn(styles.mediaContainer)}
         imgClass={cn(styles.image)}
@@ -108,7 +113,7 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
           titleType={TITLE_TYPES.H2}
           titleSize={TITLE_SIZES.LG}
         ></DzTitle>
-        <DzText className={cn(textClassColor)} text={description} />
+        <DzText className={cn(styles.description, textClassColor)} text={description} />
         {primaryCta ? (
           <div>
             <DzButton
