@@ -121,7 +121,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         leaveTo="-translate-x-full"
       >
         <DzButton
-          className="flex items-center justify-center absolute left-0 top-1/2 z-10 h-20 w-20"
+          className="flex items-center justify-center absolute left-0 top-1/2 z-10 h-20 w-20 translate-y-[-50%] translate-x-0"
           variant={BUTTON_VARIANTS.SECONDARY}
           onClick={() => swiperElRef.current?.swiper.slidePrev()}
         >
@@ -145,7 +145,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         leaveTo="translate-x-full"
       >
         <DzButton
-          className="flex items-center justify-center absolute right-0 top-1/2 z-10 h-20 w-20"
+          className="flex items-center justify-center absolute right-0 top-1/2 z-10 h-20 w-20 translate-y-[-50%] translate-x-0"
           variant={BUTTON_VARIANTS.SECONDARY}
           onClick={() => swiperElRef.current?.swiper.slideNext()}
         >
