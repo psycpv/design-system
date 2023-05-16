@@ -23,6 +23,7 @@ export interface InterstitialSplitProps {
   split?: boolean;
   media: DzMediaProps;
   textColor?: TextColors;
+  customClass?: string;
 }
 
 const styles: any = {
@@ -76,6 +77,7 @@ export const InterstitialSplit: FC<InterstitialSplitProps> = ({
   description,
   primaryCta,
   media,
+  customClass = ''
 }) => {
   const textClassColor = `text-${textColor}`;
   const { width } = useWindowSize();
@@ -83,7 +85,7 @@ export const InterstitialSplit: FC<InterstitialSplitProps> = ({
     return width < BREAKPOINTS.MD;
   }, [width]);
   return (
-    <div className={cn(styles.splitContainer)}>
+    <div className={cn(styles.splitContainer, customClass)}>
       <DzMedia
         className={cn(styles.mediaContainer)}
         imgClass={cn(!isSmall ? styles.image : 'object-cover')}

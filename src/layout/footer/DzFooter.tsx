@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, useRef } from 'react';
 import { DzText } from '../../atoms';
 import { DzLink } from '../../atoms';
 import { cn } from '../../utils/classnames';
@@ -9,6 +9,7 @@ import BoldInstagramIcon from '../../svgIcons/boldInstagram';
 import BoldNewsletterIcon from '../../svgIcons/boldNewsletter';
 import { BREAKPOINTS } from '../../layout/breakpoints';
 import useWindowSize from '../../hooks/useWindowSize';
+import useHover from '../../hooks/useHover';
 
 interface FooterData {
   copies: Copies;
@@ -102,6 +103,20 @@ export const DzFooter: FC<DzFooterProps> = ({
   const isSmall = useMemo(() => {
     return width < BREAKPOINTS.MD;
   }, [width]);
+  const twitterHover = useRef<any>(null);
+  const isTwitterHover = useHover(twitterHover);
+
+  const facebookHover = useRef<any>(null);
+  const isFacebookHover = useHover(facebookHover);
+
+  const instagramHover = useRef<any>(null);
+  const isInstagramHover = useHover(instagramHover);
+
+  const weChatHover = useRef<any>(null);
+  const isWeChatHover = useHover(weChatHover);
+
+  const newsletterHover = useRef<any>(null);
+  const isNewsletterHover = useHover(newsletterHover);
 
   const { links = [], socialMedia = {}, copies = {} } = data ?? {};
   const { weChat, instagram, twitter, facebook } = socialMedia ?? {};
@@ -136,29 +151,35 @@ export const DzFooter: FC<DzFooterProps> = ({
         </div>
         <div className={cn(styles.socialContainer)}>
           {twitter ? (
-            <DzLink href={twitter} openNewTab>
-              <BoldTwitterIcon />
+            <DzLink href={twitter} ref={twitterHover} openNewTab>
+              <BoldTwitterIcon fill={isTwitterHover ? '#757575' : 'black'} />
             </DzLink>
           ) : null}
 
           {facebook ? (
-            <DzLink href={facebook} openNewTab>
-              <BoldFacebookIcon />
+            <DzLink href={facebook} ref={facebookHover} openNewTab>
+              <BoldFacebookIcon fill={isFacebookHover ? '#757575' : 'black'} />
             </DzLink>
           ) : null}
           {instagram ? (
-            <DzLink href={instagram} openNewTab>
-              <BoldInstagramIcon />
+            <DzLink href={instagram} ref={instagramHover} openNewTab>
+              <BoldInstagramIcon
+                fill={isInstagramHover ? '#757575' : 'black'}
+              />
             </DzLink>
           ) : null}
 
           {weChat ? (
-            <DzLink href={weChat} openNewTab>
-              <BoldWeChatIcon />
+            <DzLink href={weChat} ref={weChatHover} openNewTab>
+              <BoldWeChatIcon fill={isWeChatHover ? '#757575' : 'black'} />
             </DzLink>
           ) : null}
 
-          <BoldNewsletterIcon onClick={() => newsletterAction()} />
+          <div onClick={() => newsletterAction()} ref={newsletterHover}>
+            <BoldNewsletterIcon
+              fill={isNewsletterHover ? '#757575' : 'black'}
+            />
+          </div>
         </div>
       </div>
     </footer>

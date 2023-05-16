@@ -37,10 +37,6 @@ const styles: any = {
   submenuContainer: `
     absolute
   `,
-  rootMenu: `
-    hover:decoration-transparent
-    hover:no-underline
-  `,
   childMenus: `
     bg-white-100
     flex
@@ -57,6 +53,7 @@ export const DesktopSubmenu: FC<DesktopSubmenuProps> = ({
   rootUrl = '',
   items = [],
 }) => {
+  
   const [hoverOverMenu, SetHoverOverMenu] = useState(false);
   const rootElement = useRef<HTMLDivElement | null>(null);
   const isHoverRoot = useHover(rootElement);
@@ -66,9 +63,7 @@ export const DesktopSubmenu: FC<DesktopSubmenuProps> = ({
     <Popover className="relative">
       <Popover.Button as={Fragment}>
         <div ref={rootElement}>
-          <DzLink href={rootUrl} className={cn(styles.rootMenu)}>
-            {title}
-          </DzLink>
+          <DzLink href={rootUrl}>{title}</DzLink>
         </div>
       </Popover.Button>
       <Transition

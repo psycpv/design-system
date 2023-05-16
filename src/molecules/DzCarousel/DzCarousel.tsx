@@ -40,6 +40,7 @@ export interface DzCarouselProps {
   slidesPerViewDesktop?: number | string;
   slidesPerViewMobile?: number | string;
   swiperProps?: any;
+  className?: any;
 }
 
 export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
@@ -47,6 +48,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
   slidesPerViewDesktop = 5,
   slidesPerViewMobile = 1,
   swiperProps,
+  className
 }) => {
   const swiperElRef = useRef<HTMLInputElement & { swiper: Swiper }>(null);
   const { width } = useWindowSize();
@@ -77,13 +79,15 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
     ? {
         'space-between': 20,
         class: 'pb-14 pr-14',
-        'slides-offset-after': '-50',
+        'slides-offset-after': '-40',
+        'slides-offset-before': '20'
       }
     : {
-        'space-between': 40,
+        'space-between': 120,
         'grab-cursor': true,
-        class: 'pb-14 pr-40',
-        'slides-offset-after': '-150',
+        class: 'pb-14',
+        'slides-offset-after': '20',
+        'slides-offset-before': '20'
       };
 
   return (

@@ -17,6 +17,10 @@ const styles: any = {
     hover:outline-1
     outline-black-10
     outline-offset-4
+    underline
+    decoration-transparent
+    decoration-black-60
+    hover:decoration-current
   `,
   tabsContainer: `
     mb-10
