@@ -1,25 +1,27 @@
-import * as React from "react"
-import { useEffect, useRef, useState } from "react"
-import styled, { css } from "styled-components"
-import {useUpdateEffect} from '../hooks/useUpdateEffect';
-export const FLAT_SHADOW = "0 1px 1px 0 rgba(0, 0, 0, 0.05)"
+import * as React from 'react';
+import { useEffect, useRef, useState } from 'react';
+import styled, { css } from 'styled-components';
+import { useUpdateEffect } from '../hooks/useUpdateEffect';
+export const FLAT_SHADOW = '0 1px 1px 0 rgba(0, 0, 0, 0.05)';
 
-type Range = { min: number; max: number }
+type Range = { min: number; max: number };
 export const remapValue = (n: number, from: Range, to: Range) => {
-  return ((n - from.min) * (to.max - to.min)) / (from.max - from.min) + to.min
-}
-export const RANGE_HANDLE_SIZE = 24
+  return ((n - from.min) * (to.max - to.min)) / (from.max - from.min) + to.min;
+};
+export const RANGE_HANDLE_SIZE = 12;
 
 export interface RangeProps {
-  ariaLabels?: [string, string]
-  min: number
-  max: number
-  step: number
-  value?: number[]
-  onChange?: (range: number[]) => void
+  doubleRange?: boolean;
+  ariaLabels?: [string, string];
+  min: number;
+  max: number;
+  step: number;
+  value?: number[];
+  onChange?: (range: number[]) => void;
 }
 
 export const DzRange: React.FC<RangeProps> = ({
+  doubleRange = false,
   ariaLabels,
   min,
   max,
@@ -28,51 +30,51 @@ export const DzRange: React.FC<RangeProps> = ({
   onChange,
   ...rest
 }) => {
-  const minRef = useRef<HTMLInputElement | null>(null)
-  const maxRef = useRef<HTMLInputElement | null>(null)
+  const minRef = useRef<HTMLInputElement | null>(null);
+  const maxRef = useRef<HTMLInputElement | null>(null);
 
-  const [values, setValues] = useState(value)
+  const [values, setValues] = useState(value);
 
-  const [maxWidth, setMaxWidth] = useState(0)
+  const [maxWidth, setMaxWidth] = useState(0);
 
   const handleMinChange = ({
     target: { valueAsNumber: value },
   }: React.ChangeEvent<HTMLInputElement>) => {
-    if (value > values[1]) return
-    setValues([value, values[1]])
-    onChange?.([value, values[1]])
-  }
+    if (value > values[1]) return;
+    setValues([value, values[1]]);
+    onChange?.([value, values[1]]);
+  };
 
   const handleMaxChange = ({
     target: { valueAsNumber: value },
   }: React.ChangeEvent<HTMLInputElement>) => {
-    if (value < values[0]) return
-    setValues([values[0], value])
-    onChange?.([values[0], value])
-  }
+    if (value < values[0]) return;
+    setValues([values[0], value]);
+    onChange?.([values[0], value]);
+  };
 
   useEffect(() => {
-    if (!maxRef.current) return
-    setMaxWidth(maxRef.current.offsetWidth)
-  }, [])
+    if (!maxRef.current) return;
+    setMaxWidth(maxRef.current.offsetWidth);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
-      if (!maxRef.current) return
-      setMaxWidth(maxRef.current.offsetWidth)
-    }
+      if (!maxRef.current) return;
+      setMaxWidth(maxRef.current.offsetWidth);
+    };
 
-    window.addEventListener("resize", handleResize, { passive: true })
+    window.addEventListener('resize', handleResize, { passive: true });
 
     return () => {
-      window.removeEventListener("resize", handleResize)
-    }
-  }, [])
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
-   // Sync local state with value prop
-   useUpdateEffect(() => {
-    setValues(value)
-  }, [...value])
+  // Sync local state with value prop
+  useUpdateEffect(() => {
+    setValues(value);
+  }, [...value]);
 
   const selectionRectangle = `rect(0, ${remapValue(
     values[1],
@@ -82,27 +84,29 @@ export const DzRange: React.FC<RangeProps> = ({
     values[0],
     { min, max },
     { min: 0, max: maxWidth - RANGE_HANDLE_SIZE }
-  )}px)`
+  )}px)`;
 
   const maxRectangle = `rect(0, ${maxWidth}px, ${RANGE_HANDLE_SIZE}px, ${remapValue(
     values[1],
     { min, max },
     { min: 0, max: maxWidth - RANGE_HANDLE_SIZE }
-  )}px)`
+  )}px)`;
 
   return (
     <Track {...rest}>
       <Selection style={{ clip: selectionRectangle }} />
 
-      <Slider
-        ref={minRef as any}
-        min={min}
-        max={max}
-        step={step}
-        onInput={handleMinChange}
-        value={values[0]}
-        aria-label={ariaLabels?.[0]}
-      />
+      {doubleRange ? (
+        <Slider
+          ref={minRef as any}
+          min={min}
+          max={max}
+          step={step}
+          onInput={handleMinChange}
+          value={values[0]}
+          aria-label={ariaLabels?.[0]}
+        />
+      ) : null}
 
       <Slider
         ref={maxRef as any}
@@ -115,12 +119,10 @@ export const DzRange: React.FC<RangeProps> = ({
         aria-label={ariaLabels?.[1]}
       />
 
-      <Shadow
-      
-      />
+      <Shadow />
     </Track>
-  )
-}
+  );
+};
 
 const Track = styled.div`
   display: flex;
@@ -129,7 +131,7 @@ const Track = styled.div`
   height: ${RANGE_HANDLE_SIZE}px;
 
   &:before {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     height: 2px;
@@ -137,9 +139,9 @@ const Track = styled.div`
     right: 0;
     top: 50%;
     margin-top: -1px;
-    background-color: #E8E8E8;
+    background-color: #e8e8e8;
   }
-`
+`;
 
 const Shadow = styled.div`
   position: absolute;
@@ -151,7 +153,7 @@ const Shadow = styled.div`
   pointer-events: none;
   border-radius: 50%;
   box-shadow: ${FLAT_SHADOW};
-`
+`;
 
 const Selection = styled.div`
   position: absolute;
@@ -160,23 +162,22 @@ const Selection = styled.div`
   right: 0;
   top: 50%;
   margin-top: -1px;
-  background-color: #757575;
-`
+  background-color: black;
+`;
 
 const railStyles = css`
   width: 100%;
   height: ${RANGE_HANDLE_SIZE}px;
-`
+`;
 
 const handleStyles = css`
   user-select: none;
   cursor: grab;
   width: ${RANGE_HANDLE_SIZE}px;
   height: ${RANGE_HANDLE_SIZE}px;
-  background-color: #ffffff;
+  background-color: black;
   border-radius: 50%;
-  border: 1px solid #757575;
-`
+`;
 
 const Slider = styled.input`
   appearance: none;
@@ -208,12 +209,12 @@ const Slider = styled.input`
   &:active {
     &::-webkit-slider-thumb {
       box-shadow: none;
-      background-color: #757575;
+      background-color: black;
     }
 
     &::-moz-range-thumb {
       box-shadow: none;
-      background-color: #757575;
+      background-color: black;
     }
   }
 
@@ -226,8 +227,8 @@ const Slider = styled.input`
       box-shadow: ${FLAT_SHADOW};
     }
   }
-`
+`;
 
 Slider.defaultProps = {
-  type: "range",
-}
+  type: 'range',
+};

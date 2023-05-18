@@ -18,3 +18,6 @@ export * from './outlineFacebook';
 export * from './outlineInstagram';
 export * from './outlineTwitter';
 export * from './outlineWeChat';
+export * from './four-squares';
+export * from './six-squares';
+export * from './eight-squares';

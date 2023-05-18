@@ -168,7 +168,7 @@ export const DzBar: FC<DzBarProps> = ({
   }
 
   if (variant === BAR_VARIANTS.SLIDER) {
-    return <DzRange onChange={onChangeRange} {...rangeProps} />;
+    return <DzRange onChange={onChangeRange} {...rangeProps} doubleRange/>;
   }
   
   if(variant === BAR_VARIANTS.CAROUSEL_TAB){
