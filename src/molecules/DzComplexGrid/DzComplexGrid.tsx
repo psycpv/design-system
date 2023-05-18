@@ -6,6 +6,8 @@ import { cn } from '../../utils/classnames';
 import { FourSquares } from '../../svgIcons/four-squares';
 import { SixSquares } from '../../svgIcons/six-squares';
 import { EightSquares } from '../../svgIcons/eight-squares';
+import { BREAKPOINTS } from '../../layout/breakpoints';
+import useWindowSize from '../../hooks/useWindowSize';
 
 interface StepInterface {
   id: number;
@@ -29,7 +31,8 @@ const styles: any = {
     flex
     justify-between
     items-center
-    mb-10
+    md:mb-10
+    mb-5
   `,
   rangeContainer: `
     flex
@@ -76,6 +79,11 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   headingTitle = 'Artworks',
   displayNumberOfResults = false,
 }) => {
+  const { width } = useWindowSize();
+  const isMobile = useMemo(() => {
+    return width < BREAKPOINTS.MD;
+  }, [width]);
+
   const [stepValue, setStepValue] = useState(MINIMUM_VALUE);
   const maxRange = useMemo(() => steps.length, [steps]);
   const numberOfResults = useMemo(() => cards.length, [cards]);
@@ -106,18 +114,20 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
           <DzText text={`${numberOfResults} ${headingTitle}`} />
         ) : null}
 
-        <div className={cn(styles.rangeContainer)}>
-          <div className={cn(styles.range)}>
-            <DzRange
-              min={MINIMUM_VALUE}
-              max={maxRange}
-              step={STEPS_SPAN}
-              value={[MINIMUM_VALUE, INITIAL_VALUE]}
-              onChange={handleChange}
-            />
+        {!isMobile ? (
+          <div className={cn(styles.rangeContainer)}>
+            <div className={cn(styles.range)}>
+              <DzRange
+                min={MINIMUM_VALUE}
+                max={maxRange}
+                step={STEPS_SPAN}
+                value={[MINIMUM_VALUE, INITIAL_VALUE]}
+                onChange={handleChange}
+              />
+            </div>
+            {CurrentIcon}
           </div>
-          {CurrentIcon}
-        </div>
+        ) : null}
       </div>
 
       <DzGridColumns
