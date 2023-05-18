@@ -106,11 +106,13 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
             <MenuLogo
               className={cn(styles.logoMenu)}
               onClick={() => toggle(v => !v)}
+              id="open-menu-logo"
             />
           ) : (
             <CloseLogo
               className={cn(styles.logoMenu)}
               onClick={() => toggle(v => !v)}
+              id="close-menu-logo"
             />
           )}
         </Popover.Button>
@@ -138,7 +140,7 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
                 {twitter ? (
                   <li>
                     <DzLink href={twitter} openNewTab>
-                      <OutlineTwitter />
+                      <OutlineTwitter id="twitter-icon" />
                     </DzLink>
                   </li>
                 ) : null}
@@ -146,7 +148,7 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
                 {facebook ? (
                   <li>
                     <DzLink href={facebook} openNewTab>
-                      <OutlineFacebook />
+                      <OutlineFacebook id="facebook-icon" />
                     </DzLink>
                   </li>
                 ) : null}
@@ -154,7 +156,7 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
                 {instagram ? (
                   <li>
                     <DzLink href={instagram} openNewTab>
-                      <OutlineInstagram />
+                      <OutlineInstagram id="instagram-icon" />
                     </DzLink>
                   </li>
                 ) : null}
@@ -162,7 +164,7 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
                 {weChat ? (
                   <li>
                     <DzLink href={weChat} openNewTab>
-                      <OutlineWeChat />
+                      <OutlineWeChat id="we-chat-icon" />
                     </DzLink>
                   </li>
                 ) : null}

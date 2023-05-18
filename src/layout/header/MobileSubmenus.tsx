@@ -45,7 +45,10 @@ export const MobileSubmenus: FC<MobileSubmenuProps> = ({
               {title}
             </DzLink>
             <Disclosure.Button className={cn(styles.caretIcon)}>
-              <ArrowDown className={cn(open ? styles.upArrow : '')} />
+              <ArrowDown
+                className={cn(open ? styles.upArrow : '')}
+                id={`${open ? 'close' : 'open'}-submenu-${title}`}
+              />
             </Disclosure.Button>
           </div>
           <Disclosure.Panel className={cn(styles.panelItems)}>
