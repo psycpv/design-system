@@ -105,7 +105,7 @@ export const DzHeader: FC<DzHeaderProps> = ({
       <div className={cn(styles.leftSide)}>
         <DzLogo
           className={cn(styles.logo)}
-          svgProps={{ height: '20', width: '163' }}
+          svgProps={{ height: '20', width: '163', id: 'david-zwirner-logo' }}
         />
       </div>
       {isSmall ? (
