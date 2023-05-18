@@ -18,6 +18,7 @@ interface CardCTA {
 }
 
 export interface CardArtworkData {
+  id?:string;
   media: DzMediaProps;
   artistName: string;
   artworkTitle: string;
@@ -25,8 +26,9 @@ export interface CardArtworkData {
   medium: string;
   dimensions: string;
   edition: string;
-  price: number;
-  framed: string;
+  price?: number;
+  framed?: string;
+  enableZoom?: boolean;
   primaryCTA?: CardCTA;
   secondaryCTA?: CardCTA;
 }
@@ -96,6 +98,8 @@ const styles: any = {
     `,
   },
   mediaImg: `
+    !object-contain
+    !bg-black-30
     @6colMbl/cardContainer:min-h-[12.5rem]
     @12colMbl/cardContainer:min-h-[22.5rem]
     md:@2col/cardContainer:min-h-[15rem]
@@ -105,6 +109,11 @@ const styles: any = {
     md:@10col/cardContainer:min-h-[45rem]
     md:@12col/cardContainer:min-h-[51.25rem]
   `,
+  mediaZoom: `
+    md:hover:@2col/cardContainer:scale-[1.03]
+    md:hover:@12col/cardContainer:scale-100
+    ease-in duration-300
+  `,
   cardContainer: `
     @container/cardContainer
     w-full
@@ -112,18 +121,19 @@ const styles: any = {
     flex-col
     gap-5
   `,
-  buttons:`
+  buttons: `
     @12colMbl/cardContainer:py-[0.8125rem]
     @12colMbl/cardContainer:px-[1.5625rem]
     md:@2col/cardContainer:py-[0.3125rem]
     md:@2col/cardContainer:px-[1.5625rem]
     md:@4col/cardContainer:py-[0.8125rem]
     md:@4col/cardContainer:px-[1.5625rem]
-  `
+  `,
 };
 
 export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
   const {
+    id,
     media,
     artistName,
     artworkTitle,
@@ -135,10 +145,15 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
     framed,
     primaryCTA,
     secondaryCTA,
+    enableZoom = true,
   } = data as CardArtworkData;
   return (
-    <div className={cn(styles.cardContainer)}>
-      <DzMedia imgClass={cn(styles.mediaImg)} {...media} />
+    <div id={id} className={cn(styles.cardContainer)}>
+      <DzMedia
+        imgClass={cn(styles.mediaImg, enableZoom ? styles.mediaZoom : '')}
+        className="overflow-hidden"
+        {...media}
+      />
       <div className={cn(styles.artwork.infoContainer)}>
         <div className={cn(styles.artwork.leftPanel)}>
           <div>
@@ -186,18 +201,22 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
               />
             ) : null}
           </div>
-          <div className={cn(styles.artwork.priceContainer)}>
-            <DzTitle
-              titleType={TITLE_TYPES.H4}
-              title={`USD${priceFormatter({ price })}`}
-              classNameTitle={cn(styles.artwork.priceTitle)}
-            />
-            <DzText
-              className={cn(styles.artwork.tombstoneText)}
-              text={framed}
-              textType={TEXT_TYPES.P}
-            />
-          </div>
+          {price ? (
+            <div className={cn(styles.artwork.priceContainer)}>
+              <DzTitle
+                titleType={TITLE_TYPES.H4}
+                title={`USD${priceFormatter({ price })}`}
+                classNameTitle={cn(styles.artwork.priceTitle)}
+              />
+              {framed ? (
+                <DzText
+                  className={cn(styles.artwork.tombstoneText)}
+                  text={framed}
+                  textType={TEXT_TYPES.P}
+                />
+              ) : null}
+            </div>
+          ) : null}
         </div>
         {primaryCTA || secondaryCTA ? (
           <div className={cn(styles.artwork.rightPanel)}>

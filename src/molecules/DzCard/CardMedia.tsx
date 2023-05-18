@@ -9,6 +9,7 @@ import {
 import { cn } from '../../utils/classnames';
 
 export interface CardMediaData {
+  id?:string;
   media: DzMediaProps;
   description: string;
 }
@@ -42,9 +43,9 @@ const styles: any = {
 };
 
 export const CardMedia: FC<CardMediaProps> = ({ data }) => {
-  const { media, description } = data as CardMediaData;
+  const { id, media, description } = data as CardMediaData;
   return (
-    <div className={cn(styles.cardContainer)}>
+    <div id={id} className={cn(styles.cardContainer)}>
       <DzMedia imgClass={cn(styles.mediaImg)} {...media} />
       <DzText
         className={cn(styles.media.descriptionText)}

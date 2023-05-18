@@ -137,9 +137,13 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
             : 'gap-y-[3.75rem]'
         }
       >
-        {cards.map(card => {
+        {cards.map((card, key) => {
+          const { id } = card ?? {};
           return (
-            <DzColumn span={columnsSpanPerRow}>
+            <DzColumn
+              key={`${id}-${key}`}
+              span={columnsSpanPerRow}
+            >
               <DzCard type={CARD_TYPES.ARTWORK} data={card} />
             </DzColumn>
           );

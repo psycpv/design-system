@@ -20,6 +20,7 @@ export interface CardContentProps {
 }
 
 export interface CardContentData {
+  id?:string;
   media: DzMediaProps;
   category?: string;
   title: string;
@@ -105,6 +106,7 @@ export const CardContent: FC<CardContentProps> = ({
   data
 }) => {
   const {
+    id,
     media,
     category,
     title,
@@ -117,7 +119,7 @@ export const CardContent: FC<CardContentProps> = ({
     hideImage = false,
   } = data as CardContentData;
   return (
-    <div className={cn(styles.cardContainer)}>
+    <div id={id} className={cn(styles.cardContainer)}>
       {!hideImage ? (
         <DzMedia imgClass={cn(styles.mediaImg)} {...media} />
       ) : null}

@@ -3,6 +3,7 @@ import { MEDIA_TYPES } from '../../src/atoms/DzMedia';
 
 export const cards = [
   {
+    id: '1',
     media: {
       url: '/',
       type: MEDIA_TYPES.IMAGE,
@@ -31,6 +32,7 @@ export const cards = [
     },
   },
   {
+    id: '2',
     media: {
       url: '/',
       type: MEDIA_TYPES.IMAGE,
@@ -59,6 +61,7 @@ export const cards = [
     },
   },
   {
+    id: '3',
     media: {
       url: '/',
       type: MEDIA_TYPES.IMAGE,
@@ -87,6 +90,7 @@ export const cards = [
     },
   },
   {
+    id: '4',
     media: {
       url: '/',
       type: MEDIA_TYPES.IMAGE,
@@ -115,6 +119,7 @@ export const cards = [
     },
   },
   {
+    id: '5',
     media: {
       url: '/',
       type: MEDIA_TYPES.IMAGE,
@@ -143,6 +148,7 @@ export const cards = [
     },
   },
   {
+    id: '6',
     media: {
       url: '/',
       type: MEDIA_TYPES.IMAGE,
@@ -171,6 +177,7 @@ export const cards = [
     },
   },
   {
+    id: '7',
     media: {
       url: '/',
       type: MEDIA_TYPES.IMAGE,
