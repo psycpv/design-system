@@ -17,7 +17,6 @@ export const DzHeroCarousel: FC<DzHeroCarouselProps> = ({ items = [] }) => {
   const [currentSlide, setCurrentSlide] = useState<any>(null);
 
   const handleChange = (step: CarouselActions) => {
-    console.log('handle change::', step);
     const offSet = step === ACTIONS.NEXT ? 1 : -1;
     const newIndex = activeIndex + offSet;
     if (newIndex < 0) {

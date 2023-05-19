@@ -5,6 +5,7 @@ import { BUTTON_VARIANTS } from '../../src/atoms/DzButton';
 import { MEDIA_TYPES } from '../../src/atoms/DzMedia';
 
 export const artWorkData: CardArtworkData = {
+  id: '1',
   media: {
     url: '/',
     type: MEDIA_TYPES.IMAGE,
@@ -34,6 +35,7 @@ export const artWorkData: CardArtworkData = {
 };
 
 export const mediaData: CardMediaData = {
+  id: '1',
   media: {
     type: MEDIA_TYPES.IMAGE,
     imgProps: {
@@ -47,6 +49,7 @@ export const mediaData: CardMediaData = {
 };
 
 export const contentData: CardContentData = {
+  id: '1',
   media: {
     type: MEDIA_TYPES.IMAGE,
     imgProps: {

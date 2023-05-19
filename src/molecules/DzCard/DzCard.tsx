@@ -25,7 +25,7 @@ export const CARD_TYPES_NAMES = [
 
 export type CardTypes = typeof CARD_TYPES_NAMES[number];
 
-type DataCardType = CardArtworkData | CardMediaData | CardContentData;
+export type DataCardType = CardArtworkData | CardMediaData | CardContentData;
 export interface DzCardProps {
   type: CardTypes;
   data: DataCardType;

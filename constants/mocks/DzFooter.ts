@@ -4,6 +4,7 @@ export const footerData = {
   },
   links: [
     {
+      _key: '1',
       _type: 'menuItemLink',
       newTab: true,
       mobileEnabled: true,
@@ -12,6 +13,7 @@ export const footerData = {
       title: 'Privacy Policy',
     },
     {
+      _key: '2',
       _type: 'menuItemPage',
       desktopEnabled: true,
       mobileEnabled: true,

@@ -22,4 +22,5 @@ export * from './DzTabs';
 export * from './DzText';
 export * from './DzTextBox';
 export * from './DzTitle';
+export * from './DzRange';
 export * from './DzMedia';

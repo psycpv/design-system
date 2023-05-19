@@ -26,6 +26,7 @@ interface SocialMedia {
 }
 
 interface Link {
+  _key: string;
   _type: string;
   newTab: boolean;
   mobileEnabled: boolean;
@@ -45,7 +46,7 @@ interface Copies {
 }
 
 export interface DzFooterProps {
-  data: any;
+  data: FooterData;
   newsletterAction: Function;
   footerClass?: string;
 }
@@ -118,21 +119,30 @@ export const DzFooter: FC<DzFooterProps> = ({
   const newsletterHover = useRef<any>(null);
   const isNewsletterHover = useHover(newsletterHover);
 
-  const { links = [], socialMedia = {}, copies = {} } = data ?? {};
-  const { weChat, instagram, twitter, facebook } = socialMedia ?? {};
+  const { links = [], socialMedia, copies } = data ?? {};
+  const { weChat, instagram, twitter, facebook } = socialMedia ?? {
+    weChat: '',
+    instagram: '',
+    twitter: '',
+    facebook: '',
+  };
   return (
     <footer className={cn(styles.footer, footerClass)}>
       <div className={cn(styles.bottomContainer)}>
         <div className={cn(styles.leftContainer)}>
-          <DzText className={cn(styles.copyright)} text={copies?.rights} />
+          {copies?.rights ? (
+            <DzText className={cn(styles.copyright)} text={copies?.rights} />
+          ) : null}
+
           <div className={cn(styles.linksContainer)}>
-            {links.map(linkData => {
+            {links.map((linkData, position) => {
               const {
                 _type,
                 title = '',
                 anchor = '',
-                page = {},
+                page = { url: '' },
                 link = '',
+                _key,
                 mobileEnabled,
                 desktopEnabled,
                 newTab,
@@ -142,7 +152,12 @@ export const DzFooter: FC<DzFooterProps> = ({
               const url = _type === 'menuItemPage' ? page?.url : link;
               const urlWithAnchor = `${url}#${anchor}`;
               return (
-                <DzLink href={urlWithAnchor} openNewTab={newTab}>
+                <DzLink
+                  id={_key}
+                  key={`${_key}-${position}`}
+                  href={urlWithAnchor}
+                  openNewTab={newTab}
+                >
                   {title}
                 </DzLink>
               );
