@@ -112,7 +112,6 @@ export const DzSelect: React.FunctionComponent<DzSelectProps> = ({
   hasError = false,
   useCheckbox = false,
 }) => {
-  console.log('ENTER TRY TITLE::', title)
   const [selected, setSelected] = useState<SelectOption>(
     options?.[selectId] ?? null
   );

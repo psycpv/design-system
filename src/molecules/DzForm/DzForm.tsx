@@ -37,11 +37,9 @@ export const DzForm: FC<DzFormProps> = ({ steps, mediaProps }) => {
     return stepData;
   }, [steps, currentStep]);
   const handleFormAction = useCallback((...args) => {
-    console.log('ACTION::', args);
     setCurrentStep(step => step + 1);
   }, []);
 
-  console.log('mediaProps::', mediaProps, stepsLength);
   return (
     <div className={styles.formContainer}>
       <div className={styles.leftContainer}>

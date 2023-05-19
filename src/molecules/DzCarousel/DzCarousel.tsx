@@ -59,12 +59,6 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
     setShowLeftNav(!swiperElRef?.current?.swiper.isBeginning);
     setShowRightNav(!swiperElRef?.current?.swiper.isEnd);
 
-    console.log(
-      'CHANGE ',
-      swiperElRef?.current?.swiper.isBeginning,
-      !swiperElRef?.current?.swiper.isEnd
-    );
-
     swiperElRef?.current?.addEventListener('slidechange', (e: any) => {
       const [swiper] = e.detail;
       setShowLeftNav(!swiper.isBeginning);
@@ -78,14 +72,14 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         'space-between': 20,
         class: 'pb-14 pr-14',
         'slides-offset-after': '-40',
-        'slides-offset-before': '20'
+        'slides-offset-before': '20',
       }
     : {
         'space-between': 120,
         'grab-cursor': true,
         class: 'pb-14',
         'slides-offset-after': '20',
-        'slides-offset-before': '20'
+        'slides-offset-before': '20',
       };
 
   return (
