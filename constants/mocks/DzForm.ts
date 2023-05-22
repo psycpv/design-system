@@ -39,7 +39,8 @@ export const steps = [
       },
     ],
     CTAProps: {
-      text: 'Next: Artwork Details'
+      text: 'Next: Artwork Details',
+      showRightArrow: true,
     }
   },
   {
@@ -116,6 +117,7 @@ export const steps = [
     ],
     CTAProps: {
       text: 'Next: Additional Details',
+      showRightArrow: true,
     },
   },
   {
@@ -155,6 +157,27 @@ export const steps = [
     ],
     CTAProps: {
       text: 'Next: Upload Files',
+      showRightArrow: true,
+    },
+  },
+  {
+    id: '4',
+    title: 'Upload Files',
+    secondarySubtitle:
+      'Please upload up to three images of your artwork including any related files such as invoices, certificates of authenticity and/or previous valuation statements in JPG, PNG or PDF format. Each file must not exceed 10MB.',
+    formSections: [
+      {
+        fields: [
+          {
+            required: true,
+            type: FORM_FIELD_TYPES.UPLOADER,
+            span: 9,
+          },
+        ],
+      },
+    ],
+    CTAProps: {
+      text: 'Submit Artwork',
     },
   },
 ];

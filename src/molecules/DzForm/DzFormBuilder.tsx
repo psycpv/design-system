@@ -1,20 +1,19 @@
-import React, { FC, useState, useMemo } from 'react';
+import React, { FC } from 'react';
 import {
   DzText,
   DzButton,
   DzInputText,
   DzSelect,
-  DzButtonProps,
-  DzMedia,
-  DzMediaProps,
-  TEXT_SIZES,
+  DzFileUploader,
   BUTTON_SIZES,
 } from '../../atoms';
-import { DzGridColumns, DzColumn, ColumnSpan } from '../../layout';
+import { DzGridColumns, DzColumn } from '../../layout';
+import { cn } from '../../utils/classnames';
 
 export const FORM_FIELD_TYPES = {
   INPUT: 'input',
   SELECT: 'select',
+  UPLOADER: 'uploader',
 };
 
 export interface DzFormBuilderProps {
@@ -39,7 +38,12 @@ const styles: any = {
   secondarySubtitle: `
     text-black-60
   `,
+  ctaButton:`
+    ml-auto
+    w-[20.9375rem]  
+  `
 };
+
 const atomsPerType = {
   [FORM_FIELD_TYPES.INPUT]: data => {
     return <DzInputText {...data} />;
@@ -47,19 +51,23 @@ const atomsPerType = {
   [FORM_FIELD_TYPES.SELECT]: data => {
     return <DzSelect {...data} />;
   },
+  [FORM_FIELD_TYPES.UPLOADER]: data => {
+    return <DzFileUploader {...data} />;
+  },
 };
+
 export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
   const { title, primarySubtitle, secondarySubtitle, formSections, CTAProps } =
     form ?? {};
   const { text: CTAText, onClick } = CTAProps ?? {};
   return (
-    <div className={styles.formLayout}>
-      <div className={styles.headInformation}>
-        {title ? <DzText className={styles.titleText} text={title} /> : null}
+    <div className={cn(styles.formLayout)}>
+      <div className={cn(styles.headInformation)}>
+        {title ? <DzText className={cn(styles.titleText)} text={title} /> : null}
         {primarySubtitle ? <DzText text={primarySubtitle} /> : null}
         {secondarySubtitle ? (
           <DzText
-            className={styles.secondarySubtitle}
+            className={cn(styles.secondarySubtitle)}
             text={secondarySubtitle}
           />
         ) : null}
@@ -84,7 +92,9 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
                     };
                     const Component = atomsPerType?.[type]?.(componentProps);
                     return Component ? (
-                      <DzColumn span={span ?? 12}>{Component}</DzColumn>
+                      <DzColumn className="mt-auto" span={span ?? 12}>
+                        {Component}
+                      </DzColumn>
                     ) : null;
                   })}
                 </DzGridColumns>
@@ -95,6 +105,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
       </div>
       <DzButton
         {...CTAProps}
+        className={cn(styles.ctaButton)}
         size={BUTTON_SIZES.LARGE}
         onClick={onClick ?? formAction}
       >

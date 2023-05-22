@@ -6,6 +6,8 @@ import {
   MEDIA_ASPECT_RATIOS,
 } from '../../atoms';
 import { DzFormBuilder } from './DzFormBuilder';
+import { cn } from '../../utils/classnames';
+import { ChevronLeft } from '../../svgIcons';
 
 export interface DzFormProps {
   steps: any[];
@@ -24,9 +26,15 @@ const styles: any = {
   rightContainer: `
     md:basis-1/2
   `,
-  stepsTitle:`
+  contextContainer: `
+    flex
+    gap-2.5
+    items-center
     mb-5
-  `
+  `,
+  prevChevron: `
+    cursor-pointer
+  `,
 };
 
 export const DzForm: FC<DzFormProps> = ({ steps, mediaProps }) => {
@@ -36,19 +44,32 @@ export const DzForm: FC<DzFormProps> = ({ steps, mediaProps }) => {
     const stepData = steps[currentStep - 1];
     return stepData;
   }, [steps, currentStep]);
-  const handleFormAction = useCallback((...args) => {
+
+  const handleForwardAction = useCallback(() => {
     setCurrentStep(step => step + 1);
+  }, []);
+  const handlePrevAction = useCallback(() => {
+    setCurrentStep(step => step - 1);
   }, []);
 
   return (
-    <div className={styles.formContainer}>
-      <div className={styles.leftContainer}>
+    <div className={cn(styles.formContainer)}>
+      <div className={cn(styles.leftContainer)}>
         <DzMedia {...mediaProps} aspectRatio={MEDIA_ASPECT_RATIOS['4:3']} />
       </div>
-      <div className={styles.rightContainer}>
-        <DzText text={`Step ${currentStep} of ${stepsLength}`} className={styles.stepsTitle}/>
+      <div className={cn(styles.rightContainer)}>
+        <div className={cn(styles.contextContainer)}>
+          {currentStep > 1 ? (
+            <div className={cn(styles.prevChevron)} onClick={handlePrevAction}>
+              <ChevronLeft />
+            </div>
+          ) : null}
+
+          <DzText text={`Step ${currentStep} of ${stepsLength}`} />
+        </div>
+
         {stepFormData ? (
-          <DzFormBuilder form={stepFormData} formAction={handleFormAction} />
+          <DzFormBuilder form={stepFormData} formAction={handleForwardAction} />
         ) : null}
       </div>
     </div>

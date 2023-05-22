@@ -62,6 +62,12 @@ const styles: any = {
   `,
   nonSplit: `
     relative
+    w-full
+  `,
+  nonSplitFull: `
+    w-full
+    flex
+    justify-center
   `,
   contentInfoNonSplit: `
     w-full
@@ -77,9 +83,19 @@ const styles: any = {
     -translate-y-1/2
     text-center
   `,
-  description:`
+  contentInfoNonSplitRelative: `
+    w-full
+    md:w-[43.125rem]
+    p-5
+    gap-5
+    flex
+    flex-col
+    text-center
+    justify-center
+  `,
+  description: `
     md:text-md
-  `
+  `,
 };
 
 export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
@@ -93,13 +109,25 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
 }) => {
   const textClassColor = `text-${textColor}`;
   return (
-    <div className={cn(styles.nonSplit, customClass)}>
+    <div
+      className={cn(
+        styles.nonSplit,
+        media ? '' : styles.nonSplitFull,
+        customClass
+      )}
+    >
       <DzMedia
         className={cn(styles.mediaContainer)}
         imgClass={cn(styles.image)}
         {...media}
       />
-      <div className={cn(styles.contentInfoNonSplit)}>
+      <div
+        className={cn(
+          media
+            ? styles.contentInfoNonSplit
+            : styles.contentInfoNonSplitRelative
+        )}
+      >
         {category ? (
           <DzText
             className={cn(styles.category, textClassColor)}
@@ -113,7 +141,14 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
           titleType={TITLE_TYPES.H2}
           titleSize={TITLE_SIZES.LG}
         ></DzTitle>
-        <DzText className={cn(styles.description, textClassColor)} text={description} />
+
+        {description ? (
+          <DzText
+            className={cn(styles.description, textClassColor)}
+            text={description}
+          />
+        ) : null}
+
         {primaryCta ? (
           <div>
             <DzButton
