@@ -53,18 +53,19 @@ const styles: any = {
   gridCol: `
     md:gap-5
   `,
-  cardCol:`
+  cardCol: `
     mb-10
-  `
+  `,
 };
 
 const tabsRender = tabs => {
   return tabs.map(tab => {
+    const { title } = tab;
     return (
-      <Tab className={cn(styles.tab)}>
+      <Tab key={`${title}-tab`} className={cn(styles.tab)}>
         {({ selected }) => (
           <DzText
-            text={tab.title}
+            text={title}
             textSize={TEXT_SIZES.LARGE}
             className={cn(
               styles.tabTitle,
@@ -79,13 +80,18 @@ const tabsRender = tabs => {
 
 const tabsPanels = ({ tabs, span, isSmall = false }) => {
   return tabs.map((tab, key) => {
-    const { cards } = tab;
+    const { title, cards } = tab;
     return (
-      <Tab.Panel key={`${key}`}>
+      <Tab.Panel key={`${title}-content-${key}`}>
         <DzGridColumns className={cn(styles.gridCol)}>
-          {cards.map(card => {
+          {cards.map((card, key) => {
+            const { id } = card;
             return (
-              <DzColumn span={span} className={cn(styles.cardCol)}>
+              <DzColumn
+                key={`card-${id}-${key}`}
+                span={span}
+                className={cn(styles.cardCol)}
+              >
                 <DzCard
                   type={CARD_TYPES.CONTENT}
                   data={{ ...card, hideImage: isSmall }}
