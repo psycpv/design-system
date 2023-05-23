@@ -67,13 +67,13 @@ const styles: any = {
   fitContain: `
     object-contain
   `,
-  fitFill:`
+  fitFill: `
     object-fill
   `,
-  fitNone:`
+  fitNone: `
     object-none
   `,
-  fitScaleDown:`
+  fitScaleDown: `
     object-scale-down
   `,
   '16:9': `
@@ -93,14 +93,19 @@ export const DzMedia: FC<DzMediaProps> = ({
   className = '',
   videoProps = {},
   aspectRatio = MEDIA_ASPECT_RATIOS['16:9'],
-  objectFit = MEDIA_OBJECT_FIT.COVER
+  objectFit = MEDIA_OBJECT_FIT.COVER,
 }) => {
   useEffect(() => {}, []);
   const renderImage = useMemo(() => {
     if (!ImgElement) {
       return (
         <img
-          className={cn(imgClass, styles[aspectRatio], styles[objectFit])}
+          className={cn(
+            'w-full',
+            imgClass,
+            styles[aspectRatio],
+            styles[objectFit]
+          )}
           // Change this to eager on demand specially for header components
           loading={'lazy'}
           {...imgProps}
@@ -109,7 +114,7 @@ export const DzMedia: FC<DzMediaProps> = ({
     }
     return (
       <ImgElement
-        className={cn(styles[aspectRatio], imgClass)}
+        className={cn('w-full', styles[aspectRatio], imgClass)}
         {...imgProps}
       />
     );

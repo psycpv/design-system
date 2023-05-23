@@ -15,11 +15,11 @@ import { TextColors, PrimaryCTAInterstitial } from './DzInterstitial';
 
 export interface InterstitialFullWidthProps {
   title: string;
-  description: string;
+  description?: string;
   category?: string;
   primaryCta?: PrimaryCTAInterstitial;
   split?: boolean;
-  media: DzMediaProps;
+  media?: DzMediaProps;
   textColor?: TextColors;
   customClass?: string;
 }
@@ -116,11 +116,14 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
         customClass
       )}
     >
-      <DzMedia
-        className={cn(styles.mediaContainer)}
-        imgClass={cn(styles.image)}
-        {...media}
-      />
+      {media ? (
+        <DzMedia
+          className={cn(styles.mediaContainer)}
+          imgClass={cn(styles.image)}
+          {...media}
+        />
+      ) : null}
+
       <div
         className={cn(
           media

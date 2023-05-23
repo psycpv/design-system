@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 import {
   DzText,
   DzButton,
@@ -40,13 +40,13 @@ const styles: any = {
 };
 
 const atomsPerType = {
-  [FORM_FIELD_TYPES.INPUT]: data => {
+  input: data => {
     return <DzInputText {...data} />;
   },
-  [FORM_FIELD_TYPES.SELECT]: data => {
+  select: data => {
     return <DzSelect {...data} />;
   },
-  [FORM_FIELD_TYPES.UPLOADER]: data => {
+  uploader: data => {
     return <DzFileUploader {...data} />;
   },
 };
@@ -71,9 +71,9 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
       </div>
       <div>
         {formSections.map(section => {
-          const { sectionTitle, fields = [] } = section ?? {};
+          const { id, sectionTitle, fields = [] } = section ?? {};
           return (
-            <>
+            <Fragment key={id}>
               {sectionTitle ? <DzText text={sectionTitle} /> : null}
               {fields?.length ? (
                 <DzGridColumns>
@@ -89,14 +89,14 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
                     };
                     const Component = atomsPerType?.[type]?.(componentProps);
                     return Component ? (
-                      <DzColumn className="mt-auto" span={span ?? 12}>
+                      <DzColumn key={`${title}-${key}`} className="mt-auto" span={span ?? 12}>
                         {Component}
                       </DzColumn>
                     ) : null;
                   })}
                 </DzGridColumns>
               ) : null}
-            </>
+            </Fragment>
           );
         })}
       </div>

@@ -5,7 +5,6 @@ import {
   DzInterstitialProps,
 } from '../../src/molecules/DzInterstitial/DzInterstitial';
 import { interstitial } from '../../constants/mocks/DzInterstitial';
-import { MEDIA_TYPES } from '../../src/atoms/DzMedia';
 
 const meta: Meta = {
   title: 'Molecules/Content/DzInterstitial',

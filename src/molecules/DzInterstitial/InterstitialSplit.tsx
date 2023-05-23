@@ -17,11 +17,11 @@ import useWindowSize from '../../hooks/useWindowSize';
 
 export interface InterstitialSplitProps {
   title: string;
-  description: string;
+  description?: string;
   category?: string;
   primaryCta?: PrimaryCTAInterstitial;
   split?: boolean;
-  media: DzMediaProps;
+  media?: DzMediaProps;
   textColor?: TextColors;
   customClass?: string;
 }
@@ -77,7 +77,7 @@ export const InterstitialSplit: FC<InterstitialSplitProps> = ({
   description,
   primaryCta,
   media,
-  customClass = ''
+  customClass = '',
 }) => {
   const textClassColor = `text-${textColor}`;
   const { width } = useWindowSize();
@@ -86,11 +86,14 @@ export const InterstitialSplit: FC<InterstitialSplitProps> = ({
   }, [width]);
   return (
     <div className={cn(styles.splitContainer, customClass)}>
-      <DzMedia
-        className={cn(styles.mediaContainer)}
-        imgClass={cn(!isSmall ? styles.image : 'object-cover')}
-        {...media}
-      />
+      {media ? (
+        <DzMedia
+          className={cn(styles.mediaContainer)}
+          imgClass={cn(!isSmall ? styles.image : 'object-cover')}
+          {...media}
+        />
+      ) : null}
+
       <div className={cn(styles.contentInfo)}>
         {category ? (
           <DzText
@@ -105,10 +108,14 @@ export const InterstitialSplit: FC<InterstitialSplitProps> = ({
           titleType={TITLE_TYPES.H2}
           titleSize={TITLE_SIZES.LG}
         ></DzTitle>
-        <DzText
-          className={cn(styles.description, textClassColor)}
-          text={description}
-        />
+
+        {description ? (
+          <DzText
+            className={cn(styles.description, textClassColor)}
+            text={description}
+          />
+        ) : null}
+
         {primaryCta ? (
           <div>
             <DzButton

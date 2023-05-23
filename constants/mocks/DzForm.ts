@@ -1,5 +1,5 @@
 import { MEDIA_TYPES } from '../../src/atoms/DzMedia';
-import { FORM_FIELD_TYPES } from '../../src/molecules/DzForm/DzFormBuilder';
+import { FORM_FIELD_TYPES } from '../../src/molecules/DzForm/DzForm';
 
 export const steps = [
   {
@@ -10,6 +10,7 @@ export const steps = [
     secondarySubtitle: 'All fields marked “*” are required.',
     formSections: [
       {
+        id: '1a',
         fields: [
           {
             title: 'First Name',
@@ -50,6 +51,7 @@ export const steps = [
       'Please provide as much information as possible. Unfortunately, we cannot accept submissions by artists of their own work.',
     formSections: [
       {
+        id: '2a',
         fields: [
           {
             title: 'Artist Name',
@@ -78,6 +80,7 @@ export const steps = [
         ],
       },
       {
+        id: '3a',
         sectionTitle: 'Location of Artwork',
         fields: [
           {
@@ -127,6 +130,7 @@ export const steps = [
       'Please provide any additional information you would like to share.',
     formSections: [
       {
+        id: '4a',
         fields: [
           {
             title: 'Signatures, inscriptions, labels',
@@ -167,6 +171,7 @@ export const steps = [
       'Please upload up to three images of your artwork including any related files such as invoices, certificates of authenticity and/or previous valuation statements in JPG, PNG or PDF format. Each file must not exceed 10MB.',
     formSections: [
       {
+        id: '5a',
         fields: [
           {
             required: true,
