@@ -9,6 +9,12 @@ import { DzFormBuilder } from './DzFormBuilder';
 import { cn } from '../../utils/classnames';
 import { ChevronLeft } from '../../svgIcons';
 
+export const FORM_FIELD_TYPES = {
+  INPUT: 'input',
+  SELECT: 'select',
+  UPLOADER: 'uploader',
+};
+
 export interface DzFormProps {
   steps: any[];
   mediaProps: DzMediaProps;

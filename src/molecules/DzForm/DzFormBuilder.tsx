@@ -9,12 +9,7 @@ import {
 } from '../../atoms';
 import { DzGridColumns, DzColumn } from '../../layout';
 import { cn } from '../../utils/classnames';
-
-export const FORM_FIELD_TYPES = {
-  INPUT: 'input',
-  SELECT: 'select',
-  UPLOADER: 'uploader',
-};
+import { FORM_FIELD_TYPES } from './DzForm';
 
 export interface DzFormBuilderProps {
   form: any;
@@ -38,10 +33,10 @@ const styles: any = {
   secondarySubtitle: `
     text-black-60
   `,
-  ctaButton:`
+  ctaButton: `
     ml-auto
     w-[20.9375rem]  
-  `
+  `,
 };
 
 const atomsPerType = {
@@ -63,7 +58,9 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
   return (
     <div className={cn(styles.formLayout)}>
       <div className={cn(styles.headInformation)}>
-        {title ? <DzText className={cn(styles.titleText)} text={title} /> : null}
+        {title ? (
+          <DzText className={cn(styles.titleText)} text={title} />
+        ) : null}
         {primarySubtitle ? <DzText text={primarySubtitle} /> : null}
         {secondarySubtitle ? (
           <DzText
