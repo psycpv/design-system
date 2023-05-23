@@ -20,6 +20,8 @@ export interface DzFileUploaderProps {
 const styles: any = {
   infoContainer: `
     flex
+    flex-col
+    md:flex-row
     gap-5
     items-center
   `,
