@@ -24,6 +24,7 @@ const styles: any = {
     md:flex-row
     gap-5
     items-center
+    px-5
   `,
   dropArea: `
     flex

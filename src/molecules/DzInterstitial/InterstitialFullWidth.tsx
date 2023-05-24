@@ -65,6 +65,8 @@ const styles: any = {
     w-full
   `,
   nonSplitFull: `
+    min-h-[22.5rem]
+    md:min-h-[27.5rem]
     w-full
     flex
     justify-center

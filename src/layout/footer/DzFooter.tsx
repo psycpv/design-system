@@ -64,7 +64,7 @@ const styles: any = {
   `,
   socialContainer: `
     flex
-    md:gap-[3.75rem]
+    md:gap-[3.2rem]
     w-full
     md:justify-end
     pt-2
@@ -93,6 +93,10 @@ const styles: any = {
     flex-col
     md:flex-row
     gap-5
+  `,
+  divider: `
+    md:hidden
+    bg-black-20
   `,
 };
 export const DzFooter: FC<DzFooterProps> = ({
@@ -128,6 +132,7 @@ export const DzFooter: FC<DzFooterProps> = ({
   };
   return (
     <footer className={cn(styles.footer, footerClass)}>
+      <hr className={cn(styles.divider)} />
       <div className={cn(styles.bottomContainer)}>
         <div className={cn(styles.leftContainer)}>
           {copies?.rights ? (

@@ -6,6 +6,7 @@ import {
   DzSelect,
   DzFileUploader,
   BUTTON_SIZES,
+  TEXT_SIZES,
 } from '../../atoms';
 import { DzGridColumns, DzColumn } from '../../layout';
 import { cn } from '../../utils/classnames';
@@ -30,11 +31,16 @@ const styles: any = {
     flex-col
     gap-[0.3125rem]
   `,
+  sectionTitle:`
+    my-5
+  `,
   secondarySubtitle: `
     text-black-60
   `,
   ctaButton: `
-    ml-auto
+    mb-10
+    md:mb-0
+    md:ml-auto
     w-[20.9375rem]  
   `,
 };
@@ -59,14 +65,22 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
     <div className={cn(styles.formLayout)}>
       <div className={cn(styles.headInformation)}>
         {title ? (
-          <DzText className={cn(styles.titleText)} text={title} />
-        ) : null}
-        {primarySubtitle ? <DzText text={primarySubtitle} /> : null}
-        {secondarySubtitle ? (
           <DzText
-            className={cn(styles.secondarySubtitle)}
-            text={secondarySubtitle}
+            className={cn(styles.titleText)}
+            textSize={TEXT_SIZES.LARGE}
+            text={title}
           />
+        ) : null}
+        {primarySubtitle || secondarySubtitle ? (
+          <div>
+            {primarySubtitle ? <DzText text={primarySubtitle} /> : null}
+            {secondarySubtitle ? (
+              <DzText
+                className={cn(styles.secondarySubtitle)}
+                text={secondarySubtitle}
+              />
+            ) : null}
+          </div>
         ) : null}
       </div>
       <div>
@@ -74,7 +88,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
           const { id, sectionTitle, fields = [] } = section ?? {};
           return (
             <Fragment key={id}>
-              {sectionTitle ? <DzText text={sectionTitle} /> : null}
+              {sectionTitle ? <DzText className={styles.sectionTitle} text={sectionTitle} /> : null}
               {fields?.length ? (
                 <DzGridColumns>
                   {fields?.map((field, key) => {
@@ -89,7 +103,11 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
                     };
                     const Component = atomsPerType?.[type]?.(componentProps);
                     return Component ? (
-                      <DzColumn key={`${title}-${key}`} className="mt-auto" span={span ?? 12}>
+                      <DzColumn
+                        key={`${title}-${key}`}
+                        className="mt-auto"
+                        span={span ?? 12}
+                      >
                         {Component}
                       </DzColumn>
                     ) : null;
