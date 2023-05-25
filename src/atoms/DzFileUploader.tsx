@@ -42,7 +42,7 @@ const styles: any = {
 export const DzFileUploader: FC<DzFileUploaderProps> = ({
   handleChange,
   onTypeError = () => null,
-  required = false,
+  required = true,
   disabled = false,
   multipleFiles = true,
   hoverTitle = null,

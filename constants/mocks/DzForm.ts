@@ -32,7 +32,7 @@ export const steps = [
           },
           {
             title: 'Phone Number',
-            required: true,
+            required: false,
             type: FORM_FIELD_TYPES.INPUT,
             span: 6,
           },
@@ -93,19 +93,19 @@ export const steps = [
           },
           {
             title: 'Width',
-            required: true,
+            required: false,
             type: FORM_FIELD_TYPES.INPUT,
             span: 2,
           },
           {
             title: 'Height',
-            required: true,
+            required: false,
             type: FORM_FIELD_TYPES.INPUT,
             span: 2,
           },
           {
             title: 'Depth',
-            required: true,
+            required: false,
             type: FORM_FIELD_TYPES.INPUT,
             span: 2,
           },
@@ -134,25 +134,25 @@ export const steps = [
         fields: [
           {
             title: 'Signatures, inscriptions, labels',
-            required: true,
+            required: false,
             type: FORM_FIELD_TYPES.INPUT,
             span: 12,
           },
           {
             title: 'Provenance, exhibitions, literature',
-            required: true,
+            required: false,
             type: FORM_FIELD_TYPES.INPUT,
             span: 12,
           },
           {
             title: 'Link to artwork, if available',
-            required: true,
+            required: false,
             type: FORM_FIELD_TYPES.INPUT,
             span: 12,
           },
           {
             title: 'Additional comments',
-            required: true,
+            required: false,
             type: FORM_FIELD_TYPES.INPUT,
             span: 12,
           },
