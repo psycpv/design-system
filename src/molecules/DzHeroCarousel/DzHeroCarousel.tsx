@@ -30,7 +30,7 @@ export const DzHeroCarousel: FC<DzHeroCarouselProps> = ({ items = [] }) => {
 
   useEffect(() => {
     setCurrentSlide(items?.[activeIndex] ?? null);
-  }, [activeIndex]);
+  }, [activeIndex, items]);
 
   return (
     <>
