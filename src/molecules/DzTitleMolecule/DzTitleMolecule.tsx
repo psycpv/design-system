@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 import {
   DzText,
-  TEXT_TYPES,
-  TEXT_SIZES,
   DzTitle,
+  DzTitleProps,
   TITLE_SIZES,
   DzLink,
   DzLinkProps,
@@ -16,6 +15,7 @@ export interface DzTitleMoleculeProps {
   title: string;
   subtitle?: string;
   description?: string;
+  titleProps?: DzTitleProps;
   linkCTA?: LinkCTA;
 }
 
@@ -64,10 +64,17 @@ const styles: any = {
   linkCta: `
     min-w-fit
   `,
-  linkText:`
+  linkText: `
     text-xs
     md:text-sm
-  `
+  `,
+};
+
+const DEFAULT_TITLE_PROPS = {
+  titleType: TITLE_TYPES.H2,
+  titleSize: TITLE_SIZES.LG,
+  subtitleSize: TITLE_SIZES.LG,
+  subtitleType: TITLE_TYPES.H3,
 };
 
 export const DzTitleMolecule: FC<DzTitleMoleculeProps> = ({
@@ -75,10 +82,11 @@ export const DzTitleMolecule: FC<DzTitleMoleculeProps> = ({
   title,
   subtitle,
   description,
+  titleProps = DEFAULT_TITLE_PROPS,
   linkCTA,
 }) => {
   const splitIt = description ? 'basis-1/2' : '';
-  const titleStyles = linkCTA?.text? 'md:text-xxl': styles.title;
+  const titleStyles = linkCTA?.text ? 'md:text-xxl' : styles.title;
   return (
     <div className={cn(styles.titleContainer)}>
       <div className={cn(styles.leftContainer, splitIt)}>
@@ -87,15 +95,12 @@ export const DzTitleMolecule: FC<DzTitleMoleculeProps> = ({
         ) : null}
         <div className={cn(styles.titleSection)}>
           <DzTitle
-            title={title}
             className={cn(styles.titleClassContainer)}
             classNameTitle={cn(titleStyles)}
             classNameSubtitle={cn(titleStyles)}
-            titleType={TITLE_TYPES.H2}
-            titleSize={TITLE_SIZES.LG}
-            subtitleSize={TITLE_SIZES.LG}
             subtitle={subtitle}
-            subtitleType={TITLE_TYPES.H3}
+            {...titleProps}
+            title={title}
           />
           {linkCTA ? (
             <div className={cn(styles.linkCta)}>
