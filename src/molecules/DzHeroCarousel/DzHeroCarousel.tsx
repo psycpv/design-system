@@ -1,4 +1,5 @@
-import React, { FC, useState, useEffect } from 'react';
+import { Transition } from '@headlessui/react';
+import React, { FC, useState, Fragment, useCallback } from 'react';
 import { DzHero } from '../index';
 
 const ACTIONS = {
@@ -14,34 +15,30 @@ export interface DzHeroCarouselProps {
 
 export const DzHeroCarousel: FC<DzHeroCarouselProps> = ({ items = [] }) => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [currentSlide, setCurrentSlide] = useState<any>(null);
 
-  const handleChange = (step: CarouselActions) => {
-    const offSet = step === ACTIONS.NEXT ? 1 : -1;
-    const newIndex = activeIndex + offSet;
-    if (newIndex < 0) {
-      return setActiveIndex(items.length - 1);
-    }
-    if (newIndex >= items.length) {
-      return setActiveIndex(0);
-    }
-    setActiveIndex(newIndex);
-  };
-
-  useEffect(() => {
-    setCurrentSlide(items?.[activeIndex] ?? null);
-  }, [activeIndex, items]);
+  const handleChange = useCallback(
+    (step: CarouselActions) => {
+      const offset = step === ACTIONS.NEXT ? 1 : -1;
+      setActiveIndex(
+        prev => (((prev + offset) % items.length) + items.length) % items.length
+      );
+    },
+    [setActiveIndex, items]
+  );
 
   return (
     <>
-      {currentSlide ? (
-        <DzHero
-          showArrows
-          nextArrowHandler={() => handleChange(ACTIONS.NEXT)}
-          previousArrowHandler={() => handleChange(ACTIONS.PREV)}
-          {...currentSlide}
-        />
-      ) : null}
+      {items.map((currentSlide, index) => (
+        <Transition.Root key={index} show={activeIndex === index} as={Fragment}>
+          <DzHero
+            showArrows
+            enableTransitions
+            nextArrowHandler={() => handleChange(ACTIONS.NEXT)}
+            previousArrowHandler={() => handleChange(ACTIONS.PREV)}
+            {...currentSlide}
+          />
+        </Transition.Root>
+      ))}
     </>
   );
 };

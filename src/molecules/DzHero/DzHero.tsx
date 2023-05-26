@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment, forwardRef } from 'react';
+import { Transition } from '@headlessui/react';
 
 import {
   DzMedia,
@@ -26,6 +27,7 @@ export interface DzHeroProps {
   showArrows?: boolean;
   previousArrowHandler?: Function;
   nextArrowHandler?: Function;
+  enableTransitions?: boolean;
 }
 
 interface LinkCTA {
@@ -57,14 +59,14 @@ const styles: any = {
     md:ml-0
     md:p-5
     md:pl-0
-    basis-1/2
+    basis-4/5
   `,
   controlsContainer: `
     w-full
     flex
-    basis-1/2
     p-5
     justify-end
+    basis-1/5
   `,
   title: `
     text-xl
@@ -92,80 +94,124 @@ const styles: any = {
   `,
 };
 
-export const DzHero: FC<DzHeroProps> = ({
-  category,
-  media,
-  title,
-  subtitle,
-  secondaryTitle,
-  secondarySubtitle,
-  description,
-  linkCTA,
-  showArrows = false,
-  previousArrowHandler = () => null,
-  nextArrowHandler = () => null,
-}) => {
-  return (
-    <div className={cn(styles.heroContainer)}>
-      <div>
-        <DzMedia imgClass={cn(styles.mediaImage)} {...media} />
-      </div>
-
-      <div className={cn(styles.contentContainer)}>
-        <div className={cn(styles.infoContainer)}>
-          {category ? (
-            <DzText className={cn(styles.category)} text={category} />
-          ) : null}
-          <DzTitle
-            title={title}
-            classNameTitle={cn(styles.title)}
-            classNameSubtitle={cn(styles.title)}
-            titleType={TITLE_TYPES.H1}
-            subtitle={subtitle}
-            subtitleType={TITLE_TYPES.H2}
-          />
-          {secondaryTitle || secondarySubtitle ? (
-            <DzTitle
-              title={secondaryTitle}
-              className={cn(styles.secondaryTitleContainer)}
-              titleType={TITLE_TYPES.H2}
-              titleSize={TITLE_SIZES.LG}
-              subtitleSize={TITLE_SIZES.LG}
-              subtitle={secondarySubtitle}
-              subtitleType={TITLE_TYPES.H3}
-            />
-          ) : null}
-          {description ? (
-            <DzText className={cn(styles.description)} text={description} />
-          ) : null}
-          {linkCTA ? (
-            <div className={cn(styles.linkCta)}>
-              <DzLink
-                {...(linkCTA.linkProps ?? {})}
-                href={linkCTA.url}
-                LinkElement={linkCTA.linkElement}
-                variant={LINK_VARIANTS.TEXT}
-              >
-                {linkCTA.text}
-              </DzLink>
-            </div>
-          ) : null}
-        </div>
-        <div className={cn(styles.controlsContainer)}>
-          {showArrows ? (
-            <div className={cn(styles.arrowsContainer)}>
-              <div onClick={() => previousArrowHandler()}>
-                <DzArrow direction={ARROW_DIRECTIONS.LEFT} />
-              </div>
-              <div onClick={() => nextArrowHandler()}>
-                <DzArrow direction={ARROW_DIRECTIONS.RIGHT} />
-              </div>
-            </div>
-          ) : null}
-        </div>
-      </div>
-    </div>
+const MediaWrapper = ({ children, enableTransitions }) =>
+  enableTransitions ? (
+    <Transition.Child
+      as="div"
+      enter="transition ease-in duration-300"
+      enterFrom="translate-x-full"
+      enterTo="translate-x-0"
+      leave="transition ease-out duration-300"
+      leaveFrom="translate-x-0"
+      leaveTo="-translate-x-full"
+    >
+      {children}
+    </Transition.Child>
+  ) : (
+    <div>{children}</div>
   );
-};
+
+const ContentWrapper = ({ children, enableTransitions }) =>
+  enableTransitions ? (
+    <Transition.Child
+      as={Fragment}
+      enter="ease-in-out duration-300"
+      enterFrom="opacity-0"
+      enterTo="opacity-100"
+      leave="ease-in-out duration-300"
+      leaveFrom="opacity-100"
+      leaveTo="opacity-0"
+    >
+      {children}
+    </Transition.Child>
+  ) : (
+    <>{children}</>
+  );
+
+export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
+  (
+    {
+      category,
+      media,
+      title,
+      subtitle,
+      secondaryTitle,
+      secondarySubtitle,
+      description,
+      linkCTA,
+      showArrows = false,
+      previousArrowHandler = () => null,
+      nextArrowHandler = () => null,
+      enableTransitions = false,
+    },
+    ref
+  ) => {
+    return (
+      <div className={cn(styles.heroContainer)} ref={ref}>
+        <MediaWrapper enableTransitions={enableTransitions}>
+          <DzMedia imgClass={cn(styles.mediaImage)} {...media} />
+        </MediaWrapper>
+
+        <div className={cn(styles.contentContainer)}>
+          <ContentWrapper enableTransitions={enableTransitions}>
+            <div className={cn(styles.infoContainer)}>
+              {category ? (
+                <DzText className={cn(styles.category)} text={category} />
+              ) : null}
+              <DzTitle
+                title={title}
+                classNameTitle={cn(styles.title)}
+                classNameSubtitle={cn(styles.title)}
+                titleType={TITLE_TYPES.H1}
+                subtitle={subtitle}
+                subtitleType={TITLE_TYPES.H2}
+              />
+              {secondaryTitle || secondarySubtitle ? (
+                <DzTitle
+                  title={secondaryTitle}
+                  className={cn(styles.secondaryTitleContainer)}
+                  titleType={TITLE_TYPES.H2}
+                  titleSize={TITLE_SIZES.LG}
+                  subtitleSize={TITLE_SIZES.LG}
+                  subtitle={secondarySubtitle}
+                  subtitleType={TITLE_TYPES.H3}
+                />
+              ) : null}
+              {description ? (
+                <DzText className={cn(styles.description)} text={description} />
+              ) : null}
+              {linkCTA ? (
+                <div className={cn(styles.linkCta)}>
+                  <DzLink
+                    {...(linkCTA.linkProps ?? {})}
+                    href={linkCTA.url}
+                    LinkElement={linkCTA.linkElement}
+                    variant={LINK_VARIANTS.TEXT}
+                  >
+                    {linkCTA.text}
+                  </DzLink>
+                </div>
+              ) : null}
+            </div>
+          </ContentWrapper>
+          <div className={cn(styles.controlsContainer)}>
+            {showArrows ? (
+              <div className={cn(styles.arrowsContainer)}>
+                <DzArrow
+                  onClick={() => previousArrowHandler()}
+                  direction={ARROW_DIRECTIONS.LEFT}
+                />
+                <DzArrow
+                  onClick={() => nextArrowHandler()}
+                  direction={ARROW_DIRECTIONS.RIGHT}
+                />
+              </div>
+            ) : null}
+          </div>
+        </div>
+      </div>
+    );
+  }
+);
 
 export default DzHero;

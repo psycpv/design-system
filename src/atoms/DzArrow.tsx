@@ -118,12 +118,10 @@ export const DzArrow: FC<DzArrowProps> = (props: DzArrowProps) => {
           width="100%"
           height="100%"
           fill={arrowColor(isHover, disabled, mode)}
-          onClick={onClick}
         />
       );
       setArrowComponent(component);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isHover, disabled, mode, direction]);
 
   return (
@@ -135,6 +133,7 @@ export const DzArrow: FC<DzArrowProps> = (props: DzArrowProps) => {
         disabledStyle,
         className
       )}
+      onClick={onClick}
     >
       {ArrowComponent ? ArrowComponent : null}
     </div>
