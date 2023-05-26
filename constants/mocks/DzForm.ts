@@ -1,9 +1,16 @@
 import { MEDIA_TYPES } from '../../src/atoms/DzMedia';
 import { FORM_FIELD_TYPES } from '../../src/molecules/DzForm/DzForm';
+import {
+  isEmail,
+  hasStringValue,
+  isPhoneNumber,
+} from '../../src/utils/validators';
+import { countries } from '../../src/constants/countries';
 
 export const steps = [
   {
     id: '1',
+    formName: 'form-step-1',
     title: 'Share Your Details',
     primarySubtitle:
       'Kindly share your contact and artwork details here, and our team will connect with you shortly',
@@ -17,24 +24,42 @@ export const steps = [
             required: true,
             type: FORM_FIELD_TYPES.INPUT,
             span: 6,
+            data: {
+              validator: hasStringValue,
+              errorMsg: 'First Name is required.',
+            },
           },
           {
             title: 'Last Name',
             required: true,
             type: FORM_FIELD_TYPES.INPUT,
             span: 6,
+            data: {
+              validator: hasStringValue,
+              errorMsg: 'Last Name is required.',
+            },
           },
           {
             title: 'Email Address',
             required: true,
             type: FORM_FIELD_TYPES.INPUT,
             span: 6,
+            data: {
+              type: 'email',
+              validator: isEmail,
+              errorMsg: 'Please enter a valid email address.',
+            },
           },
           {
             title: 'Phone Number',
             required: false,
             type: FORM_FIELD_TYPES.INPUT,
             span: 6,
+            data: {
+              type: 'tel',
+              validator: isPhoneNumber,
+              errorMsg: 'Invalid phone format',
+            },
           },
         ],
       },
@@ -42,10 +67,11 @@ export const steps = [
     CTAProps: {
       text: 'Next: Artwork Details',
       showRightArrow: true,
-    }
+    },
   },
   {
     id: '2',
+    formName: 'form-step-2',
     title: 'Artwork Details',
     primarySubtitle:
       'Please provide as much information as possible. Unfortunately, we cannot accept submissions by artists of their own work.',
@@ -58,24 +84,42 @@ export const steps = [
             required: true,
             type: FORM_FIELD_TYPES.INPUT,
             span: 6,
+            data: {
+              validator: hasStringValue,
+              errorMsg: 'Artist Name is required.',
+            },
           },
           {
             title: 'Title',
             required: true,
             type: FORM_FIELD_TYPES.INPUT,
             span: 6,
+            data: {
+              validator: hasStringValue,
+              errorMsg: 'Title is required.',
+            },
           },
           {
             title: 'Year',
             required: true,
             type: FORM_FIELD_TYPES.INPUT,
             span: 6,
+            data: {
+              type: 'string',
+              validator: hasStringValue,
+              errorMsg: 'Year is required.',
+            },
           },
           {
             title: 'Medium',
             required: true,
             type: FORM_FIELD_TYPES.INPUT,
             span: 6,
+            data: {
+              type: 'string',
+              validator: hasStringValue,
+              errorMsg: 'Medium is required.',
+            },
           },
         ],
       },
@@ -87,7 +131,7 @@ export const steps = [
             required: true,
             type: FORM_FIELD_TYPES.SELECT,
             data: {
-              options: [],
+              options: countries,
             },
             span: 12,
           },
@@ -113,7 +157,12 @@ export const steps = [
             required: true,
             type: FORM_FIELD_TYPES.SELECT,
             span: 6,
-            data: {},
+            data: {
+              options: [
+                { title: 'In', value: 'in' },
+                { title: 'Cm', value: 'cm' },
+              ],
+            },
           },
         ],
       },
@@ -125,6 +174,7 @@ export const steps = [
   },
   {
     id: '3',
+    formName: 'form-step-3',
     title: 'Additional Details (optional)',
     primarySubtitle:
       'Please provide any additional information you would like to share.',
@@ -166,6 +216,7 @@ export const steps = [
   },
   {
     id: '4',
+    formName: 'form-step-4',
     title: 'Upload Files',
     secondarySubtitle:
       'Please upload up to three images of your artwork including any related files such as invoices, certificates of authenticity and/or previous valuation statements in JPG, PNG or PDF format. Each file must not exceed 10MB.',
@@ -183,6 +234,7 @@ export const steps = [
     ],
     CTAProps: {
       text: 'Submit Artwork',
+      type: 'submit'
     },
   },
 ];

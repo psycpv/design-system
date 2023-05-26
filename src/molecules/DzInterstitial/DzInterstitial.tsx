@@ -1,17 +1,5 @@
 import React, { FC } from 'react';
-import {
-  DzMedia,
-  DzMediaProps,
-  DzText,
-  TEXT_SIZES,
-  DzTitle,
-  TITLE_TYPES,
-  TITLE_SIZES,
-  DzButton,
-  BUTTON_SIZES,
-  DzButtonProps,
-} from '../../atoms';
-import { cn } from '../../utils/classnames';
+import { DzButtonProps } from '../../atoms';
 import { InterstitialSplit, InterstitialSplitProps } from './InterstitialSplit';
 import {
   InterstitialFullWidth,
@@ -46,9 +34,9 @@ export interface PrimaryCTAInterstitial {
 export const DzInterstitial: FC<DzInterstitialProps> = ({ data }) => {
   const { split = false } = data;
   if (split) {
-    return <InterstitialSplit {...data} />;
+    return <InterstitialSplit {...(data as InterstitialSplitProps)} />;
   }
-  return <InterstitialFullWidth {...data} />;
+  return <InterstitialFullWidth {...(data as InterstitialFullWidthProps)} />;
 };
 
 export default DzInterstitial;

@@ -15,6 +15,7 @@ import { FORM_FIELD_TYPES } from './DzForm';
 export interface DzFormBuilderProps {
   form: any;
   formAction: Function;
+  submitAction: Function;
 }
 const styles: any = {
   formLayout: `
@@ -58,7 +59,7 @@ const atomsPerType = {
 };
 
 export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
-  const { title, primarySubtitle, secondarySubtitle, formSections, CTAProps } =
+  const { formName, title, primarySubtitle, secondarySubtitle, formSections, CTAProps } =
     form ?? {};
   const { text: CTAText, onClick } = CTAProps ?? {};
   return (
@@ -90,7 +91,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
             <Fragment key={id}>
               {sectionTitle ? <DzText className={styles.sectionTitle} text={sectionTitle} /> : null}
               {fields?.length ? (
-                <DzGridColumns>
+                <DzGridColumns key={id}>
                   {fields?.map((field, key) => {
                     const { title, required, type, data = {}, span } =
                       field ?? {};
@@ -123,6 +124,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
         className={cn(styles.ctaButton)}
         size={BUTTON_SIZES.LARGE}
         onClick={onClick ?? formAction}
+        form={formName}
       >
         {CTAText}
       </DzButton>

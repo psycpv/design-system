@@ -16,7 +16,7 @@ import { BREAKPOINTS } from '../../layout/breakpoints';
 import useWindowSize from '../../hooks/useWindowSize';
 
 export interface InterstitialSplitProps {
-  title: string;
+  title?: string;
   description?: string;
   category?: string;
   primaryCta?: PrimaryCTAInterstitial;
@@ -24,6 +24,8 @@ export interface InterstitialSplitProps {
   media?: DzMediaProps;
   textColor?: TextColors;
   customClass?: string;
+  customTitleClass?: string;
+  customDescriptionClass?: string;
 }
 
 const styles: any = {
@@ -73,11 +75,13 @@ const styles: any = {
 export const InterstitialSplit: FC<InterstitialSplitProps> = ({
   textColor = 'black-100',
   category,
-  title,
+  title = '',
   description,
   primaryCta,
   media,
   customClass = '',
+  customTitleClass = '',
+  customDescriptionClass = '',
 }) => {
   const textClassColor = `text-${textColor}`;
   const { width } = useWindowSize();
@@ -97,21 +101,28 @@ export const InterstitialSplit: FC<InterstitialSplitProps> = ({
       <div className={cn(styles.contentInfo)}>
         {category ? (
           <DzText
-            className={cn(styles.category, textClassColor)}
+            className={cn(styles.category, textClassColor, customTitleClass)}
             text={category}
             textSize={TEXT_SIZES.XS}
           />
         ) : null}
-        <DzTitle
-          classNameTitle={cn(styles.title, textClassColor)}
-          title={title}
-          titleType={TITLE_TYPES.H2}
-          titleSize={TITLE_SIZES.LG}
-        ></DzTitle>
+
+        {title ? (
+          <DzTitle
+            classNameTitle={cn(styles.title, textClassColor)}
+            title={title}
+            titleType={TITLE_TYPES.H2}
+            titleSize={TITLE_SIZES.LG}
+          ></DzTitle>
+        ) : null}
 
         {description ? (
           <DzText
-            className={cn(styles.description, textClassColor)}
+            className={cn(
+              styles.description,
+              textClassColor,
+              customDescriptionClass
+            )}
             text={description}
           />
         ) : null}

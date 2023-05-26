@@ -18,6 +18,7 @@ export const FORM_FIELD_TYPES = {
 export interface DzFormProps {
   steps: any[];
   mediaProps: DzMediaProps;
+  onSubmit: any;
 }
 const styles: any = {
   formContainer: `
@@ -43,7 +44,7 @@ const styles: any = {
   `,
 };
 
-export const DzForm: FC<DzFormProps> = ({ steps, mediaProps }) => {
+export const DzForm: FC<DzFormProps> = ({ steps, mediaProps, onSubmit }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const stepsLength = useMemo(() => steps.length, [steps]);
   const stepFormData = useMemo(() => {
@@ -56,6 +57,11 @@ export const DzForm: FC<DzFormProps> = ({ steps, mediaProps }) => {
   }, []);
   const handlePrevAction = useCallback(() => {
     setCurrentStep(step => step - 1);
+  }, []);
+
+  const handleFormSubmit = useCallback(event => {
+    event.preventDefault();
+    if (onSubmit) onSubmit();
   }, []);
 
   return (
@@ -75,7 +81,18 @@ export const DzForm: FC<DzFormProps> = ({ steps, mediaProps }) => {
         </div>
 
         {stepFormData ? (
-          <DzFormBuilder form={stepFormData} formAction={handleForwardAction} />
+          <form
+            id={stepFormData?.formName}
+            name={stepFormData?.formName}
+            autoComplete="off"
+            onSubmit={handleFormSubmit}
+          >
+            <DzFormBuilder
+              form={stepFormData}
+              formAction={handleForwardAction}
+              submitAction={() => {}}
+            />
+          </form>
         ) : null}
       </div>
     </div>

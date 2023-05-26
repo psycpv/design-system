@@ -1,7 +1,13 @@
-import React, { FC, useMemo, useEffect, ImgHTMLAttributes } from 'react';
+import React, { FC, useMemo, useEffect, ImgHTMLAttributes, ReactNode } from 'react';
 import { cn } from '../utils/classnames';
 import { DzLink, DzLinkProps } from './DzLink';
 import Plyr from 'plyr-react';
+
+export const MEDIA_VIDEO_SOURCE_TYPES = {
+  YOUTUBE: 'youtube',
+  VIMEO: 'vimeo',
+  URL: 'url',
+};
 
 export const MEDIA_TYPES = {
   IMAGE: 'image',
@@ -21,6 +27,12 @@ export const MEDIA_ASPECT_RATIOS = {
   '4:3': '4:3',
 };
 
+export const MEDIA_VIDEO_SOURCE_TYPES_NAMES = [
+  MEDIA_VIDEO_SOURCE_TYPES.YOUTUBE,
+  MEDIA_VIDEO_SOURCE_TYPES.VIMEO,
+  MEDIA_VIDEO_SOURCE_TYPES.URL,
+] as const;
+
 export const MEDIA_MEDIA_OBJECT_FIT_NAMES = [
   MEDIA_OBJECT_FIT.CONTAIN,
   MEDIA_OBJECT_FIT.COVER,
@@ -39,6 +51,7 @@ export const MEDIA_TYPES_NAMES = [
   MEDIA_TYPES.VIDEO,
 ] as const;
 
+export type VideoSource = typeof MEDIA_TYPES_NAMES[number];
 export type MediaType = typeof MEDIA_TYPES_NAMES[number];
 export type ObjectFitType = typeof MEDIA_MEDIA_OBJECT_FIT_NAMES[number];
 export type AspectRatioType = typeof MEDIA_ASPECT_RATIOS_NAMES[number];
@@ -52,8 +65,10 @@ export interface DzMediaProps extends ImgHTMLAttributes<HTMLImageElement> {
   linkProps?: DzLinkProps;
   className?: any;
   videoProps?: any;
+  videoSourceType?: VideoSource;
   aspectRatio?: AspectRatioType;
   objectFit?: ObjectFitType;
+  sourceSet?: ReactNode | null
 }
 
 const styles: any = {
@@ -83,6 +98,21 @@ const styles: any = {
     !aspect-4/3
   `,
 };
+
+const videoNode = {
+  youtube: () => null,
+  vimeo: data => {
+    return (
+      <div>
+        <Plyr {...data} />
+      </div>
+    );
+  },
+  url: (data, sourceSet) => {
+    return <video {...data}>{sourceSet}</video>;
+  },
+};
+
 export const DzMedia: FC<DzMediaProps> = ({
   type,
   ImgElement,
@@ -92,8 +122,10 @@ export const DzMedia: FC<DzMediaProps> = ({
   linkProps = {},
   className = '',
   videoProps = {},
+  videoSourceType = MEDIA_VIDEO_SOURCE_TYPES.VIMEO,
   aspectRatio = MEDIA_ASPECT_RATIOS['16:9'],
   objectFit = MEDIA_OBJECT_FIT.COVER,
+  sourceSet = null
 }) => {
   useEffect(() => {}, []);
   const renderImage = useMemo(() => {
@@ -142,11 +174,8 @@ export const DzMedia: FC<DzMediaProps> = ({
   }
 
   if (type === MEDIA_TYPES.VIDEO) {
-    return (
-      <div>
-        <Plyr {...videoProps} />
-      </div>
-    );
+    const videoRender = videoNode?.[videoSourceType]?.(videoProps, sourceSet);
+    return <div>{videoRender}</div>;
   }
 
   return null;

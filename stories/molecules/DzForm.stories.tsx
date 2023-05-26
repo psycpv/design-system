@@ -19,4 +19,4 @@ export default meta;
 const Template: Story<DzFormProps> = args => <DzForm {...args} />;
 
 export const PrimaryDzForm = Template.bind({});
-PrimaryDzForm.args = { steps, mediaProps };
+PrimaryDzForm.args = { steps, mediaProps, formName:'form' };
