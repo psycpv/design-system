@@ -1,6 +1,13 @@
 import React, { FC, useState, useMemo, useCallback, Fragment } from 'react';
 import { DzGridColumns, DzColumn, ColumnSpan } from '../../layout';
-import { DzRange, DzText } from '../../atoms';
+import {
+  DzRange,
+  DzText,
+  DzLink,
+  DzLinkProps,
+  DzTextProps,
+  LINK_VARIANTS,
+} from '../../atoms';
 import { DataCardType, DzCard, CARD_TYPES } from '../../molecules';
 import { cn } from '../../utils/classnames';
 import { FourSquares } from '../../svgIcons/four-squares';
@@ -14,6 +21,12 @@ interface StepInterface {
   numberOfColumns: number;
   icon: JSX.Element;
 }
+interface LinkCTA {
+  text: string;
+  url: string;
+  linkElement: any;
+  linkProps?: DzLinkProps;
+}
 
 export interface DzComplexGridProps {
   cards: DataCardType[];
@@ -21,6 +34,9 @@ export interface DzComplexGridProps {
   displayNumberOfResults?: boolean;
   headingTitle?: string;
   maxItemsPerRow?: number;
+  textProps?: DzTextProps;
+  useLink?: boolean;
+  linkCTA?: LinkCTA;
 }
 
 const MINIMUM_VALUE = 1;
@@ -84,6 +100,9 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   headingTitle = 'Artworks',
   displayNumberOfResults = false,
   maxItemsPerRow = steps.length,
+  textProps,
+  useLink = false,
+  linkCTA,
 }) => {
   const { width } = useWindowSize();
   const isMobile = useMemo(() => {
@@ -116,26 +135,44 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
     setStepValue(step);
   }, []);
 
+  const displayText = useMemo(() => {
+    const { text } = textProps ?? {};
+    const NumberOfResults = `${numberOfResults} ${headingTitle}`;
+    return displayNumberOfResults ? NumberOfResults : headingTitle ?? text;
+  }, [displayNumberOfResults, numberOfResults, headingTitle]);
+
   return (
     <div>
       <div className={cn(styles.headControls)}>
-        {displayNumberOfResults ? (
-          <DzText text={`${numberOfResults} ${headingTitle}`} />
+        {displayText ? (
+          <DzText {...(textProps ?? {})} text={displayText} />
         ) : null}
 
         {!isMobile && maximumValue !== 1 ? (
-          <div className={cn(styles.rangeContainer)}>
-            <div className={cn(styles.range)}>
-              <DzRange
-                min={MINIMUM_VALUE}
-                max={maximumValue}
-                step={STEPS_SPAN}
-                value={[MINIMUM_VALUE, INITIAL_VALUE]}
-                onChange={handleChange}
-              />
+          !useLink ? (
+            <div className={cn(styles.rangeContainer)}>
+              <div className={cn(styles.range)}>
+                <DzRange
+                  min={MINIMUM_VALUE}
+                  max={maximumValue}
+                  step={STEPS_SPAN}
+                  value={[MINIMUM_VALUE, INITIAL_VALUE]}
+                  onChange={handleChange}
+                />
+              </div>
+              {CurrentIcon}
             </div>
-            {CurrentIcon}
-          </div>
+          ) : null
+        ) : null}
+        {useLink && linkCTA ? (
+          <DzLink
+            {...(linkCTA.linkProps ?? {})}
+            href={linkCTA.url}
+            LinkElement={linkCTA.linkElement}
+            variant={LINK_VARIANTS.TEXT}
+          >
+            {linkCTA.text}
+          </DzLink>
         ) : null}
       </div>
 
