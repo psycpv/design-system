@@ -20,6 +20,7 @@ export interface DzComplexGridProps {
   steps?: StepInterface[];
   displayNumberOfResults?: boolean;
   headingTitle?: string;
+  maxItemsPerRow?: number;
 }
 
 const MINIMUM_VALUE = 1;
@@ -78,6 +79,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   steps = DEFAULT_STEPS,
   headingTitle = 'Artworks',
   displayNumberOfResults = false,
+  maxItemsPerRow = steps.length,
 }) => {
   const { width } = useWindowSize();
   const isMobile = useMemo(() => {
@@ -85,7 +87,10 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   }, [width]);
 
   const [stepValue, setStepValue] = useState(MINIMUM_VALUE);
-  const maxRange = useMemo(() => steps.length, [steps]);
+  const maximumValue = useMemo(() => maxItemsPerRow || steps.length, [
+    maxItemsPerRow,
+    steps,
+  ]);
   const numberOfResults = useMemo(() => cards.length, [cards]);
   const columnsSpanPerRow = useMemo(() => {
     const { numberOfColumns } = steps.find(step => step.id === stepValue) ?? {};
@@ -119,7 +124,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
             <div className={cn(styles.range)}>
               <DzRange
                 min={MINIMUM_VALUE}
-                max={maxRange}
+                max={maximumValue}
                 step={STEPS_SPAN}
                 value={[MINIMUM_VALUE, INITIAL_VALUE]}
                 onChange={handleChange}
@@ -140,10 +145,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
         {cards.map((card, key) => {
           const { id } = card ?? {};
           return (
-            <DzColumn
-              key={`${id}-${key}`}
-              span={columnsSpanPerRow}
-            >
+            <DzColumn key={`${id}-${key}`} span={columnsSpanPerRow}>
               <DzCard type={CARD_TYPES.ARTWORK} data={card} />
             </DzColumn>
           );
