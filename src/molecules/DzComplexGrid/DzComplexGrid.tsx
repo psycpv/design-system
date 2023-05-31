@@ -49,6 +49,10 @@ const styles: any = {
     h-2.5
     bg-black-100
   `,
+  shellRepresentation: `
+    w-2.5
+    h-2.5
+  `,
 };
 
 const DEFAULT_STEPS = [
@@ -102,7 +106,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
 
   const CurrentIcon = useMemo(() => {
     const { icon } = steps.find(step => step.id === stepValue) ?? {
-      icon: <Fragment />,
+      icon: <div className={cn(styles.shellRepresentation)} />,
     };
     return icon;
   }, [steps, stepValue]);
@@ -119,7 +123,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
           <DzText text={`${numberOfResults} ${headingTitle}`} />
         ) : null}
 
-        {!isMobile ? (
+        {!isMobile && maximumValue !== 1 ? (
           <div className={cn(styles.rangeContainer)}>
             <div className={cn(styles.range)}>
               <DzRange
