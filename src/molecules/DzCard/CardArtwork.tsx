@@ -8,6 +8,7 @@ import {
   TITLE_TYPES,
   DzButton,
   DzButtonProps,
+  MEDIA_OBJECT_FIT,
 } from '../../atoms';
 import { cn } from '../../utils/classnames';
 import { priceFormatter } from '../../utils/formatters';
@@ -18,7 +19,7 @@ interface CardCTA {
 }
 
 export interface CardArtworkData {
-  id?:string;
+  id?: string;
   media: DzMediaProps;
   artistName: string;
   artworkTitle: string;
@@ -98,7 +99,6 @@ const styles: any = {
     `,
   },
   mediaImg: `
-    !object-contain
     !bg-black-30
     @6colMbl/cardContainer:min-h-[12.5rem]
     @12colMbl/cardContainer:min-h-[22.5rem]
@@ -151,6 +151,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
     <div id={id} className={cn(styles.cardContainer)}>
       <DzMedia
         imgClass={cn(styles.mediaImg, enableZoom ? styles.mediaZoom : '')}
+        objectFit={MEDIA_OBJECT_FIT.CONTAIN}
         className="overflow-hidden"
         {...media}
       />

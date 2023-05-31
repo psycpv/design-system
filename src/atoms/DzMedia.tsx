@@ -77,19 +77,19 @@ const styles: any = {
     bg-white-100
   `,
   fitCover: `
-    object-cover
+    !object-cover
   `,
   fitContain: `
-    object-contain
+    !object-contain
   `,
   fitFill: `
-    object-fill
+    !object-fill
   `,
   fitNone: `
-    object-none
+    !object-none
   `,
   fitScaleDown: `
-    object-scale-down
+    !object-scale-down
   `,
   '16:9': `
     !aspect-video
