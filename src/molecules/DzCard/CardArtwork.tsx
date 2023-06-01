@@ -64,10 +64,11 @@ const styles: any = {
     `,
     rightPanel: `
       mt-5
-      md:@4col/cardContainer:m-0
       flex
       flex-col
       gap-5
+      md:@4col/cardContainer:m-0
+      md:@4col/cardContainer:min-w-[13.5625rem]
     `,
     artWorkTitle: `
       @6colMbl/cardContainer:text-sm
@@ -82,9 +83,6 @@ const styles: any = {
       md:@4col/cardContainer:text-md
       md:@10col/cardContainer:text-lg
       uppercase
-    `,
-    tombstoneContainer: `
-      
     `,
     tombstoneText: `
       text-black-60
@@ -126,8 +124,8 @@ const styles: any = {
     @12colMbl/cardContainer:px-[1.5625rem]
     md:@2col/cardContainer:py-[0.3125rem]
     md:@2col/cardContainer:px-[1.5625rem]
-    md:@4col/cardContainer:py-[0.8125rem]
-    md:@4col/cardContainer:px-[1.5625rem]
+    md:@3col/cardContainer:py-[0.8125rem]
+    md:@3col/cardContainer:px-[1.5625rem]
   `,
 };
 
@@ -179,7 +177,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
             />
           </div>
 
-          <div className={cn(styles.artwork.tombstoneContainer)}>
+          <div>
             {medium ? (
               <DzText
                 className={cn(styles.artwork.tombstoneText)}
