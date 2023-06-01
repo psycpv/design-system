@@ -44,6 +44,7 @@ const styles: any = {
       flex-col
       flex
       justify-between
+      gap-5
       md:@4col/cardContainer:flex-row
       md:@4col/cardContainer:-mt-2.5
       md:@6col/cardContainer:mt-0
@@ -51,6 +52,7 @@ const styles: any = {
     leftPanel: `
       flex
       flex-col
+      basis-1/2
       @6colMbl/cardContainer:gap-2.5
       md:@2col/cardContainer:gap-2.5
       md:@3col/cardContainer:gap-2.5
