@@ -128,8 +128,8 @@ const MediaWrapper = ({ children, activeIndex }) => {
       keyboard-enabled="false"
       simulate-touch="false"
     >
-      {children.map(child => (
-        <SwiperSlide>{child}</SwiperSlide>
+      {children.map((child, index) => (
+        <SwiperSlide key={index}>{child}</SwiperSlide>
       ))}
     </SwiperContainer>
   ) : (
@@ -147,6 +147,7 @@ const ContentWrapper = ({
     <>
       {children.map((child, index) => (
         <Transition
+          key={index}
           as={Fragment}
           show={index === activeIndex && index === activeAnimation}
           enter="ease-in-out duration-200"
