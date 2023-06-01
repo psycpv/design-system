@@ -34,8 +34,13 @@ interface MenuShape {
   items: HeaderItem[];
 }
 
+export interface HeaderScreenMenu {
+  desktop: MenuShape;
+  mobile: MenuShape;
+}
+
 export interface DzHeaderProps {
-  menu: MenuShape;
+  menu: HeaderScreenMenu;
   socialMedia: SocialMedia;
   handleSearch: MouseEventHandler<any>;
   headerClass?: string;
@@ -94,11 +99,16 @@ export const DzHeader: FC<DzHeaderProps> = ({
   handleSearch = () => null,
   headerClass = '',
 }) => {
-  const { items = [] } = menu ?? {};
   const { width } = useWindowSize();
   const isSmall = useMemo(() => {
     return width < BREAKPOINTS.MD;
   }, [width]);
+  const menuToUse = useMemo(() => {
+    const { desktop, mobile } = menu ?? {};
+    return isSmall ? mobile : desktop;
+  }, [isSmall, menu]);
+
+  const { items = [] } = menuToUse ?? {};
 
   return (
     <header className={cn(styles.headerContainer, headerClass)}>

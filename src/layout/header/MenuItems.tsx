@@ -45,13 +45,16 @@ export const renderPerType = {
     );
   },
   menuItemSubmenu: (data, isMobile) => {
-    const { title, submenu } = data ?? {};
+    const { title, itemLink, submenu } = data ?? {};
+    const { link, page } = itemLink ?? {};
+    const { url = '' } = page ?? {};
+    const rootURL = link ?? url;
     const { items } = submenu ?? {};
 
     return isMobile ? (
-      <MobileSubmenus title={title} rootUrl="" items={items} />
+      <MobileSubmenus title={title} rootUrl={rootURL} items={items} />
     ) : (
-      <DesktopSubmenu title={title} items={items} />
+      <DesktopSubmenu title={title} rootUrl={rootURL} items={items} />
     );
   },
   menuItemPage: data => {
