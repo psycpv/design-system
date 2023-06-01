@@ -24,6 +24,7 @@ import {
 } from '../../atoms';
 import { DzArrow, ARROW_DIRECTIONS } from '../../atoms';
 import { cn } from '../../utils/classnames';
+import { SwiperContainer, SwiperSlide } from '../../vendor/swiper';
 
 register();
 
@@ -117,7 +118,7 @@ const MediaWrapper = ({ children, activeIndex }) => {
   }, [activeIndex, swiperElRef.current]);
 
   return children.length > 1 ? (
-    <swiper-container
+    <SwiperContainer
       ref={swiperElRef}
       slides-per-view={1}
       navigation="false"
@@ -128,30 +129,33 @@ const MediaWrapper = ({ children, activeIndex }) => {
       simulate-touch="false"
     >
       {children.map(child => (
-        <swiper-slide>{child}</swiper-slide>
+        <SwiperSlide>{child}</SwiperSlide>
       ))}
-    </swiper-container>
+    </SwiperContainer>
   ) : (
     <>{children[0]}</>
   );
 };
 
-const ContentWrapper = ({ children, activeIndex, animation, setAnimation }) => {
-  console.log(animation);
-  return children.length > 1 ? (
+const ContentWrapper = ({
+  children,
+  activeIndex,
+  activeAnimation,
+  onAnimationEnded,
+}) =>
+  children.length > 1 ? (
     <>
       {children.map((child, index) => (
         <Transition
           as={Fragment}
-          show={index === activeIndex && animation !== index}
-          enter="ease-in-out duration-100"
+          show={index === activeIndex && index === activeAnimation}
+          enter="ease-in-out duration-200"
           enterFrom="opacity-0"
           enterTo="opacity-100"
-          leave="ease-in-out duration-100"
+          leave="ease-in-out duration-200"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
-          beforeEnter={() => setAnimation(index)}
-          // afterLeave={() => setAnimation(null)}
+          afterLeave={() => onAnimationEnded(activeIndex)}
         >
           {child}
         </Transition>
@@ -160,7 +164,6 @@ const ContentWrapper = ({ children, activeIndex, animation, setAnimation }) => {
   ) : (
     <>{children[0]}</>
   );
-};
 
 enum Actions {
   NEXT = 'next',
@@ -170,7 +173,7 @@ enum Actions {
 export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
   ({ items, className = '' }, ref) => {
     const [currentItemIndex, setCurrentItemIndex] = useState<number>(0);
-    const [animation, setAnimation] = useState(null);
+    const [activeAnimation, setActiveAnimation] = useState(0);
 
     const handleChange = useCallback(
       (step: Actions) => {
@@ -196,8 +199,8 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
         <div className={cn(styles.contentContainer)}>
           <ContentWrapper
             activeIndex={currentItemIndex}
-            setAnimation={setAnimation}
-            animation={animation}
+            activeAnimation={activeAnimation}
+            onAnimationEnded={setActiveAnimation}
           >
             {items.map(item => (
               <div className={cn(styles.infoContainer)}>

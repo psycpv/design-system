@@ -6,34 +6,14 @@ import React, {
   useEffect,
   Fragment,
 } from 'react';
-import { register } from 'swiper/element/bundle';
 import { BREAKPOINTS } from '../../layout/breakpoints';
 import useWindowSize from '../../hooks/useWindowSize';
 import { BUTTON_VARIANTS, DzButton } from '../../atoms';
 import { ChevronLeft, ChevronRight } from '../../svgIcons';
 import { Transition } from '@headlessui/react';
 import { Swiper } from 'swiper/types';
-interface SwiperContainer
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLElement>,
-    HTMLElement
-  > {
-  navigation: string;
-  scrollbar: string;
-  pagination: string;
-  class: string;
-}
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'swiper-container': SwiperContainer;
-      'swiper-slide': any;
-    }
-  }
-}
-
-register();
+import { SwiperContainer, SwiperSlide } from '../../vendor/swiper';
 
 export interface DzCarouselProps {
   children: ReactNode[];
@@ -96,7 +76,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
       onMouseEnter={() => setShowNav(true)}
       onMouseLeave={() => setShowNav(false)}
     >
-      <swiper-container
+      <SwiperContainer
         ref={swiperElRef}
         slides-per-view={slidesPerView}
         navigation="true"
@@ -108,9 +88,9 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         {...swiperProps}
       >
         {children?.map(ch => (
-          <swiper-slide>{ch}</swiper-slide>
+          <SwiperSlide>{ch}</SwiperSlide>
         ))}
-      </swiper-container>
+      </SwiperContainer>
 
       <Transition
         show={showNav && showLeftNav}
