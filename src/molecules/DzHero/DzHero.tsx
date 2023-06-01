@@ -223,11 +223,11 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
                   <DzTitle
                     title={item.secondaryTitle}
                     className={cn(styles.secondaryTitleContainer)}
-                    titleType={TITLE_TYPES.H2}
+                    titleType={TITLE_TYPES.P}
                     titleSize={TITLE_SIZES.LG}
                     subtitleSize={TITLE_SIZES.LG}
                     subtitle={item.secondarySubtitle}
-                    subtitleType={TITLE_TYPES.H3}
+                    subtitleType={TITLE_TYPES.P}
                   />
                 ) : null}
                 {item.description ? (

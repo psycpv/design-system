@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { DzText, DzTitle, TEXT_TYPES, TITLE_TYPES } from '../../atoms';
+import { DzText, TEXT_TYPES, TEXT_SIZES } from '../../atoms';
 import { cn } from '../../utils/classnames';
 
 export const EDITORIAL_TEXT_TYPES = {
@@ -30,6 +30,7 @@ const styles: any = {
   quote: `
     text-lg
     md:text-xl
+    my-5
   `,
 };
 
@@ -49,11 +50,12 @@ export const EditorialText: FC<EditorialTextProps> = ({ paragraphs }) => {
           );
         }
         return (
-          <DzTitle
+          <DzText
             key={`${p}-${k}`}
-            classNameTitle={cn(styles.quote)}
-            titleType={TITLE_TYPES.H3}
-            title={p.text}
+            className={cn(styles.quote)}
+            textType={TEXT_TYPES.P}
+            text={p.text}
+            textSize={TEXT_SIZES.LARGE}
           />
         );
       })}

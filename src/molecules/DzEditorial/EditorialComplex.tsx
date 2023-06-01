@@ -11,7 +11,9 @@ export interface EditorialComplexProps extends EditorialTextProps {
 const styles: any = {
   editorialContainer: `
     flex
+    flex-col
     gap-10
+    md:flex-row
     md:gap-5
     w-full
     relative
@@ -19,7 +21,8 @@ const styles: any = {
   `,
   leftPane: `
     basis-1/2
-    sticky
+    relative
+    md:sticky
     top-0
     h-fit
     pt-10

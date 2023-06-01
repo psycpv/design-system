@@ -21,5 +21,25 @@ export default meta;
 
 const Template: Story<DzComplexGridProps> = args => <DzComplexGrid {...args} />;
 
-export const PrimaryDzComplexGrid = Template.bind({});
-PrimaryDzComplexGrid.args = { cards, displayNumberOfResults: true };
+export const ComplexGridWithRange = Template.bind({});
+ComplexGridWithRange.args = { cards, displayNumberOfResults: true };
+
+export const ComplexGridWithLink = Template.bind({});
+ComplexGridWithLink.args = {
+  cards,
+  displayNumberOfResults: false,
+  headingTitle: 'Browse Prints from Utopia Editions',
+  useLink: true,
+  linkCTA: {
+    text: 'View all',
+    linkElement: 'a',
+    url: '/',
+  },
+  steps: [
+    {
+      id: 1,
+      numberOfColumns: 4,
+      icon: null,
+    },
+  ],
+};

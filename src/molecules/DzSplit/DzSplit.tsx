@@ -139,18 +139,18 @@ export const DzSplit: FC<DzSplitProps> = ({
           title={title}
           classNameTitle={cn(styles.title)}
           classNameSubtitle={cn(styles.title)}
-          titleType={TITLE_TYPES.H2}
+          titleType={TITLE_TYPES.P}
           subtitle={subtitle}
-          subtitleType={TITLE_TYPES.H3}
+          subtitleType={TITLE_TYPES.P}
         />
         {secondaryTitle || secondarySubtitle ? (
           <DzTitle
             title={secondaryTitle}
             titleSize={TITLE_SIZES.LG}
             subtitleSize={TITLE_SIZES.LG}
-            titleType={TITLE_TYPES.H2}
+            titleType={TITLE_TYPES.P}
             subtitle={secondarySubtitle}
-            subtitleType={TITLE_TYPES.H3}
+            subtitleType={TITLE_TYPES.P}
           />
         ) : null}
         {description ? (

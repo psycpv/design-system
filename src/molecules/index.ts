@@ -7,3 +7,4 @@ export * from './DzTitleMolecule/DzTitleMolecule';
 export * from './DzCarousel/DzCarousel';
 export * from './DzTabsCards/DzTabsCards';
 export * from './DzComplexGrid/DzComplexGrid';
+export * from './DzForm/DzForm';

@@ -15,8 +15,10 @@ import { Swiper } from 'swiper/types';
 
 import { SwiperContainer, SwiperSlide } from '../../vendor/swiper';
 
+type ChildrenNode = ReactNode & React.ReactElement;
+
 export interface DzCarouselProps {
-  children: ReactNode[];
+  children: ChildrenNode[];
   slidesPerViewDesktop?: number | string;
   slidesPerViewMobile?: number | string;
   swiperProps?: any;
@@ -69,7 +71,6 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         'slides-offset-after': '20',
         'slides-offset-before': '20',
       };
-
   return (
     <div
       className="relative"

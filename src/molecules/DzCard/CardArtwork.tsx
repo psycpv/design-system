@@ -8,6 +8,7 @@ import {
   TITLE_TYPES,
   DzButton,
   DzButtonProps,
+  MEDIA_OBJECT_FIT,
 } from '../../atoms';
 import { cn } from '../../utils/classnames';
 import { priceFormatter } from '../../utils/formatters';
@@ -18,7 +19,7 @@ interface CardCTA {
 }
 
 export interface CardArtworkData {
-  id?:string;
+  id?: string;
   media: DzMediaProps;
   artistName: string;
   artworkTitle: string;
@@ -43,6 +44,7 @@ const styles: any = {
       flex-col
       flex
       justify-between
+      gap-5
       md:@4col/cardContainer:flex-row
       md:@4col/cardContainer:-mt-2.5
       md:@6col/cardContainer:mt-0
@@ -50,6 +52,7 @@ const styles: any = {
     leftPanel: `
       flex
       flex-col
+      basis-1/2
       @6colMbl/cardContainer:gap-2.5
       md:@2col/cardContainer:gap-2.5
       md:@3col/cardContainer:gap-2.5
@@ -63,10 +66,11 @@ const styles: any = {
     `,
     rightPanel: `
       mt-5
-      md:@4col/cardContainer:m-0
       flex
       flex-col
       gap-5
+      md:@4col/cardContainer:m-0
+      md:@4col/cardContainer:min-w-[13.5625rem]
     `,
     artWorkTitle: `
       @6colMbl/cardContainer:text-sm
@@ -82,9 +86,6 @@ const styles: any = {
       md:@10col/cardContainer:text-lg
       uppercase
     `,
-    tombstoneContainer: `
-      
-    `,
     tombstoneText: `
       text-black-60
     `,
@@ -98,7 +99,6 @@ const styles: any = {
     `,
   },
   mediaImg: `
-    !object-contain
     !bg-black-30
     @6colMbl/cardContainer:min-h-[12.5rem]
     @12colMbl/cardContainer:min-h-[22.5rem]
@@ -126,8 +126,8 @@ const styles: any = {
     @12colMbl/cardContainer:px-[1.5625rem]
     md:@2col/cardContainer:py-[0.3125rem]
     md:@2col/cardContainer:px-[1.5625rem]
-    md:@4col/cardContainer:py-[0.8125rem]
-    md:@4col/cardContainer:px-[1.5625rem]
+    md:@3col/cardContainer:py-[0.8125rem]
+    md:@3col/cardContainer:px-[1.5625rem]
   `,
 };
 
@@ -151,6 +151,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
     <div id={id} className={cn(styles.cardContainer)}>
       <DzMedia
         imgClass={cn(styles.mediaImg, enableZoom ? styles.mediaZoom : '')}
+        objectFit={MEDIA_OBJECT_FIT.CONTAIN}
         className="overflow-hidden"
         {...media}
       />
@@ -159,11 +160,11 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
           <div>
             <DzTitle
               classNameTitle={cn(styles.artwork.artistName)}
-              titleType={TITLE_TYPES.H3}
+              titleType={TITLE_TYPES.P}
               title={artistName}
             />
             <DzTitle
-              titleType={TITLE_TYPES.H3}
+              titleType={TITLE_TYPES.P}
               title={
                 <>
                   <span className={cn(styles.artwork.artWorkTitle)}>
@@ -178,7 +179,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
             />
           </div>
 
-          <div className={cn(styles.artwork.tombstoneContainer)}>
+          <div>
             {medium ? (
               <DzText
                 className={cn(styles.artwork.tombstoneText)}
@@ -204,7 +205,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
           {price ? (
             <div className={cn(styles.artwork.priceContainer)}>
               <DzTitle
-                titleType={TITLE_TYPES.H4}
+                titleType={TITLE_TYPES.P}
                 title={`USD${priceFormatter({ price })}`}
                 classNameTitle={cn(styles.artwork.priceTitle)}
               />
