@@ -107,9 +107,7 @@ export const DzHero: FC<DzHeroProps> = ({
 }) => {
   return (
     <div className={cn(styles.heroContainer)}>
-      <div>
-        <DzMedia imgClass={cn(styles.mediaImage)} {...media} />
-      </div>
+      <DzMedia imgClass={cn(styles.mediaImage)} {...media} />
 
       <div className={cn(styles.contentContainer)}>
         <div className={cn(styles.infoContainer)}>
@@ -128,11 +126,11 @@ export const DzHero: FC<DzHeroProps> = ({
             <DzTitle
               title={secondaryTitle}
               className={cn(styles.secondaryTitleContainer)}
-              titleType={TITLE_TYPES.H2}
+              titleType={TITLE_TYPES.P}
               titleSize={TITLE_SIZES.LG}
               subtitleSize={TITLE_SIZES.LG}
               subtitle={secondarySubtitle}
-              subtitleType={TITLE_TYPES.H3}
+              subtitleType={TITLE_TYPES.P}
             />
           ) : null}
           {description ? (
