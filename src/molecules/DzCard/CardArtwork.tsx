@@ -160,11 +160,11 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
           <div>
             <DzTitle
               classNameTitle={cn(styles.artwork.artistName)}
-              titleType={TITLE_TYPES.H3}
+              titleType={TITLE_TYPES.P}
               title={artistName}
             />
             <DzTitle
-              titleType={TITLE_TYPES.H3}
+              titleType={TITLE_TYPES.P}
               title={
                 <>
                   <span className={cn(styles.artwork.artWorkTitle)}>
@@ -205,7 +205,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
           {price ? (
             <div className={cn(styles.artwork.priceContainer)}>
               <DzTitle
-                titleType={TITLE_TYPES.H4}
+                titleType={TITLE_TYPES.P}
                 title={`USD${priceFormatter({ price })}`}
                 classNameTitle={cn(styles.artwork.priceTitle)}
               />

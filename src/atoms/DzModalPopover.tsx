@@ -59,7 +59,7 @@ export const DzModalPopover: FC<DzModalPopoverProps> = ({
 }) => {
   const renderTitle = title ? (
     <DzTitle
-      titleType={TITLE_TYPES.H3}
+      titleType={TITLE_TYPES.P}
       title={title}
       titleSize={TITLE_SIZES.LG}
     />

@@ -8,7 +8,8 @@ import {
   DzTextProps,
   LINK_VARIANTS,
 } from '../../atoms';
-import { DataCardType, DzCard, CARD_TYPES } from '../../molecules';
+import { DzCard, CARD_TYPES } from '../../molecules';
+import { CardArtworkData } from '../DzCard/CardArtwork';
 import { cn } from '../../utils/classnames';
 import { FourSquares } from '../../svgIcons/four-squares';
 import { SixSquares } from '../../svgIcons/six-squares';
@@ -29,7 +30,7 @@ interface LinkCTA {
 }
 
 export interface DzComplexGridProps {
-  cards: DataCardType[];
+  cards: CardArtworkData[];
   steps?: StepInterface[];
   displayNumberOfResults?: boolean;
   headingTitle?: string;
@@ -37,11 +38,13 @@ export interface DzComplexGridProps {
   textProps?: DzTextProps;
   useLink?: boolean;
   linkCTA?: LinkCTA;
+  defaultStart?: number;
 }
 
 const MINIMUM_VALUE = 1;
-const INITIAL_VALUE = 1;
+const INITIAL_VALUE = 3;
 const STEPS_SPAN = 1;
+const STEP_TO_HIDE_CTA = 3;
 
 const styles: any = {
   headControls: `
@@ -103,17 +106,22 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   textProps,
   useLink = false,
   linkCTA,
+  defaultStart = INITIAL_VALUE,
 }) => {
   const { width } = useWindowSize();
   const isMobile = useMemo(() => {
     return width < BREAKPOINTS.MD;
   }, [width]);
 
-  const [stepValue, setStepValue] = useState(MINIMUM_VALUE);
   const maximumValue = useMemo(() => maxItemsPerRow || steps.length, [
     maxItemsPerRow,
     steps,
   ]);
+  const initialValue = useMemo(
+    () => Math.min(maximumValue, Math.max(MINIMUM_VALUE, defaultStart)),
+    [defaultStart, maximumValue]
+  );
+  const [stepValue, setStepValue] = useState(initialValue);
   const numberOfResults = useMemo(() => cards.length, [cards]);
   const columnsSpanPerRow = useMemo(() => {
     const { numberOfColumns } = steps.find(step => step.id === stepValue) ?? {};
@@ -156,7 +164,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
                   min={MINIMUM_VALUE}
                   max={maximumValue}
                   step={STEPS_SPAN}
-                  value={[MINIMUM_VALUE, INITIAL_VALUE]}
+                  value={[MINIMUM_VALUE, initialValue]}
                   onChange={handleChange}
                 />
               </div>
@@ -184,10 +192,21 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
         }
       >
         {cards.map((card, key) => {
-          const { id } = card ?? {};
+          const { id, primaryCTA, secondaryCTA } = card ?? {};
+          const primaryCTAProps =
+            stepValue < STEP_TO_HIDE_CTA ? primaryCTA : undefined;
+          const secondaryCTAProps =
+            stepValue < STEP_TO_HIDE_CTA ? secondaryCTA : undefined;
           return (
             <DzColumn key={`${id}-${key}`} span={columnsSpanPerRow}>
-              <DzCard type={CARD_TYPES.ARTWORK} data={card} />
+              <DzCard
+                type={CARD_TYPES.ARTWORK}
+                data={{
+                  ...card,
+                  primaryCTA: primaryCTAProps,
+                  secondaryCTA: secondaryCTAProps,
+                }}
+              />
             </DzColumn>
           );
         })}

@@ -111,7 +111,7 @@ export const InterstitialSplit: FC<InterstitialSplitProps> = ({
           <DzTitle
             classNameTitle={cn(styles.title, textClassColor)}
             title={title}
-            titleType={TITLE_TYPES.H2}
+            titleType={TITLE_TYPES.P}
             titleSize={TITLE_SIZES.LG}
           ></DzTitle>
         ) : null}

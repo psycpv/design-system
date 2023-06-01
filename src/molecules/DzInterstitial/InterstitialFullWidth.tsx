@@ -148,7 +148,7 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
           <DzTitle
             classNameTitle={cn(styles.title, textClassColor, customTitleClass)}
             title={title}
-            titleType={TITLE_TYPES.H2}
+            titleType={TITLE_TYPES.P}
             titleSize={TITLE_SIZES.LG}
           ></DzTitle>
         ) : null}

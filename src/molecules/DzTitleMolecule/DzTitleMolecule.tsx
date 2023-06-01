@@ -71,10 +71,10 @@ const styles: any = {
 };
 
 const DEFAULT_TITLE_PROPS = {
-  titleType: TITLE_TYPES.H2,
+  titleType: TITLE_TYPES.P,
   titleSize: TITLE_SIZES.LG,
   subtitleSize: TITLE_SIZES.LG,
-  subtitleType: TITLE_TYPES.H3,
+  subtitleType: TITLE_TYPES.P,
 };
 
 export const DzTitleMolecule: FC<DzTitleMoleculeProps> = ({
