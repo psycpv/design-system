@@ -1,4 +1,10 @@
-import React, { FC, useMemo, useEffect, ImgHTMLAttributes, ReactNode } from 'react';
+import React, {
+  FC,
+  useMemo,
+  useEffect,
+  ImgHTMLAttributes,
+  ReactNode,
+} from 'react';
 import { cn } from '../utils/classnames';
 import { DzLink, DzLinkProps } from './DzLink';
 import Plyr from 'plyr-react';
@@ -68,12 +74,14 @@ export interface DzMediaProps extends ImgHTMLAttributes<HTMLImageElement> {
   videoSourceType?: VideoSource;
   aspectRatio?: AspectRatioType;
   objectFit?: ObjectFitType;
-  sourceSet?: ReactNode | null
+  sourceSet?: ReactNode | null;
 }
 
 const styles: any = {
   mediaContainer: `
     w-full
+    relative
+    block
     bg-white-100
   `,
   fitCover: `
@@ -125,7 +133,7 @@ export const DzMedia: FC<DzMediaProps> = ({
   videoSourceType = MEDIA_VIDEO_SOURCE_TYPES.VIMEO,
   aspectRatio = MEDIA_ASPECT_RATIOS['16:9'],
   objectFit = MEDIA_OBJECT_FIT.COVER,
-  sourceSet = null
+  sourceSet = null,
 }) => {
   useEffect(() => {}, []);
   const renderImage = useMemo(() => {
@@ -146,7 +154,12 @@ export const DzMedia: FC<DzMediaProps> = ({
     }
     return (
       <ImgElement
-        className={cn('w-full', styles[aspectRatio], imgClass)}
+        className={cn(
+          'w-full !relative',
+          styles[aspectRatio],
+          styles[objectFit],
+          imgClass
+        )}
         {...imgProps}
       />
     );
