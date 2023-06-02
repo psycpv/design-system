@@ -103,17 +103,13 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
       <Popover as={Fragment}>
         <Popover.Button as={Fragment}>
           {!value ? (
-            <MenuLogo
-              className={cn(styles.logoMenu)}
-              onClick={() => toggle(v => !v)}
-              id="open-menu-logo"
-            />
+            <div onClick={() => toggle(v => !v)}>
+              <MenuLogo className={cn(styles.logoMenu)} id="open-menu-logo" />
+            </div>
           ) : (
-            <CloseLogo
-              className={cn(styles.logoMenu)}
-              onClick={() => toggle(v => !v)}
-              id="close-menu-logo"
-            />
+            <div onClick={() => toggle(v => !v)}>
+              <CloseLogo className={cn(styles.logoMenu)} id="close-menu-logo" />
+            </div>
           )}
         </Popover.Button>
         <Transition
