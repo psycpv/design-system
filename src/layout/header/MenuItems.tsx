@@ -77,10 +77,8 @@ export const renderPerType = {
     );
   },
   menuItemSubmenu: (data: MenuItemSubmenu, isMobile: boolean) => {
-    const { title, itemLink, submenu } = data ?? {};
-    const { link, page } = itemLink ?? {};
-    const { url = '' } = page ?? {};
-    const rootURL = link ?? url;
+    const { title, submenu } = data ?? {};
+    const rootURL = data?.itemLink?.link ?? data?.itemLink?.page?.url ?? '';
     const { items } = submenu ?? {};
 
     return isMobile ? (
