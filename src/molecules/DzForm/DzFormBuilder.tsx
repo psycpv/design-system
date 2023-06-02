@@ -32,7 +32,7 @@ const styles: any = {
     flex-col
     gap-[0.3125rem]
   `,
-  sectionTitle:`
+  sectionTitle: `
     my-5
   `,
   secondarySubtitle: `
@@ -59,8 +59,14 @@ const atomsPerType = {
 };
 
 export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
-  const { formName, title, primarySubtitle, secondarySubtitle, formSections, CTAProps } =
-    form ?? {};
+  const {
+    formName,
+    title,
+    primarySubtitle,
+    secondarySubtitle,
+    formSections,
+    CTAProps,
+  } = form ?? {};
   const { text: CTAText, onClick } = CTAProps ?? {};
   return (
     <div className={cn(styles.formLayout)}>
@@ -89,7 +95,9 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
           const { id, sectionTitle, fields = [] } = section ?? {};
           return (
             <Fragment key={id}>
-              {sectionTitle ? <DzText className={styles.sectionTitle} text={sectionTitle} /> : null}
+              {sectionTitle ? (
+                <DzText className={styles.sectionTitle} text={sectionTitle} />
+              ) : null}
               {fields?.length ? (
                 <DzGridColumns key={id}>
                   {fields?.map((field, key) => {
@@ -100,12 +108,11 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
                       ...(title ? { title: `${title}${requiredTag}` } : {}),
                       ...(required ? { required } : {}),
                       ...data,
-                      key: `${title}-${key}`,
                     };
                     const Component = atomsPerType?.[type]?.(componentProps);
                     return Component ? (
                       <DzColumn
-                        key={`${title}-${key}`}
+                        key={`${sectionTitle}-${title}-${key}`}
                         className="mt-auto"
                         span={span ?? 12}
                       >
