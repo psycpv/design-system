@@ -43,12 +43,12 @@ export const EditorialQuote: FC<EditorialQuoteProps> = ({
       <div className={cn(styles.singleQuoteContainer)}>
         <DzTitle
           classNameTitle={cn(styles.singleQuote)}
-          titleType={TITLE_TYPES.H3}
+          titleType={TITLE_TYPES.P}
           title={`”${quote}”`}
         />
         <DzTitle
           classNameTitle={cn(styles.quoteDetail)}
-          titleType={TITLE_TYPES.H3}
+          titleType={TITLE_TYPES.P}
           title={`— ${quoteDetail}`}
         />
       </div>

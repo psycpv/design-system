@@ -20,7 +20,7 @@ export interface CardContentProps {
 }
 
 export interface CardContentData {
-  id?:string;
+  id?: string;
   media: DzMediaProps;
   category?: string;
   title: string;
@@ -102,9 +102,7 @@ const styles: any = {
   `,
 };
 
-export const CardContent: FC<CardContentProps> = ({
-  data
-}) => {
+export const CardContent: FC<CardContentProps> = ({ data }) => {
   const {
     id,
     media,
@@ -139,9 +137,9 @@ export const CardContent: FC<CardContentProps> = ({
           titleSize={TITLE_SIZES.MD}
           classNameTitle={cn(styles.title)}
           classNameSubtitle={cn(styles.title)}
-          titleType={TITLE_TYPES.H2}
+          titleType={TITLE_TYPES.P}
           subtitle={subtitle}
-          subtitleType={TITLE_TYPES.H3}
+          subtitleType={TITLE_TYPES.P}
         />
 
         {/* All fields are optional and should flow as configured when the fields are turned on/off */}
@@ -150,9 +148,9 @@ export const CardContent: FC<CardContentProps> = ({
             title={secondaryTitle}
             classNameTitle={cn(styles.secondaryTitle)}
             classNameSubtitle={cn(styles.secondaryTitle)}
-            titleType={TITLE_TYPES.H2}
+            titleType={TITLE_TYPES.P}
             subtitle={secondarySubtitle}
-            subtitleType={TITLE_TYPES.H3}
+            subtitleType={TITLE_TYPES.P}
           />
         ) : null}
         {description ? (

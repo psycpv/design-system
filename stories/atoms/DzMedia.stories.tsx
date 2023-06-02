@@ -1,6 +1,11 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzMedia, DzMediaProps, MEDIA_TYPES } from '../../src/atoms/DzMedia';
+import {
+  DzMedia,
+  DzMediaProps,
+  MEDIA_TYPES,
+  MEDIA_VIDEO_SOURCE_TYPES,
+} from '../../src/atoms/DzMedia';
 import { vimeoProps } from '../../constants/mocks/DzMedia';
 
 const meta: Meta = {
@@ -47,4 +52,24 @@ DzMediaVimeo.args = {
       },
     },
   },
+};
+
+export const DzMediaUrl = Template.bind({});
+DzMediaUrl.args = {
+  type: MEDIA_TYPES.VIDEO,
+  videoSourceType: MEDIA_VIDEO_SOURCE_TYPES.URL,
+  videoProps: {
+    width: '100%',
+    height: '100%',
+    autoplay: 'autoplay',
+    muted: true,
+    loop: true,
+    controls: true,
+  },
+  sourceSet: (
+    <source
+      src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+      type="video/mp4"
+    />
+  ),
 };

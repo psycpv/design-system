@@ -5,6 +5,7 @@ export const tabs = [
     title: 'New York',
     cards: [
       {
+        id: '1',
         media: {
           type: MEDIA_TYPES.IMAGE,
           imgProps: {
@@ -30,6 +31,7 @@ export const tabs = [
         },
       },
       {
+        id: '2',
         media: {
           type: MEDIA_TYPES.IMAGE,
           imgProps: {
@@ -55,6 +57,7 @@ export const tabs = [
         },
       },
       {
+        id: '3',
         media: {
           type: MEDIA_TYPES.IMAGE,
           imgProps: {
@@ -80,6 +83,7 @@ export const tabs = [
         },
       },
       {
+        id: '4',
         media: {
           type: MEDIA_TYPES.IMAGE,
           imgProps: {
@@ -110,6 +114,7 @@ export const tabs = [
     title: 'Los Angeles',
     cards: [
       {
+        id: '5',
         media: {
           type: MEDIA_TYPES.IMAGE,
           imgProps: {
@@ -140,6 +145,7 @@ export const tabs = [
     title: 'London',
     cards: [
       {
+        id: '6',
         media: {
           type: MEDIA_TYPES.IMAGE,
           imgProps: {
@@ -170,6 +176,7 @@ export const tabs = [
     title: 'Paris',
     cards: [
       {
+        id: '7',
         media: {
           type: MEDIA_TYPES.IMAGE,
           imgProps: {
@@ -200,6 +207,7 @@ export const tabs = [
     title: 'Hong Kong',
     cards: [
       {
+        id: '8',
         media: {
           type: MEDIA_TYPES.IMAGE,
           imgProps: {
