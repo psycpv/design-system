@@ -36,7 +36,7 @@ const styles = {
     pr-10 text-left
     outline-0
     text-black-60
-    focus:outline-none
+    focus:outline-transparent
     hover:text-black-100
     hover:border-black-60
   `,
@@ -64,8 +64,8 @@ const styles = {
     text-sm
     py-1
     shadow-lg
-    outline-none
-    focus:outline-none
+    outline-transparent
+    focus:outline-transparent
   `,
   active: `
     text-black-100
@@ -115,9 +115,7 @@ export const DzSelect: React.FunctionComponent<DzSelectProps> = ({
   const [selected, setSelected] = useState<SelectOption>(
     options?.[selectId] ?? null
   );
-  const [multipleSelect, setMultipleSelect] = useState<SelectOption[]>(
-    []
-  );
+  const [multipleSelect, setMultipleSelect] = useState<SelectOption[]>([]);
 
   const disabledStyles = disabled ? styles.disabled : '';
 

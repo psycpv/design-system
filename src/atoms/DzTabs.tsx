@@ -52,9 +52,9 @@ const styles: any = {
     font-medium
     text-sm
     py-4
-    outline-none
+    outline-transparent
   `,
-  underline:`
+  underline: `
     decoration-transparent
     duration-300
     ease-in

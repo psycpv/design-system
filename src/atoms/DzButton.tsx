@@ -54,7 +54,7 @@ const styles: any = {
   btn: `
     hover:underline
     disabled:pointer-events-none
-    outline-none
+    outline-transparent
   `,
   iconDiv: `
     flex
