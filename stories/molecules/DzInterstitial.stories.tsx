@@ -29,4 +29,14 @@ FullWidthInterstitial.args = { data: { ...interstitial, split: false } };
 export const SplitInterstitial = Template.bind({});
 SplitInterstitial.args = { data: interstitial };
 
+export const SplitInterstitialWhite = Template.bind({});
+SplitInterstitialWhite.args = { data: {
+  split: false,
+  title: 'Lorem ipsum dolor sit amet, consectetuer adipiscin',
+  primaryCta: {
+    text: 'Sign Up',
+  },
+  textColor: 'black-100'
+} };
+
 

@@ -35,6 +35,8 @@ declare global {
 
 register();
 
+type ChildrenNode = ReactNode & React.ReactElement;
+
 export interface DzCarouselProps {
   children: ReactNode[];
   swiperProps?: any;
@@ -83,7 +85,6 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         scrollbar: 'true',
         'grab-cursor': true,
       };
-
   return (
     <div
       className="relative overflow-hidden"
@@ -103,8 +104,9 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         {...swiperContainerProps}
         {...swiperProps}
       >
-        {children?.map(ch => (
+        {children?.map((ch, index) => (
           <swiper-slide
+            key={index}
             class={
               isSmall ? 'max-w-[calc(100%*5/6)]' : 'max-w-[calc(50%-10px)]'
             }

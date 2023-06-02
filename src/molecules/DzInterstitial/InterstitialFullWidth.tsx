@@ -15,13 +15,15 @@ import { TextColors, PrimaryCTAInterstitial } from './DzInterstitial';
 
 export interface InterstitialFullWidthProps {
   title: string;
-  description: string;
+  description?: string;
   category?: string;
   primaryCta?: PrimaryCTAInterstitial;
   split?: boolean;
-  media: DzMediaProps;
+  media?: DzMediaProps;
   textColor?: TextColors;
   customClass?: string;
+  customTitleClass?: string;
+  customDescriptionClass?: string;
 }
 
 const styles: any = {
@@ -62,6 +64,14 @@ const styles: any = {
   `,
   nonSplit: `
     relative
+    w-full
+  `,
+  nonSplitFull: `
+    min-h-[22.5rem]
+    md:min-h-[27.5rem]
+    w-full
+    flex
+    justify-center
   `,
   contentInfoNonSplit: `
     w-full
@@ -77,29 +87,56 @@ const styles: any = {
     -translate-y-1/2
     text-center
   `,
-  description:`
+  contentInfoNonSplitRelative: `
+    w-full
+    md:w-[43.125rem]
+    p-5
+    gap-5
+    flex
+    flex-col
+    text-center
+    justify-center
+  `,
+  description: `
     md:text-md
-  `
+  `,
 };
 
 export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
   textColor = 'white-100',
   category,
-  title,
+  title = '',
   description,
   primaryCta,
   media,
   customClass = '',
+  customTitleClass = '',
+  customDescriptionClass = '',
 }) => {
   const textClassColor = `text-${textColor}`;
   return (
-    <div className={cn(styles.nonSplit, customClass)}>
-      <DzMedia
-        className={cn(styles.mediaContainer)}
-        imgClass={cn(styles.image)}
-        {...media}
-      />
-      <div className={cn(styles.contentInfoNonSplit)}>
+    <div
+      className={cn(
+        styles.nonSplit,
+        media ? '' : styles.nonSplitFull,
+        customClass
+      )}
+    >
+      {media ? (
+        <DzMedia
+          className={cn(styles.mediaContainer)}
+          imgClass={cn(styles.image)}
+          {...media}
+        />
+      ) : null}
+
+      <div
+        className={cn(
+          media
+            ? styles.contentInfoNonSplit
+            : styles.contentInfoNonSplitRelative
+        )}
+      >
         {category ? (
           <DzText
             className={cn(styles.category, textClassColor)}
@@ -107,13 +144,26 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
             textSize={TEXT_SIZES.XS}
           />
         ) : null}
-        <DzTitle
-          classNameTitle={cn(styles.title, textClassColor)}
-          title={title}
-          titleType={TITLE_TYPES.H2}
-          titleSize={TITLE_SIZES.LG}
-        ></DzTitle>
-        <DzText className={cn(styles.description, textClassColor)} text={description} />
+        {title ? (
+          <DzTitle
+            classNameTitle={cn(styles.title, textClassColor, customTitleClass)}
+            title={title}
+            titleType={TITLE_TYPES.P}
+            titleSize={TITLE_SIZES.LG}
+          ></DzTitle>
+        ) : null}
+
+        {description ? (
+          <DzText
+            className={cn(
+              styles.description,
+              textClassColor,
+              customDescriptionClass
+            )}
+            text={description}
+          />
+        ) : null}
+
         {primaryCta ? (
           <div>
             <DzButton
