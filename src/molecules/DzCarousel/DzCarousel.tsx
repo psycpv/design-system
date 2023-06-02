@@ -100,8 +100,10 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         {...swiperContainerProps}
         {...swiperProps}
       >
-        {children?.map(ch => (
-          <swiper-slide key={ch?.key ?? ch?.props?.id ?? ch?.props?.data?.id}>
+        {children?.map((ch, index) => (
+          <swiper-slide
+            key={ch?.key ?? ch?.props?.id ?? ch?.props?.data?.id ?? index}
+          >
             {ch}
           </swiper-slide>
         ))}
