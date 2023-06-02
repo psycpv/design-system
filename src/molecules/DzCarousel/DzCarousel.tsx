@@ -37,15 +37,11 @@ register();
 
 export interface DzCarouselProps {
   children: ReactNode[];
-  slidesPerViewDesktop?: number | string;
-  slidesPerViewMobile?: number | string;
   swiperProps?: any;
 }
 
 export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
   children,
-  slidesPerViewDesktop = 5,
-  slidesPerViewMobile = 1,
   swiperProps,
 }) => {
   const swiperElRef = useRef<HTMLInputElement & { swiper: Swiper }>(null);
@@ -59,54 +55,62 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
     setShowLeftNav(!swiperElRef?.current?.swiper.isBeginning);
     setShowRightNav(!swiperElRef?.current?.swiper.isEnd);
 
-    console.log(
-      'CHANGE ',
-      swiperElRef?.current?.swiper.isBeginning,
-      !swiperElRef?.current?.swiper.isEnd
+    swiperElRef?.current?.addEventListener('transitionend', () => {
+      setShowLeftNav(!swiperElRef?.current?.swiper.isBeginning);
+      setShowRightNav(!swiperElRef?.current?.swiper.isEnd);
+    });
+
+    swiperElRef?.current?.addEventListener('reachend', _ =>
+      setShowRightNav(false)
     );
 
-    swiperElRef?.current?.addEventListener('slidechange', (e: any) => {
-      const [swiper] = e.detail;
-      setShowLeftNav(!swiper.isBeginning);
-      setShowRightNav(!swiper.isEnd);
-    });
-  }, []);
+    swiperElRef?.current?.addEventListener('reachbeginning', _ =>
+      setShowLeftNav(false)
+    );
+  }, [swiperElRef?.current]);
 
-  const slidesPerView = isSmall ? slidesPerViewMobile : slidesPerViewDesktop;
   const swiperContainerProps = isSmall
     ? {
+        class: 'pb-14',
         'space-between': 20,
-        class: 'pb-14 pr-14',
-        'slides-offset-after': '-40',
-        'slides-offset-before': '20'
+        'slides-offset-before': '0',
+        scrollbar: 'false',
       }
     : {
-        'space-between': 120,
-        'grab-cursor': true,
         class: 'pb-14',
-        'slides-offset-after': '20',
-        'slides-offset-before': '20'
+        'space-between': 120,
+        'slides-offset-before': '0',
+        scrollbar: 'true',
+        'grab-cursor': true,
       };
 
   return (
     <div
-      className="relative"
+      className="relative overflow-hidden"
       onMouseEnter={() => setShowNav(true)}
       onMouseLeave={() => setShowNav(false)}
     >
       <swiper-container
         ref={swiperElRef}
-        slides-per-view={slidesPerView}
         navigation="true"
-        scrollbar="true"
         pagination="false"
         navigation-next-el="null"
         keyboard-enabled="true"
+        mousewheel="true"
+        mousewheel-force-to-axis="true"
+        scrollbar-draggable="true"
+        slides-per-view="auto"
         {...swiperContainerProps}
         {...swiperProps}
       >
         {children?.map(ch => (
-          <swiper-slide>{ch}</swiper-slide>
+          <swiper-slide
+            class={
+              isSmall ? 'max-w-[calc(100%*5/6)]' : 'max-w-[calc(50%-10px)]'
+            }
+          >
+            {ch}
+          </swiper-slide>
         ))}
       </swiper-container>
 
