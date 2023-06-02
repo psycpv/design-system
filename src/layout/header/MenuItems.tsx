@@ -11,6 +11,38 @@ export interface MenuItemsProps {
   isMobile?: boolean;
 }
 
+interface PageLink {
+  url: string;
+}
+
+interface MenuItemLink {
+  title: string;
+  newTab: boolean;
+  link: string;
+}
+
+interface ItemLink {
+  link: string;
+  page: PageLink;
+}
+
+interface SubmenuItems {
+  items: any[];
+}
+
+interface MenuItemPage {
+  title: string;
+  newTab: boolean;
+  anchor: string;
+  page: PageLink;
+}
+
+interface MenuItemSubmenu {
+  title: string;
+  itemLink: ItemLink;
+  submenu: SubmenuItems;
+}
+
 const styles: any = {
   menuContainer: `
     md:flex
@@ -35,7 +67,7 @@ const styles: any = {
 };
 
 export const renderPerType = {
-  menuItemLink: data => {
+  menuItemLink: (data: MenuItemLink) => {
     const { title, newTab, link } = data ?? {};
 
     return (
@@ -44,7 +76,7 @@ export const renderPerType = {
       </DzLink>
     );
   },
-  menuItemSubmenu: (data, isMobile) => {
+  menuItemSubmenu: (data: MenuItemSubmenu, isMobile: boolean) => {
     const { title, itemLink, submenu } = data ?? {};
     const { link, page } = itemLink ?? {};
     const { url = '' } = page ?? {};
@@ -57,7 +89,7 @@ export const renderPerType = {
       <DesktopSubmenu title={title} rootUrl={rootURL} items={items} />
     );
   },
-  menuItemPage: data => {
+  menuItemPage: (data: MenuItemPage) => {
     const { title, newTab, anchor, page } = data ?? {};
     const { url = '' } = page ?? {};
     const urlWithAnchor = anchor ? `${url}#${anchor}` : url;
