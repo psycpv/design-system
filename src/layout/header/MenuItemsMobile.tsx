@@ -91,7 +91,7 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
   handleSearch = () => null,
 }) => {
   const { weChat, instagram, twitter, facebook } = socialMedia;
-  const [value, toggle] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
   const handleKeyDown = useCallback((e: any) => {
     if (e.code === 'Enter') {
       handleSearch(e);
@@ -102,19 +102,25 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
     <>
       <Popover as={Fragment}>
         <Popover.Button as={Fragment}>
-          {!value ? (
-            <div onClick={() => toggle(v => !v)}>
+          {!openMenu ? (
+            <button
+              className="outline-transparent"
+              onClick={() => setOpenMenu(open => !open)}
+            >
               <MenuLogo className={cn(styles.logoMenu)} id="open-menu-logo" />
-            </div>
+            </button>
           ) : (
-            <div onClick={() => toggle(v => !v)}>
+            <button
+              className="outline-transparent"
+              onClick={() => setOpenMenu(open => !open)}
+            >
               <CloseLogo className={cn(styles.logoMenu)} id="close-menu-logo" />
-            </div>
+            </button>
           )}
         </Popover.Button>
         <Transition
           as={Fragment}
-          show={value}
+          show={openMenu}
           enter="transition ease-out duration-200"
           enterFrom="opacity-0 translate-y-1"
           enterTo="opacity-100 translate-y-0"
