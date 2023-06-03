@@ -13,6 +13,7 @@ import { BUTTON_VARIANTS, DzButton } from '../../atoms';
 import { ChevronLeft, ChevronRight } from '../../svgIcons';
 import { Transition } from '@headlessui/react';
 import { Swiper } from 'swiper/types';
+import { gridColsMaxWidths } from './util';
 interface SwiperContainer
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLElement>,
@@ -35,16 +36,18 @@ declare global {
 
 register();
 
-type ChildrenNode = ReactNode & React.ReactElement;
-
 export interface DzCarouselProps {
   children: ReactNode[];
   swiperProps?: any;
+  slideSpanDesktop?: number;
+  slideSpanMobile?: number;
 }
 
 export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
   children,
   swiperProps,
+  slideSpanDesktop = 6,
+  slideSpanMobile = 10,
 }) => {
   const swiperElRef = useRef<HTMLInputElement & { swiper: Swiper }>(null);
   const { width } = useWindowSize();
@@ -107,9 +110,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         {children?.map((ch, index) => (
           <swiper-slide
             key={index}
-            class={
-              isSmall ? 'max-w-[calc(100%*5/6)]' : 'max-w-[calc(50%-10px)]'
-            }
+            class={gridColsMaxWidths[isSmall ? slideSpanMobile : slideSpanDesktop]}
           >
             {ch}
           </swiper-slide>
