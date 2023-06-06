@@ -60,20 +60,24 @@ const styles: any = {
     border
     border-black-40
     hover:border-black-100
+    active:border-black-100
     `,
   arrowLight: `
     text-black-80
     group-hover:text-black-100
+    group-active:text-black-100
   `,
   dark: `
     group
     border
     border-white-100
     hover:bg-white-100
+    active:bg-white-100
   `,
   arrowDark: `
     text-white-100
     group-hover:text-neutral-200
+    group-active:text-neutral-200
   `,
   disabled: `
     !border-black-40
