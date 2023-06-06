@@ -10,7 +10,7 @@ import { Menu } from '../src/svgIcons/menu';
 import { BoldArrowDown } from '../src/svgIcons/boldArrowDown';
 import { Close } from '../src/svgIcons/close';
 import { ExclamationCircle } from '../src/svgIcons/exclamationCircle';
-import {ArrowDown} from '../src/svgIcons/arrowDown';
+import { ArrowDown } from '../src/svgIcons/arrowDown';
 
 const ICONS = {
   ARROW_LEFT: 'arrowLeft',
@@ -64,9 +64,9 @@ const Template: Story<IconProps> = args => {
     case ICONS.EXCLAMATION_CIRCLE:
       return <ExclamationCircle {...args} />;
     case ICONS.ARROW_DOWN:
-      return <ArrowDown {...args}/>;
+      return <ArrowDown {...args} />;
     default:
-      return null;
+      throw new Error('Type not supported');
   }
 };
 
@@ -95,7 +95,11 @@ export const CloseIcon = Template.bind({});
 CloseIcon.args = { type: ICONS.CLOSE, width: 24, height: 22 };
 
 export const ExclamationCircleIcon = Template.bind({});
-ExclamationCircleIcon.args = { type: ICONS.EXCLAMATION_CIRCLE, width: 32, height: 32 };
+ExclamationCircleIcon.args = {
+  type: ICONS.EXCLAMATION_CIRCLE,
+  width: 32,
+  height: 32,
+};
 
 export const ArrowDownIcon = Template.bind({});
 ArrowDownIcon.args = { type: ICONS.ARROW_DOWN, width: 20, height: 12 };

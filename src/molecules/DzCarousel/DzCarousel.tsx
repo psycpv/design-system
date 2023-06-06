@@ -5,15 +5,16 @@ import React, {
   useState,
   useEffect,
   Fragment,
+  useLayoutEffect,
 } from 'react';
 import { register } from 'swiper/element/bundle';
 import { BREAKPOINTS } from '../../layout/breakpoints';
 import useWindowSize from '../../hooks/useWindowSize';
-import { BUTTON_VARIANTS, DzButton } from '../../atoms';
-import { ChevronLeft, ChevronRight } from '../../svgIcons';
+import { ARROW_DIRECTIONS, ARROW_MODES, DzArrow } from '../../atoms';
 import { Transition } from '@headlessui/react';
 import { Swiper } from 'swiper/types';
 import { gridColsMaxWidths } from './util';
+
 interface SwiperContainer
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLElement>,
@@ -55,6 +56,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
   const [showNav, setShowNav] = useState(false);
   const [showRightNav, setShowRightNav] = useState(false);
   const [showLeftNav, setShowLeftNav] = useState(false);
+  const [navTopOffset, setTopNavOffset] = useState('50%');
 
   useEffect(() => {
     setShowLeftNav(!swiperElRef?.current?.swiper.isBeginning);
@@ -88,6 +90,14 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         scrollbar: 'true',
         'grab-cursor': true,
       };
+
+  useLayoutEffect(() => {
+    const offset = (swiperElRef.current?.firstChild?.firstChild
+      ?.firstChild as HTMLElement)?.querySelector('img')?.offsetHeight;
+
+    if (offset) setTopNavOffset(`${(offset / 2).toFixed(1)}px`);
+  }, [swiperElRef.current?.firstChild, children, slideSpanDesktop]);
+
   return (
     <div
       className="relative overflow-hidden"
@@ -110,7 +120,9 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         {children?.map((ch, index) => (
           <swiper-slide
             key={index}
-            class={gridColsMaxWidths[isSmall ? slideSpanMobile : slideSpanDesktop]}
+            class={
+              gridColsMaxWidths[isSmall ? slideSpanMobile : slideSpanDesktop]
+            }
           >
             {ch}
           </swiper-slide>
@@ -118,8 +130,8 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
       </swiper-container>
 
       <Transition
-        show={showNav && showLeftNav}
         as={Fragment}
+        show={!isSmall && showNav && showLeftNav}
         enter="transition ease-in duration-300"
         enterFrom="-translate-x-full"
         enterTo="translate-x-0"
@@ -127,23 +139,18 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         leaveFrom="translate-x-0"
         leaveTo="-translate-x-full"
       >
-        <DzButton
-          className="flex items-center justify-center absolute left-0 top-1/2 z-10 h-20 w-20 translate-y-[-50%] translate-x-0"
-          variant={BUTTON_VARIANTS.SECONDARY}
+        <DzArrow
+          className={'absolute left-5 z-10'}
+          style={{ top: navTopOffset }}
           onClick={() => swiperElRef.current?.swiper.slidePrev()}
-        >
-          <ChevronLeft
-            fill="white"
-            height={22}
-            type="chevron-right"
-            width={12}
-          />
-        </DzButton>
+          direction={ARROW_DIRECTIONS.LEFT}
+          mode={ARROW_MODES.DARK_BACKGROUND}
+        />
       </Transition>
 
       <Transition
         as={Fragment}
-        show={showNav && showRightNav}
+        show={!isSmall && showNav && showRightNav}
         enter="transition ease-in duration-300"
         enterFrom="translate-x-full"
         enterTo="translate-x-0"
@@ -151,18 +158,13 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         leaveFrom="translate-x-0"
         leaveTo="translate-x-full"
       >
-        <DzButton
-          className="flex items-center justify-center absolute right-0 top-1/2 z-10 h-20 w-20 translate-y-[-50%] translate-x-0"
-          variant={BUTTON_VARIANTS.SECONDARY}
+        <DzArrow
+          className="absolute right-5 z-10"
+          style={{ top: navTopOffset }}
           onClick={() => swiperElRef.current?.swiper.slideNext()}
-        >
-          <ChevronRight
-            fill="white"
-            height={22}
-            type="chevron-right"
-            width={12}
-          />
-        </DzButton>
+          direction={ARROW_DIRECTIONS.RIGHT}
+          mode={ARROW_MODES.DARK_BACKGROUND}
+        />
       </Transition>
     </div>
   );
