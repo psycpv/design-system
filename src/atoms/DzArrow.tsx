@@ -42,7 +42,6 @@ export interface DzArrowProps {
 
 const styles: any = {
   arrowContainer: `
-    relative
     w-10
     h-10
     rounded-full
@@ -50,36 +49,39 @@ const styles: any = {
     pointer-events-auto
     cursor-pointer
   `,
-  arrowLeft: `
-    left-1/2
-    translate-y-[-50%]
-    translate-x-0`,
-  arrowRight: `
-    translate-y-[-50%]
-    translate-x-0
-  `,
+  arrowLeft: ``,
+  arrowRight: ``,
   arrowIcon: `
-    absolute
-    top-1/2
     w-4
+    mx-auto
   `,
   light: `
+    group
     border
     border-black-40
     hover:border-black-100
+    `,
+  arrowLight: `
+    text-black-80
+    group-hover:text-black-100
   `,
   dark: `
+    group
     border
     border-white-100
     hover:bg-white-100
   `,
-  hover: `
-    border
+  arrowDark: `
+    text-white-100
+    group-hover:text-neutral-200
   `,
   disabled: `
     !border-black-40
     !border
     !pointer-events-none
+  `,
+  arrowDisabled: `
+    !fill-black-40
   `,
 };
 
@@ -98,13 +100,6 @@ export const DzArrow: FC<DzArrowProps> = (props: DzArrowProps) => {
   );
   const disabledStyle = disabled ? styles.disabled : '';
 
-  const arrowColor = (hover: boolean, disabled: boolean, mode: ArrowMode) => {
-    if (disabled) return '#CDCDCD';
-    if (hover && mode === ARROW_MODES.LIGHT_BACKGROUND) return 'black';
-    if (hover && mode === ARROW_MODES.DARK_BACKGROUND) return '#E5E5E5';
-    return mode === ARROW_MODES.LIGHT_BACKGROUND ? '#757575' : 'white';
-  };
-
   useEffect(() => {
     const ArwComponent = lazy(() =>
       direction === 'Left'
@@ -114,10 +109,15 @@ export const DzArrow: FC<DzArrowProps> = (props: DzArrowProps) => {
     if (ArwComponent) {
       const component = (
         <ArwComponent
-          className={cn(styles.arrowIcon, styles[`arrow${direction}`])}
+          className={cn(
+            styles.arrowIcon,
+            styles[`arrow${direction}`],
+            disabled && styles.arrowDisabled,
+            mode === ARROW_MODES.LIGHT_BACKGROUND && styles.arrowLight,
+            mode === ARROW_MODES.DARK_BACKGROUND && styles.arrowDark
+          )}
           width="100%"
           height="100%"
-          fill={arrowColor(isHover, disabled, mode)}
         />
       );
       setArrowComponent(component);
@@ -129,7 +129,7 @@ export const DzArrow: FC<DzArrowProps> = (props: DzArrowProps) => {
       ref={hoverRef}
       className={cn(
         styles.arrowContainer,
-        styles?.[mode],
+        styles[mode],
         disabledStyle,
         className
       )}
