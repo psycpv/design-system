@@ -32,6 +32,9 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
   className = '',
 }) => {
   const swiperElRef = useRef<HTMLInputElement & { swiper: Swiper }>(null);
+  const leftArrowRef = useRef<HTMLButtonElement>(null);
+  const rightArrowRef = useRef<HTMLButtonElement>(null);
+
   const { width } = useWindowSize();
   const isSmall = useMemo(() => width < BREAKPOINTS.MD, [width]);
   const [showNav, setShowNav] = useState(false);
@@ -71,11 +74,23 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
       };
 
   useLayoutEffect(() => {
-    const offset = (swiperElRef.current?.firstChild?.firstChild
+    const imgHeight = (swiperElRef.current?.firstChild?.firstChild
       ?.firstChild as HTMLElement)?.querySelector('img')?.offsetHeight;
 
-    if (offset) setTopNavOffset(`${(offset / 2).toFixed(1)}px`);
-  }, [swiperElRef.current?.firstChild, children, slideSpanDesktop]);
+    const arrowHeight =
+      leftArrowRef.current?.offsetHeight ||
+      rightArrowRef.current?.offsetHeight ||
+      40;
+
+    if (imgHeight)
+      setTopNavOffset(`${((imgHeight - arrowHeight) / 2).toFixed(1)}px`);
+  }, [
+    leftArrowRef.current,
+    rightArrowRef.current,
+    swiperElRef.current?.firstChild,
+    children,
+    slideSpanDesktop,
+  ]);
 
   return (
     <div
@@ -121,6 +136,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         leaveTo="-translate-x-full"
       >
         <DzArrow
+          ref={leftArrowRef}
           className={'absolute left-5 z-10'}
           style={{ top: navTopOffset }}
           onClick={() => swiperElRef.current?.swiper.slidePrev()}
@@ -140,6 +156,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         leaveTo="translate-x-full"
       >
         <DzArrow
+          ref={rightArrowRef}
           className="absolute right-5 z-10"
           style={{ top: navTopOffset }}
           onClick={() => swiperElRef.current?.swiper.slideNext()}
