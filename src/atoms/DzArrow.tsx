@@ -52,24 +52,39 @@ const styles: any = {
   `,
   arrowIcon: `
     w-4
+    mx-auto
   `,
   light: `
+    group
     border
     border-black-40
     hover:border-black-100
+    active:border-black-100
+    `,
+  arrowLight: `
+    text-black-80
+    group-hover:text-black-100
+    group-active:text-black-100
   `,
   dark: `
+    group
     border
     border-white-100
     hover:bg-white-100
+    active:bg-white-100
   `,
-  hover: `
-    border
+  arrowDark: `
+    text-white-100
+    group-hover:text-neutral-200
+    group-active:text-neutral-200
   `,
   disabled: `
     !border-black-40
     !border
     !pointer-events-none
+  `,
+  arrowDisabled: `
+    !fill-black-40
   `,
 };
 
@@ -84,18 +99,11 @@ export const DzArrow = forwardRef<HTMLButtonElement, DzArrowProps>(
       style,
     } = props;
     const [isHover, setIsHover] = useState<boolean>(false);
-
     const [ArrowComponent, setArrowComponent] = useState<JSX.Element>(
       <Fragment />
     );
-    const disabledStyle = disabled ? styles.disabled : '';
 
-    const arrowColor = (hover: boolean, disabled: boolean, mode: ArrowMode) => {
-      if (disabled) return '#CDCDCD';
-      if (hover && mode === ARROW_MODES.LIGHT_BACKGROUND) return 'black';
-      if (hover && mode === ARROW_MODES.DARK_BACKGROUND) return '#E5E5E5';
-      return mode === ARROW_MODES.LIGHT_BACKGROUND ? '#757575' : 'white';
-    };
+    const disabledStyle = disabled ? styles.disabled : '';
 
     useEffect(() => {
       const ArwComponent = lazy(() =>
@@ -106,10 +114,15 @@ export const DzArrow = forwardRef<HTMLButtonElement, DzArrowProps>(
       if (ArwComponent) {
         const component = (
           <ArwComponent
-            className={cn(styles.arrowIcon)}
+            className={cn(
+              styles.arrowIcon,
+              styles[`arrow${direction}`],
+              disabled && styles.arrowDisabled,
+              mode === ARROW_MODES.LIGHT_BACKGROUND && styles.arrowLight,
+              mode === ARROW_MODES.DARK_BACKGROUND && styles.arrowDark
+            )}
             width="100%"
             height="100%"
-            fill={arrowColor(isHover, disabled, mode)}
           />
         );
         setArrowComponent(component);

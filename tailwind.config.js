@@ -51,7 +51,7 @@ module.exports = {
         '6col': '44.375rem',
         '10col': '74.75rem',
         '12col': '90rem',
-        '12colMbl': '20rem'
+        '12colMbl': '20rem',
       },
       spacing: {
         28: '7rem',
@@ -90,7 +90,7 @@ module.exports = {
         top: '0px -25px 38px -24px rgba(0, 0, 0, 0.12)',
         down: '0px 25px 38px -24px rgba(0, 0, 0, 0.12)',
         bottomBorderBlack20: '0px 1px 0px 0px #E8E8E8',
-        bottomBorderBlack60: '0px 1px 0px 0px #757575'
+        bottomBorderBlack60: '0px 1px 0px 0px #757575',
       },
       keyframes: {
         zoomIn: {
@@ -103,25 +103,26 @@ module.exports = {
         },
         fadeIn: {
           '0%': { opacity: 0 },
-          '100%': { opacity: 1 }
-        }
+          '100%': { opacity: 1 },
+        },
       },
       transitionTimingFunction: {
         'dz-timing': 'cubic-bezier(.73,.71,.65,.99)',
       },
       transitionProperty: {
-        'text-decoration': 'text-decoration'
+        'text-decoration': 'text-decoration',
       },
       animation: {
         slowZoomIn: '15s ease-in 0.3s 1 both zoomIn',
         slowZoomOut: '15s ease-in 0.3s 1 both zoomOut',
-        fadeIn: 'fadeIn 0.3s ease-in both'
+        fadeIn: 'fadeIn 0.3s ease-in both',
       },
       screens: {
         xs: '576px',
       },
     },
   },
+  future: { hoverOnlyWhenSupported: true },
   plugins: [
     require('tailwind-scrollbar')({ nocompatible: true }),
     require('@tailwindcss/container-queries'),
