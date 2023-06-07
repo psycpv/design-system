@@ -1,6 +1,9 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzCarousel, DzCarouselProps } from '../../src/molecules/DzCarousel/DzCarousel';
+import {
+  DzCarousel,
+  DzCarouselProps,
+} from '../../src/molecules/DzCarousel/DzCarousel';
 import { CARD_TYPES, DzCard } from '../../src/molecules/DzCard/DzCard';
 import { contentData } from '../../constants/mocks/DzCard';
 
@@ -8,7 +11,8 @@ const meta: Meta = {
   title: 'Molecules/Elements/DzCarousel',
   component: DzCarousel,
   argTypes: {
-    slidesPerView: { control: 'number' },
+    slideSpanDesktop: { control: 'number' },
+    slideSpanMobile: { control: 'number' },
   },
   parameters: {},
 };

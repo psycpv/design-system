@@ -7,8 +7,8 @@ import React, {
   useEffect,
   useState,
   useRef,
+  forwardRef,
 } from 'react';
-import useHover from '../hooks/useHover';
 
 export const ARROW_MODES = {
   LIGHT_BACKGROUND: 'light',
@@ -37,7 +37,8 @@ export interface DzArrowProps {
   mode?: ArrowMode;
   disabled?: boolean;
   className?: any;
-  onClick?: MouseEventHandler<HTMLDivElement>;
+  style?: any;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const styles: any = {
@@ -87,59 +88,65 @@ const styles: any = {
   `,
 };
 
-export const DzArrow: FC<DzArrowProps> = (props: DzArrowProps) => {
-  const {
-    direction,
-    mode = ARROW_MODES.LIGHT_BACKGROUND,
-    className,
-    disabled = false,
-    onClick,
-  } = props;
-  const hoverRef = useRef<HTMLDivElement | null>(null);
-  const isHover = useHover(hoverRef);
-  const [ArrowComponent, setArrowComponent] = useState<JSX.Element>(
-    <Fragment />
-  );
-  const disabledStyle = disabled ? styles.disabled : '';
-
-  useEffect(() => {
-    const ArwComponent = lazy(() =>
-      direction === 'Left'
-        ? import('../svgIcons/arrowLeft')
-        : import('../svgIcons/arrowRight')
+export const DzArrow = forwardRef<HTMLButtonElement, DzArrowProps>(
+  (props, ref) => {
+    const {
+      direction,
+      mode = ARROW_MODES.LIGHT_BACKGROUND,
+      className,
+      disabled = false,
+      onClick,
+      style,
+    } = props;
+    const [isHover, setIsHover] = useState<boolean>(false);
+    const [ArrowComponent, setArrowComponent] = useState<JSX.Element>(
+      <Fragment />
     );
-    if (ArwComponent) {
-      const component = (
-        <ArwComponent
-          className={cn(
-            styles.arrowIcon,
-            styles[`arrow${direction}`],
-            disabled && styles.arrowDisabled,
-            mode === ARROW_MODES.LIGHT_BACKGROUND && styles.arrowLight,
-            mode === ARROW_MODES.DARK_BACKGROUND && styles.arrowDark
-          )}
-          width="100%"
-          height="100%"
-        />
-      );
-      setArrowComponent(component);
-    }
-  }, [isHover, disabled, mode, direction]);
 
-  return (
-    <div
-      ref={hoverRef}
-      className={cn(
-        styles.arrowContainer,
-        styles[mode],
-        disabledStyle,
-        className
-      )}
-      onClick={onClick}
-    >
-      {ArrowComponent ? ArrowComponent : null}
-    </div>
-  );
-};
+    const disabledStyle = disabled ? styles.disabled : '';
+
+    useEffect(() => {
+      const ArwComponent = lazy(() =>
+        direction === 'Left'
+          ? import('../svgIcons/arrowLeft')
+          : import('../svgIcons/arrowRight')
+      );
+      if (ArwComponent) {
+        const component = (
+          <ArwComponent
+            className={cn(
+              styles.arrowIcon,
+              styles[`arrow${direction}`],
+              disabled && styles.arrowDisabled,
+              mode === ARROW_MODES.LIGHT_BACKGROUND && styles.arrowLight,
+              mode === ARROW_MODES.DARK_BACKGROUND && styles.arrowDark
+            )}
+            width="100%"
+            height="100%"
+          />
+        );
+        setArrowComponent(component);
+      }
+    }, [isHover, disabled, mode, direction]);
+
+    return (
+      <button
+        ref={ref}
+        className={cn(
+          styles.arrowContainer,
+          styles[mode],
+          disabledStyle,
+          className
+        )}
+        style={style}
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+        onClick={onClick}
+      >
+        {ArrowComponent ? ArrowComponent : null}
+      </button>
+    );
+  }
+);
 
 DzArrow.displayName = 'DzArrow';
