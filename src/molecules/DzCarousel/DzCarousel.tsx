@@ -14,6 +14,7 @@ import { ARROW_DIRECTIONS, ARROW_MODES, DzArrow } from '../../atoms';
 import { Transition } from '@headlessui/react';
 import { Swiper } from 'swiper/types';
 import { gridColsMaxWidths } from './util';
+import { cn } from '../../utils/classnames';
 
 interface SwiperContainer
   extends React.DetailedHTMLProps<
@@ -42,6 +43,7 @@ export interface DzCarouselProps {
   swiperProps?: any;
   slideSpanDesktop?: number;
   slideSpanMobile?: number;
+  className?: string;
 }
 
 export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
@@ -49,6 +51,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
   swiperProps,
   slideSpanDesktop = 6,
   slideSpanMobile = 10,
+  className = '',
 }) => {
   const swiperElRef = useRef<HTMLInputElement & { swiper: Swiper }>(null);
   const { width } = useWindowSize();
@@ -80,13 +83,11 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
     ? {
         class: 'pb-14',
         'space-between': 20,
-        'slides-offset-before': '0',
         scrollbar: 'false',
       }
     : {
         class: 'pb-14',
         'space-between': 120,
-        'slides-offset-before': '0',
         scrollbar: 'true',
         'grab-cursor': true,
       };
@@ -100,7 +101,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
 
   return (
     <div
-      className="relative overflow-hidden"
+      className={cn('relative overflow-hidden', className)}
       onMouseEnter={() => setShowNav(true)}
       onMouseLeave={() => setShowNav(false)}
     >
@@ -114,6 +115,8 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         mousewheel-force-to-axis="true"
         scrollbar-draggable="true"
         slides-per-view="auto"
+        slides-offset-before="20"
+        slides-offset-after="20"
         {...swiperContainerProps}
         {...swiperProps}
       >
