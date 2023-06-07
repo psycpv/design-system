@@ -5,14 +5,17 @@ import React, {
   useState,
   useEffect,
   Fragment,
+  useLayoutEffect,
 } from 'react';
 import { register } from 'swiper/element/bundle';
 import { BREAKPOINTS } from '../../layout/breakpoints';
 import useWindowSize from '../../hooks/useWindowSize';
-import { BUTTON_VARIANTS, DzButton } from '../../atoms';
-import { ChevronLeft, ChevronRight } from '../../svgIcons';
+import { ARROW_DIRECTIONS, ARROW_MODES, DzArrow } from '../../atoms';
 import { Transition } from '@headlessui/react';
 import { Swiper } from 'swiper/types';
+import { gridColsMaxWidths } from './util';
+import { cn } from '../../utils/classnames';
+
 interface SwiperContainer
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLElement>,
@@ -35,20 +38,20 @@ declare global {
 
 register();
 
-type ChildrenNode = ReactNode & React.ReactElement;
-
 export interface DzCarouselProps {
-  children: ChildrenNode[];
-  slidesPerViewDesktop?: number | string;
-  slidesPerViewMobile?: number | string;
+  children: ReactNode[];
   swiperProps?: any;
+  slideSpanDesktop?: number;
+  slideSpanMobile?: number;
+  className?: string;
 }
 
 export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
   children,
-  slidesPerViewDesktop = 5,
-  slidesPerViewMobile = 1,
   swiperProps,
+  slideSpanDesktop = 6,
+  slideSpanMobile = 10,
+  className = '',
 }) => {
   const swiperElRef = useRef<HTMLInputElement & { swiper: Swiper }>(null);
   const { width } = useWindowSize();
@@ -56,58 +59,82 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
   const [showNav, setShowNav] = useState(false);
   const [showRightNav, setShowRightNav] = useState(false);
   const [showLeftNav, setShowLeftNav] = useState(false);
+  const [navTopOffset, setTopNavOffset] = useState('50%');
 
   useEffect(() => {
     setShowLeftNav(!swiperElRef?.current?.swiper.isBeginning);
     setShowRightNav(!swiperElRef?.current?.swiper.isEnd);
 
-    swiperElRef?.current?.addEventListener('slidechange', (e: any) => {
-      const [swiper] = e.detail;
-      setShowLeftNav(!swiper.isBeginning);
-      setShowRightNav(!swiper.isEnd);
+    swiperElRef?.current?.addEventListener('transitionend', () => {
+      setShowLeftNav(!swiperElRef?.current?.swiper.isBeginning);
+      setShowRightNav(!swiperElRef?.current?.swiper.isEnd);
     });
-  }, []);
 
-  const slidesPerView = isSmall ? slidesPerViewMobile : slidesPerViewDesktop;
+    swiperElRef?.current?.addEventListener('reachend', _ =>
+      setShowRightNav(false)
+    );
+
+    swiperElRef?.current?.addEventListener('reachbeginning', _ =>
+      setShowLeftNav(false)
+    );
+  }, [swiperElRef?.current]);
+
   const swiperContainerProps = isSmall
     ? {
+        class: 'pb-14',
         'space-between': 20,
-        class: 'pb-14 pr-14',
-        'slides-offset-after': '-40',
-        'slides-offset-before': '20',
+        scrollbar: 'false',
       }
     : {
-        'space-between': 120,
-        'grab-cursor': true,
         class: 'pb-14',
-        'slides-offset-after': '20',
-        'slides-offset-before': '20',
+        'space-between': 120,
+        scrollbar: 'true',
+        'grab-cursor': true,
       };
+
+  useLayoutEffect(() => {
+    const offset = (swiperElRef.current?.firstChild?.firstChild
+      ?.firstChild as HTMLElement)?.querySelector('img')?.offsetHeight;
+
+    if (offset) setTopNavOffset(`${(offset / 2).toFixed(1)}px`);
+  }, [swiperElRef.current?.firstChild, children, slideSpanDesktop]);
+
   return (
     <div
-      className="relative"
+      className={cn('relative overflow-hidden', className)}
       onMouseEnter={() => setShowNav(true)}
       onMouseLeave={() => setShowNav(false)}
     >
       <swiper-container
         ref={swiperElRef}
-        slides-per-view={slidesPerView}
         navigation="true"
-        scrollbar="true"
         pagination="false"
         navigation-next-el="null"
         keyboard-enabled="true"
+        mousewheel="true"
+        mousewheel-force-to-axis="true"
+        scrollbar-draggable="true"
+        slides-per-view="auto"
+        slides-offset-before="20"
+        slides-offset-after="20"
         {...swiperContainerProps}
         {...swiperProps}
       >
         {children?.map((ch, index) => (
-          <swiper-slide key={index}>{ch}</swiper-slide>
+          <swiper-slide
+            key={index}
+            class={
+              gridColsMaxWidths[isSmall ? slideSpanMobile : slideSpanDesktop]
+            }
+          >
+            {ch}
+          </swiper-slide>
         ))}
       </swiper-container>
 
       <Transition
-        show={showNav && showLeftNav}
         as={Fragment}
+        show={!isSmall && showNav && showLeftNav}
         enter="transition ease-in duration-300"
         enterFrom="-translate-x-full"
         enterTo="translate-x-0"
@@ -115,23 +142,18 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         leaveFrom="translate-x-0"
         leaveTo="-translate-x-full"
       >
-        <DzButton
-          className="flex items-center justify-center absolute left-0 top-1/2 z-10 h-20 w-20 translate-y-[-50%] translate-x-0"
-          variant={BUTTON_VARIANTS.SECONDARY}
+        <DzArrow
+          className={'absolute left-5 z-10'}
+          style={{ top: navTopOffset }}
           onClick={() => swiperElRef.current?.swiper.slidePrev()}
-        >
-          <ChevronLeft
-            fill="white"
-            height={22}
-            type="chevron-right"
-            width={12}
-          />
-        </DzButton>
+          direction={ARROW_DIRECTIONS.LEFT}
+          mode={ARROW_MODES.DARK_BACKGROUND}
+        />
       </Transition>
 
       <Transition
         as={Fragment}
-        show={showNav && showRightNav}
+        show={!isSmall && showNav && showRightNav}
         enter="transition ease-in duration-300"
         enterFrom="translate-x-full"
         enterTo="translate-x-0"
@@ -139,18 +161,13 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         leaveFrom="translate-x-0"
         leaveTo="translate-x-full"
       >
-        <DzButton
-          className="flex items-center justify-center absolute right-0 top-1/2 z-10 h-20 w-20 translate-y-[-50%] translate-x-0"
-          variant={BUTTON_VARIANTS.SECONDARY}
+        <DzArrow
+          className="absolute right-5 z-10"
+          style={{ top: navTopOffset }}
           onClick={() => swiperElRef.current?.swiper.slideNext()}
-        >
-          <ChevronRight
-            fill="white"
-            height={22}
-            type="chevron-right"
-            width={12}
-          />
-        </DzButton>
+          direction={ARROW_DIRECTIONS.RIGHT}
+          mode={ARROW_MODES.DARK_BACKGROUND}
+        />
       </Transition>
     </div>
   );
