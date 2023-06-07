@@ -48,17 +48,13 @@ const styles: any = {
     gap-5
     items-center
     px-5
-  `,
-  dropArea: `
-    flex
-    items-center
-    justify-center
     bg-white-100
     border
     border-dashed
     border-black-40
     h-[6.25rem]
     w-full
+    justify-center
     cursor-pointer
   `,
   errorMsg: `
@@ -118,10 +114,8 @@ export const DzFileUploader: FC<DzFileUploaderProps> = ({
       onDraggingStateChange={handleDrag}
       {...uploaderProps}
     >
-      <div className={cn(styles.dropArea, className)}>
-        <div className={cn(styles.infoContainer)}>
-          <DropIcon /> {title}
-        </div>
+      <div className={cn(styles.infoContainer, className)}>
+        <DropIcon /> {title}
       </div>
       <span className={cn(styles.errorMsg)}>{errorMessage}</span>
     </FileUploader>
