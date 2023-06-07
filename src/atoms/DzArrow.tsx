@@ -49,8 +49,6 @@ const styles: any = {
     pointer-events-auto
     cursor-pointer
   `,
-  arrowLeft: ``,
-  arrowRight: ``,
   arrowIcon: `
     w-4
     mx-auto
