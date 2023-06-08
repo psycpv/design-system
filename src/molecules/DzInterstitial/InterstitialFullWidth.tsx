@@ -22,7 +22,6 @@ export interface InterstitialFullWidthProps {
   media?: DzMediaProps;
   textColor?: TextColors;
   customClass?: string;
-  customTitleClass?: string;
   customDescriptionClass?: string;
   classNameContent?: string;
 }
@@ -111,7 +110,6 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
   primaryCta,
   media,
   customClass = '',
-  customTitleClass = '',
   customDescriptionClass = '',
   classNameContent = '',
 }) => {
@@ -149,7 +147,7 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
         ) : null}
         {title ? (
           <DzTitle
-            classNameTitle={cn(styles.title, textClassColor, customTitleClass)}
+            classNameTitle={cn(styles.title, textClassColor)}
             title={title}
             titleType={TITLE_TYPES.P}
             titleSize={TITLE_SIZES.LG}

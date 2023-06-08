@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import {
   DzText,
   DzButtonProps,
@@ -25,14 +25,12 @@ export interface CardContentData {
   category?: string;
   title: string;
   subtitle?: string;
-  secondaryTitle?: string;
+  secondaryTitle?: string | ReactNode;
   secondarySubtitle?: string;
   description?: string;
   linkCTA?: LinkCTA;
   primaryCTA?: PrimaryCTA;
   hideImage?: boolean;
-  classNameTitle?: string;
-  classNameSecondaryTitle?: string;
 }
 
 interface PrimaryCTA {
@@ -117,8 +115,6 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
     linkCTA,
     primaryCTA,
     hideImage = false,
-    classNameTitle = '',
-    classNameSecondaryTitle = '',
   } = data as CardContentData;
   return (
     <div id={id} className={cn(styles.cardContainer)}>
@@ -139,7 +135,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
         <DzTitle
           title={title}
           titleSize={TITLE_SIZES.MD}
-          classNameTitle={cn(styles.title, classNameTitle)}
+          classNameTitle={cn(styles.title)}
           classNameSubtitle={cn(styles.title)}
           titleType={TITLE_TYPES.P}
           subtitle={subtitle}
@@ -150,7 +146,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
         {secondaryTitle || secondarySubtitle ? (
           <DzTitle
             title={secondaryTitle}
-            classNameTitle={cn(styles.secondaryTitle, classNameSecondaryTitle)}
+            classNameTitle={cn(styles.secondaryTitle)}
             classNameSubtitle={cn(styles.secondaryTitle)}
             titleType={TITLE_TYPES.P}
             subtitle={secondarySubtitle}
