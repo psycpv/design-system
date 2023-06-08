@@ -24,6 +24,7 @@ export interface InterstitialFullWidthProps {
   customClass?: string;
   customTitleClass?: string;
   customDescriptionClass?: string;
+  classNameContent?: string;
 }
 
 const styles: any = {
@@ -112,6 +113,7 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
   customClass = '',
   customTitleClass = '',
   customDescriptionClass = '',
+  classNameContent = '',
 }) => {
   const textClassColor = `text-${textColor}`;
   return (
@@ -134,7 +136,8 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
         className={cn(
           media
             ? styles.contentInfoNonSplit
-            : styles.contentInfoNonSplitRelative
+            : styles.contentInfoNonSplitRelative,
+          classNameContent
         )}
       >
         {category ? (
@@ -150,7 +153,7 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
             title={title}
             titleType={TITLE_TYPES.P}
             titleSize={TITLE_SIZES.LG}
-          ></DzTitle>
+          />
         ) : null}
 
         {description ? (

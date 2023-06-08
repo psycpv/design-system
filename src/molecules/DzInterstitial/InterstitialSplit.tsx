@@ -101,7 +101,7 @@ export const InterstitialSplit: FC<InterstitialSplitProps> = ({
       <div className={cn(styles.contentInfo)}>
         {category ? (
           <DzText
-            className={cn(styles.category, textClassColor, customTitleClass)}
+            className={cn(styles.category, textClassColor)}
             text={category}
             textSize={TEXT_SIZES.XS}
           />
@@ -109,7 +109,7 @@ export const InterstitialSplit: FC<InterstitialSplitProps> = ({
 
         {title ? (
           <DzTitle
-            classNameTitle={cn(styles.title, textClassColor)}
+            classNameTitle={cn(styles.title, textClassColor, customTitleClass)}
             title={title}
             titleType={TITLE_TYPES.P}
             titleSize={TITLE_SIZES.LG}
