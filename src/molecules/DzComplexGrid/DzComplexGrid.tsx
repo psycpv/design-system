@@ -51,8 +51,7 @@ const styles: any = {
     flex
     justify-between
     items-center
-    md:mb-10
-    mb-5
+    mb-10
   `,
   rangeContainer: `
     flex
@@ -153,7 +152,11 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
     <div>
       <div className={cn(styles.headControls)}>
         {displayText ? (
-          <DzText {...(textProps ?? {})} text={displayText} />
+          <DzText
+            className={styles.heading}
+            {...(textProps ?? {})}
+            text={displayText}
+          />
         ) : null}
 
         {!isMobile && maximumValue !== 1 ? (
