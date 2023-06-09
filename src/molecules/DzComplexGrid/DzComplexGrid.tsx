@@ -7,6 +7,7 @@ import {
   DzLinkProps,
   DzTextProps,
   LINK_VARIANTS,
+  MEDIA_ASPECT_RATIOS,
 } from '../../atoms';
 import {
   DzCard,
@@ -220,6 +221,10 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
               stepValue < STEP_TO_HIDE_CTA ? secondaryCTA : undefined;
             cardData = {
               ...card,
+              media: {
+                aspectRatio: MEDIA_ASPECT_RATIOS['4:3'],
+                ...card.media,
+              },
               primaryCTA: primaryCTAProps,
               secondaryCTA: secondaryCTAProps,
             };
