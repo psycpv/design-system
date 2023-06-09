@@ -8,8 +8,13 @@ import {
   DzTextProps,
   LINK_VARIANTS,
 } from '../../atoms';
-import { DzCard, CARD_TYPES } from '../../molecules';
-import { CardArtworkData } from '../DzCard/CardArtwork';
+import {
+  DzCard,
+  CardTypes,
+  DataCardType,
+  isArtworkCard,
+  CARD_TYPES,
+} from '../../molecules';
 import { cn } from '../../utils/classnames';
 import { FourSquares } from '../../svgIcons/four-squares';
 import { SixSquares } from '../../svgIcons/six-squares';
@@ -29,8 +34,14 @@ interface LinkCTA {
   linkProps?: DzLinkProps;
 }
 
+type ExtraData = {
+  cardType?: CardTypes;
+};
+
+type RichCard = DataCardType & ExtraData;
+
 export interface DzComplexGridProps {
-  cards: CardArtworkData[];
+  cards: RichCard[];
   steps?: StepInterface[];
   displayNumberOfResults?: boolean;
   headingTitle?: string;
@@ -195,21 +206,27 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
         }
       >
         {cards.map((card, key) => {
-          const { id, primaryCTA, secondaryCTA } = card ?? {};
-          const primaryCTAProps =
-            stepValue < STEP_TO_HIDE_CTA ? primaryCTA : undefined;
-          const secondaryCTAProps =
-            stepValue < STEP_TO_HIDE_CTA ? secondaryCTA : undefined;
+          if (!card) return null;
+          const { id, cardType } = card ?? {};
+          let cardData = { ...(card ?? {}) };
+          let cardDataType = cardType ?? CARD_TYPES.ARTWORK;
+
+          if (isArtworkCard(card)) {
+            const { primaryCTA, secondaryCTA } = card ?? {};
+            const primaryCTAProps =
+              stepValue < STEP_TO_HIDE_CTA ? primaryCTA : undefined;
+            const secondaryCTAProps =
+              stepValue < STEP_TO_HIDE_CTA ? secondaryCTA : undefined;
+            cardData = {
+              ...(card ?? {}),
+              primaryCTA: primaryCTAProps,
+              secondaryCTA: secondaryCTAProps,
+            };
+          }
+
           return (
             <DzColumn key={`${id}-${key}`} span={columnsSpanPerRow}>
-              <DzCard
-                type={CARD_TYPES.ARTWORK}
-                data={{
-                  ...card,
-                  primaryCTA: primaryCTAProps,
-                  secondaryCTA: secondaryCTAProps,
-                }}
-              />
+              <DzCard type={cardDataType} data={cardData} />
             </DzColumn>
           );
         })}
