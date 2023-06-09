@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import {
   DzText,
   DzButtonProps,
@@ -25,7 +25,7 @@ export interface CardContentData {
   category?: string;
   title: string;
   subtitle?: string;
-  secondaryTitle?: string;
+  secondaryTitle?: string | ReactNode;
   secondarySubtitle?: string;
   description?: string;
   linkCTA?: LinkCTA;

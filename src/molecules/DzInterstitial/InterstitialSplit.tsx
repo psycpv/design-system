@@ -24,7 +24,6 @@ export interface InterstitialSplitProps {
   media?: DzMediaProps;
   textColor?: TextColors;
   customClass?: string;
-  customTitleClass?: string;
   customDescriptionClass?: string;
 }
 
@@ -80,7 +79,6 @@ export const InterstitialSplit: FC<InterstitialSplitProps> = ({
   primaryCta,
   media,
   customClass = '',
-  customTitleClass = '',
   customDescriptionClass = '',
 }) => {
   const textClassColor = `text-${textColor}`;
@@ -101,7 +99,7 @@ export const InterstitialSplit: FC<InterstitialSplitProps> = ({
       <div className={cn(styles.contentInfo)}>
         {category ? (
           <DzText
-            className={cn(styles.category, textClassColor, customTitleClass)}
+            className={cn(styles.category, textClassColor)}
             text={category}
             textSize={TEXT_SIZES.XS}
           />
