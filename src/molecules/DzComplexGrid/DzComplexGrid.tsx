@@ -7,6 +7,7 @@ import {
   DzLinkProps,
   DzTextProps,
   LINK_VARIANTS,
+  MEDIA_ASPECT_RATIOS,
 } from '../../atoms';
 import {
   DzCard,
@@ -172,6 +173,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
         {!isMobile && maximumValue !== 1 ? (
           !useLink ? (
             <div className={cn(styles.rangeContainer)}>
+              <DzText text="View:" />
               <div className={cn(styles.range)}>
                 <DzRange
                   min={MINIMUM_VALUE}
@@ -206,18 +208,23 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
       >
         {cards.map((card, key) => {
           if (!card) return null;
-          const { id, cardType } = card ?? {};
-          let cardData = { ...(card ?? {}) };
+
+          const { id, cardType } = card;
+          let cardData = { ...card };
           let cardDataType = cardType ?? CARD_TYPES.ARTWORK;
 
           if (isArtworkCard(card)) {
-            const { primaryCTA, secondaryCTA } = card ?? {};
+            const { primaryCTA, secondaryCTA } = card;
             const primaryCTAProps =
               stepValue < STEP_TO_HIDE_CTA ? primaryCTA : undefined;
             const secondaryCTAProps =
               stepValue < STEP_TO_HIDE_CTA ? secondaryCTA : undefined;
             cardData = {
-              ...(card ?? {}),
+              ...card,
+              media: {
+                aspectRatio: MEDIA_ASPECT_RATIOS['4:3'],
+                ...card.media,
+              },
               primaryCTA: primaryCTAProps,
               secondaryCTA: secondaryCTAProps,
             };

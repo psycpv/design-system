@@ -88,9 +88,7 @@ const styles: any = {
     `,
     tombstoneText: `
       text-black-60
-    `,
-    priceContainer: `
-      
+      whitespace-pre-wrap
     `,
     priceTitle: `
       @6colMbl/cardContainer:text-md
@@ -99,7 +97,7 @@ const styles: any = {
     `,
   },
   mediaImg: `
-    !bg-black-30
+    !bg-black-20
     @6colMbl/cardContainer:min-h-[12.5rem]
     @12colMbl/cardContainer:min-h-[22.5rem]
     md:@2col/cardContainer:min-h-[15rem]
