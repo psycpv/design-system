@@ -155,8 +155,9 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   }, []);
 
   const displayText = useMemo(() => {
+    const { text } = textProps ?? {};
     const resultsTitle = `${numberOfResults} ${headingTitle}`;
-    return displayNumberOfResults ? resultsTitle : null;
+    return displayNumberOfResults ? resultsTitle : text;
   }, [displayNumberOfResults, numberOfResults, headingTitle]);
 
   return (
