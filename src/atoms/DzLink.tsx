@@ -1,6 +1,11 @@
 import React from 'react';
 import { cn } from '../utils/classnames';
-import { ComponentPropsWithRef, forwardRef, ReactNode } from 'react';
+import {
+  ComponentPropsWithRef,
+  forwardRef,
+  ReactNode,
+  ForwardRefExoticComponent,
+} from 'react';
 
 export const LINK_VARIANTS = {
   NAV: 'nav',
@@ -65,7 +70,7 @@ const styles: any = {
     text-md
   `,
 };
-export const DzLink = forwardRef<HTMLAnchorElement, DzLinkProps>(
+export const DzLink: ForwardRefExoticComponent<DzLinkProps> = forwardRef(
   (
     {
       children,
