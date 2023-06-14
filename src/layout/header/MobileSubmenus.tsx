@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { cn } from '../../utils/classnames';
 import ArrowDown from '../../svgIcons/arrowDown';
-import DzLink from '../../atoms/DzLink';
+import { DzLink, DzLinkProps, RouterProps } from '../../atoms';
 import { Disclosure } from '@headlessui/react';
 import { renderItems } from './MenuItems';
 
@@ -9,6 +9,7 @@ interface MobileSubmenuProps {
   title: string;
   items: any[];
   rootUrl?: string;
+  linkProps?: DzLinkProps | RouterProps;
 }
 
 const styles: any = {
@@ -35,13 +36,18 @@ export const MobileSubmenus: FC<MobileSubmenuProps> = ({
   title = '',
   rootUrl = '',
   items = [],
+  linkProps = {},
 }) => {
   return (
     <Disclosure>
       {({ open }) => (
         <>
           <div className={cn(styles.mobileOption)}>
-            <DzLink className={cn(styles.rootLink)} href={rootUrl}>
+            <DzLink
+              {...linkProps}
+              className={cn(styles.rootLink)}
+              href={rootUrl}
+            >
               {title}
             </DzLink>
             <Disclosure.Button className={cn(styles.caretIcon)}>

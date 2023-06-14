@@ -41,6 +41,11 @@ export type DzLinkProps = {
   textLinkSize?: TextLinkSize;
 } & ComponentPropsWithRef<'a'>;
 
+export interface RouterProps {
+  useRoute?: boolean;
+  router?: any;
+}
+
 const styles: any = {
   element: `
     transition-text-decoration
@@ -62,6 +67,7 @@ const styles: any = {
   `,
   inactive: `
     text-black-40
+    hover:text-black-100
   `,
   small: `
     text-sm
@@ -87,7 +93,7 @@ export const DzLink: ForwardRefExoticComponent<DzLinkProps> = forwardRef(
     },
     ref
   ) => {
-    const isActive = router?.asPath === (href === '/home' ? '/' : href);
+    const isActive = router?.asPath === href;
     const inactiveStyle = !isActive ? styles.inactive : '';
     const isNewTab =
       openNewTab !== undefined

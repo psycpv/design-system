@@ -14,7 +14,7 @@ export interface DzTabsCardsProps {
 
 const styles: any = {
   tab: `
-    outline-black-10
+    outline-transparent
     outline-offset-4
     underline
     decoration-transparent
@@ -108,7 +108,7 @@ const tabsPanels = ({ tabs, span, isSmall = false }) => {
 export const DzTabsCards: FC<DzTabsCardsProps> = ({ tabs, span = 3 }) => {
   const { width } = useWindowSize();
   const isSmall = useMemo(() => {
-    return width < BREAKPOINTS.MD;
+    return width <= BREAKPOINTS.MD;
   }, [width]);
 
   return (

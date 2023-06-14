@@ -9,20 +9,17 @@ import { cn } from '../../utils/classnames';
 import MenuLogo from '../../svgIcons/menu';
 import Search from '../../svgIcons/search';
 
-import { DzLink } from '../../atoms/DzLink';
 import CloseLogo from '../../svgIcons/close';
 import { Popover, Transition } from '@headlessui/react';
 import { DzInputText } from '../../atoms/DzInputText';
 import { MenuItems } from './MenuItems';
-import OutlineFacebook from '../../svgIcons/outlineFacebook';
-import OutlineTwitter from '../../svgIcons/outlineTwitter';
-import OutlineInstagram from '../../svgIcons/outlineInstagram';
-import OutlineWeChat from '../../svgIcons/outlineWeChat';
+import { DzFooter, FooterData } from '../footer/DzFooter';
 
 export interface MenuItemsMobileProps {
   items: any[];
-  socialMedia: any;
   handleSearch: MouseEventHandler<any>;
+  footerData: FooterData;
+  newsletterAction: Function;
 }
 
 const styles: any = {
@@ -67,12 +64,7 @@ const styles: any = {
     border
     border-y
     border-black-20
-  `,
-  misc: `
-    p-5
-    flex
-    justify-around
-    items-center
+    text-start
   `,
   copyright: `
     px-5
@@ -83,14 +75,22 @@ const styles: any = {
     border-y
     border-black-20
   `,
+  toggleIcon: `
+    outline-transparent
+    flex
+    w-[18px]
+    h-[18px]
+    justify-center
+    items-center
+  `,
 };
 
 export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
   items = [],
-  socialMedia = {},
   handleSearch = () => null,
+  footerData,
+  newsletterAction = () => null,
 }) => {
-  const { weChat, instagram, twitter, facebook } = socialMedia;
   const [openMenu, setOpenMenu] = useState(false);
   const handleKeyDown = useCallback((e: any) => {
     if (e.code === 'Enter') {
@@ -104,14 +104,14 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
         <Popover.Button as={Fragment}>
           {!openMenu ? (
             <button
-              className="outline-transparent"
+              className={styles.toggleIcon}
               onClick={() => setOpenMenu(open => !open)}
             >
               <MenuLogo className={cn(styles.logoMenu)} id="open-menu-logo" />
             </button>
           ) : (
             <button
-              className="outline-transparent"
+              className={styles.toggleIcon}
               onClick={() => setOpenMenu(open => !open)}
             >
               <CloseLogo className={cn(styles.logoMenu)} id="close-menu-logo" />
@@ -137,43 +137,13 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
                 extraChildren={<Search />}
               />
               <MenuItems items={items} isMobile />
-              <div className={cn(styles.other)}>Newsletter</div>
-              <ul className={cn(styles.misc)}>
-                {twitter ? (
-                  <li>
-                    <DzLink href={twitter} openNewTab>
-                      <OutlineTwitter id="twitter-icon" />
-                    </DzLink>
-                  </li>
-                ) : null}
-
-                {facebook ? (
-                  <li>
-                    <DzLink href={facebook} openNewTab>
-                      <OutlineFacebook id="facebook-icon" />
-                    </DzLink>
-                  </li>
-                ) : null}
-
-                {instagram ? (
-                  <li>
-                    <DzLink href={instagram} openNewTab>
-                      <OutlineInstagram id="instagram-icon" />
-                    </DzLink>
-                  </li>
-                ) : null}
-
-                {weChat ? (
-                  <li>
-                    <DzLink href={weChat} openNewTab>
-                      <OutlineWeChat id="we-chat-icon" />
-                    </DzLink>
-                  </li>
-                ) : null}
-              </ul>
-              <div className={cn(styles.copyright)}>
-                ® Copyright David Zwirner 2023
-              </div>
+              <button
+                className={cn(styles.other)}
+                onClick={() => newsletterAction()}
+              >
+                Newsletter
+              </button>
+              <DzFooter data={footerData} newsletterAction={newsletterAction} />
             </div>
           </Popover.Panel>
         </Transition>

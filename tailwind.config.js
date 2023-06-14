@@ -52,6 +52,7 @@ module.exports = {
         '10col': '74.75rem',
         '12col': '90rem',
         '12colMbl': '20rem',
+        headerMd: '56.25rem',
       },
       spacing: {
         28: '7rem',
@@ -119,6 +120,7 @@ module.exports = {
       },
       screens: {
         xs: '576px',
+        md: '769px',
       },
     },
   },

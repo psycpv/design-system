@@ -84,7 +84,7 @@ export const InterstitialSplit: FC<InterstitialSplitProps> = ({
   const textClassColor = `text-${textColor}`;
   const { width } = useWindowSize();
   const isSmall = useMemo(() => {
-    return width < BREAKPOINTS.MD;
+    return width <= BREAKPOINTS.MD;
   }, [width]);
   return (
     <div className={cn(styles.splitContainer, customClass)}>

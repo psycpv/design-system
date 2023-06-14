@@ -5,24 +5,24 @@ export const footerData = {
   links: [
     {
       _key: '1',
+      _type: 'menuItemPage',
+      desktopEnabled: true,
+      mobileEnabled: true,
+      newTab: true,
+      anchor: 'Cool-id',
+      title: 'Terms & Conditions',
+      page: {
+        url: '/terms',
+      },
+    },
+    {
+      _key: '2',
       _type: 'menuItemLink',
       newTab: true,
       mobileEnabled: true,
       desktopEnabled: true,
       link: 'https://www.davidzwirner.com/privacy-policy',
       title: 'Privacy Policy',
-    },
-    {
-      _key: '2',
-      _type: 'menuItemPage',
-      desktopEnabled: true,
-      mobileEnabled: true,
-      newTab: true,
-      anchor: 'Cool-id',
-      title: 'Internal link',
-      page: {
-        url: 'sherrie-levine',
-      },
     },
   ],
   socialMedia: {

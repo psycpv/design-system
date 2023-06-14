@@ -36,7 +36,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
   const rightArrowRef = useRef<HTMLButtonElement>(null);
 
   const { width } = useWindowSize();
-  const isSmall = useMemo(() => width < BREAKPOINTS.MD, [width]);
+  const isSmall = useMemo(() => width <= BREAKPOINTS.MD, [width]);
   const [showNav, setShowNav] = useState(false);
   const [showRightNav, setShowRightNav] = useState(false);
   const [showLeftNav, setShowLeftNav] = useState(false);

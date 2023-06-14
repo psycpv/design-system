@@ -45,3 +45,14 @@ TextLinkLarge.args = {
   variant: LINK_VARIANTS.TEXT,
   textLinkSize: TEXT_LINK_SIZES.LARGE,
 };
+
+export const LinkWithRouter = Template.bind({});
+LinkWithRouter.args = {
+  variant: LINK_VARIANTS.TEXT,
+  textLinkSize: TEXT_LINK_SIZES.LARGE,
+  router: {
+    asPath: '/',
+  },
+  href: '/',
+  useRoute: true,
+};

@@ -121,7 +121,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
 }) => {
   const { width } = useWindowSize();
   const isMobile = useMemo(() => {
-    return width < BREAKPOINTS.MD;
+    return width <= BREAKPOINTS.MD;
   }, [width]);
 
   const maximumValue = useMemo(() => maxItemsPerRow || steps.length, [

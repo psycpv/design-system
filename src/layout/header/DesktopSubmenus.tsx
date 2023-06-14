@@ -1,14 +1,25 @@
-import React, { FC, Fragment, useState, useRef } from 'react';
-import { Popover, Transition } from '@headlessui/react';
+import React, {
+  FC,
+  Fragment,
+  useState,
+  useRef,
+  useMemo,
+  useCallback,
+} from 'react';
+import { Popover } from '@headlessui/react';
+
 import { cn } from '../../utils/classnames';
 import useHover from '../../hooks/useHover';
-import { DzLink } from '../../atoms';
+import useFocus from '../../hooks/useFocus';
+import { DzLink, DzLinkProps, RouterProps } from '../../atoms';
 import { renderItems } from './MenuItems';
 
 export interface DesktopSubmenuProps {
   title: string;
   items: any[];
   rootUrl?: string;
+  linkProps?: DzLinkProps | RouterProps;
+  linkClass?: string;
 }
 
 const styles: any = {
@@ -41,10 +52,24 @@ const styles: any = {
     bg-white-100
     flex
     flex-col
-    gap-5
-    py-5
-    px-[1.875rem]
-    z-50
+    py-[0.875rem]
+    z-30
+    min-w-[10.3164rem]
+    gap-3
+  `,
+  rootDesktop: `
+    px-2.5
+    cursor-pointer
+    w-full
+    block
+    relative
+    z-40
+  `,
+  show: `
+    block
+  `,
+  hide: `
+    hidden
   `,
 };
 
@@ -52,40 +77,70 @@ export const DesktopSubmenu: FC<DesktopSubmenuProps> = ({
   title = '',
   rootUrl = '',
   items = [],
+  linkProps = {},
+  linkClass = '',
 }) => {
-  
   const [hoverOverMenu, SetHoverOverMenu] = useState(false);
-  const rootElement = useRef<HTMLDivElement | null>(null);
+  const [visitedFocusElements, setVisitedFocusElements] = useState(0);
+  const rootElement = useRef<HTMLAnchorElement | null>(null);
+  const rootAnchor = useRef<HTMLAnchorElement | null>(null);
   const isHoverRoot = useHover(rootElement);
-  const showElements = isHoverRoot || hoverOverMenu;
+  const isFocused = useFocus(rootAnchor);
+  const showElements = useMemo(() => {
+    const hasChildSelected = visitedFocusElements === items.length;
+    return (isHoverRoot || hoverOverMenu) && !hasChildSelected;
+  }, [isHoverRoot, hoverOverMenu, visitedFocusElements]);
+  const showClasses = useMemo(
+    () => (showElements ? styles.show : styles.hide),
+    [showElements]
+  );
+  const linkPropsHover = useMemo(() => (hoverOverMenu ? linkProps : {}), [
+    hoverOverMenu,
+    linkProps,
+  ]);
+
+  const resetVisibleFocus = useCallback(() => {
+    setVisitedFocusElements(0);
+  }, []);
+  const handleUserKeyPress = useCallback(
+    event => {
+      const { key, keyCode } = event;
+      if (keyCode === 13 && key === 'Enter' && isFocused) {
+        SetHoverOverMenu(true);
+      }
+    },
+    [isFocused]
+  );
 
   return (
-    <Popover className="relative">
+    <Popover as={Fragment}>
       <Popover.Button as={Fragment}>
-        <div ref={rootElement}>
-          <DzLink href={rootUrl}>{title}</DzLink>
-        </div>
+        <DzLink
+          ref={rootElement}
+          {...linkProps}
+          href={rootUrl}
+          onKeyDown={handleUserKeyPress}
+          onFocus={resetVisibleFocus}
+          onMouseEnter={resetVisibleFocus}
+          className={cn(
+            showElements ? '!text-black-100' : '',
+            styles.rootDesktop,
+            linkClass
+          )}
+        >
+          {title}
+        </DzLink>
       </Popover.Button>
-      <Transition
-        as={Fragment}
-        show={showElements}
-        enter="transition ease-out duration-200"
-        enterFrom="opacity-0 translate-y-1"
-        enterTo="opacity-100 translate-y-0"
-        leave="transition ease-in duration-150"
-        leaveFrom="opacity-100 translate-y-0"
-        leaveTo="opacity-0 translate-y-1"
+      <Popover.Panel
+        as="ul"
+        static
+        className={cn(styles.childMenus, styles.submenuContainer, showClasses)}
+        onMouseEnter={() => SetHoverOverMenu(true)}
+        onMouseLeave={() => SetHoverOverMenu(false)}
+        onBlur={() => setVisitedFocusElements(element => element + 1)}
       >
-        <Popover.Panel static className={cn(styles.submenuContainer)}>
-          <ul
-            className={cn(styles.childMenus)}
-            onMouseEnter={() => SetHoverOverMenu(true)}
-            onMouseLeave={() => SetHoverOverMenu(false)}
-          >
-            {renderItems(items)}
-          </ul>
-        </Popover.Panel>
-      </Transition>
+        {renderItems(items, false, linkPropsHover)}
+      </Popover.Panel>
     </Popover>
   );
 };

@@ -11,7 +11,7 @@ import { BREAKPOINTS } from '../../layout/breakpoints';
 import useWindowSize from '../../hooks/useWindowSize';
 import useHover from '../../hooks/useHover';
 
-interface FooterData {
+export interface FooterData {
   copies: Copies;
   links: Link[];
   socialMedia: SocialMedia;
@@ -70,6 +70,7 @@ const styles: any = {
     pt-2
     md:pt-0
     justify-between
+    items-center
   `,
   bottomContainer: `
     px-5
@@ -106,7 +107,7 @@ export const DzFooter: FC<DzFooterProps> = ({
 }) => {
   const { width } = useWindowSize();
   const isSmall = useMemo(() => {
-    return width < BREAKPOINTS.MD;
+    return width <= BREAKPOINTS.MD;
   }, [width]);
   const twitterHover = useRef<any>(null);
   const isTwitterHover = useHover(twitterHover);
@@ -132,7 +133,7 @@ export const DzFooter: FC<DzFooterProps> = ({
   };
   return (
     <footer className={cn(styles.footer, footerClass)}>
-      <hr className={cn(styles.divider)} />
+      {!isSmall ? <hr className={cn(styles.divider)} /> : null}
       <div className={cn(styles.bottomContainer)}>
         <div className={cn(styles.leftContainer)}>
           {copies?.rights ? (
@@ -195,11 +196,15 @@ export const DzFooter: FC<DzFooterProps> = ({
             </DzLink>
           ) : null}
 
-          <div onClick={() => newsletterAction()} ref={newsletterHover}>
+          <button
+            className="cursor-pointer"
+            onClick={() => newsletterAction()}
+            ref={newsletterHover}
+          >
             <BoldNewsletterIcon
               fill={isNewsletterHover ? '#757575' : 'black'}
             />
-          </div>
+          </button>
         </div>
       </div>
     </footer>

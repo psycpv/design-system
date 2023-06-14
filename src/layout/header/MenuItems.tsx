@@ -1,14 +1,14 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, useRef } from 'react';
 import { DesktopSubmenu } from './DesktopSubmenus';
-import { DzLink } from '../../atoms';
+import { DzLink, DzLinkProps, RouterProps } from '../../atoms';
 import { cn } from '../../utils/classnames';
 import { MobileSubmenus } from './MobileSubmenus';
-import useWindowSize from '../../hooks/useWindowSize';
-import { BREAKPOINTS } from '../../layout/breakpoints';
+import useHover from '../../hooks/useHover';
 
 export interface MenuItemsProps {
   items: any[];
   isMobile?: boolean;
+  linkProps?: DzLinkProps | RouterProps;
 }
 
 interface PageLink {
@@ -21,9 +21,9 @@ interface MenuItemLink {
   link: string;
 }
 
-interface ItemLink {
+interface RootLink {
   link: string;
-  page: PageLink;
+  newTab: boolean;
 }
 
 interface SubmenuItems {
@@ -39,16 +39,17 @@ interface MenuItemPage {
 
 interface MenuItemSubmenu {
   title: string;
-  itemLink: ItemLink;
+  rootLink: RootLink;
   submenu: SubmenuItems;
 }
 
 const styles: any = {
   menuContainer: `
     md:flex
-    w-full
+    w-fit
     items-center
     justify-end
+    max-h-[1.25rem]
   `,
   menuContainerMobile: `
     max-h-[36.1875rem]
@@ -63,48 +64,86 @@ const styles: any = {
   `,
   submenuItemMobile: `
     p-5
+    w-full
+    block
+    min-w-fit
+  `,
+  submenuItemDesktop: `
+    w-full
+    block
+    px-5
+    my-1.5
+    min-w-fit
   `,
 };
 
 export const renderPerType = {
-  menuItemLink: (data: MenuItemLink) => {
+  menuItemLink: (data: MenuItemLink, _, linkProps, className) => {
     const { title, newTab, link } = data ?? {};
 
     return (
-      <DzLink href={link} openNewTab={newTab}>
+      <DzLink
+        {...linkProps}
+        href={link}
+        openNewTab={newTab}
+        className={className}
+      >
         {title}
       </DzLink>
     );
   },
-  menuItemSubmenu: (data: MenuItemSubmenu, isMobile: boolean) => {
+  menuItemSubmenu: (
+    data: MenuItemSubmenu,
+    isMobile: boolean,
+    linkProps,
+    className
+  ) => {
     const { title, submenu } = data ?? {};
-    const rootURL = data?.itemLink?.link ?? data?.itemLink?.page?.url ?? '';
+    const rootURL = data?.rootLink?.link ?? '';
     const { items } = submenu ?? {};
 
     return isMobile ? (
-      <MobileSubmenus title={title} rootUrl={rootURL} items={items} />
+      <MobileSubmenus
+        title={title}
+        rootUrl={rootURL}
+        items={items}
+        linkProps={linkProps}
+      />
     ) : (
-      <DesktopSubmenu title={title} rootUrl={rootURL} items={items} />
+      <DesktopSubmenu
+        title={title}
+        rootUrl={rootURL}
+        items={items}
+        linkProps={linkProps}
+        linkClass={className}
+      />
     );
   },
-  menuItemPage: (data: MenuItemPage) => {
+  menuItemPage: (data: MenuItemPage, _, linkProps, className) => {
     const { title, newTab, anchor, page } = data ?? {};
     const { url = '' } = page ?? {};
     const urlWithAnchor = anchor ? `${url}#${anchor}` : url;
 
     return (
-      <DzLink href={urlWithAnchor} openNewTab={newTab}>
+      <DzLink
+        {...linkProps}
+        href={urlWithAnchor}
+        openNewTab={newTab}
+        className={className}
+      >
         {title}
       </DzLink>
     );
   },
 };
 
-export const renderItems = (items, isMobile = false) => {
+export const renderItems = (items, isMobile = false, linkProps = {}) => {
   return items.map(item => {
     const { _type, title } = item ?? {};
     const renderFunction = renderPerType?.[_type];
-    const itemListClass = isMobile ? styles.submenuItemMobile : '';
+    const itemListClass = isMobile
+      ? styles.submenuItemMobile
+      : styles.submenuItemDesktop;
     const listItemStyles = _type === 'menuItemSubmenu' ? '' : itemListClass;
 
     const { mobileEnabled, desktopEnabled } = item;
@@ -113,10 +152,10 @@ export const renderItems = (items, isMobile = false) => {
 
     return renderFunction ? (
       <li
-        className={cn(listItemStyles)}
+        className="relative"
         key={`${isMobile ? 'mbl' : 'dsk'}-${title}-link-item`}
       >
-        {renderFunction(item, isMobile)}
+        {renderFunction(item, isMobile, linkProps, listItemStyles)}
       </li>
     ) : null;
   });
@@ -125,21 +164,24 @@ export const renderItems = (items, isMobile = false) => {
 export const MenuItems: FC<MenuItemsProps> = ({
   items = [],
   isMobile = false,
+  linkProps = {},
 }) => {
   if (!items) return null;
-  const { width } = useWindowSize();
-  const isMediumLarge = useMemo(() => {
-    return BREAKPOINTS.MD < width && width < 930;
-  }, [width]);
-  const gapContainer = isMediumLarge ? 'gap-6' : 'gap-10';
+  const desktopItems = useRef<HTMLUListElement | null>(null);
+  const isHoverRoot = useHover(desktopItems);
+  const linkPropsMenu = useMemo(() => (isHoverRoot ? linkProps : {}), [
+    isHoverRoot,
+    linkProps,
+  ]);
+
   return (
     <ul
+      ref={desktopItems}
       className={cn(
-        isMobile ? styles.menuContainerMobile : styles.menuContainer,
-        gapContainer
+        isMobile ? styles.menuContainerMobile : styles.menuContainer
       )}
     >
-      {renderItems(items, isMobile)}
+      {renderItems(items, isMobile, linkPropsMenu)}
     </ul>
   );
 };

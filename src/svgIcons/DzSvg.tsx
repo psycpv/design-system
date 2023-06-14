@@ -43,9 +43,9 @@ export const DzSvg: FC<IconProps> = props => {
     clipRule = 'evenodd',
     className = '',
     ariaTitle = '',
-    id = '',
+    ariaId = '',
   } = props;
-  const elementId = uuidv4();
+  const elementId = ariaId ?? uuidv4();
   const renderChildren = children ?? (
     <Path clipRule={clipRule} d={d} fill={fill} fillRule={fillRule} />
   );
@@ -54,11 +54,11 @@ export const DzSvg: FC<IconProps> = props => {
       {...props}
       role="img"
       // https://www.w3.org/TR/html-aria/#docconformance
-      aria-describedby={id ?? elementId}
+      aria-describedby={elementId}
       className={className}
       xmlns="http://www.w3.org/2000/svg"
     >
-      <title id={id ?? elementId}>{ariaTitle}</title>
+      <title id={elementId}>{ariaTitle}</title>
       {renderChildren}
     </Icon>
   );
