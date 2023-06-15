@@ -23,13 +23,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 19
-          cache: 'yarn'
 
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Build
-        run: yarn build
+      - name: Install Dependencies and Build
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: yarn --frozen-lockfile --silent
 
       - name: Lint
         run: yarn lint
