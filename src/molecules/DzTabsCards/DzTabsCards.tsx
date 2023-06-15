@@ -10,6 +10,7 @@ import { BREAKPOINTS } from '../../layout/breakpoints';
 export interface DzTabsCardsProps {
   tabs: any[];
   span: ColumnSpan | ColumnSpan[];
+  className?: string;
 }
 
 const styles: any = {
@@ -33,6 +34,7 @@ const styles: any = {
     overflow-y-hidden
     overflow-x-auto
     scrollbar-none
+    whitespace-nowrap
   `,
   selectedTab: `
     text-black-100
@@ -50,11 +52,9 @@ const styles: any = {
   tabTitle: `
     md:text-xl
   `,
-  gridCol: `
-    md:gap-5
-  `,
   cardCol: `
-    mb-10
+    mb-5
+    md:mb-0
   `,
 };
 
@@ -79,10 +79,10 @@ const tabsRender = tabs => {
 };
 
 const tabsPanels = ({ tabs, span, isSmall = false }) => {
-  return tabs.map((tab, key) => {
+  return tabs.map((tab, index) => {
     const { title, cards } = tab;
     return (
-      <Tab.Panel key={`${title}-content-${key}`}>
+      <Tab.Panel key={`${title}-content-${index}`}>
         <DzGridColumns className={cn(styles.gridCol)}>
           {cards.map((card, key) => {
             const { id } = card;
@@ -105,14 +105,18 @@ const tabsPanels = ({ tabs, span, isSmall = false }) => {
   });
 };
 
-export const DzTabsCards: FC<DzTabsCardsProps> = ({ tabs, span = 3 }) => {
+export const DzTabsCards: FC<DzTabsCardsProps> = ({
+  tabs,
+  span = 3,
+  className = '',
+}) => {
   const { width } = useWindowSize();
   const isSmall = useMemo(() => {
     return width <= BREAKPOINTS.MD;
   }, [width]);
 
   return (
-    <Tab.Group as="div">
+    <Tab.Group as="div" className={className}>
       <Tab.List className={cn(styles.tabsContainer)}>
         {tabsRender(tabs)}
       </Tab.List>

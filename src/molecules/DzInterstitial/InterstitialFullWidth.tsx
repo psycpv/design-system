@@ -9,6 +9,7 @@ import {
   TITLE_SIZES,
   DzButton,
   BUTTON_SIZES,
+  ButtonModes,
 } from '../../atoms';
 import { cn } from '../../utils/classnames';
 import { TextColors, PrimaryCTAInterstitial } from './DzInterstitial';
@@ -29,8 +30,8 @@ export interface InterstitialFullWidthProps {
 const styles: any = {
   mediaContainer: `
     block
-    md:min-h-[30rem]
-    min-h-[22.5rem]
+    md:h-[30rem]
+    h-[22.5rem]
     overflow-hidden
     relative
   `,
@@ -41,9 +42,7 @@ const styles: any = {
     md:object-contain
     md:h-[auto]
     md:w-full
-    absolute
     top-2/4
-    -translate-y-1/2
     object-center
   `,
   category: `
@@ -59,17 +58,16 @@ const styles: any = {
     basis-1/2
   `,
   btnCTA: `
-    mt-2.5
     md:mt-5
   `,
   nonSplit: `
     relative
-    w-full
+    w-screen
   `,
   nonSplitFull: `
     min-h-[22.5rem]
     md:min-h-[27.5rem]
-    w-full
+    w-screen
     flex
     justify-center
   `,
@@ -86,6 +84,7 @@ const styles: any = {
     -translate-x-1/2
     -translate-y-1/2
     text-center
+    items-center
   `,
   contentInfoNonSplitRelative: `
     w-full
@@ -96,6 +95,7 @@ const styles: any = {
     flex-col
     text-center
     justify-center
+    items-center
   `,
   description: `
     md:text-md
@@ -166,15 +166,14 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
         ) : null}
 
         {primaryCta ? (
-          <div>
-            <DzButton
-              className={cn(styles.btnCTA, textClassColor)}
-              {...(primaryCta?.ctaProps ?? {})}
-              size={BUTTON_SIZES.LARGE}
-            >
-              {primaryCta.text}
-            </DzButton>
-          </div>
+          <DzButton
+            className={cn(styles.btnCTA)}
+            {...(primaryCta?.ctaProps ?? {})}
+            size={BUTTON_SIZES.LARGE}
+            mode={ButtonModes.LIGHT}
+          >
+            {primaryCta.text}
+          </DzButton>
         ) : null}
       </div>
     </div>

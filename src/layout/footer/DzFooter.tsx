@@ -132,7 +132,11 @@ export const DzFooter: FC<DzFooterProps> = ({
     facebook: '',
   };
   return (
-    <footer className={cn(styles.footer, footerClass)}>
+    <footer
+      className={cn(styles.footer, footerClass)}
+      aria-label="Footer"
+      role="contentinfo"
+    >
       {!isSmall ? <hr className={cn(styles.divider)} /> : null}
       <div className={cn(styles.bottomContainer)}>
         <div className={cn(styles.leftContainer)}>

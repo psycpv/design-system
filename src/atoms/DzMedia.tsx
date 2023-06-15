@@ -135,7 +135,6 @@ export const DzMedia: FC<DzMediaProps> = ({
   objectFit = MEDIA_OBJECT_FIT.COVER,
   sourceSet = null,
 }) => {
-  useEffect(() => {}, []);
   const renderImage = useMemo(() => {
     if (!ImgElement) {
       return (

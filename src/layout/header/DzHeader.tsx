@@ -89,7 +89,11 @@ export const DzHeader: FC<DzHeaderProps> = ({
   }, [width]);
 
   return (
-    <header className={cn(styles.headerContainer, headerClass)}>
+    <header
+      className={cn(styles.headerContainer, headerClass)}
+      aria-label="Header"
+      role="banner"
+    >
       <div className={cn(styles.leftSide)}>
         <DzLogo
           className={cn(styles.logo)}
@@ -97,7 +101,11 @@ export const DzHeader: FC<DzHeaderProps> = ({
         />
       </div>
       {isSmall ? (
-        <nav className={cn(styles.rightSideMobile)}>
+        <nav
+          className={cn(styles.rightSideMobile)}
+          aria-label="Navigation"
+          role="navigation"
+        >
           <MenuItemsMobile
             items={items}
             handleSearch={handleSearch}
@@ -106,7 +114,11 @@ export const DzHeader: FC<DzHeaderProps> = ({
           />
         </nav>
       ) : (
-        <nav className={cn(styles.rightSideDesktop)}>
+        <nav
+          className={cn(styles.rightSideDesktop)}
+          aria-label="Navigation"
+          role="navigation"
+        >
           <MenuItems items={items} linkProps={linkProps} />
         </nav>
       )}

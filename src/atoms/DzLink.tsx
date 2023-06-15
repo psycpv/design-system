@@ -15,6 +15,7 @@ export const LINK_VARIANTS = {
 export const TEXT_LINK_SIZES = {
   SMALL: 'small',
   LARGE: 'large',
+  XS: 'extraSmall',
 };
 
 export const TEXT_LINK_SIZES_NAMES = [
@@ -75,7 +76,11 @@ const styles: any = {
   large: `
     text-md
   `,
+  extraSmall: `
+    text-xs
+  `,
 };
+
 export const DzLink: ForwardRefExoticComponent<DzLinkProps> = forwardRef(
   (
     {
@@ -102,15 +107,18 @@ export const DzLink: ForwardRefExoticComponent<DzLinkProps> = forwardRef(
 
     const linkStyle = cn(
       styles.element,
-      styles?.[variant],
-      styles?.[textLinkSize],
+      styles[variant],
+      styles[textLinkSize],
       useRoute ? inactiveStyle : '',
       className
     );
+
     const LinkElementType = LinkElement ?? 'a';
+
     if (!isNewTab) {
       return (
         <LinkElementType
+          key={textLinkSize}
           href={href}
           ref={ref}
           className={linkStyle}
@@ -129,7 +137,7 @@ export const DzLink: ForwardRefExoticComponent<DzLinkProps> = forwardRef(
         rel="noopener noreferrer"
         href={href}
         {...rest}
-        className={cn(linkStyle)}
+        className={linkStyle}
       >
         {children}
       </a>
