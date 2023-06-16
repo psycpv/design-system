@@ -2,17 +2,17 @@ import React, {
   FC,
   Fragment,
   useState,
-  useRef,
   useMemo,
   useCallback,
+  useEffect,
 } from 'react';
 import { Popover } from '@headlessui/react';
 
 import { cn } from '../../utils/classnames';
-import useHover from '../../hooks/useHover';
-import useFocus from '../../hooks/useFocus';
 import { DzLink, DzLinkProps, RouterProps } from '../../atoms';
 import { renderItems } from './MenuItems';
+import { BREAKPOINTS } from '../../layout/breakpoints';
+import useWindowSize from '../../hooks/useWindowSize';
 
 export interface DesktopSubmenuProps {
   title: string;
@@ -58,7 +58,7 @@ const styles: any = {
     gap-3
   `,
   rootDesktop: `
-    px-2.5
+   
     cursor-pointer
     w-full
     block
@@ -71,6 +71,12 @@ const styles: any = {
   hide: `
     hidden
   `,
+  narrow: `
+    px-3
+  `,
+  wide: `
+    px-5
+  `,
 };
 
 export const DesktopSubmenu: FC<DesktopSubmenuProps> = ({
@@ -81,15 +87,27 @@ export const DesktopSubmenu: FC<DesktopSubmenuProps> = ({
   linkClass = '',
 }) => {
   const [hoverOverMenu, SetHoverOverMenu] = useState(false);
+  const [openSubMenu, setOpenSubMenu] = useState(false);
+  const [isHoverRoot, setIsHoverRoot] = useState(false);
+  const [isFocusRoot, setIsFocusRoot] = useState(false);
   const [visitedFocusElements, setVisitedFocusElements] = useState(0);
-  const rootElement = useRef<HTMLAnchorElement | null>(null);
-  const rootAnchor = useRef<HTMLAnchorElement | null>(null);
-  const isHoverRoot = useHover(rootElement);
-  const isFocused = useFocus(rootAnchor);
+
+  const { width } = useWindowSize();
+  const paddingClasses = useMemo(
+    () => (width > BREAKPOINTS.MD && width < 900 ? styles.narrow : styles.wide),
+    [width]
+  );
+
+  useEffect(() => {
+    const closeMenu = visitedFocusElements === items?.length;
+    if (closeMenu) setOpenSubMenu(false);
+  }, [visitedFocusElements, items]);
+
   const showElements = useMemo(() => {
-    const hasChildSelected = visitedFocusElements === items.length;
-    return (isHoverRoot || hoverOverMenu) && !hasChildSelected;
-  }, [isHoverRoot, hoverOverMenu, visitedFocusElements]);
+    const hasChildSelected = visitedFocusElements === items?.length;
+    return (isHoverRoot || hoverOverMenu || openSubMenu) && !hasChildSelected;
+  }, [isHoverRoot, hoverOverMenu, visitedFocusElements, openSubMenu, items]);
+
   const showClasses = useMemo(
     () => (showElements ? styles.show : styles.hide),
     [showElements]
@@ -99,33 +117,65 @@ export const DesktopSubmenu: FC<DesktopSubmenuProps> = ({
     linkProps,
   ]);
 
+  const handleClick = useCallback(
+    e => {
+      const url = e?.target?.href;
+      if (!url) return false;
+      const props = linkProps as DzLinkProps;
+      if (linkProps && props.openNewTab) {
+        window.open(url, '_blank');
+      } else {
+        window.location = e?.target?.href;
+      }
+      return false;
+    },
+    [linkProps]
+  );
+
   const resetVisibleFocus = useCallback(() => {
     setVisitedFocusElements(0);
   }, []);
+
   const handleUserKeyPress = useCallback(
     event => {
       const { key, keyCode } = event;
-      if (keyCode === 13 && key === 'Enter' && isFocused) {
-        SetHoverOverMenu(true);
+      if (!(keyCode === 13 && key === 'Enter')) return false;
+      if (isFocusRoot && openSubMenu) {
+        handleClick(event);
+      }
+      if (isFocusRoot) {
+        setOpenSubMenu(true);
       }
     },
-    [isFocused]
+    [isFocusRoot, openSubMenu]
   );
 
   return (
     <Popover as={Fragment}>
       <Popover.Button as={Fragment}>
         <DzLink
-          ref={rootElement}
           {...linkProps}
           href={rootUrl}
           onKeyDown={handleUserKeyPress}
-          onFocus={resetVisibleFocus}
-          onMouseEnter={resetVisibleFocus}
+          onFocus={() => {
+            setIsFocusRoot(true);
+            resetVisibleFocus();
+          }}
+          onBlur={() => setIsFocusRoot(false)}
+          onClick={handleClick}
+          onMouseEnter={() => {
+            setIsHoverRoot(true);
+            resetVisibleFocus();
+          }}
+          onMouseLeave={() => {
+            setIsHoverRoot(false);
+          }}
           className={cn(
             showElements ? '!text-black-100' : '',
             styles.rootDesktop,
-            linkClass
+            linkClass,
+            'outline-transparent',
+            paddingClasses
           )}
         >
           {title}

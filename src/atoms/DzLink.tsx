@@ -59,16 +59,20 @@ const styles: any = {
     decoration-transparent
     hover:underline
     hover:decoration-current
+    focus:underline
+    focus:decoration-current
     decoration-black-60 
   `,
   text: `
     underline
     decoration-black-40 
     hover:decoration-black-60
+    focus:decoration-black-60
   `,
   inactive: `
     text-black-40
     hover:text-black-100
+    focus:text-black-100
   `,
   small: `
     text-sm

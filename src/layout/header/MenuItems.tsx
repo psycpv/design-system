@@ -4,6 +4,8 @@ import { DzLink, DzLinkProps, RouterProps } from '../../atoms';
 import { cn } from '../../utils/classnames';
 import { MobileSubmenus } from './MobileSubmenus';
 import useHover from '../../hooks/useHover';
+import { BREAKPOINTS } from '../../layout/breakpoints';
+import useWindowSize from '../../hooks/useWindowSize';
 
 export interface MenuItemsProps {
   items: any[];
@@ -67,13 +69,20 @@ const styles: any = {
     w-full
     block
     min-w-fit
+    outline-transparent
   `,
   submenuItemDesktop: `
     w-full
     block
-    px-5
     my-1.5
     min-w-fit
+    outline-transparent
+  `,
+  narrow: `
+    px-3
+  `,
+  wide: `
+    px-5
   `,
 };
 
@@ -99,22 +108,27 @@ export const renderPerType = {
     className
   ) => {
     const { title, submenu } = data ?? {};
-    const rootURL = data?.rootLink?.link ?? '';
+
+    const rootLink = data?.rootLink?.[0] ?? {};
+    const { _type, link, newTab, page } = rootLink;
+    const rootURL = _type === 'menuItemPage' ? page?.url : link;
+    const openNewTab = newTab;
     const { items } = submenu ?? {};
+    const linkPropsEnrich = { ...linkProps, openNewTab };
 
     return isMobile ? (
       <MobileSubmenus
         title={title}
         rootUrl={rootURL}
         items={items}
-        linkProps={linkProps}
+        linkProps={linkPropsEnrich}
       />
     ) : (
       <DesktopSubmenu
         title={title}
         rootUrl={rootURL}
         items={items}
-        linkProps={linkProps}
+        linkProps={linkPropsEnrich}
         linkClass={className}
       />
     );
@@ -138,12 +152,18 @@ export const renderPerType = {
 };
 
 export const renderItems = (items, isMobile = false, linkProps = {}) => {
-  return items.map(item => {
+  const { width } = useWindowSize();
+  const paddingClasses = useMemo(
+    () => (width > BREAKPOINTS.MD && width < 900 ? styles.narrow : styles.wide),
+    [width]
+  );
+  const itemListClass = isMobile
+    ? styles.submenuItemMobile
+    : cn(styles.submenuItemDesktop, paddingClasses);
+
+  return items?.map(item => {
     const { _type, title } = item ?? {};
     const renderFunction = renderPerType?.[_type];
-    const itemListClass = isMobile
-      ? styles.submenuItemMobile
-      : styles.submenuItemDesktop;
     const listItemStyles = _type === 'menuItemSubmenu' ? '' : itemListClass;
 
     const { mobileEnabled, desktopEnabled } = item;
