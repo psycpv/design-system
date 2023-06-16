@@ -39,25 +39,25 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
   const { width } = useWindowSize();
   const isSmall = useMemo(() => width <= BREAKPOINTS.MD, [width]);
   const [showNav, setShowNav] = useState(false);
-  const [showRightNav, setShowRightNav] = useState(false);
-  const [showLeftNav, setShowLeftNav] = useState(false);
+  const [rightNavEnabled, setRightNavEnabled] = useState(false);
+  const [leftNavEnabled, setLeftNavEnabled] = useState(false);
   const [navTopOffset, setTopNavOffset] = useState('50%');
 
   useEffect(() => {
-    setShowLeftNav(!swiperElRef?.current?.swiper.isBeginning);
-    setShowRightNav(!swiperElRef?.current?.swiper.isEnd);
+    setLeftNavEnabled(!swiperElRef?.current?.swiper.isBeginning);
+    setRightNavEnabled(!swiperElRef?.current?.swiper.isEnd);
 
     swiperElRef?.current?.addEventListener('transitionend', () => {
-      setShowLeftNav(!swiperElRef?.current?.swiper.isBeginning);
-      setShowRightNav(!swiperElRef?.current?.swiper.isEnd);
+      setLeftNavEnabled(!swiperElRef?.current?.swiper.isBeginning);
+      setRightNavEnabled(!swiperElRef?.current?.swiper.isEnd);
     });
 
     swiperElRef?.current?.addEventListener('reachend', _ =>
-      setShowRightNav(false)
+      setRightNavEnabled(false)
     );
 
     swiperElRef?.current?.addEventListener('reachbeginning', _ =>
-      setShowLeftNav(false)
+      setLeftNavEnabled(false)
     );
   }, [swiperElRef?.current]);
 
@@ -100,6 +100,8 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
       onMouseLeave={() => setShowNav(false)}
     >
       <SwiperContainer
+        // Force web element to re-render when breakpoint change
+        key={JSON.stringify(isSmall)}
         ref={swiperElRef}
         navigation="true"
         pagination="false"
@@ -111,6 +113,9 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         slides-per-view="auto"
         slides-offset-before={OFFSET_BEFORE}
         slides-offset-after={OFFSET_AFTER}
+        free-mode="true"
+        free-mode-minimum-velocity="0.2"
+        free-mode-momentum-velocity-ratio="0.5"
         {...swiperContainerProps}
         {...swiperProps}
       >
@@ -129,16 +134,17 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
 
       <Transition
         as={Fragment}
-        show={!isSmall && showNav && showLeftNav}
-        enter="transition ease-in duration-300"
+        show={!isSmall && showNav}
+        enter="transition ease-in duration-500"
         enterFrom="-translate-x-full"
         enterTo="translate-x-0"
-        leave="transition ease-out duration-300"
+        leave="transition ease-out duration-500"
         leaveFrom="translate-x-0"
         leaveTo="-translate-x-full"
       >
         <DzArrow
           ref={leftArrowRef}
+          disabled={!leftNavEnabled}
           className={'absolute left-5 z-10'}
           style={{ top: navTopOffset }}
           onClick={() => swiperElRef.current?.swiper.slidePrev()}
@@ -149,11 +155,11 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
 
       <Transition
         as={Fragment}
-        show={!isSmall && showNav && showRightNav}
-        enter="transition ease-in duration-300"
+        show={!isSmall && showNav}
+        enter="transition ease-in duration-500"
         enterFrom="translate-x-full"
         enterTo="translate-x-0"
-        leave="transition ease-out duration-300"
+        leave="transition ease-out duration-500"
         leaveFrom="translate-x-0"
         leaveTo="translate-x-full"
       >
@@ -161,6 +167,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
           ref={rightArrowRef}
           className="absolute right-5 z-10"
           style={{ top: navTopOffset }}
+          disabled={!rightNavEnabled}
           onClick={() => swiperElRef.current?.swiper.slideNext()}
           direction={ARROW_DIRECTIONS.RIGHT}
           mode={ARROW_MODES.DARK_BACKGROUND}
