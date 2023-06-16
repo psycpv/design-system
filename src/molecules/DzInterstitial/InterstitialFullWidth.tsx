@@ -168,9 +168,9 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
         {primaryCta ? (
           <DzButton
             className={cn(styles.btnCTA)}
-            {...(primaryCta?.ctaProps ?? {})}
             size={BUTTON_SIZES.LARGE}
             mode={ButtonModes.LIGHT}
+            {...(primaryCta?.ctaProps ?? {})}
           >
             {primaryCta.text}
           </DzButton>
