@@ -145,7 +145,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         <DzArrow
           ref={leftArrowRef}
           disabled={!leftNavEnabled}
-          className={'absolute left-5 z-10'}
+          className={'absolute left-10 z-10'}
           style={{ top: navTopOffset }}
           onClick={() => swiperElRef.current?.swiper.slidePrev()}
           direction={ARROW_DIRECTIONS.LEFT}
@@ -165,7 +165,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
       >
         <DzArrow
           ref={rightArrowRef}
-          className="absolute right-5 z-10"
+          className="absolute right-10 z-10"
           style={{ top: navTopOffset }}
           disabled={!rightNavEnabled}
           onClick={() => swiperElRef.current?.swiper.slideNext()}
