@@ -141,7 +141,7 @@ const iconColor = (
   isHover: boolean,
   disabled: boolean
 ): string => {
-  if (disabled && variant != BUTTON_VARIANTS.SECONDARY) return '#CDCDCD';
+  if (disabled && variant !== BUTTON_VARIANTS.SECONDARY) return '#CDCDCD';
   switch (variant) {
     case BUTTON_VARIANTS.PRIMARY:
       return isHover ? 'white' : 'black';

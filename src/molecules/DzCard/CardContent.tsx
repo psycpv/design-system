@@ -15,7 +15,6 @@ import {
   TitleType,
   SubTitleType,
   TEXT_LINK_SIZES,
-  AspectRatioType,
   MEDIA_ASPECT_RATIOS,
 } from '../../atoms';
 import { cn } from '../../utils/classnames';

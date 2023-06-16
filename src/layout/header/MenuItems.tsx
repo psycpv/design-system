@@ -166,14 +166,13 @@ export const MenuItems: FC<MenuItemsProps> = ({
   isMobile = false,
   linkProps = {},
 }) => {
-  if (!items) return null;
   const desktopItems = useRef<HTMLUListElement | null>(null);
   const isHoverRoot = useHover(desktopItems);
   const linkPropsMenu = useMemo(() => (isHoverRoot ? linkProps : {}), [
     isHoverRoot,
     linkProps,
   ]);
-
+  if (!items) return null;
   return (
     <ul
       ref={desktopItems}

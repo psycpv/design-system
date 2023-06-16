@@ -20,7 +20,7 @@ const styles = {
     text-black-100
     border-black-100
   `,
-  default:`
+  default: `
     border-black-40
     text-black-60
     hover:border-black-60

@@ -115,9 +115,7 @@ export const DzSelect: React.FunctionComponent<DzSelectProps> = ({
   const [selected, setSelected] = useState<SelectOption>(
     options?.[selectId] ?? null
   );
-  const [multipleSelect, setMultipleSelect] = useState<SelectOption[]>(
-    []
-  );
+  const [multipleSelect, setMultipleSelect] = useState<SelectOption[]>([]);
 
   const disabledStyles = disabled ? styles.disabled : '';
 

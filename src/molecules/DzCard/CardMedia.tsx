@@ -9,7 +9,7 @@ import {
 import { cn } from '../../utils/classnames';
 
 export interface CardMediaData {
-  id?:string;
+  id?: string;
   media: DzMediaProps;
   description: string;
 }

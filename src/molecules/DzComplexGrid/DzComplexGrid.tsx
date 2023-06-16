@@ -1,4 +1,4 @@
-import React, { FC, useState, useMemo, useCallback, Fragment } from 'react';
+import React, { FC, useState, useMemo, useCallback } from 'react';
 import { DzGridColumns, DzColumn, ColumnSpan } from '../../layout';
 import {
   DzRange,
@@ -158,7 +158,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
     const { text } = textProps ?? {};
     const resultsTitle = `${numberOfResults} ${headingTitle}`;
     return displayNumberOfResults ? resultsTitle : text;
-  }, [displayNumberOfResults, numberOfResults, headingTitle]);
+  }, [displayNumberOfResults, numberOfResults, headingTitle, textProps]);
 
   return (
     <div>

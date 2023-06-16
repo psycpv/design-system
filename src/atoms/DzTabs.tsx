@@ -54,7 +54,7 @@ const styles: any = {
     py-4
     outline-none
   `,
-  underline:`
+  underline: `
     decoration-transparent
     duration-300
     ease-in

@@ -1,10 +1,4 @@
-import React, {
-  FC,
-  useMemo,
-  useEffect,
-  ImgHTMLAttributes,
-  ReactNode,
-} from 'react';
+import React, { FC, useMemo, ImgHTMLAttributes, ReactNode } from 'react';
 import { cn } from '../utils/classnames';
 import { DzLink, DzLinkProps } from './DzLink';
 import Plyr from 'plyr-react';
@@ -171,6 +165,7 @@ export const DzMedia: FC<DzMediaProps> = ({
           className={mediaClasses}
           // Change this to eager on demand specially for header components
           loading={'lazy'}
+          alt={imgProps?.alt}
           {...imgProps}
         />
       );
@@ -178,7 +173,7 @@ export const DzMedia: FC<DzMediaProps> = ({
     return (
       <ImgElement className={cn(mediaClasses, '!relative')} {...imgProps} />
     );
-  }, [ImgElement, imgProps, imgClass]);
+  }, [ImgElement, imgProps, imgClass, aspectRatio, objectFit, objectPosition]);
 
   const LinkElem = useMemo(() => {
     if (url) {

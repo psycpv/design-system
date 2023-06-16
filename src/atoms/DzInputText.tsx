@@ -1,7 +1,13 @@
 import { cn } from '../utils/classnames';
 import DzInput from './DzInput';
 import { DzText, TEXT_SIZES, TEXT_TYPES } from './DzText';
-import React, { forwardRef, useState, useEffect, ReactNode, ChangeEvent } from 'react';
+import React, {
+  forwardRef,
+  useState,
+  useEffect,
+  ReactNode,
+  ChangeEvent,
+} from 'react';
 import useDebounce from '../hooks/useDebounce';
 
 export interface InputTextProps

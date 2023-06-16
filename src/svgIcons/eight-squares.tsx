@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-DzSvg;
 
 import { DzSvg } from './DzSvg';
 import { IconProps } from './types';

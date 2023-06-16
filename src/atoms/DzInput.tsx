@@ -3,10 +3,10 @@ import React, {
   ForwardRefExoticComponent,
   ForwardedRef,
   forwardRef,
-} from 'react'
+} from 'react';
 export interface InputTypeProps extends InputHTMLAttributes<HTMLInputElement> {
-  className?: any
-  ref?: ForwardedRef<HTMLInputElement>
+  className?: any;
+  ref?: ForwardedRef<HTMLInputElement>;
 }
 
 export const DzInput: ForwardRefExoticComponent<InputTypeProps> = forwardRef(
@@ -23,7 +23,7 @@ export const DzInput: ForwardRefExoticComponent<InputTypeProps> = forwardRef(
         value={value}
         {...rest}
       />
-    )
+    );
   }
-)
-export default DzInput
+);
+export default DzInput;

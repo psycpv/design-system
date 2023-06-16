@@ -1,12 +1,10 @@
 import { cn } from '../utils/classnames';
 import React, {
-  FC,
   Fragment,
   lazy,
   MouseEventHandler,
   useEffect,
   useState,
-  useRef,
   forwardRef,
 } from 'react';
 
