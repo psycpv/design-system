@@ -143,7 +143,11 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
               >
                 Newsletter
               </button>
-              <DzFooter data={footerData} newsletterAction={newsletterAction} />
+              <DzFooter
+                data={footerData}
+                newsletterAction={newsletterAction}
+                isOnHeader
+              />
             </div>
           </Popover.Panel>
         </Transition>

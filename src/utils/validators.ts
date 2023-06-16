@@ -18,3 +18,7 @@ export const isPhoneNumber = (phone: string) => {
     );
 };
 
+export const sliceMaxCharLength = (
+  text: string | undefined | null,
+  maxNumber: number
+) => (text && text.length ? text.slice(0, maxNumber) : '');

@@ -8,14 +8,17 @@ import {
   DzLink,
   DzLinkProps,
   DzTitle,
+  ObjectPositionType,
   TITLE_SIZES,
   TITLE_TYPES,
   LINK_VARIANTS,
   TEXT_LINK_SIZES,
+  MEDIA_ASPECT_RATIOS,
+  MEDIA_OBJECT_FIT,
 } from '../../atoms';
 import useWindowSize from '../../hooks/useWindowSize';
 import { BREAKPOINTS } from '../../layout/breakpoints';
-
+import { sliceMaxCharLength } from '../../utils/validators';
 export const SPLIT_TYPES = {
   TALL: 'tall',
   SHORT: 'short',
@@ -64,7 +67,6 @@ const styles: any = {
     flex
     flex-col
     gap-2.5
-    md:gap-5
     pb-5
     md:pb-0
   `,
@@ -75,18 +77,20 @@ const styles: any = {
   linkCta: `
     mt-[0.9375rem]
   `,
-  media: `
-    bg-black-60
-    h-full
-    object-cover
-  `,
   animateImg: `
     motion-safe:animate-slowZoomOut
     transition
     dz-timing
   `,
+  primarySubHeadline: `
+    mt-2.5
+  `,
+  bodyText: `
+    mt-2.5
+  `,
 };
-
+const NUMBER_OF_CHARS_TEXT = 50;
+const NUMBER_OF_CHARS_BODY = 200;
 export const DzSplit: FC<DzSplitProps> = ({
   type = SPLIT_TYPES.TALL,
   reverse = false,
@@ -105,8 +109,8 @@ export const DzSplit: FC<DzSplitProps> = ({
   } = data ?? {};
   const containerTypeStyle =
     type === SPLIT_TYPES.SHORT
-      ? 'min-h-[15.6875rem] md:min-h-[32.3125rem]'
-      : 'min-h-[27.875rem] md:min-h-[57.5rem]';
+      ? 'min-h-full md:min-h-[32.3125rem]'
+      : 'min-h-full md:min-h-[57.5rem]';
 
   const { width } = useWindowSize();
   const isSmall = useMemo(() => {
@@ -117,40 +121,45 @@ export const DzSplit: FC<DzSplitProps> = ({
     <div
       className={cn(
         styles.splitContainer,
-        reverse
-          ? 'flex-col-reverse md:flex-row-reverse'
-          : 'flex-col md:flex-row'
+        reverse ? 'flex-col md:flex-row-reverse' : 'flex-col md:flex-row'
       )}
     >
-      <div className={cn(styles.leftContainer, containerTypeStyle)}>
-        <DzMedia
-          imgClass={cn(
-            styles.media,
-            containerTypeStyle,
-            animate ? styles.animateImg : ''
-          )}
-          {...media}
-        />
+      <div className={cn(styles.leftContainer)}>
+        <div className={cn(containerTypeStyle, 'w-full h-full')}>
+          <DzMedia
+            imgClass={animate ? styles.animateImg : ''}
+            aspectRatio={
+              isSmall ? MEDIA_ASPECT_RATIOS.AUTO : MEDIA_ASPECT_RATIOS['4:3']
+            }
+            objectFit={MEDIA_OBJECT_FIT.CONTAIN}
+            objectPosition={ObjectPositionType.TOP}
+            {...media}
+          />
+        </div>
       </div>
       <div className={cn(styles.rightContainer)}>
         {category ? (
           <DzText textSize={TEXT_SIZES.SMALL} text={category} />
         ) : null}
         <DzTitle
-          title={title}
+          title={sliceMaxCharLength(title, NUMBER_OF_CHARS_TEXT)}
           classNameTitle={cn(styles.title)}
           classNameSubtitle={cn(styles.title)}
           titleType={TITLE_TYPES.P}
-          subtitle={subtitle}
+          subtitle={sliceMaxCharLength(subtitle, NUMBER_OF_CHARS_TEXT)}
           subtitleType={TITLE_TYPES.P}
         />
         {secondaryTitle || secondarySubtitle ? (
           <DzTitle
-            title={secondaryTitle}
+            className={styles.primarySubHeadline}
+            title={sliceMaxCharLength(secondaryTitle, NUMBER_OF_CHARS_TEXT)}
             titleSize={TITLE_SIZES.LG}
             subtitleSize={TITLE_SIZES.LG}
             titleType={TITLE_TYPES.P}
-            subtitle={secondarySubtitle}
+            subtitle={sliceMaxCharLength(
+              secondarySubtitle,
+              NUMBER_OF_CHARS_TEXT
+            )}
             subtitleType={TITLE_TYPES.P}
           />
         ) : // preserve gap before and after even if it's not shown for mobile
@@ -159,15 +168,16 @@ export const DzSplit: FC<DzSplitProps> = ({
         ) : null}
         {description ? (
           <DzText
+            className={styles.bodyText}
             textSize={isSmall ? TEXT_SIZES.SMALL : TEXT_SIZES.MEDIUM}
-            text={description}
+            text={sliceMaxCharLength(description, NUMBER_OF_CHARS_BODY)}
           />
         ) : null}
         {linkCTA ? (
           <DzLink
             className={styles.linkCta}
             {...(linkCTA.linkProps ?? {})}
-            href={isSmall ? 'pepito' : 'pepitA'}
+            href={linkCTA.url}
             LinkElement={linkCTA.linkElement}
             variant={LINK_VARIANTS.TEXT}
             textLinkSize={isSmall ? TEXT_LINK_SIZES.XS : TEXT_LINK_SIZES.SMALL}

@@ -3,8 +3,9 @@ import { Meta, Story } from '@storybook/react';
 import {
   DzTitleMolecule,
   DzTitleMoleculeProps,
+  DzTitleMoleculeTypes,
 } from '../../src/molecules/DzTitleMolecule/DzTitleMolecule';
-import { data } from '../../constants/mocks/DzTitle';
+import { pageData, sectionData } from '../../constants/mocks/DzTitle';
 
 const meta: Meta = {
   title: 'Molecules/Content/DzTitleMolecule',
@@ -23,8 +24,20 @@ const Template: Story<DzTitleMoleculeProps> = args => (
   <DzTitleMolecule {...args} />
 );
 
-export const TitleWithDescription = Template.bind({});
-TitleWithDescription.args = { ...data, linkCTA: {} };
+export const PageTitleVariant = Template.bind({});
+PageTitleVariant.args = {
+  type: DzTitleMoleculeTypes.PAGE,
+  data: pageData,
+};
 
-export const TitleWithCTA = Template.bind({});
-TitleWithCTA.args = { ...data, category: '', description: '' };
+export const SectionTitleVariant = Template.bind({});
+SectionTitleVariant.args = {
+  type: DzTitleMoleculeTypes.SECTION,
+  data: sectionData,
+};
+
+export const MoleculeTitleVariant = Template.bind({});
+MoleculeTitleVariant.args = {
+  type: DzTitleMoleculeTypes.MOLECULE,
+  data: sectionData,
+};

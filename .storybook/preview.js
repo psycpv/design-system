@@ -28,35 +28,35 @@ export const parameters = {
       largeDesktop: {
         name: 'Desktop 1440px',
         styles: {
-          width: '1472px',
+          width: '1440px',
           height: '100%',
         },
       },
       desktop: {
         name: 'Desktop 1024px',
         styles: {
-          width: '1056px',
+          width: '1024px',
           height: '100%',
         },
       },
       tablet: {
         name: 'Tablet device 768px',
         styles: {
-          width: '800px',
+          width: '768px',
           height: '100%',
         },
       },
       smallDevice: {
         name: 'Small device 576px',
         styles: {
-          width: '608px',
+          width: '576px',
           height: '100%',
         },
       },
       extraSmallDevice: {
         name: 'Extra small device 320px',
         styles: {
-          width: '352px',
+          width: '320px',
           height: '100%',
         },
       },

@@ -49,6 +49,7 @@ export interface DzFooterProps {
   data: FooterData;
   newsletterAction: Function;
   footerClass?: string;
+  isOnHeader?: boolean;
 }
 
 const styles: any = {
@@ -104,6 +105,7 @@ export const DzFooter: FC<DzFooterProps> = ({
   data,
   newsletterAction = () => null,
   footerClass = '',
+  isOnHeader = false,
 }) => {
   const { width } = useWindowSize();
   const isSmall = useMemo(() => {
@@ -137,7 +139,8 @@ export const DzFooter: FC<DzFooterProps> = ({
       aria-label="Footer"
       role="contentinfo"
     >
-      {!isSmall ? <hr className={cn(styles.divider)} /> : null}
+      {!isOnHeader ? <hr className={cn(styles.divider)} /> : null}
+
       <div className={cn(styles.bottomContainer)}>
         <div className={cn(styles.leftContainer)}>
           {copies?.rights ? (

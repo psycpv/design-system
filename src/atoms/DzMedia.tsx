@@ -9,6 +9,12 @@ import { cn } from '../utils/classnames';
 import { DzLink, DzLinkProps } from './DzLink';
 import Plyr from 'plyr-react';
 
+export enum ObjectPositionType {
+  TOP = 'objPosTop',
+  BOTTOM = 'objPosBottom',
+  CENTER = 'objPosCenter',
+}
+
 export const MEDIA_VIDEO_SOURCE_TYPES = {
   YOUTUBE: 'youtube',
   VIMEO: 'vimeo',
@@ -31,6 +37,7 @@ export const MEDIA_OBJECT_FIT = {
 export const MEDIA_ASPECT_RATIOS = {
   '16:9': '16:9',
   '4:3': '4:3',
+  AUTO: 'aspectAuto',
 };
 
 export const MEDIA_VIDEO_SOURCE_TYPES_NAMES = [
@@ -50,6 +57,7 @@ export const MEDIA_MEDIA_OBJECT_FIT_NAMES = [
 export const MEDIA_ASPECT_RATIOS_NAMES = [
   MEDIA_ASPECT_RATIOS['16:9'],
   MEDIA_ASPECT_RATIOS['4:3'],
+  MEDIA_ASPECT_RATIOS.AUTO,
 ] as const;
 
 export const MEDIA_TYPES_NAMES = [
@@ -75,6 +83,7 @@ export interface DzMediaProps extends ImgHTMLAttributes<HTMLImageElement> {
   aspectRatio?: AspectRatioType;
   objectFit?: ObjectFitType;
   sourceSet?: ReactNode | null;
+  objectPosition?: ObjectPositionType;
 }
 
 const styles: any = {
@@ -99,11 +108,23 @@ const styles: any = {
   fitScaleDown: `
     !object-scale-down
   `,
+  objPosTop: `
+    object-top
+  `,
+  objPosBottom: `
+    object-bottom
+  `,
+  objPosCenter: `
+    object-center
+  `,
   '16:9': `
     !aspect-video
   `,
   '4:3': `
     !aspect-4/3
+  `,
+  aspectAuto: `
+    !aspect-auto
   `,
 };
 
@@ -133,18 +154,21 @@ export const DzMedia: FC<DzMediaProps> = ({
   videoSourceType = MEDIA_VIDEO_SOURCE_TYPES.VIMEO,
   aspectRatio = MEDIA_ASPECT_RATIOS['16:9'],
   objectFit = MEDIA_OBJECT_FIT.COVER,
+  objectPosition = ObjectPositionType.CENTER,
   sourceSet = null,
 }) => {
   const renderImage = useMemo(() => {
+    const mediaClasses = cn(
+      'w-full',
+      imgClass,
+      styles[aspectRatio],
+      styles[objectFit],
+      styles[objectPosition]
+    );
     if (!ImgElement) {
       return (
         <img
-          className={cn(
-            'w-full',
-            imgClass,
-            styles[aspectRatio],
-            styles[objectFit]
-          )}
+          className={mediaClasses}
           // Change this to eager on demand specially for header components
           loading={'lazy'}
           {...imgProps}
@@ -152,15 +176,7 @@ export const DzMedia: FC<DzMediaProps> = ({
       );
     }
     return (
-      <ImgElement
-        className={cn(
-          'w-full !relative',
-          styles[aspectRatio],
-          styles[objectFit],
-          imgClass
-        )}
-        {...imgProps}
-      />
+      <ImgElement className={cn(mediaClasses, '!relative')} {...imgProps} />
     );
   }, [ImgElement, imgProps, imgClass]);
 
@@ -169,7 +185,7 @@ export const DzMedia: FC<DzMediaProps> = ({
       return (
         <DzLink
           {...linkProps}
-          href="/"
+          href={url}
           className={cn(styles.mediaContainer, className)}
         >
           {renderImage}
