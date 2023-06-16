@@ -1,3 +1,4 @@
+![Continuous Integration](https://github.com/Zwirner/design-system/actions/workflows/ci.yml/badge.svg)
 # TSDX React w/ Storybook User Guide
 
 Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
@@ -137,10 +138,12 @@ TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rol
 
 ### GitHub Actions
 
-Two actions are added by default:
+- Every new PR to the `main` branch triggers the `CI` workflow that builds, lints 
+and tests the project. Also, every push to the `main` triggers the `CI` workflow.
 
-- `main` which installs deps w/ cache, lints, tests, and builds on all pushes against a Node and OS matrix
-- `size` which comments cost comparison of your library on every pull request using [size-limit](https://github.com/ai/size-limit)
+- Every new PR to the `main` branch triggers the `size` workflow that makes a comment
+with cost comparison against the project before the proposed changes. The configuration 
+for the `size-limit` can be found in the `package.json`.
 
 ## Optimizations
 
