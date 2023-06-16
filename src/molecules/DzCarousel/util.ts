@@ -1,15 +1,37 @@
-// 12-col grid simulation since slider works with a block display
+import { GUTTER } from '../../layout';
+
+export const OFFSET_AFTER = 20;
+export const OFFSET_BEFORE = 20;
+
+/**
+ * 12-col grid simulation since slider works with a block display.
+ *
+ * Element's width is described by the following expresion:
+ *
+ *    i
+ *  ----- * (100% - (OFFSET) + GUTTER) - GUTTER
+ *   12
+ *
+ * where
+ * 100%: Total width of the parent container
+ * i: element's span. It might have values from 1 to 12.
+ * OFFSET: Carousel total offset (OFFSET_BEFORE + OFFSET_AFTER)
+ * GUTTER: Spacing between columns in the design system
+ *
+ * 
+ * PD: Values are hard-coded because Tailwind JIT compiler cannot generate classes from dynamic strings
+ *  */
 export const gridColsMaxWidths = {
-  1: 'max-w-[calc(8.33%-1.67px)]',
-  2: 'max-w-[calc(16.67%-3.33px)]',
-  3: 'max-w-[calc(25.00%-5.00px)]',
-  4: 'max-w-[calc(33.33%-6.67px)]',
-  5: 'max-w-[calc(41.67%-8.33px)]',
-  6: 'max-w-[calc(50.00%-10.00px)]',
-  7: 'max-w-[calc(58.33%-11.67px)]',
-  8: 'max-w-[calc(66.67%-13.33px)]',
-  9: 'max-w-[calc(75.00%-15.00px)]',
-  10: 'max-w-[calc(83.33%-16.67px)]',
-  11: 'max-w-[calc(91.67%-18.33px)]',
-  12: 'max-w-[calc(100.00%-20.00px)]',
+  1: `max-w-[calc(0.0833*(100%-40px+1.25rem)-1.25rem)]`,
+  2: `max-w-[calc(0.1667*(100%-40px+1.25rem)-1.25rem)]`,
+  3: `max-w-[calc(0.2500*(100%-40px+1.25rem)-1.25rem)]`,
+  4: `max-w-[calc(0.3333*(100%-40px+1.25rem)-1.25rem)]`,
+  5: `max-w-[calc(0.4167*(100%-40px+1.25rem)-1.25rem)]`,
+  6: `max-w-[calc(0.5000*(100%-40px+1.25rem)-1.25rem)]`,
+  7: `max-w-[calc(0.5833*(100%-40px+1.25rem)-1.25rem)]`,
+  8: `max-w-[calc(0.6667*(100%-40px+1.25rem)-1.25rem)]`,
+  9: `max-w-[calc(0.7500*(100%-40px+1.25rem)-1.25rem)]`,
+  10: `max-w-[calc(0.8333*(100%-40px+1.25rem)-1.25rem)]`,
+  11: `max-w-[calc(0.9167*(100%-40px+1.25rem)-1.25rem)]`,
+  12: `max-w-[calc(1.0000*(100%-40px+1.25rem)-1.25rem)]`,
 };

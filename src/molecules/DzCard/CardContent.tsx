@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useMemo } from 'react';
 import {
   DzText,
   DzButtonProps,
@@ -12,19 +12,27 @@ import {
   LINK_VARIANTS,
   DzLink,
   DzButton,
+  TitleType,
+  SubTitleType,
+  MEDIA_ASPECT_RATIOS,
+  TEXT_LINK_SIZES,
 } from '../../atoms';
 import { cn } from '../../utils/classnames';
+import useWindowSize from '../../hooks/useWindowSize';
+import { BREAKPOINTS } from '../../layout/breakpoints';
 
 export interface CardContentProps {
   data: CardContentData;
 }
 
-export interface CardContentData {
+export interface CardContentData extends React.HTMLAttributes<HTMLDivElement> {
   id?: string;
   media: DzMediaProps;
   category?: string;
   title: string;
+  titleType?: TitleType;
   subtitle?: string;
+  subtitleType?: SubTitleType;
   secondaryTitle?: string | ReactNode;
   secondarySubtitle?: string;
   description?: string;
@@ -57,33 +65,30 @@ const styles: any = {
     flex
     flex-col
     gap-2.5
-    md:@2col/cardContainer:gap-2.5
-    md:@6col/cardContainer:gap-5
   `,
   title: `
-    text-md
-    xs:text-lg
+    md:text-md
     md:@2col/cardContainer:text-md
     md:@3col/cardContainer:text-lg
     md:@4col/cardContainer:text-xl
     md:@6col/cardContainer:text-xxl
   `,
   secondaryTitle: `
-    text-sm
-    xs:text-md
+    md:text-md
     md:@2col/cardContainer:text-sm
     md:@3col/cardContainer:text-md
     md:@4col/cardContainer:text-md
+    whitespace-pre-wrap	
   `,
   description: `
-    text-sm
-    xs:text-md
+    md:text-md
     md:@2col/cardContainer:text-sm
     md:@4col/cardContainer:text-md
+    whitespace-pre-wrap
   `,
   linkCta: `
-    py-5
-    md:@2col/cardContainer:py-5
+    pt-2.5
+    md:pt-5
   `,
   btnCta: `
     md:@2col/cardContainer:py-[0.8125rem]
@@ -92,13 +97,8 @@ const styles: any = {
   slugText: `
     md:@2col/cardContainer:text-sm
   `,
-  mediaImg: `
-    md:@2col/cardContainer:min-h-[12.5rem]
-    md:@3col/cardContainer:min-h-[18.75rem]
-    md:@4col/cardContainer:min-h-[22.5rem]
-    md:@6col/cardContainer:min-h-[33.75rem]
-    md:@10col/cardContainer:min-h-[45rem]
-    md:@12col/cardContainer:min-h-[51.25rem]
+  titleWrapper: `
+    md:@6col/cardContainer:mb-2.5
   `,
 };
 
@@ -115,11 +115,24 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
     linkCTA,
     primaryCTA,
     hideImage = false,
+    titleType = TITLE_TYPES.P,
+    subtitleType = TITLE_TYPES.P,
+    ...rest
   } = data as CardContentData;
+
+  const { width } = useWindowSize();
+  const isSmall = useMemo(() => {
+    return width <= BREAKPOINTS.MD;
+  }, [width]);
+
   return (
-    <div id={id} className={cn(styles.cardContainer)}>
+    <div {...rest} id={id} className={cn(styles.cardContainer)}>
       {!hideImage ? (
-        <DzMedia imgClass={cn(styles.mediaImg)} {...media} />
+        <DzMedia
+          imgClass={cn(styles.mediaImg)}
+          aspectRatio={MEDIA_ASPECT_RATIOS['4:3']}
+          {...media}
+        />
       ) : null}
 
       <div className={cn(styles.infoContainer)}>
@@ -133,13 +146,14 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
 
         {/* Primary Headline (required) */}
         <DzTitle
+          className={styles.titleWrapper}
           title={title}
-          titleSize={TITLE_SIZES.MD}
+          titleSize={TITLE_SIZES.LG}
           classNameTitle={cn(styles.title)}
           classNameSubtitle={cn(styles.title)}
-          titleType={TITLE_TYPES.P}
+          titleType={titleType}
           subtitle={subtitle}
-          subtitleType={TITLE_TYPES.P}
+          subtitleType={subtitleType}
         />
 
         {/* All fields are optional and should flow as configured when the fields are turned on/off */}
@@ -151,10 +165,16 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
             titleType={TITLE_TYPES.P}
             subtitle={secondarySubtitle}
             subtitleType={TITLE_TYPES.P}
+            titleSize={TITLE_SIZES.SM}
           />
         ) : null}
+
         {description ? (
-          <DzText className={cn(styles.description)} text={description} />
+          <DzText
+            className={cn(styles.description)}
+            text={description}
+            textSize={TEXT_SIZES.SMALL}
+          />
         ) : null}
         {linkCTA ? (
           <div className={cn(styles.linkCta)}>
@@ -163,6 +183,9 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
               href={linkCTA.url}
               LinkElement={linkCTA.linkElement}
               variant={LINK_VARIANTS.TEXT}
+              textLinkSize={
+                isSmall ? TEXT_LINK_SIZES.XS : TEXT_LINK_SIZES.SMALL
+              }
             >
               {linkCTA.text}
             </DzLink>

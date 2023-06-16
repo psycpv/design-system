@@ -3,17 +3,21 @@ import { BREAKPOINTS } from '../layout/breakpoints';
 
 const QUERY = `(min-width: ${BREAKPOINTS.MD}px)`;
 
-const useBreakpoints = (): { isSmall: boolean } => {
-  const isSmallWindow = (): boolean =>
-    typeof window !== 'undefined' ? !window.matchMedia(QUERY).matches : false;
+export type BreakpointsIndicator = { isSmall: boolean };
 
-  const [isSmall, setIsSmall] = useState<boolean>(isSmallWindow());
+const useBreakpoints = (): BreakpointsIndicator => {
+  const isSmallWindow = (): boolean =>
+    typeof window !== 'undefined' ? !window.matchMedia(QUERY).matches : true;
+
+  const [breakpoints, setBreakpoints] = useState<BreakpointsIndicator>({
+    isSmall: isSmallWindow(),
+  });
 
   useEffect(() => {
-    setIsSmall(isSmallWindow());
+    setBreakpoints({ isSmall: isSmallWindow() });
 
     const matchQueryList = window.matchMedia(QUERY);
-    const handleChange = (e: any) => setIsSmall(!e.matches);
+    const handleChange = (e: any) => setBreakpoints({ isSmall: !e.matches });
     matchQueryList.addEventListener('change', handleChange);
 
     return () => {
@@ -21,7 +25,7 @@ const useBreakpoints = (): { isSmall: boolean } => {
     };
   }, []);
 
-  return { isSmall };
+  return breakpoints;
 };
 
 export default useBreakpoints;

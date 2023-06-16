@@ -12,9 +12,10 @@ import useWindowSize from '../../hooks/useWindowSize';
 import { ARROW_DIRECTIONS, ARROW_MODES, DzArrow } from '../../atoms';
 import { Transition } from '@headlessui/react';
 import { Swiper } from 'swiper/types';
-import { gridColsMaxWidths } from './util';
+import { OFFSET_AFTER, OFFSET_BEFORE, gridColsMaxWidths } from './util';
 import { cn } from '../../utils/classnames';
 import { SwiperContainer, SwiperSlide } from '../../vendor/swiper';
+import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 
 export interface DzCarouselProps {
   children: ReactNode[];
@@ -62,18 +63,18 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
 
   const swiperContainerProps = isSmall
     ? {
-        class: 'pb-14',
+        class: 'pb-0',
         'space-between': 20,
         scrollbar: 'false',
       }
     : {
-        class: 'pb-14',
+        class: 'pb-16',
         'space-between': 120,
         scrollbar: 'true',
         'grab-cursor': true,
       };
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const imgHeight = (swiperElRef.current?.firstChild?.firstChild
       ?.firstChild as HTMLElement)?.querySelector('img')?.offsetHeight;
 
@@ -108,17 +109,18 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         mousewheel-force-to-axis="true"
         scrollbar-draggable="true"
         slides-per-view="auto"
-        slides-offset-before="20"
-        slides-offset-after="20"
+        slides-offset-before={OFFSET_BEFORE}
+        slides-offset-after={OFFSET_AFTER}
         {...swiperContainerProps}
         {...swiperProps}
       >
         {children?.map((ch, index) => (
           <SwiperSlide
             key={index}
-            class={
-              gridColsMaxWidths[isSmall ? slideSpanMobile : slideSpanDesktop]
-            }
+            class={cn(
+              gridColsMaxWidths[isSmall ? slideSpanMobile : slideSpanDesktop],
+              'h-auto'
+            )}
           >
             {ch}
           </SwiperSlide>

@@ -4,6 +4,7 @@ import React, {
   forwardRef,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -21,10 +22,13 @@ import {
   DzLink,
   DzLinkProps,
   LINK_VARIANTS,
+  TEXT_LINK_SIZES,
 } from '../../atoms';
 import { DzArrow, ARROW_DIRECTIONS } from '../../atoms';
 import { cn } from '../../utils/classnames';
 import { SwiperContainer, SwiperSlide } from '../../vendor/swiper';
+import useWindowSize from '../../hooks/useWindowSize';
+import { BREAKPOINTS } from '../../layout/breakpoints';
 
 register();
 
@@ -68,11 +72,8 @@ const styles: any = {
     flex
     flex-col
     gap-2.5
-    p-2.5
     pt-5
-    pl-5
     md:ml-0
-    md:p-5
     md:pl-0
     basis-2/3
   `,
@@ -96,11 +97,11 @@ const styles: any = {
   `,
   linkCta: `
    mt-2.5
-   mb-5
-   md:my-5
+   mb-[2.219rem]
+   md:mt-7
+   md:mb-0
   `,
   mediaImage: `
-    max-h-[49.1875rem]
     w-full
   `,
   arrowsContainer: `
@@ -109,12 +110,16 @@ const styles: any = {
   `,
 };
 
-const MediaWrapper = ({ children, activeIndex }) => {
+const MediaWrapper = ({ children, activeIndex, onSlideChanged }) => {
   const swiperElRef = useRef<HTMLInputElement & { swiper: Swiper }>(null);
 
   useEffect(() => {
     if (children.length > 1)
       swiperElRef.current?.swiper.slideToLoop(activeIndex);
+
+    swiperElRef?.current?.addEventListener('transitionend', () => {
+      onSlideChanged(swiperElRef?.current?.swiper.activeIndex);
+    });
   }, [activeIndex, swiperElRef.current]);
 
   return children.length > 1 ? (
@@ -175,6 +180,10 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
   ({ items, className = '' }, ref) => {
     const [currentItemIndex, setCurrentItemIndex] = useState<number>(0);
     const [activeAnimation, setActiveAnimation] = useState(0);
+    const { width } = useWindowSize();
+    const isSmall = useMemo(() => {
+      return width <= BREAKPOINTS.MD;
+    }, [width]);
 
     const handleChange = useCallback(
       (step: Actions) => {
@@ -190,7 +199,12 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
     return (
       <div className={cn(styles.heroContainer, className)} ref={ref}>
         <div className="relative overflow-hidden">
-          <MediaWrapper activeIndex={currentItemIndex}>
+          <MediaWrapper
+            activeIndex={currentItemIndex}
+            onSlideChanged={index => {
+              setCurrentItemIndex(index);
+            }}
+          >
             {items.map(item => (
               <DzMedia imgClass={cn(styles.mediaImage)} {...item.media} />
             ))}
@@ -215,9 +229,9 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
                   title={item.title}
                   classNameTitle={cn(styles.title)}
                   classNameSubtitle={cn(styles.title)}
-                  titleType={TITLE_TYPES.H1}
+                  titleType={TITLE_TYPES.H3}
                   subtitle={item.subtitle}
-                  subtitleType={TITLE_TYPES.H2}
+                  subtitleType={TITLE_TYPES.H4}
                 />
                 {item.secondaryTitle || item.secondarySubtitle ? (
                   <DzTitle
@@ -242,6 +256,9 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
                       {...(item.linkCTA.linkProps ?? {})}
                       href={item.linkCTA.url}
                       LinkElement={item.linkCTA.linkElement}
+                      textLinkSize={
+                        isSmall ? TEXT_LINK_SIZES.XS : TEXT_LINK_SIZES.SMALL
+                      }
                       variant={LINK_VARIANTS.TEXT}
                     >
                       {item.linkCTA.text}
