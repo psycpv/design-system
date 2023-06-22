@@ -88,7 +88,7 @@ export const DzTabs: FC<DzTabsProps> = ({
   const ItemType = variant === TAB_TYPES.CONTENT ? 'div' : 'a';
   return (
     <Tab.Group>
-      <Tab.List as={listType} className={styles.tabList} aria-label={ariaLabel}>
+      <Tab.List as={listType} className={cn(styles.tabList)} aria-label={ariaLabel}>
         {tabs.map(({ title, current, ...rest }) => (
           <Tab as={Fragment}>
             {({ selected }) => (

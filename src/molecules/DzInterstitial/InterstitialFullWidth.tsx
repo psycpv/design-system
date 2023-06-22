@@ -62,12 +62,12 @@ const styles: any = {
   `,
   nonSplit: `
     relative
-    w-screen
+    w-auto
   `,
   nonSplitFull: `
     min-h-[22.5rem]
     md:min-h-[27.5rem]
-    w-screen
+    w-auto
     flex
     justify-center
   `,

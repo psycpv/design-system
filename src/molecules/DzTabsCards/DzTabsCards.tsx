@@ -14,6 +14,30 @@ export interface DzTabsCardsProps {
 }
 
 const styles: any = {
+  tabGroup: `
+    px-0
+    md:px-5
+  `,
+  tabPanels: `
+    px-5
+    md:px-0
+  `,
+  tabList: `
+    mb-10
+    flex
+    gap-10
+    overflow-y-hidden
+    overflow-x-auto
+    scrollbar-none
+    whitespace-nowrap
+
+    before:content-['_']
+    before:-mr-5
+    after:content-['_']
+    after:-ml-5
+    md:before:content-none
+    md:after:content-none
+  `,
   tab: `
     outline-transparent
     outline-offset-4
@@ -26,15 +50,6 @@ const styles: any = {
     hover:outline-1
     hover:text-black-100
     underline-offset-[0.375rem]
-  `,
-  tabsContainer: `
-    mb-10
-    flex
-    gap-10
-    overflow-y-hidden
-    overflow-x-auto
-    scrollbar-none
-    whitespace-nowrap
   `,
   selectedTab: `
     text-black-100
@@ -94,7 +109,7 @@ const tabsPanels = ({ tabs, span, isSmall = false }) => {
               >
                 <DzCard
                   type={CARD_TYPES.CONTENT}
-                  data={{ ...card, hideImage: isSmall }}
+                  data={{ ...card, hideImage: isSmall, size: span }}
                 />
               </DzColumn>
             );
@@ -116,11 +131,11 @@ export const DzTabsCards: FC<DzTabsCardsProps> = ({
   }, [width]);
 
   return (
-    <Tab.Group as="div" className={className}>
-      <Tab.List className={cn(styles.tabsContainer)}>
-        {tabsRender(tabs)}
-      </Tab.List>
-      <Tab.Panels>{tabsPanels({ tabs, span, isSmall })}</Tab.Panels>
+    <Tab.Group as="div" className={cn(styles.tabGroup, className)}>
+      <Tab.List className={cn(styles.tabList)}>{tabsRender(tabs)}</Tab.List>
+      <Tab.Panels className={cn(styles.tabPanels)}>
+        {tabsPanels({ tabs, span, isSmall })}
+      </Tab.Panels>
     </Tab.Group>
   );
 };

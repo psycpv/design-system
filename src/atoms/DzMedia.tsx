@@ -165,6 +165,7 @@ export const DzMedia: FC<DzMediaProps> = ({
       styles[objectFit],
       styles[objectPosition]
     );
+
     if (!ImgElement) {
       return (
         <img
@@ -178,7 +179,7 @@ export const DzMedia: FC<DzMediaProps> = ({
     return (
       <ImgElement className={cn(mediaClasses, '!relative')} {...imgProps} />
     );
-  }, [ImgElement, imgProps, imgClass]);
+  }, [ImgElement, imgProps, imgClass, aspectRatio, objectFit, objectPosition]);
 
   const LinkElem = useMemo(() => {
     if (url) {

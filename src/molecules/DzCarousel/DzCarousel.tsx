@@ -150,6 +150,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
           onClick={() => swiperElRef.current?.swiper.slidePrev()}
           direction={ARROW_DIRECTIONS.LEFT}
           mode={ARROW_MODES.DARK_BACKGROUND}
+          aria-label="Previous slide"
         />
       </Transition>
 
@@ -171,6 +172,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
           onClick={() => swiperElRef.current?.swiper.slideNext()}
           direction={ARROW_DIRECTIONS.RIGHT}
           mode={ARROW_MODES.DARK_BACKGROUND}
+          aria-label="Next slide"
         />
       </Transition>
     </div>

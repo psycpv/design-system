@@ -3,6 +3,7 @@ import { CardMediaData } from '../../src/molecules/DzCard/CardMedia';
 import { CardContentData } from '../../src/molecules/DzCard/CardContent';
 import { BUTTON_VARIANTS } from '../../src/atoms/DzButton';
 import { MEDIA_TYPES } from '../../src/atoms/DzMedia';
+import { CardSizes } from '../../src/molecules/DzCard';
 
 export const artWorkData: CardArtworkData = {
   id: '1',
@@ -50,6 +51,7 @@ export const mediaData: CardMediaData = {
 
 export const contentData: CardContentData = {
   id: '1',
+  size: CardSizes['12col'],
   media: {
     type: MEDIA_TYPES.IMAGE,
     imgProps: {

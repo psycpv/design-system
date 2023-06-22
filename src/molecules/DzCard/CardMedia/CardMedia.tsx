@@ -2,40 +2,15 @@ import React, { FC } from 'react';
 import {
   DzText,
   DzMedia,
-  DzMediaProps,
-  ObjectPositionType,
   TEXT_TYPES,
   TEXT_SIZES,
   MEDIA_OBJECT_FIT,
+  ObjectPositionType,
   MEDIA_ASPECT_RATIOS,
-} from '../../atoms';
-import { cn } from '../../utils/classnames';
-
-export interface CardMediaData {
-  id?: string;
-  media: DzMediaProps;
-  description: string;
-}
-
-export interface CardMediaProps {
-  data: CardMediaData;
-}
-
-const styles: any = {
-  media: {
-    descriptionText: `
-      text-black-60
-      mt-2.5
-    `,
-  },
-  cardContainer: `
-    w-full
-    @container/cardContainer
-  `,
-  mediaImg: `
-    w-full
-  `,
-};
+} from '../../../atoms';
+import { CardMediaData, CardMediaProps } from './types';
+import { styles } from './styles';
+import { cn } from '../../../utils/classnames';
 
 export const CardMedia: FC<CardMediaProps> = ({ data }) => {
   const { id, media, description } = data as CardMediaData;

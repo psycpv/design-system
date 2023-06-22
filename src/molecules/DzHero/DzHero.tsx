@@ -98,7 +98,7 @@ const styles: any = {
     md:mb-5
   `,
   linkCta: `
-   mt-8
+   mt-2.5
    mb-[2.219rem]
    md:mt-7
    md:mb-0

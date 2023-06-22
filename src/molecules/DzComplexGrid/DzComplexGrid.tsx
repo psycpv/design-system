@@ -165,7 +165,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
       <div className={cn(styles.headControls)}>
         {displayText ? (
           <DzText
-            className={styles.heading}
+            className={cn(styles.heading)}
             {...(textProps ?? {})}
             text={displayText}
           />
@@ -233,7 +233,10 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
 
           return (
             <DzColumn key={`${id}-${key}`} span={columnsSpanPerRow}>
-              <DzCard type={cardDataType} data={cardData} />
+              <DzCard
+                type={cardDataType}
+                data={{ ...cardData, size: columnsSpanPerRow }}
+              />
             </DzColumn>
           );
         })}

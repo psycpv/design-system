@@ -4,7 +4,7 @@ import {
   DzCarousel,
   DzCarouselProps,
 } from '../../src/molecules/DzCarousel/DzCarousel';
-import { CARD_TYPES, DzCard } from '../../src/molecules/DzCard/DzCard';
+import { CARD_TYPES, CardSizes, DzCard } from '../../src/molecules/DzCard';
 import { DzGridColumns, DzColumn } from '../../src/layout/DzGrid';
 import { contentData } from '../../constants/mocks/DzCard';
 
@@ -41,7 +41,18 @@ const Template: Story<DzCarouselProps & { showGrid: boolean }> = args => (
       {Array(10)
         .fill(null)
         .map(_ => (
-          <DzCard {...{ data: contentData, type: CARD_TYPES.CONTENT }} />
+          <DzCard
+            {...{
+              data: {
+                ...contentData,
+                size: [
+                  args.slideSpanMobile || CardSizes['12col'],
+                  args.slideSpanDesktop || CardSizes['6col'],
+                ],
+              },
+              type: CARD_TYPES.CONTENT,
+            }}
+          />
         ))}
     </DzCarousel>
     {args.showGrid && GridColumnsDebug()}

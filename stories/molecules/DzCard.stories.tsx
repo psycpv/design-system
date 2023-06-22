@@ -1,10 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import {
-  DzCard,
-  DzCardProps,
-  CARD_TYPES,
-} from '../../src/molecules/DzCard/DzCard';
+import { DzCard, DzCardProps, CARD_TYPES } from '../../src/molecules/DzCard';
 import {
   mediaData,
   artWorkData,
@@ -12,6 +8,7 @@ import {
 } from '../../constants/mocks/DzCard';
 import { DzColumn, DzGridColumns, ColumnSpan } from '../../src/layout/DzGrid';
 import { cn } from '../../src/utils/classnames';
+import { CardSizeType } from '../../src/molecules/DzCard/CardContent';
 
 const meta: Meta = {
   title: 'Molecules/Content/DzCard',
@@ -58,7 +55,10 @@ const Template: Story<CardStoryProps> = ({
       <DzGridColumns>
         {showGrid ? <GridColumnsDebug /> : null}
         <DzColumn className="z-10 relative" span={span}>
-          <DzCard {...rest} />
+          <DzCard
+            {...rest}
+            data={{ ...rest.data, size: span as CardSizeType }}
+          />
         </DzColumn>
       </DzGridColumns>
     </div>
