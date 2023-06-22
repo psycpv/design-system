@@ -145,6 +145,12 @@ and tests the project. Also, every push to the `main` triggers the `CI` workflow
 with cost comparison against the project before the proposed changes. The configuration 
 for the `size-limit` can be found in the `package.json`.
 
+## Automatic dependency bumps
+
+The Dependabot configuration is located in the `.github/dependabot.yml`. It is
+configured to check weekly for new versions of dependencies in the `package.json`
+and actions used in the workflows. If there is a new version, Dependabot opens a PR.
+
 ## Optimizations
 
 Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
