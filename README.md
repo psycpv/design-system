@@ -149,7 +149,7 @@ for the `size-limit` can be found in the `package.json`.
 
 The Dependabot configuration is located in the `.github/dependabot.yml`. It is
 configured to check weekly for new versions of dependencies in the `package.json`
-and actions used in workflows. If there is a new versions, Dependabot opens a PR.
+and actions used in the workflows. If there is a new version, Dependabot opens a PR.
 
 ## Optimizations
 
