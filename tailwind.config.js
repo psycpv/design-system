@@ -120,7 +120,7 @@ module.exports = {
       },
       screens: {
         xs: '576px',
-        md: '768px',
+        md: '769px',
       },
     },
   },

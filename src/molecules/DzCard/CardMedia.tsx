@@ -3,13 +3,16 @@ import {
   DzText,
   DzMedia,
   DzMediaProps,
+  ObjectPositionType,
   TEXT_TYPES,
   TEXT_SIZES,
+  MEDIA_OBJECT_FIT,
+  MEDIA_ASPECT_RATIOS,
 } from '../../atoms';
 import { cn } from '../../utils/classnames';
 
 export interface CardMediaData {
-  id?:string;
+  id?: string;
   media: DzMediaProps;
   description: string;
 }
@@ -31,14 +34,6 @@ const styles: any = {
   `,
   mediaImg: `
     w-full
-    @6colMbl/cardContainer:min-h-[12.5rem]
-    @12colMbl/cardContainer:min-h-[22.5rem]
-    md:@2col/cardContainer:min-h-[12.5rem]
-    md:@3col/cardContainer:min-h-[18.75rem]
-    md:@4col/cardContainer:min-h-[22.5rem]
-    md:@6col/cardContainer:min-h-[33.75rem]
-    md:@10col/cardContainer:min-h-[45rem]
-    md:@12col/cardContainer:min-h-[51.25rem]
   `,
 };
 
@@ -46,7 +41,13 @@ export const CardMedia: FC<CardMediaProps> = ({ data }) => {
   const { id, media, description } = data as CardMediaData;
   return (
     <div id={id} className={cn(styles.cardContainer)}>
-      <DzMedia imgClass={cn(styles.mediaImg)} {...media} />
+      <DzMedia
+        imgClass={cn(styles.mediaImg)}
+        objectFit={MEDIA_OBJECT_FIT.COVER}
+        objectPosition={ObjectPositionType.CENTER}
+        aspectRatio={MEDIA_ASPECT_RATIOS['16:9']}
+        {...media}
+      />
       <DzText
         className={cn(styles.media.descriptionText)}
         textType={TEXT_TYPES.P}

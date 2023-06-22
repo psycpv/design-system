@@ -17,6 +17,7 @@ import {
   DzMediaProps,
   DzText,
   DzTitle,
+  DzTitleProps,
   TITLE_SIZES,
   TITLE_TYPES,
   DzLink,
@@ -47,6 +48,7 @@ export interface DzHeroProps {
   items: DzHeroItem[];
   onSlideChange?: Function;
   className?: string;
+  primaryTitleProps?: Omit<DzTitleProps, 'title' | 'subtitle'>;
 }
 
 interface LinkCTA {
@@ -177,7 +179,7 @@ enum Actions {
 }
 
 export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
-  ({ items, className = '' }, ref) => {
+  ({ items, className = '', primaryTitleProps }, ref) => {
     const [currentItemIndex, setCurrentItemIndex] = useState<number>(0);
     const [activeAnimation, setActiveAnimation] = useState(0);
     const { width } = useWindowSize();
@@ -232,6 +234,7 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
                   titleType={TITLE_TYPES.H3}
                   subtitle={item.subtitle}
                   subtitleType={TITLE_TYPES.H4}
+                  {...primaryTitleProps}
                 />
                 {item.secondaryTitle || item.secondarySubtitle ? (
                   <DzTitle
