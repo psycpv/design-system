@@ -32,4 +32,4 @@ export const spanToCardSize = (span: ColumnSpan): CardSizes => {
 };
 
 export const typeToSize = (size: CardSizeType): CardSizes =>
-  typeof size === 'number' ? spanToCardSize(size) : size;
+  typeof size === 'number' ? spanToCardSize(size as ColumnSpan) : size;

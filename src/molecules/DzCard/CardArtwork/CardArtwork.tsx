@@ -7,6 +7,7 @@ import {
   TITLE_TYPES,
   DzButton,
   MEDIA_OBJECT_FIT,
+  MEDIA_ASPECT_RATIOS,
 } from '../../../atoms';
 import { cn } from '../../../utils/classnames';
 import { priceFormatter } from '../../../utils/formatters';
@@ -32,9 +33,10 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
   return (
     <div id={id} className={cn(styles.cardContainer)}>
       <DzMedia
+        className="overflow-hidden"
         imgClass={cn(styles.mediaImg, enableZoom ? styles.mediaZoom : '')}
         objectFit={MEDIA_OBJECT_FIT.CONTAIN}
-        className="overflow-hidden"
+        aspectRatio={MEDIA_ASPECT_RATIOS['4:3']}
         {...media}
       />
       <div className={cn(styles.artwork.infoContainer)}>

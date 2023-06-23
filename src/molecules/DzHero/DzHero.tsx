@@ -1,6 +1,7 @@
 import React, {
   FC,
   Fragment,
+  ReactNode,
   forwardRef,
   useCallback,
   useEffect,
@@ -40,7 +41,7 @@ export interface DzHeroItem {
   subtitle?: string;
   secondaryTitle?: string;
   secondarySubtitle?: string;
-  description?: string;
+  description?: string | ReactNode;
   linkCTA?: LinkCTA;
 }
 
@@ -246,7 +247,9 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
                     subtitle={item.secondarySubtitle}
                     subtitleType={TITLE_TYPES.P}
                   />
-                ) : null}
+                ) : (
+                  isSmall && <div />
+                )}
                 {item.description ? (
                   <DzText
                     className={cn(styles.description)}
@@ -271,8 +274,9 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
               </div>
             ))}
           </ContentWrapper>
-          <div className={cn(styles.controlsContainer)}>
-            {items.length > 1 ? (
+
+          {items.length > 1 ? (
+            <div className={cn(styles.controlsContainer)}>
               <div className={cn(styles.arrowsContainer)}>
                 <DzArrow
                   onClick={() => handleChange(Actions.PREV)}
@@ -283,8 +287,8 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
                   direction={ARROW_DIRECTIONS.RIGHT}
                 />
               </div>
-            ) : null}
-          </div>
+            </div>
+          ) : null}
         </div>
       </div>
     );
