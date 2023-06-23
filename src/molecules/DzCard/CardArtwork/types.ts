@@ -1,12 +1,12 @@
 import { DzButtonProps, DzMediaProps } from '../../../atoms';
+import { BaseCard } from '../types';
 
 interface CardCTA {
   text: string;
   ctaProps?: DzButtonProps;
 }
 
-export interface CardArtworkData {
-  id?: string;
+export interface CardArtworkData extends BaseCard {
   media: DzMediaProps;
   artistName: string;
   artworkTitle: string;

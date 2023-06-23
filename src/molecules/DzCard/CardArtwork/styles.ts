@@ -1,53 +1,43 @@
-export const styles: any = {
+export const globalStyles: any = {
   artwork: {
     infoContainer: `
       flex-col
+      md:flex-row
       flex
       justify-between
       gap-5
-      md:@4col/cardContainer:flex-row
-      md:@4col/cardContainer:-mt-2.5
-      md:@6col/cardContainer:mt-0
+      md:gap-10
     `,
     leftPanel: `
       flex
       flex-col
-      basis-1/2
-      @6colMbl/cardContainer:gap-2.5
-      md:@2col/cardContainer:gap-2.5
-      md:@3col/cardContainer:gap-2.5
-      md:@4col/cardContainer:gap-2.5
-    `,
-    artistName: `
-      md:@4col/cardContainer:text-md
-      md:@10col/cardContainer:text-lg
+      flex-1
+      gap-2.5
     `,
     rightPanel: `
-      mt-5
       flex
       flex-col
       gap-5
-      md:@4col/cardContainer:m-0
-      md:@4col/cardContainer:min-w-[13.5625rem]
+      md:min-w-[13.563rem]
+    `,
+    artistName: `
+      text-sm
     `,
     artWorkTitle: `
-      md:@4col/cardContainer:text-md
-      md:@10col/cardContainer:text-lg
+      text-sm
       italic
     `,
     artworkYear: `
-      md:@4col/cardContainer:text-md
-      md:@10col/cardContainer:text-lg
+      text-sm
       uppercase
     `,
+    priceTitle: `
+      text-sm
+    `,
     tombstoneText: `
+      text-sm
       text-black-60
       whitespace-pre-wrap
-    `,
-    priceTitle: `
-      @6colMbl/cardContainer:text-md
-      md:@2col/cardContainer:text-sm
-      md:@4col/cardContainer:text-md
     `,
   },
   mediaImg: `
@@ -55,7 +45,6 @@ export const styles: any = {
   `,
   mediaZoom: `
     md:hover:@2col/cardContainer:scale-[1.03]
-    md:hover:@12col/cardContainer:scale-100
     ease-in duration-300
   `,
   cardContainer: `
@@ -64,14 +53,118 @@ export const styles: any = {
     flex
     flex-col
     gap-2.5
-    md:@6col/cardContainer:gap-5 
   `,
-  buttons: `
-    @12colMbl/cardContainer:py-[0.8125rem]
-    @12colMbl/cardContainer:px-[1.5625rem]
-    md:@2col/cardContainer:py-[0.3125rem]
-    md:@2col/cardContainer:px-[1.5625rem]
-    md:@3col/cardContainer:py-[0.8125rem]
-    md:@3col/cardContainer:px-[1.5625rem]
-  `,
+};
+
+export const stylesSizes: any = {
+  '12col': {
+    artwork: {
+      artistName: `
+        md:text-lg
+      `,
+      artWorkTitle: `
+        md:text-lg
+      `,
+      artworkYear: `
+        md:text-lg
+      `,
+      priceTitle: `
+        md:text-md
+      `,
+    },
+    mediaZoom: `
+      md:hover:scale-100
+    `,
+    cardContainer: `
+      md:gap-5 
+    `,
+    buttons: `
+      py-[0.8125rem]
+      px-[1.5625rem]
+      md:py-[0.8125rem]
+      md:px-[1.5625rem]
+    `,
+  },
+  '10col': {
+    artwork: {
+      artistName: `
+        text-sm
+        md:text-lg
+      `,
+      artWorkTitle: `
+        text-sm
+        md:text-lg
+      `,
+      artworkYear: `
+        text-sm
+        md:text-lg
+      `,
+      priceTitle: `
+        text-sm
+        md:text-md
+      `,
+    },
+    buttons: `
+      md:py-[0.8125rem]
+      md:px-[1.5625rem]
+    `,
+    cardContainer: `
+      md:gap-5
+    `,
+  },
+  '6col': {
+    artwork: {
+      artistName: `
+        md:text-md
+      `,
+      artWorkTitle: `
+        md:text-md
+      `,
+      artworkYear: `
+        md:text-md
+      `,
+      priceTitle: `
+        md:text-md
+      `,
+    },
+    cardContainer: `
+      md:gap-5
+    `,
+    buttons: `
+      md:py-[0.8125rem]
+      md:px-[1.5625rem]
+    `,
+  },
+  '4col': {
+    artwork: {
+      artistName: `
+        md:text-md
+      `,
+      artWorkTitle: `
+        md:text-md
+      `,
+      artworkYear: `
+        md:text-md
+      `,
+      priceTitle: `
+        md:text-md
+      `,
+    },
+    buttons: `
+      md:py-[0.8125rem]
+      md:px-[1.5625rem]
+    `,
+  },
+  '3col': {
+    buttons: `
+      md:py-[0.8125rem]
+      md:px-[1.5625rem]
+    `,
+  },
+  '2col': {
+    buttons: `
+      md:py-[0.3125rem]
+      md:px-[1.5625rem]
+    `,
+  },
 };

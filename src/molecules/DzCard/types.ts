@@ -1,6 +1,16 @@
+import { ColumnSpan } from '../../layout';
 import { CardArtworkData } from './CardArtwork';
 import { CardContentData } from './CardContent';
 import { CardMediaData } from './CardMedia';
+import { CardSizes } from './sizes';
+
+export type CardSizeType = CardSizes | ColumnSpan;
+
+export interface BaseCard {
+  id?: string;
+  //    12col or 12  or [Mobile Size, Desktop Size]
+  size: CardSizeType | [CardSizeType, CardSizeType];
+}
 
 export const CARD_TYPES = {
   CONTENT: 'content',

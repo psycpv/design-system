@@ -5,10 +5,9 @@ import { BUTTON_VARIANTS } from '../../src/atoms/DzButton';
 import { MEDIA_TYPES } from '../../src/atoms/DzMedia';
 import { CardSizes } from '../../src/molecules/DzCard';
 
-export const artWorkData: CardArtworkData = {
+export const artWorkData: Partial<CardArtworkData> = {
   id: '1',
   media: {
-    url: '/',
     type: MEDIA_TYPES.IMAGE,
     imgProps: {
       src:
@@ -35,7 +34,7 @@ export const artWorkData: CardArtworkData = {
   },
 };
 
-export const mediaData: CardMediaData = {
+export const mediaData: Partial<CardMediaData> = {
   id: '1',
   media: {
     type: MEDIA_TYPES.IMAGE,
@@ -49,7 +48,7 @@ export const mediaData: CardMediaData = {
     'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu',
 };
 
-export const contentData: CardContentData = {
+export const contentData: Partial<CardContentData> = {
   id: '1',
   size: CardSizes['12col'],
   media: {

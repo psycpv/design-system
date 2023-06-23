@@ -1,5 +1,5 @@
 import { ColumnSpan } from '../../layout';
-import { CardSizeType } from './CardContent';
+import { CardSizeType } from './types';
 
 export enum CardSizes {
   '12col' = '12col',

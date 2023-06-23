@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import {
   DzMedia,
   DzText,
@@ -8,15 +8,21 @@ import {
   DzButton,
   MEDIA_OBJECT_FIT,
   MEDIA_ASPECT_RATIOS,
+  BUTTON_SIZES,
 } from '../../../atoms';
 import { cn } from '../../../utils/classnames';
 import { priceFormatter } from '../../../utils/formatters';
 import { CardArtworkData, CardArtworkProps } from './types';
-import { styles } from './styles';
+import { globalStyles, stylesSizes } from './styles';
+import { mergeStyles } from '../../../lib/styles';
+import { typeToSize } from '../sizes';
+import useWindowSize from '../../../hooks/useWindowSize';
+import { BREAKPOINTS } from '../../../layout/breakpoints';
 
 export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
   const {
     id,
+    size,
     media,
     artistName,
     artworkTitle,
@@ -30,6 +36,22 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
     secondaryCTA,
     enableZoom = true,
   } = data as CardArtworkData;
+
+  const { width } = useWindowSize();
+  const isSmall = useMemo(() => {
+    return width <= BREAKPOINTS.MD;
+  }, [width]);
+
+  const styles = useMemo(() => {
+    const span = Array.isArray(size)
+      ? isSmall
+        ? typeToSize(size[0])
+        : typeToSize(size[1])
+      : typeToSize(size);
+
+    return mergeStyles({ ...globalStyles }, stylesSizes[span]);
+  }, [size, isSmall]);
+
   return (
     <div id={id} className={cn(styles.cardContainer)}>
       <DzMedia
@@ -86,6 +108,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
               />
             ) : null}
           </div>
+
           {price ? (
             <div className={cn(styles.artwork.priceContainer)}>
               <DzTitle
@@ -108,6 +131,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
           <div className={cn(styles.artwork.rightPanel)}>
             {primaryCTA ? (
               <DzButton
+                size={BUTTON_SIZES.LARGE}
                 {...(primaryCTA.ctaProps ?? {})}
                 className={cn(styles.buttons)}
               >
@@ -116,6 +140,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
             ) : null}
             {secondaryCTA ? (
               <DzButton
+                size={BUTTON_SIZES.LARGE}
                 {...(secondaryCTA.ctaProps ?? {})}
                 className={cn(styles.buttons)}
               >

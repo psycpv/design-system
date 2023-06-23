@@ -6,10 +6,7 @@ import {
   SubTitleType,
   TitleType,
 } from '../../../atoms';
-import { CardSizes } from '..';
-import { ColumnSpan } from '../../../layout';
-
-export type CardSizeType = CardSizes | ColumnSpan;
+import { BaseCard } from '../types';
 
 interface PrimaryCTA {
   text: string;
@@ -27,8 +24,7 @@ export interface CardContentProps {
   data: CardContentData;
 }
 
-export interface CardContentData extends React.HTMLAttributes<HTMLDivElement> {
-  id?: string;
+export interface CardContentData extends BaseCard {
   media: DzMediaProps;
   category?: string;
   title: string;
@@ -41,6 +37,4 @@ export interface CardContentData extends React.HTMLAttributes<HTMLDivElement> {
   linkCTA?: LinkCTA;
   primaryCTA?: PrimaryCTA;
   hideImage?: boolean;
-  //    12col or 12  or [Mobile Size, Desktop Size]
-  size: CardSizeType | [CardSizeType, CardSizeType];
 }

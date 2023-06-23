@@ -126,10 +126,12 @@ const styles: any = {
   large: `
     py-[0.8125rem]
     px-[1.5625rem]
+    text-md
   `,
   small: `
     py-[0.3125rem]
     px-[1.5625rem]
+    text-xs
   `,
   childrenContainer: `
     px-[1.6875rem]
@@ -212,8 +214,8 @@ export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
         ref={composeRefs(hoverRef, forwardedRef) as any}
         className={cn(
           styles.btn,
-          styles?.[variant],
-          styles?.[size],
+          styles[variant],
+          styles[size],
           styles[mode],
           className
         )}

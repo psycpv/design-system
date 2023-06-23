@@ -1,4 +1,4 @@
-import React, { FC, useState, useMemo, useCallback, Fragment } from 'react';
+import React, { FC, useState, useMemo, useCallback } from 'react';
 import { DzGridColumns, DzColumn, ColumnSpan } from '../../layout';
 import {
   DzRange,
@@ -39,7 +39,7 @@ type ExtraData = {
   cardType?: CardTypes;
 };
 
-type RichCard = DataCardType & ExtraData;
+type RichCard = Omit<DataCardType, 'size'> & ExtraData;
 
 export interface DzComplexGridProps {
   cards: RichCard[];
@@ -63,7 +63,8 @@ const styles: any = {
     flex
     justify-between
     items-center
-    mb-10
+    mb-5
+    md:mb-10
   `,
   rangeContainer: `
     flex
@@ -162,7 +163,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
 
   return (
     <div>
-      <div className={cn(styles.headControls)}>
+      <div className={styles.headControls}>
         {displayText ? (
           <DzText
             className={cn(styles.heading)}
@@ -207,7 +208,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
             : 'gap-y-[3.75rem]'
         }
       >
-        {cards.map((card, key) => {
+        {cards.map((card: any, key) => {
           if (!card) return null;
 
           const { id, cardType } = card;

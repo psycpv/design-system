@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzCard, DzCardProps, CARD_TYPES } from '../../src/molecules/DzCard';
+import { DzCard, DzCardProps, CARD_TYPES, CardSizeType } from '../../src/molecules/DzCard';
 import {
   mediaData,
   artWorkData,
@@ -8,7 +8,6 @@ import {
 } from '../../constants/mocks/DzCard';
 import { DzColumn, DzGridColumns, ColumnSpan } from '../../src/layout/DzGrid';
 import { cn } from '../../src/utils/classnames';
-import { CardSizeType } from '../../src/molecules/DzCard/CardContent';
 
 const meta: Meta = {
   title: 'Molecules/Content/DzCard',

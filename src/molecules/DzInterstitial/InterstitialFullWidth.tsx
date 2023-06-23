@@ -73,8 +73,8 @@ const styles: any = {
   `,
   contentInfoNonSplit: `
     w-full
-    md:w-[43.125rem]
-    p-5
+    md:w-[43.375rem]
+    py-5
     gap-5
     flex
     flex-col
@@ -88,8 +88,8 @@ const styles: any = {
   `,
   contentInfoNonSplitRelative: `
     w-full
-    md:w-[43.125rem]
-    p-5
+    md:w-[43.375rem]
+    py-5
     gap-5
     flex
     flex-col
