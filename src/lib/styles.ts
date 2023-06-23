@@ -6,17 +6,19 @@ export const isObject = item =>
 export const isString = str => typeof str === 'string';
 
 export const mergeStyles = (target, source) => {
-  if (isObject(target) && isObject(source)) {
-    for (const key in source) {
-      if (isObject(source[key])) {
-        if (!target[key]) Object.assign(target, { [key]: {} });
-        mergeStyles(target[key], source[key]);
-      } else if (isString(target[key]) && isString(source[key])) {
-        Object.assign(target, { [key]: cn(target[key], source[key]) });
-      } else {
-        Object.assign(target, { [key]: source[key] });
-      }
+  if (isString(target) || isString(source)) return cn(target, source);
+
+  if (isObject(target) || isObject(source)) {
+    const obj = {};
+
+    const allKeys = Object.keys(Object.assign({}, target || {}, source || {}));
+
+    for (const key of allKeys) {
+      obj[key] = mergeStyles(target?.[key], source?.[key]);
     }
+
+    return obj;
   }
-  return target;
+
+  return target || source;
 };

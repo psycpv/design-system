@@ -49,7 +49,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
         : typeToSize(size[1])
       : typeToSize(size);
 
-    return mergeStyles({ ...globalStyles }, stylesSizes[span]);
+    return mergeStyles(globalStyles, stylesSizes[span]);
   }, [size, isSmall]);
 
   return (

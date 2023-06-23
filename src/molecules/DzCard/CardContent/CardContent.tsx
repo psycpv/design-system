@@ -51,7 +51,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
         : typeToSize(size[1])
       : typeToSize(size);
 
-    return mergeStyles({ ...globalStyles }, stylesSizes[span]);
+    return mergeStyles(globalStyles, stylesSizes[span]);
   }, [size, isSmall]);
 
   return (
