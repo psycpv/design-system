@@ -25,6 +25,7 @@ import {
   DzLinkProps,
   LINK_VARIANTS,
   TEXT_LINK_SIZES,
+  TEXT_SIZES,
 } from '../../atoms';
 import { DzArrow, ARROW_DIRECTIONS } from '../../atoms';
 import { cn } from '../../utils/classnames';
@@ -254,6 +255,7 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
                   <DzText
                     className={cn(styles.description)}
                     text={item.description}
+                    textSize={TEXT_SIZES.MEDIUM}
                   />
                 ) : null}
                 {item.linkCTA ? (
