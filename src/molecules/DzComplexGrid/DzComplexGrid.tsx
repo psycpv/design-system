@@ -153,6 +153,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   const handleChange = useCallback(currentStep => {
     const [_, step] = currentStep;
     setStepValue(step);
+    console.log('STEP::', step);
   }, []);
 
   const displayText = useMemo(() => {
@@ -181,7 +182,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
                   min={MINIMUM_VALUE}
                   max={maximumValue}
                   step={STEPS_SPAN}
-                  value={[MINIMUM_VALUE, initialValue]}
+                  value={[MINIMUM_VALUE, stepValue]}
                   onChange={handleChange}
                 />
               </div>
