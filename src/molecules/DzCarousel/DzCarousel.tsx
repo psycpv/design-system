@@ -64,10 +64,12 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
     ? {
         class: 'pb-0',
         'space-between': 20,
+        scrollbar: 'false',
       }
     : {
         class: 'pb-16',
         'space-between': 120,
+        scrollbar: 'true',
         'grab-cursor': true,
       };
 
@@ -106,7 +108,8 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         keyboard-enabled="true"
         mousewheel="true"
         mousewheel-force-to-axis="true"
-        scrollbar="false"
+        scrollbar-draggable="true"
+        scrollbar-snap-on-release="false"
         slides-per-view="auto"
         slides-offset-before={OFFSET_BEFORE}
         slides-offset-after={OFFSET_AFTER}
