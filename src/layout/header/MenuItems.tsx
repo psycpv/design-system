@@ -1,6 +1,6 @@
 import React, { FC, useMemo, useRef } from 'react';
 import { DesktopSubmenu } from './DesktopSubmenus';
-import { DzLink, DzLinkProps, RouterProps } from '../../atoms';
+import { DzLink, DzLinkProps, RouterProps, TEXT_LINK_SIZES } from '../../atoms';
 import { cn } from '../../utils/classnames';
 import { MobileSubmenus } from './MobileSubmenus';
 import useHover from '../../hooks/useHover';
@@ -54,15 +54,7 @@ const styles: any = {
     max-h-[1.25rem]
   `,
   menuContainerMobile: `
-    max-h-[36.1875rem]
-    overflow-y-auto
     mr-1
-    scrollbar
-    scrollbar-h-[0.1875rem]
-    scrollbar-w-[0.1875rem]
-    scrollbar-thumb-black-60
-    scrollbar-track-black-20
-    scrollbar-rounded-[0.1875rem]
   `,
   submenuItemMobile: `
     p-5
@@ -74,9 +66,11 @@ const styles: any = {
   submenuItemDesktop: `
     w-full
     block
-    my-1.5
     min-w-fit
     outline-transparent
+  `,
+  verticalPadding: `
+    py-3
   `,
   narrow: `
     px-3
@@ -87,7 +81,7 @@ const styles: any = {
 };
 
 export const renderPerType = {
-  menuItemLink: (data: MenuItemLink, _, linkProps, className) => {
+  menuItemLink: (data: MenuItemLink, isMobile, linkProps, className) => {
     const { title, newTab, link } = data ?? {};
 
     return (
@@ -96,6 +90,7 @@ export const renderPerType = {
         href={link}
         openNewTab={newTab}
         className={className}
+        textLinkSize={isMobile ? TEXT_LINK_SIZES.MD : TEXT_LINK_SIZES.SM}
       >
         {title}
       </DzLink>
@@ -133,7 +128,7 @@ export const renderPerType = {
       />
     );
   },
-  menuItemPage: (data: MenuItemPage, _, linkProps, className) => {
+  menuItemPage: (data: MenuItemPage, isMobile, linkProps, className) => {
     const { title, newTab, anchor, page } = data ?? {};
     const { url = '' } = page ?? {};
     const urlWithAnchor = anchor ? `${url}#${anchor}` : url;
@@ -144,6 +139,7 @@ export const renderPerType = {
         href={urlWithAnchor}
         openNewTab={newTab}
         className={className}
+        textLinkSize={isMobile ? TEXT_LINK_SIZES.MD : TEXT_LINK_SIZES.SM}
       >
         {title}
       </DzLink>
@@ -151,15 +147,21 @@ export const renderPerType = {
   },
 };
 
-export const renderItems = (items, isMobile = false, linkProps = {}) => {
+export const renderItems = (
+  items,
+  isMobile = false,
+  linkProps = {},
+  isNested = false
+) => {
   const { width } = useWindowSize();
   const paddingClasses = useMemo(
     () => (width > BREAKPOINTS.MD && width < 900 ? styles.narrow : styles.wide),
     [width]
   );
+  const verticalPadding = isNested ? styles.verticalPadding : '';
   const itemListClass = isMobile
     ? styles.submenuItemMobile
-    : cn(styles.submenuItemDesktop, paddingClasses);
+    : cn(styles.submenuItemDesktop, verticalPadding, paddingClasses);
 
   return items?.map(item => {
     const { _type, title } = item ?? {};

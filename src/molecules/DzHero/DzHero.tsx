@@ -265,7 +265,7 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
                       href={item.linkCTA.url}
                       LinkElement={item.linkCTA.linkElement}
                       textLinkSize={
-                        isSmall ? TEXT_LINK_SIZES.XS : TEXT_LINK_SIZES.SMALL
+                        isSmall ? TEXT_LINK_SIZES.XS : TEXT_LINK_SIZES.SM
                       }
                       variant={LINK_VARIANTS.TEXT}
                     >
