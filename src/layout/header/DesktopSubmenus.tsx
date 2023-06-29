@@ -45,9 +45,6 @@ const styles: any = {
     items-center
     justify-end
   `,
-  submenuContainer: `
-    absolute
-  `,
   childMenus: `
     bg-white-100
     flex
@@ -55,7 +52,7 @@ const styles: any = {
     py-[0.875rem]
     z-30
     min-w-[10.3164rem]
-    gap-3
+    absolute
   `,
   rootDesktop: `
    
@@ -184,12 +181,12 @@ export const DesktopSubmenu: FC<DesktopSubmenuProps> = ({
       <Popover.Panel
         as="ul"
         static
-        className={cn(styles.childMenus, styles.submenuContainer, showClasses)}
+        className={cn(styles.childMenus, showClasses)}
         onMouseEnter={() => SetHoverOverMenu(true)}
         onMouseLeave={() => SetHoverOverMenu(false)}
         onBlur={() => setVisitedFocusElements(element => element + 1)}
       >
-        {renderItems(items, false, linkPropsHover)}
+        {renderItems(items, false, linkPropsHover, true)}
       </Popover.Panel>
     </Popover>
   );
