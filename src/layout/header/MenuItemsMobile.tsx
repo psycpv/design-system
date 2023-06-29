@@ -103,11 +103,12 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
   newsletterAction = () => null,
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
-  const handleKeyDown = useCallback((e: any) => {
-    if (e.code === 'Enter') {
-      handleSearch(e);
-    }
-  },
+  const handleKeyDown = useCallback(
+    (e: any) => {
+      if (e.code === 'Enter') {
+        handleSearch(e);
+      }
+    },
     [handleSearch]
   );
 

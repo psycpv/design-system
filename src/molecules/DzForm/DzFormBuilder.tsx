@@ -95,7 +95,10 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
           return (
             <Fragment key={id}>
               {sectionTitle ? (
-                <DzText className={cn(styles.sectionTitle)} text={sectionTitle} />
+                <DzText
+                  className={cn(styles.sectionTitle)}
+                  text={sectionTitle}
+                />
               ) : null}
               {fields?.length ? (
                 <DzGridColumns key={id}>
