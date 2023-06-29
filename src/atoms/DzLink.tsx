@@ -1,6 +1,11 @@
 import React from 'react';
 import { cn } from '../utils/classnames';
-import { ComponentPropsWithRef, forwardRef, ReactNode } from 'react';
+import {
+  ComponentPropsWithRef,
+  forwardRef,
+  ReactNode,
+  ForwardRefExoticComponent,
+} from 'react';
 
 export const LINK_VARIANTS = {
   NAV: 'nav',
@@ -8,14 +13,21 @@ export const LINK_VARIANTS = {
 };
 
 export const TEXT_LINK_SIZES = {
-  SMALL: 'small',
-  LARGE: 'large',
+  XS: 'extraSmall',
+  SM: 'small',
+  MD: 'medium',
+  LG: 'large',
+  XL: 'extraLarge',
 };
 
 export const TEXT_LINK_SIZES_NAMES = [
-  TEXT_LINK_SIZES.SMALL,
-  TEXT_LINK_SIZES.LARGE,
+  TEXT_LINK_SIZES.XS,
+  TEXT_LINK_SIZES.SM,
+  TEXT_LINK_SIZES.MD,
+  TEXT_LINK_SIZES.LG,
+  TEXT_LINK_SIZES.XL,
 ] as const;
+
 export const LINK_VARIANTS_NAMES = [
   LINK_VARIANTS.NAV,
   LINK_VARIANTS.TEXT,
@@ -36,6 +48,11 @@ export type DzLinkProps = {
   textLinkSize?: TextLinkSize;
 } & ComponentPropsWithRef<'a'>;
 
+export interface RouterProps {
+  useRoute?: boolean;
+  router?: any;
+}
+
 const styles: any = {
   element: `
     transition-text-decoration
@@ -48,24 +65,41 @@ const styles: any = {
     decoration-transparent
     hover:underline
     hover:decoration-current
+    focus:underline
+    focus:decoration-current
     decoration-black-60 
   `,
   text: `
     underline
     decoration-black-40 
     hover:decoration-black-60
+    focus:decoration-black-60
   `,
   inactive: `
-    text-black-40
+    text-black-60
+    hover:text-black-60
+    focus:text-black-60
+  `,
+  extraSmall: `
+    text-xs
   `,
   small: `
     text-sm
   `,
-  large: `
+  medium: `
     text-md
   `,
+  large: `
+    text-lg
+    underline-offset-8
+  `,
+  extraLarge: `
+    text-xl
+    underline-offset-[35%]
+  `,
 };
-export const DzLink = forwardRef<HTMLAnchorElement, DzLinkProps>(
+
+export const DzLink: ForwardRefExoticComponent<DzLinkProps> = forwardRef(
   (
     {
       children,
@@ -77,12 +111,12 @@ export const DzLink = forwardRef<HTMLAnchorElement, DzLinkProps>(
       router,
       useRoute,
       LinkElement = 'a',
-      textLinkSize = TEXT_LINK_SIZES.SMALL,
+      textLinkSize = TEXT_LINK_SIZES.SM,
       ...rest
     },
     ref
   ) => {
-    const isActive = router?.asPath === (href === '/home' ? '/' : href);
+    const isActive = router?.asPath === href;
     const inactiveStyle = !isActive ? styles.inactive : '';
     const isNewTab =
       openNewTab !== undefined
@@ -91,15 +125,18 @@ export const DzLink = forwardRef<HTMLAnchorElement, DzLinkProps>(
 
     const linkStyle = cn(
       styles.element,
-      styles?.[variant],
-      styles?.[textLinkSize],
+      styles[variant],
+      styles[textLinkSize],
       useRoute ? inactiveStyle : '',
       className
     );
+
     const LinkElementType = LinkElement ?? 'a';
+
     if (!isNewTab) {
       return (
         <LinkElementType
+          key={textLinkSize}
           href={href}
           ref={ref}
           className={linkStyle}
@@ -118,7 +155,7 @@ export const DzLink = forwardRef<HTMLAnchorElement, DzLinkProps>(
         rel="noopener noreferrer"
         href={href}
         {...rest}
-        className={cn(linkStyle)}
+        className={linkStyle}
       >
         {children}
       </a>

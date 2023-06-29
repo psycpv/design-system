@@ -9,26 +9,29 @@ import {
   TITLE_SIZES,
   DzButton,
   BUTTON_SIZES,
+  ButtonModes,
 } from '../../atoms';
 import { cn } from '../../utils/classnames';
 import { TextColors, PrimaryCTAInterstitial } from './DzInterstitial';
 
 export interface InterstitialFullWidthProps {
   title: string;
-  description: string;
+  description?: string;
   category?: string;
   primaryCta?: PrimaryCTAInterstitial;
   split?: boolean;
-  media: DzMediaProps;
+  media?: DzMediaProps;
   textColor?: TextColors;
   customClass?: string;
+  customDescriptionClass?: string;
+  classNameContent?: string;
 }
 
 const styles: any = {
   mediaContainer: `
     block
-    md:min-h-[30rem]
-    min-h-[22.5rem]
+    md:h-[30rem]
+    h-[22.5rem]
     overflow-hidden
     relative
   `,
@@ -39,9 +42,7 @@ const styles: any = {
     md:object-contain
     md:h-[auto]
     md:w-full
-    absolute
     top-2/4
-    -translate-y-1/2
     object-center
   `,
   category: `
@@ -57,16 +58,23 @@ const styles: any = {
     basis-1/2
   `,
   btnCTA: `
-    mt-2.5
     md:mt-5
   `,
   nonSplit: `
     relative
+    w-auto
+  `,
+  nonSplitFull: `
+    min-h-[22.5rem]
+    md:min-h-[27.5rem]
+    w-auto
+    flex
+    justify-center
   `,
   contentInfoNonSplit: `
     w-full
-    md:w-[43.125rem]
-    p-5
+    md:w-[43.375rem]
+    py-5
     gap-5
     flex
     flex-col
@@ -76,30 +84,60 @@ const styles: any = {
     -translate-x-1/2
     -translate-y-1/2
     text-center
+    items-center
   `,
-  description:`
+  contentInfoNonSplitRelative: `
+    w-full
+    md:w-[43.375rem]
+    py-5
+    gap-5
+    flex
+    flex-col
+    text-center
+    justify-center
+    items-center
+  `,
+  description: `
     md:text-md
-  `
+  `,
 };
 
 export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
   textColor = 'white-100',
   category,
-  title,
+  title = '',
   description,
   primaryCta,
   media,
   customClass = '',
+  customDescriptionClass = '',
+  classNameContent = '',
 }) => {
   const textClassColor = `text-${textColor}`;
   return (
-    <div className={cn(styles.nonSplit, customClass)}>
-      <DzMedia
-        className={cn(styles.mediaContainer)}
-        imgClass={cn(styles.image)}
-        {...media}
-      />
-      <div className={cn(styles.contentInfoNonSplit)}>
+    <div
+      className={cn(
+        styles.nonSplit,
+        media ? '' : styles.nonSplitFull,
+        customClass
+      )}
+    >
+      {media ? (
+        <DzMedia
+          className={cn(styles.mediaContainer)}
+          imgClass={cn(styles.image)}
+          {...media}
+        />
+      ) : null}
+
+      <div
+        className={cn(
+          media
+            ? styles.contentInfoNonSplit
+            : styles.contentInfoNonSplitRelative,
+          classNameContent
+        )}
+      >
         {category ? (
           <DzText
             className={cn(styles.category, textClassColor)}
@@ -107,23 +145,36 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
             textSize={TEXT_SIZES.XS}
           />
         ) : null}
-        <DzTitle
-          classNameTitle={cn(styles.title, textClassColor)}
-          title={title}
-          titleType={TITLE_TYPES.H2}
-          titleSize={TITLE_SIZES.LG}
-        ></DzTitle>
-        <DzText className={cn(styles.description, textClassColor)} text={description} />
+
+        {title ? (
+          <DzTitle
+            classNameTitle={cn(styles.title, textClassColor)}
+            title={title}
+            titleType={TITLE_TYPES.P}
+            titleSize={TITLE_SIZES.LG}
+          />
+        ) : null}
+
+        {description ? (
+          <DzText
+            className={cn(
+              styles.description,
+              textClassColor,
+              customDescriptionClass
+            )}
+            text={description}
+          />
+        ) : null}
+
         {primaryCta ? (
-          <div>
-            <DzButton
-              className={cn(styles.btnCTA, textClassColor)}
-              {...(primaryCta?.ctaProps ?? {})}
-              size={BUTTON_SIZES.LARGE}
-            >
-              {primaryCta.text}
-            </DzButton>
-          </div>
+          <DzButton
+            className={cn(styles.btnCTA)}
+            size={BUTTON_SIZES.LARGE}
+            mode={ButtonModes.LIGHT}
+            {...(primaryCta?.ctaProps ?? {})}
+          >
+            {primaryCta.text}
+          </DzButton>
         ) : null}
       </div>
     </div>

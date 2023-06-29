@@ -2,7 +2,12 @@ import React, { FC, useRef, ReactNode, MouseEventHandler } from 'react';
 import { Dialog } from '@headlessui/react';
 import CloseIcon from '../svgIcons/close';
 import { cn } from '../utils/classnames';
-import { DzButton, DzButtonProps, BUTTON_SIZES, BUTTON_VARIANTS } from './DzButton';
+import {
+  DzButton,
+  DzButtonProps,
+  BUTTON_SIZES,
+  BUTTON_VARIANTS,
+} from './DzButton';
 import { DzTitle, TITLE_TYPES, TITLE_SIZES } from './DzTitle';
 
 export interface DzModalProps {
@@ -84,7 +89,7 @@ export const DzModal: FC<DzModalProps> = ({
   const renderHeaderTitle = title ? (
     <Dialog.Title className={cn(styles.titleHeader)}>
       <DzTitle
-        titleType={TITLE_TYPES.H3}
+        titleType={TITLE_TYPES.P}
         title={title}
         titleSize={TITLE_SIZES.LG}
       />
@@ -98,7 +103,7 @@ export const DzModal: FC<DzModalProps> = ({
   ) : null;
   return (
     <Dialog
-      style={{ maxWidth}}
+      style={{ maxWidth }}
       className={cn(styles.modal, 'group')}
       open={isOpen}
       onClose={onClickClose}

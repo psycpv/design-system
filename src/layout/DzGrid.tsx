@@ -121,6 +121,8 @@ export const GRID_COLUMN_FULL_WIDTHS = [
   'span 12',
 ];
 
+export const GUTTER = '1.25rem';
+
 const gridColumnStyles = {
   gridCol: `
     grid

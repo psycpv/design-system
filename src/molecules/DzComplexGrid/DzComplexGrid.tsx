@@ -1,7 +1,21 @@
-import React, { FC, useState, useMemo, useCallback, Fragment } from 'react';
+import React, { FC, useState, useMemo, useCallback } from 'react';
 import { DzGridColumns, DzColumn, ColumnSpan } from '../../layout';
-import { DzRange, DzText } from '../../atoms';
-import { DataCardType, DzCard, CARD_TYPES } from '../../molecules';
+import {
+  DzRange,
+  DzText,
+  DzLink,
+  DzLinkProps,
+  DzTextProps,
+  LINK_VARIANTS,
+  MEDIA_ASPECT_RATIOS,
+} from '../../atoms';
+import {
+  DzCard,
+  CardTypes,
+  DataCardType,
+  isArtworkCard,
+  CARD_TYPES,
+} from '../../molecules';
 import { cn } from '../../utils/classnames';
 import { FourSquares } from '../../svgIcons/four-squares';
 import { SixSquares } from '../../svgIcons/six-squares';
@@ -14,26 +28,43 @@ interface StepInterface {
   numberOfColumns: number;
   icon: JSX.Element;
 }
+interface LinkCTA {
+  text: string;
+  url: string;
+  linkElement: any;
+  linkProps?: DzLinkProps;
+}
+
+type ExtraData = {
+  cardType?: CardTypes;
+};
+
+type RichCard = Omit<DataCardType, 'size'> & ExtraData;
 
 export interface DzComplexGridProps {
-  cards: DataCardType[];
+  cards: RichCard[];
   steps?: StepInterface[];
   displayNumberOfResults?: boolean;
   headingTitle?: string;
   maxItemsPerRow?: number;
+  textProps?: DzTextProps;
+  useLink?: boolean;
+  linkCTA?: LinkCTA;
+  defaultStart?: number;
 }
 
 const MINIMUM_VALUE = 1;
-const INITIAL_VALUE = 1;
+const INITIAL_VALUE = 3;
 const STEPS_SPAN = 1;
+const STEP_TO_HIDE_CTA = 3;
 
 const styles: any = {
   headControls: `
     flex
     justify-between
     items-center
-    md:mb-10
     mb-5
+    md:mb-10
   `,
   rangeContainer: `
     flex
@@ -84,17 +115,25 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   headingTitle = 'Artworks',
   displayNumberOfResults = false,
   maxItemsPerRow = steps.length,
+  textProps,
+  useLink = false,
+  linkCTA,
+  defaultStart = INITIAL_VALUE,
 }) => {
   const { width } = useWindowSize();
   const isMobile = useMemo(() => {
-    return width < BREAKPOINTS.MD;
+    return width <= BREAKPOINTS.MD;
   }, [width]);
 
-  const [stepValue, setStepValue] = useState(MINIMUM_VALUE);
   const maximumValue = useMemo(() => maxItemsPerRow || steps.length, [
     maxItemsPerRow,
     steps,
   ]);
+  const initialValue = useMemo(
+    () => Math.min(maximumValue, Math.max(MINIMUM_VALUE, defaultStart)),
+    [defaultStart, maximumValue]
+  );
+  const [stepValue, setStepValue] = useState(initialValue);
   const numberOfResults = useMemo(() => cards.length, [cards]);
   const columnsSpanPerRow = useMemo(() => {
     const { numberOfColumns } = steps.find(step => step.id === stepValue) ?? {};
@@ -114,28 +153,52 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   const handleChange = useCallback(currentStep => {
     const [_, step] = currentStep;
     setStepValue(step);
+    console.log('STEP::', step);
   }, []);
+
+  const displayText = useMemo(() => {
+    const { text } = textProps ?? {};
+    const resultsTitle = `${numberOfResults} ${headingTitle}`;
+    return displayNumberOfResults ? resultsTitle : text;
+  }, [displayNumberOfResults, numberOfResults, headingTitle]);
 
   return (
     <div>
-      <div className={cn(styles.headControls)}>
-        {displayNumberOfResults ? (
-          <DzText text={`${numberOfResults} ${headingTitle}`} />
+      <div className={styles.headControls}>
+        {displayText ? (
+          <DzText
+            className={cn(styles.heading)}
+            {...(textProps ?? {})}
+            text={displayText}
+          />
         ) : null}
 
         {!isMobile && maximumValue !== 1 ? (
-          <div className={cn(styles.rangeContainer)}>
-            <div className={cn(styles.range)}>
-              <DzRange
-                min={MINIMUM_VALUE}
-                max={maximumValue}
-                step={STEPS_SPAN}
-                value={[MINIMUM_VALUE, INITIAL_VALUE]}
-                onChange={handleChange}
-              />
+          !useLink ? (
+            <div className={cn(styles.rangeContainer)}>
+              <DzText text="View:" />
+              <div className={cn(styles.range)}>
+                <DzRange
+                  min={MINIMUM_VALUE}
+                  max={maximumValue}
+                  step={STEPS_SPAN}
+                  value={[MINIMUM_VALUE, stepValue]}
+                  onChange={handleChange}
+                />
+              </div>
+              {CurrentIcon}
             </div>
-            {CurrentIcon}
-          </div>
+          ) : null
+        ) : null}
+        {useLink && linkCTA ? (
+          <DzLink
+            {...(linkCTA.linkProps ?? {})}
+            href={linkCTA.url}
+            LinkElement={linkCTA.linkElement}
+            variant={LINK_VARIANTS.TEXT}
+          >
+            {linkCTA.text}
+          </DzLink>
         ) : null}
       </div>
 
@@ -146,11 +209,40 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
             : 'gap-y-[3.75rem]'
         }
       >
-        {cards.map((card, key) => {
-          const { id } = card ?? {};
+        {cards.map((card: any, key) => {
+          if (!card) return null;
+
+          const { id, cardType } = card;
+          let cardData = { ...card };
+          let cardDataType = cardType ?? CARD_TYPES.ARTWORK;
+
+          if (isArtworkCard(card)) {
+            const { primaryCTA, secondaryCTA } = card;
+            const primaryCTAProps =
+              !isMobile && stepValue < STEP_TO_HIDE_CTA
+                ? primaryCTA
+                : undefined;
+            const secondaryCTAProps =
+              !isMobile && stepValue < STEP_TO_HIDE_CTA
+                ? secondaryCTA
+                : undefined;
+            cardData = {
+              ...card,
+              media: {
+                aspectRatio: MEDIA_ASPECT_RATIOS['4:3'],
+                ...card.media,
+              },
+              primaryCTA: primaryCTAProps,
+              secondaryCTA: secondaryCTAProps,
+            };
+          }
+
           return (
             <DzColumn key={`${id}-${key}`} span={columnsSpanPerRow}>
-              <DzCard type={CARD_TYPES.ARTWORK} data={card} />
+              <DzCard
+                type={cardDataType}
+                data={{ ...cardData, size: columnsSpanPerRow }}
+              />
             </DzColumn>
           );
         })}

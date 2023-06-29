@@ -11,7 +11,7 @@ import { BREAKPOINTS } from '../../layout/breakpoints';
 import useWindowSize from '../../hooks/useWindowSize';
 import useHover from '../../hooks/useHover';
 
-interface FooterData {
+export interface FooterData {
   copies: Copies;
   links: Link[];
   socialMedia: SocialMedia;
@@ -49,6 +49,7 @@ export interface DzFooterProps {
   data: FooterData;
   newsletterAction: Function;
   footerClass?: string;
+  isOnHeader?: boolean;
 }
 
 const styles: any = {
@@ -58,25 +59,33 @@ const styles: any = {
   linksContainer: `
     w-full
     flex
+    flex-wrap
     gap-5
     justify-center
+    min-w-fit
     md:justify-start
   `,
   socialContainer: `
     flex
-    md:gap-[3.75rem]
+    flex-wrap
+    gap-[calc(100vw*0.13)]
+    md:gap-[calc(100vw*0.03555555)]
     w-full
     md:justify-end
     pt-2
     md:pt-0
-    justify-between
+    justify-center
+    items-center
   `,
   bottomContainer: `
     px-5
-    py-[2.125rem]
+    py-[40px]
+    md:py-[2.125rem]
     flex
     flex-col
-    gap-5
+    gap-10
+    md:gap-5
+    items-center
     md:flex-row
     justify-between
   `,
@@ -92,17 +101,26 @@ const styles: any = {
     flex
     flex-col
     md:flex-row
-    gap-5
+    md:gap-5
+    gap-[1.875rem]
+  `,
+  divider: `
+    md:hidden
+    bg-black-20
+  `,
+  link: `
+    text-center
   `,
 };
 export const DzFooter: FC<DzFooterProps> = ({
   data,
   newsletterAction = () => null,
   footerClass = '',
+  isOnHeader = false,
 }) => {
   const { width } = useWindowSize();
   const isSmall = useMemo(() => {
-    return width < BREAKPOINTS.MD;
+    return width <= BREAKPOINTS.MD;
   }, [width]);
   const twitterHover = useRef<any>(null);
   const isTwitterHover = useHover(twitterHover);
@@ -127,7 +145,13 @@ export const DzFooter: FC<DzFooterProps> = ({
     facebook: '',
   };
   return (
-    <footer className={cn(styles.footer, footerClass)}>
+    <footer
+      className={cn(styles.footer, footerClass)}
+      aria-label="Footer"
+      role="contentinfo"
+    >
+      {!isOnHeader ? <hr className={cn(styles.divider)} /> : null}
+
       <div className={cn(styles.bottomContainer)}>
         <div className={cn(styles.leftContainer)}>
           {copies?.rights ? (
@@ -157,6 +181,7 @@ export const DzFooter: FC<DzFooterProps> = ({
                   key={`${_key}-${position}`}
                   href={urlWithAnchor}
                   openNewTab={newTab}
+                  className={styles.link}
                 >
                   {title}
                 </DzLink>
@@ -190,11 +215,15 @@ export const DzFooter: FC<DzFooterProps> = ({
             </DzLink>
           ) : null}
 
-          <div onClick={() => newsletterAction()} ref={newsletterHover}>
+          <button
+            className="cursor-pointer"
+            onClick={() => newsletterAction()}
+            ref={newsletterHover}
+          >
             <BoldNewsletterIcon
               fill={isNewsletterHover ? '#757575' : 'black'}
             />
-          </div>
+          </button>
         </div>
       </div>
     </footer>

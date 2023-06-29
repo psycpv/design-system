@@ -3,23 +3,72 @@ import React, {
   useMemo,
   useEffect,
   ImgHTMLAttributes,
-  VideoHTMLAttributes,
+  ReactNode,
 } from 'react';
 import { cn } from '../utils/classnames';
 import { DzLink, DzLinkProps } from './DzLink';
 import Plyr from 'plyr-react';
+
+export enum ObjectPositionType {
+  TOP = 'objPosTop',
+  BOTTOM = 'objPosBottom',
+  CENTER = 'objPosCenter',
+}
+
+export const MEDIA_VIDEO_SOURCE_TYPES = {
+  YOUTUBE: 'youtube',
+  VIMEO: 'vimeo',
+  URL: 'url',
+};
 
 export const MEDIA_TYPES = {
   IMAGE: 'image',
   VIDEO: 'video',
 };
 
+export const MEDIA_OBJECT_FIT = {
+  CONTAIN: 'fitContain',
+  COVER: 'fitCover',
+  FILL: 'fitFill',
+  NONE: 'fitNone',
+  SCALE_DOWN: 'fitScaleDown',
+};
+
+export const MEDIA_ASPECT_RATIOS = {
+  '16:9': '16:9',
+  '4:3': '4:3',
+  AUTO: 'aspectAuto',
+};
+
+export const MEDIA_VIDEO_SOURCE_TYPES_NAMES = [
+  MEDIA_VIDEO_SOURCE_TYPES.YOUTUBE,
+  MEDIA_VIDEO_SOURCE_TYPES.VIMEO,
+  MEDIA_VIDEO_SOURCE_TYPES.URL,
+] as const;
+
+export const MEDIA_MEDIA_OBJECT_FIT_NAMES = [
+  MEDIA_OBJECT_FIT.CONTAIN,
+  MEDIA_OBJECT_FIT.COVER,
+  MEDIA_OBJECT_FIT.FILL,
+  MEDIA_OBJECT_FIT.NONE,
+  MEDIA_OBJECT_FIT.SCALE_DOWN,
+] as const;
+
+export const MEDIA_ASPECT_RATIOS_NAMES = [
+  MEDIA_ASPECT_RATIOS['16:9'],
+  MEDIA_ASPECT_RATIOS['4:3'],
+  MEDIA_ASPECT_RATIOS.AUTO,
+] as const;
+
 export const MEDIA_TYPES_NAMES = [
   MEDIA_TYPES.IMAGE,
   MEDIA_TYPES.VIDEO,
 ] as const;
 
+export type VideoSource = typeof MEDIA_TYPES_NAMES[number];
 export type MediaType = typeof MEDIA_TYPES_NAMES[number];
+export type ObjectFitType = typeof MEDIA_MEDIA_OBJECT_FIT_NAMES[number];
+export type AspectRatioType = typeof MEDIA_ASPECT_RATIOS_NAMES[number];
 
 export interface DzMediaProps extends ImgHTMLAttributes<HTMLImageElement> {
   type: MediaType;
@@ -30,17 +79,69 @@ export interface DzMediaProps extends ImgHTMLAttributes<HTMLImageElement> {
   linkProps?: DzLinkProps;
   className?: any;
   videoProps?: any;
+  videoSourceType?: VideoSource;
+  aspectRatio?: AspectRatioType;
+  objectFit?: ObjectFitType;
+  sourceSet?: ReactNode | null;
+  objectPosition?: ObjectPositionType;
 }
+
 const styles: any = {
   mediaContainer: `
     w-full
+    relative
+    block
     bg-white-100
   `,
-  imageMedia: `
+  fitCover: `
+    !object-cover
+  `,
+  fitContain: `
+    !object-contain
+  `,
+  fitFill: `
+    !object-fill
+  `,
+  fitNone: `
+    !object-none
+  `,
+  fitScaleDown: `
+    !object-scale-down
+  `,
+  objPosTop: `
+    object-top
+  `,
+  objPosBottom: `
+    object-bottom
+  `,
+  objPosCenter: `
+    object-center
+  `,
+  '16:9': `
     !aspect-video
-    object-cover
+  `,
+  '4:3': `
+    !aspect-4/3
+  `,
+  aspectAuto: `
+    !aspect-auto
   `,
 };
+
+const videoNode = {
+  youtube: () => null,
+  vimeo: data => {
+    return (
+      <div>
+        <Plyr {...data} />
+      </div>
+    );
+  },
+  url: (data, sourceSet) => {
+    return <video {...data}>{sourceSet}</video>;
+  },
+};
+
 export const DzMedia: FC<DzMediaProps> = ({
   type,
   ImgElement,
@@ -50,13 +151,25 @@ export const DzMedia: FC<DzMediaProps> = ({
   linkProps = {},
   className = '',
   videoProps = {},
+  videoSourceType = MEDIA_VIDEO_SOURCE_TYPES.VIMEO,
+  aspectRatio = MEDIA_ASPECT_RATIOS['16:9'],
+  objectFit = MEDIA_OBJECT_FIT.COVER,
+  objectPosition = ObjectPositionType.CENTER,
+  sourceSet = null,
 }) => {
-  useEffect(() => {}, []);
   const renderImage = useMemo(() => {
+    const mediaClasses = cn(
+      'w-full',
+      imgClass,
+      styles[aspectRatio],
+      styles[objectFit],
+      styles[objectPosition]
+    );
+
     if (!ImgElement) {
       return (
         <img
-          className={cn(imgClass, styles.imageMedia)}
+          className={mediaClasses}
           // Change this to eager on demand specially for header components
           loading={'lazy'}
           {...imgProps}
@@ -64,16 +177,16 @@ export const DzMedia: FC<DzMediaProps> = ({
       );
     }
     return (
-      <ImgElement className={cn(styles.imageMedia, imgClass)} {...imgProps} />
+      <ImgElement className={cn(mediaClasses, '!relative')} {...imgProps} />
     );
-  }, [ImgElement, imgProps, imgClass]);
+  }, [ImgElement, imgProps, imgClass, aspectRatio, objectFit, objectPosition]);
 
   const LinkElem = useMemo(() => {
     if (url) {
       return (
         <DzLink
           {...linkProps}
-          href="/"
+          href={url}
           className={cn(styles.mediaContainer, className)}
         >
           {renderImage}
@@ -90,11 +203,8 @@ export const DzMedia: FC<DzMediaProps> = ({
   }
 
   if (type === MEDIA_TYPES.VIDEO) {
-    return (
-      <div>
-        <Plyr {...videoProps} />
-      </div>
-    );
+    const videoRender = videoNode?.[videoSourceType]?.(videoProps, sourceSet);
+    return <div>{videoRender}</div>;
   }
 
   return null;

@@ -1,5 +1,11 @@
 import { cn } from '../utils/classnames';
-import React, { createElement, FC, Fragment, HTMLAttributes, ReactNode } from 'react';
+import React, {
+  createElement,
+  FC,
+  Fragment,
+  HTMLAttributes,
+  ReactNode,
+} from 'react';
 
 export const TITLE_SIZES = {
   XS: 'extraSmall',
@@ -98,7 +104,7 @@ const styles: any = {
 export const DzTitle: FC<DzTitleProps> &
   HTMLAttributes<HTMLParagraphElement> &
   HTMLAttributes<HTMLHeadingElement> = ({
-  titleType = TITLE_TYPES.H1,
+  titleType = TITLE_TYPES.H3,
   subtitleType = TITLE_TYPES.P,
   title,
   subtitle,
@@ -124,7 +130,7 @@ export const DzTitle: FC<DzTitleProps> &
       : () => <Fragment />;
 
   return (
-    <div className={cn(className)}>
+    <div className={className}>
       <Heading
         className={cn(
           styles.heading,

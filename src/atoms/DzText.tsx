@@ -1,5 +1,5 @@
 import { cn } from '../utils/classnames';
-import React, { createElement, FC, HTMLAttributes } from 'react';
+import React, { createElement, FC, HTMLAttributes, ReactNode } from 'react';
 
 export const TEXT_SIZES = {
   SMALL: 'small',
@@ -36,7 +36,7 @@ type TextElements = HTMLAttributes<HTMLParagraphElement> &
 
 export interface DzTextProps extends TextElements {
   textType?: TextType;
-  text: string;
+  text: string | ReactNode;
   className?: any;
   disabled?: boolean;
   textSize?: TextSize;

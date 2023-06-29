@@ -18,7 +18,7 @@
     "strict": false,
     "strictNullChecks": true,
     // linter checks for common issues
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": true,
     // noUnused* overlap with @typescript-eslint/no-unused-vars, can disable if duplicative
     "noUnusedLocals": false,

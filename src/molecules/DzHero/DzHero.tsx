@@ -1,31 +1,56 @@
-import React, { FC } from 'react';
+import React, {
+  FC,
+  Fragment,
+  ReactNode,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { Transition } from '@headlessui/react';
+import { register } from 'swiper/element/bundle';
+import { Swiper } from 'swiper';
 
 import {
   DzMedia,
   DzMediaProps,
   DzText,
   DzTitle,
+  DzTitleProps,
   TITLE_SIZES,
   TITLE_TYPES,
   DzLink,
   DzLinkProps,
   LINK_VARIANTS,
+  TEXT_LINK_SIZES,
+  TEXT_SIZES,
 } from '../../atoms';
 import { DzArrow, ARROW_DIRECTIONS } from '../../atoms';
 import { cn } from '../../utils/classnames';
+import { SwiperContainer, SwiperSlide } from '../../vendor/swiper';
+import useWindowSize from '../../hooks/useWindowSize';
+import { BREAKPOINTS } from '../../layout/breakpoints';
 
-export interface DzHeroProps {
+register();
+
+export interface DzHeroItem {
   media: DzMediaProps;
   category?: string;
   title: string;
   subtitle?: string;
   secondaryTitle?: string;
   secondarySubtitle?: string;
-  description?: string;
+  description?: string | ReactNode;
   linkCTA?: LinkCTA;
-  showArrows?: boolean;
-  previousArrowHandler?: Function;
-  nextArrowHandler?: Function;
+}
+
+export interface DzHeroProps {
+  items: DzHeroItem[];
+  onSlideChange?: Function;
+  className?: string;
+  primaryTitleProps?: Omit<DzTitleProps, 'title' | 'subtitle'>;
 }
 
 interface LinkCTA {
@@ -51,20 +76,17 @@ const styles: any = {
     flex
     flex-col
     gap-2.5
-    p-2.5
     pt-5
-    pl-5
     md:ml-0
-    md:p-5
     md:pl-0
-    basis-1/2
+    basis-2/3
   `,
   controlsContainer: `
     w-full
     flex
-    basis-1/2
     p-5
     justify-end
+    basis-1/3
   `,
   title: `
     text-xl
@@ -79,11 +101,11 @@ const styles: any = {
   `,
   linkCta: `
    mt-2.5
-   mb-5
-   md:my-5
+   mb-[2.219rem]
+   md:mt-7
+   md:mb-0
   `,
   mediaImage: `
-    max-h-[49.1875rem]
     w-full
   `,
   arrowsContainer: `
@@ -92,80 +114,187 @@ const styles: any = {
   `,
 };
 
-export const DzHero: FC<DzHeroProps> = ({
-  category,
-  media,
-  title,
-  subtitle,
-  secondaryTitle,
-  secondarySubtitle,
-  description,
-  linkCTA,
-  showArrows = false,
-  previousArrowHandler = () => null,
-  nextArrowHandler = () => null,
-}) => {
-  return (
-    <div className={cn(styles.heroContainer)}>
-      <div>
-        <DzMedia imgClass={cn(styles.mediaImage)} {...media} />
-      </div>
+const MediaWrapper = ({ children, activeIndex, onSlideChanged }) => {
+  const swiperElRef = useRef<HTMLInputElement & { swiper: Swiper }>(null);
 
-      <div className={cn(styles.contentContainer)}>
-        <div className={cn(styles.infoContainer)}>
-          {category ? (
-            <DzText className={cn(styles.category)} text={category} />
-          ) : null}
-          <DzTitle
-            title={title}
-            classNameTitle={cn(styles.title)}
-            classNameSubtitle={cn(styles.title)}
-            titleType={TITLE_TYPES.H1}
-            subtitle={subtitle}
-            subtitleType={TITLE_TYPES.H2}
-          />
-          {secondaryTitle || secondarySubtitle ? (
-            <DzTitle
-              title={secondaryTitle}
-              className={cn(styles.secondaryTitleContainer)}
-              titleType={TITLE_TYPES.H2}
-              titleSize={TITLE_SIZES.LG}
-              subtitleSize={TITLE_SIZES.LG}
-              subtitle={secondarySubtitle}
-              subtitleType={TITLE_TYPES.H3}
-            />
-          ) : null}
-          {description ? (
-            <DzText className={cn(styles.description)} text={description} />
-          ) : null}
-          {linkCTA ? (
-            <div className={cn(styles.linkCta)}>
-              <DzLink
-                {...(linkCTA.linkProps ?? {})}
-                href={linkCTA.url}
-                LinkElement={linkCTA.linkElement}
-                variant={LINK_VARIANTS.TEXT}
-              >
-                {linkCTA.text}
-              </DzLink>
-            </div>
-          ) : null}
-        </div>
-        <div className={cn(styles.controlsContainer)}>
-          {showArrows ? (
-            <div className={cn(styles.arrowsContainer)}>
-              <div onClick={() => previousArrowHandler()}>
-                <DzArrow direction={ARROW_DIRECTIONS.LEFT} />
-              </div>
-              <div onClick={() => nextArrowHandler()}>
-                <DzArrow direction={ARROW_DIRECTIONS.RIGHT} />
-              </div>
-            </div>
-          ) : null}
-        </div>
-      </div>
-    </div>
+  useEffect(() => {
+    if (children.length > 1)
+      swiperElRef.current?.swiper.slideToLoop(activeIndex);
+
+    swiperElRef?.current?.addEventListener('transitionend', () => {
+      onSlideChanged(swiperElRef?.current?.swiper.activeIndex);
+    });
+  }, [activeIndex, swiperElRef.current]);
+
+  return children.length > 1 ? (
+    <SwiperContainer
+      ref={swiperElRef}
+      slides-per-view={1}
+      navigation="false"
+      scrollbar="false"
+      pagination="false"
+      navigation-next-el="null"
+      keyboard-enabled="false"
+      simulate-touch="false"
+    >
+      {children.map((child, index) => (
+        <SwiperSlide key={index}>{child}</SwiperSlide>
+      ))}
+    </SwiperContainer>
+  ) : (
+    <>{children[0]}</>
   );
 };
+
+const ContentWrapper = ({
+  children,
+  activeIndex,
+  activeAnimation,
+  onAnimationEnded,
+}) =>
+  children.length > 1 ? (
+    <>
+      {children.map((child, index) => (
+        <Transition
+          key={index}
+          as={Fragment}
+          show={index === activeIndex && index === activeAnimation}
+          enter="ease-in-out duration-200"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in-out duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+          afterLeave={() => onAnimationEnded(activeIndex)}
+        >
+          {child}
+        </Transition>
+      ))}
+    </>
+  ) : (
+    <>{children[0]}</>
+  );
+
+enum Actions {
+  NEXT = 'next',
+  PREV = 'previous',
+}
+
+export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
+  ({ items, className = '', primaryTitleProps }, ref) => {
+    const [currentItemIndex, setCurrentItemIndex] = useState<number>(0);
+    const [activeAnimation, setActiveAnimation] = useState(0);
+    const { width } = useWindowSize();
+    const isSmall = useMemo(() => {
+      return width <= BREAKPOINTS.MD;
+    }, [width]);
+
+    const handleChange = useCallback(
+      (step: Actions) => {
+        const offset = step === Actions.NEXT ? 1 : -1;
+        setCurrentItemIndex(
+          prev =>
+            (((prev + offset) % items.length) + items.length) % items.length
+        );
+      },
+      [setCurrentItemIndex, items]
+    );
+
+    return (
+      <div className={cn(styles.heroContainer, className)} ref={ref}>
+        <div className="relative overflow-hidden">
+          <MediaWrapper
+            activeIndex={currentItemIndex}
+            onSlideChanged={index => {
+              setCurrentItemIndex(index);
+            }}
+          >
+            {items.map(item => (
+              <DzMedia imgClass={cn(styles.mediaImage)} {...item.media} />
+            ))}
+          </MediaWrapper>
+        </div>
+
+        <div className={cn(styles.contentContainer)}>
+          <ContentWrapper
+            activeIndex={currentItemIndex}
+            activeAnimation={activeAnimation}
+            onAnimationEnded={setActiveAnimation}
+          >
+            {items.map(item => (
+              <div className={cn(styles.infoContainer)}>
+                {item.category ? (
+                  <DzText
+                    className={cn(styles.category)}
+                    text={item.category}
+                  />
+                ) : null}
+                <DzTitle
+                  title={item.title}
+                  classNameTitle={cn(styles.title)}
+                  classNameSubtitle={cn(styles.title)}
+                  titleType={TITLE_TYPES.H3}
+                  subtitle={item.subtitle}
+                  subtitleType={TITLE_TYPES.H4}
+                  {...primaryTitleProps}
+                />
+                {item.secondaryTitle || item.secondarySubtitle ? (
+                  <DzTitle
+                    title={item.secondaryTitle}
+                    className={cn(styles.secondaryTitleContainer)}
+                    titleType={TITLE_TYPES.P}
+                    titleSize={TITLE_SIZES.LG}
+                    subtitleSize={TITLE_SIZES.LG}
+                    subtitle={item.secondarySubtitle}
+                    subtitleType={TITLE_TYPES.P}
+                  />
+                ) : (
+                  isSmall && <div />
+                )}
+                {item.description ? (
+                  <DzText
+                    className={cn(styles.description)}
+                    text={item.description}
+                    textSize={TEXT_SIZES.MEDIUM}
+                  />
+                ) : null}
+                {item.linkCTA ? (
+                  <div className={cn(styles.linkCta)}>
+                    <DzLink
+                      {...(item.linkCTA.linkProps ?? {})}
+                      href={item.linkCTA.url}
+                      LinkElement={item.linkCTA.linkElement}
+                      textLinkSize={
+                        isSmall ? TEXT_LINK_SIZES.XS : TEXT_LINK_SIZES.SM
+                      }
+                      variant={LINK_VARIANTS.TEXT}
+                    >
+                      {item.linkCTA.text}
+                    </DzLink>
+                  </div>
+                ) : null}
+              </div>
+            ))}
+          </ContentWrapper>
+
+          {items.length > 1 ? (
+            <div className={cn(styles.controlsContainer)}>
+              <div className={cn(styles.arrowsContainer)}>
+                <DzArrow
+                  onClick={() => handleChange(Actions.PREV)}
+                  direction={ARROW_DIRECTIONS.LEFT}
+                />
+                <DzArrow
+                  onClick={() => handleChange(Actions.NEXT)}
+                  direction={ARROW_DIRECTIONS.RIGHT}
+                />
+              </div>
+            </div>
+          ) : null}
+        </div>
+      </div>
+    );
+  }
+);
 
 export default DzHero;

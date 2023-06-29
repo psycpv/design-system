@@ -6,6 +6,7 @@ import React, {
   forwardRef,
   ForwardRefExoticComponent,
   ButtonHTMLAttributes,
+  useEffect,
 } from 'react';
 
 import useHover from '../hooks/useHover';
@@ -35,6 +36,12 @@ export const BUTTON_SIZE_NAMES = [
 
 export type ButtonVariant = typeof BUTTON_VARIANT_NAMES[number];
 export type ButtonSize = typeof BUTTON_SIZE_NAMES[number];
+
+export enum ButtonModes {
+  DARK = 'dark',
+  LIGHT = 'light',
+}
+
 export interface DzButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
@@ -48,6 +55,7 @@ export interface DzButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   maxWidth?: string;
   minWidth?: string;
   className?: string;
+  mode?: ButtonModes;
 }
 
 const styles: any = {
@@ -65,6 +73,20 @@ const styles: any = {
     flex
     gap-2
     items-center
+  `,
+  light: `
+    bg-transparent
+    border
+    border-white-100/40
+    text-white-100
+    disabled:text-white-40
+    disabled:border-white-40
+    focus:bg-white-100/40
+    focus:text-white-100
+    hover:bg-white-100/40
+    hover:text-white-100
+    active:bg-white-100/40
+    active:text-white-100
   `,
   primary: `
     bg-transparent
@@ -105,10 +127,12 @@ const styles: any = {
   large: `
     py-[0.8125rem]
     px-[1.5625rem]
+    text-md
   `,
   small: `
     py-[0.3125rem]
     px-[1.5625rem]
+    text-xs
   `,
   childrenContainer: `
     px-[1.6875rem]
@@ -148,6 +172,7 @@ export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
       showRightArrow,
       showLeftArrow,
       className = '',
+      mode = ButtonModes.DARK,
       ...rest
     },
     forwardedRef: ForwardedRef<HTMLButtonElement>
@@ -155,6 +180,12 @@ export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
     const hoverRef = useRef<HTMLButtonElement | null>(null);
     const isHover = useHover(hoverRef);
     const fillIcon = iconColor(variant, isHover, disabled);
+    useEffect(() => {
+      if (hoverRef.current) {
+        hoverRef.current.blur();
+      }
+    }, [isHover]);
+
     const handleClick = (
       event: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
@@ -162,6 +193,7 @@ export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
         onClick(event);
       }
     };
+
     const childrenWithIcons =
       success || showLeftArrow || showRightArrow ? (
         <span className={cn(styles.iconContainer)}>
@@ -188,7 +220,13 @@ export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
       <button
         type="button"
         ref={composeRefs(hoverRef, forwardedRef) as any}
-        className={cn(styles.btn, styles?.[variant], styles?.[size], className)}
+        className={cn(
+          styles.btn,
+          styles[variant],
+          styles[size],
+          styles[mode],
+          className
+        )}
         style={{ maxWidth: maxWidth, minWidth: minWidth }}
         onClick={handleClick}
         disabled={disabled}

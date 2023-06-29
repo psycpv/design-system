@@ -121,9 +121,9 @@ export const DzSelect: React.FunctionComponent<DzSelectProps> = ({
 
   const itemListRender = (option: SelectOption, useCheckbox: boolean) =>
     useCheckbox ? (
-      <DzCheckbox title={option.title} disabled={disabled} />
+      <DzCheckbox title={option?.title} disabled={disabled} />
     ) : (
-      <span className={cn(styles.optionListText)}>{option.title}</span>
+      <span className={cn(styles.optionListText)}>{option?.title}</span>
     );
   const errorMsgRender = hasError ? (
     <span className={cn(styles.error)}>{errorMsg}</span>
@@ -174,7 +174,7 @@ export const DzSelect: React.FunctionComponent<DzSelectProps> = ({
                 )}
               >
                 <span className={cn(styles.btnSelect)}>
-                  {useCheckbox ? multipleSelect?.[0]?.title : selected.title}
+                  {useCheckbox ? multipleSelect?.[0]?.title : selected?.title}
                 </span>
                 <span className={cn(styles.selectSvgContainer)}>
                   <BoldArrowDown fill="#4D4D4D" />
@@ -190,7 +190,7 @@ export const DzSelect: React.FunctionComponent<DzSelectProps> = ({
                 leaveTo="opacity-0"
               >
                 <Listbox.Options className={cn(styles.listOptions)}>
-                  {options.map(option => (
+                  {options?.map(option => (
                     <Listbox.Option
                       key={option.id}
                       className={({ active }) =>

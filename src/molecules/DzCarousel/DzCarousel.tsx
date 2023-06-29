@@ -6,156 +6,174 @@ import React, {
   useEffect,
   Fragment,
 } from 'react';
-import { register } from 'swiper/element/bundle';
 import { BREAKPOINTS } from '../../layout/breakpoints';
 import useWindowSize from '../../hooks/useWindowSize';
-import { BUTTON_VARIANTS, DzButton } from '../../atoms';
-import { ChevronLeft, ChevronRight } from '../../svgIcons';
+import { ARROW_DIRECTIONS, ARROW_MODES, DzArrow } from '../../atoms';
 import { Transition } from '@headlessui/react';
 import { Swiper } from 'swiper/types';
-interface SwiperContainer
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLElement>,
-    HTMLElement
-  > {
-  navigation: string;
-  scrollbar: string;
-  pagination: string;
-  class: string;
-}
-
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'swiper-container': SwiperContainer;
-      'swiper-slide': any;
-    }
-  }
-}
-
-register();
+import { OFFSET_AFTER, OFFSET_BEFORE, gridColsMaxWidths } from './util';
+import { cn } from '../../utils/classnames';
+import { SwiperContainer, SwiperSlide } from '../../vendor/swiper';
+import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 
 export interface DzCarouselProps {
   children: ReactNode[];
-  slidesPerViewDesktop?: number | string;
-  slidesPerViewMobile?: number | string;
   swiperProps?: any;
+  slideSpanDesktop?: number;
+  slideSpanMobile?: number;
+  className?: string;
 }
 
 export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
   children,
-  slidesPerViewDesktop = 5,
-  slidesPerViewMobile = 1,
   swiperProps,
+  slideSpanDesktop = 6,
+  slideSpanMobile = 10,
+  className = '',
 }) => {
   const swiperElRef = useRef<HTMLInputElement & { swiper: Swiper }>(null);
+  const leftArrowRef = useRef<HTMLButtonElement>(null);
+  const rightArrowRef = useRef<HTMLButtonElement>(null);
+
   const { width } = useWindowSize();
-  const isSmall = useMemo(() => width < BREAKPOINTS.MD, [width]);
+  const isSmall = useMemo(() => width <= BREAKPOINTS.MD, [width]);
   const [showNav, setShowNav] = useState(false);
-  const [showRightNav, setShowRightNav] = useState(false);
-  const [showLeftNav, setShowLeftNav] = useState(false);
+  const [rightNavEnabled, setRightNavEnabled] = useState(false);
+  const [leftNavEnabled, setLeftNavEnabled] = useState(false);
+  const [navTopOffset, setTopNavOffset] = useState('50%');
 
   useEffect(() => {
-    setShowLeftNav(!swiperElRef?.current?.swiper.isBeginning);
-    setShowRightNav(!swiperElRef?.current?.swiper.isEnd);
+    setLeftNavEnabled(!swiperElRef?.current?.swiper.isBeginning);
+    setRightNavEnabled(!swiperElRef?.current?.swiper.isEnd);
 
-    console.log(
-      'CHANGE ',
-      swiperElRef?.current?.swiper.isBeginning,
-      !swiperElRef?.current?.swiper.isEnd
+    swiperElRef?.current?.addEventListener('transitionend', () => {
+      setLeftNavEnabled(!swiperElRef?.current?.swiper.isBeginning);
+      setRightNavEnabled(!swiperElRef?.current?.swiper.isEnd);
+    });
+
+    swiperElRef?.current?.addEventListener('reachend', _ =>
+      setRightNavEnabled(false)
     );
 
-    swiperElRef?.current?.addEventListener('slidechange', (e: any) => {
-      const [swiper] = e.detail;
-      setShowLeftNav(!swiper.isBeginning);
-      setShowRightNav(!swiper.isEnd);
-    });
-  }, []);
+    swiperElRef?.current?.addEventListener('reachbeginning', _ =>
+      setLeftNavEnabled(false)
+    );
+  }, [swiperElRef?.current]);
 
-  const slidesPerView = isSmall ? slidesPerViewMobile : slidesPerViewDesktop;
   const swiperContainerProps = isSmall
     ? {
+        class: 'pb-0',
         'space-between': 20,
-        class: 'pb-14 pr-14',
-        'slides-offset-after': '-40',
-        'slides-offset-before': '20'
+        scrollbar: 'false',
       }
     : {
+        class: 'pb-16',
         'space-between': 120,
+        scrollbar: 'true',
         'grab-cursor': true,
-        class: 'pb-14',
-        'slides-offset-after': '20',
-        'slides-offset-before': '20'
       };
+
+  useIsomorphicLayoutEffect(() => {
+    const imgHeight = (swiperElRef.current?.firstChild?.firstChild
+      ?.firstChild as HTMLElement)?.querySelector('img')?.offsetHeight;
+
+    const arrowHeight =
+      leftArrowRef.current?.offsetHeight ||
+      rightArrowRef.current?.offsetHeight ||
+      40;
+
+    if (imgHeight)
+      setTopNavOffset(`${((imgHeight - arrowHeight) / 2).toFixed(1)}px`);
+  }, [
+    leftArrowRef.current,
+    rightArrowRef.current,
+    swiperElRef.current?.firstChild,
+    children,
+    slideSpanDesktop,
+  ]);
 
   return (
     <div
-      className="relative"
+      className={cn('relative overflow-hidden', className)}
       onMouseEnter={() => setShowNav(true)}
       onMouseLeave={() => setShowNav(false)}
     >
-      <swiper-container
+      <SwiperContainer
+        // Force web element to re-render when breakpoint change
+        key={JSON.stringify(isSmall)}
         ref={swiperElRef}
-        slides-per-view={slidesPerView}
         navigation="true"
-        scrollbar="true"
         pagination="false"
         navigation-next-el="null"
         keyboard-enabled="true"
+        mousewheel="true"
+        mousewheel-force-to-axis="true"
+        scrollbar-draggable="true"
+        scrollbar-snap-on-release="false"
+        slides-per-view="auto"
+        slides-offset-before={OFFSET_BEFORE}
+        slides-offset-after={OFFSET_AFTER}
+        free-mode="true"
+        free-mode-minimum-velocity="0.2"
+        free-mode-momentum-velocity-ratio="0.5"
         {...swiperContainerProps}
         {...swiperProps}
       >
-        {children?.map(ch => (
-          <swiper-slide>{ch}</swiper-slide>
+        {children?.map((ch, index) => (
+          <SwiperSlide
+            key={index}
+            class={cn(
+              gridColsMaxWidths[isSmall ? slideSpanMobile : slideSpanDesktop],
+              'h-auto'
+            )}
+          >
+            {ch}
+          </SwiperSlide>
         ))}
-      </swiper-container>
+      </SwiperContainer>
 
       <Transition
-        show={showNav && showLeftNav}
         as={Fragment}
-        enter="transition ease-in duration-300"
+        show={!isSmall && showNav}
+        enter="transition ease-in duration-500"
         enterFrom="-translate-x-full"
         enterTo="translate-x-0"
-        leave="transition ease-out duration-300"
+        leave="transition ease-out duration-500"
         leaveFrom="translate-x-0"
         leaveTo="-translate-x-full"
       >
-        <DzButton
-          className="flex items-center justify-center absolute left-0 top-1/2 z-10 h-20 w-20 translate-y-[-50%] translate-x-0"
-          variant={BUTTON_VARIANTS.SECONDARY}
+        <DzArrow
+          ref={leftArrowRef}
+          disabled={!leftNavEnabled}
+          className="absolute left-10 z-10"
+          style={{ top: navTopOffset }}
           onClick={() => swiperElRef.current?.swiper.slidePrev()}
-        >
-          <ChevronLeft
-            fill="white"
-            height={22}
-            type="chevron-right"
-            width={12}
-          />
-        </DzButton>
+          direction={ARROW_DIRECTIONS.LEFT}
+          mode={ARROW_MODES.DARK_BACKGROUND}
+          aria-label="Previous slide"
+        />
       </Transition>
 
       <Transition
         as={Fragment}
-        show={showNav && showRightNav}
-        enter="transition ease-in duration-300"
+        show={!isSmall && showNav}
+        enter="transition ease-in duration-500"
         enterFrom="translate-x-full"
         enterTo="translate-x-0"
-        leave="transition ease-out duration-300"
+        leave="transition ease-out duration-500"
         leaveFrom="translate-x-0"
         leaveTo="translate-x-full"
       >
-        <DzButton
-          className="flex items-center justify-center absolute right-0 top-1/2 z-10 h-20 w-20 translate-y-[-50%] translate-x-0"
-          variant={BUTTON_VARIANTS.SECONDARY}
+        <DzArrow
+          ref={rightArrowRef}
+          className="absolute right-10 z-10"
+          style={{ top: navTopOffset }}
+          disabled={!rightNavEnabled}
           onClick={() => swiperElRef.current?.swiper.slideNext()}
-        >
-          <ChevronRight
-            fill="white"
-            height={22}
-            type="chevron-right"
-            width={12}
-          />
-        </DzButton>
+          direction={ARROW_DIRECTIONS.RIGHT}
+          mode={ARROW_MODES.DARK_BACKGROUND}
+          aria-label="Next slide"
+        />
       </Transition>
     </div>
   );

@@ -5,6 +5,9 @@ module.exports = {
   content: [],
   theme: {
     extend: {
+      aspectRatio: {
+        '4/3': '4 / 3',
+      },
       colors: {
         'accent-1': '#FAFAFA',
         'accent-2': '#EAEAEA',
@@ -44,11 +47,12 @@ module.exports = {
         '6colMbl': '8.375rem',
         '2col': '13.9375rem',
         '3col': '20.9375rem',
-        '4col': '29.125rem',
-        '6col': '44.375rem',
+        '4col': '27.125rem',
+        '6col': '42.375rem',
         '10col': '74.75rem',
         '12col': '90rem',
-        '12colMbl': '20rem'
+        '12colMbl': '20rem',
+        headerMd: '56.25rem',
       },
       spacing: {
         28: '7rem',
@@ -69,7 +73,7 @@ module.exports = {
       },
       fontSize: {
         xs: ['0.75rem', '1.125rem'],
-        sm: ['0.875rem', '1.25rem'],
+        sm: ['0.875rem', '1.375rem'],
         md: ['1rem', '1.5rem'],
         lg: ['1.375rem', '1.75rem'],
         xl: ['1.875rem', '2.25rem'],
@@ -87,7 +91,7 @@ module.exports = {
         top: '0px -25px 38px -24px rgba(0, 0, 0, 0.12)',
         down: '0px 25px 38px -24px rgba(0, 0, 0, 0.12)',
         bottomBorderBlack20: '0px 1px 0px 0px #E8E8E8',
-        bottomBorderBlack60: '0px 1px 0px 0px #757575'
+        bottomBorderBlack60: '0px 1px 0px 0px #757575',
       },
       keyframes: {
         zoomIn: {
@@ -100,25 +104,27 @@ module.exports = {
         },
         fadeIn: {
           '0%': { opacity: 0 },
-          '100%': { opacity: 1 }
-        }
+          '100%': { opacity: 1 },
+        },
       },
       transitionTimingFunction: {
         'dz-timing': 'cubic-bezier(.73,.71,.65,.99)',
       },
       transitionProperty: {
-        'text-decoration': 'text-decoration'
+        'text-decoration': 'text-decoration',
       },
       animation: {
         slowZoomIn: '15s ease-in 0.3s 1 both zoomIn',
         slowZoomOut: '15s ease-in 0.3s 1 both zoomOut',
-        fadeIn: 'fadeIn 0.3s ease-in both'
+        fadeIn: 'fadeIn 0.3s ease-in both',
       },
       screens: {
         xs: '576px',
+        md: '769px',
       },
     },
   },
+  future: { hoverOnlyWhenSupported: true },
   plugins: [
     require('tailwind-scrollbar')({ nocompatible: true }),
     require('@tailwindcss/container-queries'),
