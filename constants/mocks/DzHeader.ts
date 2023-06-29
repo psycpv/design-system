@@ -2,7 +2,7 @@ export const menuData = {
   items: [
     {
       title: 'Artists',
-      newTab: true,
+      newTab: false,
       desktopEnabled: true,
       mobileEnabled: true,
       _type: 'menuItemLink',
@@ -13,10 +13,16 @@ export const menuData = {
       title: 'Exhibitions',
       mobileEnabled: true,
       desktopEnabled: true,
-      rootLink: {
-        newTab: false,
-        link: 'https://www.davidzwirner.com/exhibitions',
-      },
+      rootLink: [
+        {
+          title: 'Exhibition',
+          newTab: false,
+          desktopEnabled: true,
+          mobileEnabled: true,
+          _type: 'menuItemLink',
+          link: '/exhibition',
+        },
+      ],
       submenu: {
         _type: 'menu',
         items: [
@@ -71,10 +77,18 @@ export const menuData = {
       title: 'ExtraNested',
       mobileEnabled: true,
       desktopEnabled: true,
-      rootLink: {
-        newTab: false,
-        link: 'https://www.davidzwirner.com/extra-nested',
-      },
+      rootLink: [
+        {
+          _type: 'menuItemPage',
+          title: 'Tomma',
+          newTab: true,
+          desktopEnabled: true,
+          mobileEnabled: true,
+          page: {
+            url: '/exhibitions/tomma',
+          },
+        },
+      ],
       submenu: {
         _type: 'menu',
         items: [

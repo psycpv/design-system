@@ -75,7 +75,8 @@ const styles: any = {
     md:text-xxl
   `,
   linkCta: `
-    mt-[0.9375rem]
+    mt-[0.969rem]
+    md:mt-[1.875rem]
   `,
   animateImg: `
     motion-safe:animate-slowZoomOut
@@ -85,8 +86,11 @@ const styles: any = {
   primarySubHeadline: `
     mt-2.5
   `,
-  bodyText: `
-    mt-2.5
+  contentWrapper: `
+    flex
+    flex-col
+    gap-2.5
+    md:gap-5
   `,
 };
 const NUMBER_OF_CHARS_TEXT = 50;
@@ -108,11 +112,10 @@ export const DzSplit: FC<DzSplitProps> = ({
     description,
   } = data ?? {};
   const containerTypeStyle =
-    type === SPLIT_TYPES.SHORT
-      ? 'min-h-full md:min-h-[32.3125rem]'
-      : 'min-h-full md:min-h-[57.5rem]';
+    type === SPLIT_TYPES.SHORT ? 'min-h-full' : 'min-h-full md:min-h-[57.5rem]';
 
   const { width } = useWindowSize();
+
   const isSmall = useMemo(() => {
     return width <= BREAKPOINTS.MD;
   }, [width]);
@@ -128,59 +131,62 @@ export const DzSplit: FC<DzSplitProps> = ({
         <div className={cn(containerTypeStyle, 'w-full h-full')}>
           <DzMedia
             imgClass={animate ? styles.animateImg : ''}
-            aspectRatio={
-              isSmall ? MEDIA_ASPECT_RATIOS.AUTO : MEDIA_ASPECT_RATIOS['4:3']
-            }
-            objectFit={MEDIA_OBJECT_FIT.CONTAIN}
+            objectFit={MEDIA_OBJECT_FIT.COVER}
             objectPosition={ObjectPositionType.TOP}
+            aspectRatio={MEDIA_ASPECT_RATIOS['4:3']}
             {...media}
           />
         </div>
       </div>
+
       <div className={cn(styles.rightContainer)}>
         {category ? (
           <DzText textSize={TEXT_SIZES.SMALL} text={category} />
         ) : null}
-        <DzTitle
-          title={sliceMaxCharLength(title, NUMBER_OF_CHARS_TEXT)}
-          classNameTitle={cn(styles.title)}
-          classNameSubtitle={cn(styles.title)}
-          titleType={TITLE_TYPES.P}
-          subtitle={sliceMaxCharLength(subtitle, NUMBER_OF_CHARS_TEXT)}
-          subtitleType={TITLE_TYPES.P}
-        />
-        {secondaryTitle || secondarySubtitle ? (
+
+        <div className={cn(styles.contentWrapper)}>
           <DzTitle
-            className={styles.primarySubHeadline}
-            title={sliceMaxCharLength(secondaryTitle, NUMBER_OF_CHARS_TEXT)}
-            titleSize={TITLE_SIZES.LG}
-            subtitleSize={TITLE_SIZES.LG}
+            title={sliceMaxCharLength(title, NUMBER_OF_CHARS_TEXT)}
+            classNameTitle={cn(styles.title)}
+            classNameSubtitle={cn(styles.title)}
             titleType={TITLE_TYPES.P}
-            subtitle={sliceMaxCharLength(
-              secondarySubtitle,
-              NUMBER_OF_CHARS_TEXT
-            )}
+            subtitle={sliceMaxCharLength(subtitle, NUMBER_OF_CHARS_TEXT)}
             subtitleType={TITLE_TYPES.P}
           />
-        ) : // preserve gap before and after even if it's not shown for mobile
-        isSmall ? (
-          <div />
-        ) : null}
-        {description ? (
-          <DzText
-            className={styles.bodyText}
-            textSize={isSmall ? TEXT_SIZES.SMALL : TEXT_SIZES.MEDIUM}
-            text={sliceMaxCharLength(description, NUMBER_OF_CHARS_BODY)}
-          />
-        ) : null}
+          {secondaryTitle || secondarySubtitle ? (
+            <DzTitle
+              className={cn(styles.primarySubHeadline)}
+              title={sliceMaxCharLength(secondaryTitle, NUMBER_OF_CHARS_TEXT)}
+              titleSize={TITLE_SIZES.LG}
+              subtitleSize={TITLE_SIZES.LG}
+              titleType={TITLE_TYPES.P}
+              subtitle={sliceMaxCharLength(
+                secondarySubtitle,
+                NUMBER_OF_CHARS_TEXT
+              )}
+              subtitleType={TITLE_TYPES.P}
+            />
+          ) : // preserve gap before and after even if it's not shown for mobile
+          isSmall ? (
+            <div />
+          ) : null}
+          {description ? (
+            <DzText
+              className={cn(styles.bodyText)}
+              textSize={isSmall ? TEXT_SIZES.SMALL : TEXT_SIZES.MEDIUM}
+              text={sliceMaxCharLength(description, NUMBER_OF_CHARS_BODY)}
+            />
+          ) : null}
+        </div>
+
         {linkCTA ? (
           <DzLink
-            className={styles.linkCta}
+            className={cn(styles.linkCta)}
             {...(linkCTA.linkProps ?? {})}
             href={linkCTA.url}
             LinkElement={linkCTA.linkElement}
             variant={LINK_VARIANTS.TEXT}
-            textLinkSize={isSmall ? TEXT_LINK_SIZES.XS : TEXT_LINK_SIZES.SMALL}
+            textLinkSize={isSmall ? TEXT_LINK_SIZES.XS : TEXT_LINK_SIZES.SM}
           >
             {linkCTA.text}
           </DzLink>

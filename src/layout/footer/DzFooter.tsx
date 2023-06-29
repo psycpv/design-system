@@ -59,26 +59,33 @@ const styles: any = {
   linksContainer: `
     w-full
     flex
+    flex-wrap
     gap-5
     justify-center
+    min-w-fit
     md:justify-start
   `,
   socialContainer: `
     flex
-    md:gap-[3.2rem]
+    flex-wrap
+    gap-[calc(100vw*0.13)]
+    md:gap-[calc(100vw*0.03555555)]
     w-full
     md:justify-end
     pt-2
     md:pt-0
-    justify-between
+    justify-center
     items-center
   `,
   bottomContainer: `
     px-5
-    py-[2.125rem]
+    py-[40px]
+    md:py-[2.125rem]
     flex
     flex-col
-    gap-5
+    gap-10
+    md:gap-5
+    items-center
     md:flex-row
     justify-between
   `,
@@ -94,11 +101,15 @@ const styles: any = {
     flex
     flex-col
     md:flex-row
-    gap-5
+    md:gap-5
+    gap-[1.875rem]
   `,
   divider: `
     md:hidden
     bg-black-20
+  `,
+  link: `
+    text-center
   `,
 };
 export const DzFooter: FC<DzFooterProps> = ({
@@ -170,6 +181,7 @@ export const DzFooter: FC<DzFooterProps> = ({
                   key={`${_key}-${position}`}
                   href={urlWithAnchor}
                   openNewTab={newTab}
+                  className={styles.link}
                 >
                   {title}
                 </DzLink>

@@ -1,4 +1,4 @@
-export * from './DzCard/DzCard';
+export * from './DzCard';
 export * from './DzInterstitial/DzInterstitial';
 export * from './DzHero/DzHero';
 export * from './DzEditorial/DzEditorial';

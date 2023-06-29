@@ -130,7 +130,7 @@ export const DzTitle: FC<DzTitleProps> &
       : () => <Fragment />;
 
   return (
-    <div className={cn(className)}>
+    <div className={className}>
       <Heading
         className={cn(
           styles.heading,

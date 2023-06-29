@@ -19,7 +19,12 @@ const DEFAULT_TITLE_PROPS = {
 };
 
 export const DzTitleMol: FC<DzTitleSectionProps> = props => {
-  return <DzTitleSection {...props} titleProps={DEFAULT_TITLE_PROPS} />;
+  return (
+    <DzTitleSection
+      {...props}
+      titleProps={{ ...DEFAULT_TITLE_PROPS, ...(props.titleProps ?? {}) }}
+    />
+  );
 };
 
 export default DzTitleMol;

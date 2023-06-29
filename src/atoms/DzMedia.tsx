@@ -159,6 +159,7 @@ export const DzMedia: FC<DzMediaProps> = ({
       styles[objectFit],
       styles[objectPosition]
     );
+
     if (!ImgElement) {
       return (
         <img

@@ -5,7 +5,6 @@ import React, {
   useState,
   useEffect,
   Fragment,
-  useLayoutEffect,
 } from 'react';
 import { BREAKPOINTS } from '../../layout/breakpoints';
 import useWindowSize from '../../hooks/useWindowSize';
@@ -110,6 +109,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         mousewheel="true"
         mousewheel-force-to-axis="true"
         scrollbar-draggable="true"
+        scrollbar-snap-on-release="false"
         slides-per-view="auto"
         slides-offset-before={OFFSET_BEFORE}
         slides-offset-after={OFFSET_AFTER}
@@ -150,6 +150,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
           onClick={() => swiperElRef.current?.swiper.slidePrev()}
           direction={ARROW_DIRECTIONS.LEFT}
           mode={ARROW_MODES.DARK_BACKGROUND}
+          aria-label="Previous slide"
         />
       </Transition>
 
@@ -171,6 +172,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
           onClick={() => swiperElRef.current?.swiper.slideNext()}
           direction={ARROW_DIRECTIONS.RIGHT}
           mode={ARROW_MODES.DARK_BACKGROUND}
+          aria-label="Next slide"
         />
       </Transition>
     </div>

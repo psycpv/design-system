@@ -6,6 +6,7 @@ import React, {
   forwardRef,
   ForwardRefExoticComponent,
   ButtonHTMLAttributes,
+  useEffect,
 } from 'react';
 
 import useHover from '../hooks/useHover';
@@ -126,10 +127,12 @@ const styles: any = {
   large: `
     py-[0.8125rem]
     px-[1.5625rem]
+    text-md
   `,
   small: `
     py-[0.3125rem]
     px-[1.5625rem]
+    text-xs
   `,
   childrenContainer: `
     px-[1.6875rem]
@@ -177,6 +180,12 @@ export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
     const hoverRef = useRef<HTMLButtonElement | null>(null);
     const isHover = useHover(hoverRef);
     const fillIcon = iconColor(variant, isHover, disabled);
+    useEffect(() => {
+      if (hoverRef.current) {
+        hoverRef.current.blur();
+      }
+    }, [isHover]);
+
     const handleClick = (
       event: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
@@ -184,6 +193,7 @@ export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
         onClick(event);
       }
     };
+
     const childrenWithIcons =
       success || showLeftArrow || showRightArrow ? (
         <span className={cn(styles.iconContainer)}>
@@ -212,8 +222,8 @@ export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
         ref={composeRefs(hoverRef, forwardedRef) as any}
         className={cn(
           styles.btn,
-          styles?.[variant],
-          styles?.[size],
+          styles[variant],
+          styles[size],
           styles[mode],
           className
         )}

@@ -62,19 +62,19 @@ const styles: any = {
   `,
   nonSplit: `
     relative
-    w-screen
+    w-auto
   `,
   nonSplitFull: `
     min-h-[22.5rem]
     md:min-h-[27.5rem]
-    w-screen
+    w-auto
     flex
     justify-center
   `,
   contentInfoNonSplit: `
     w-full
-    md:w-[43.125rem]
-    p-5
+    md:w-[43.375rem]
+    py-5
     gap-5
     flex
     flex-col
@@ -88,8 +88,8 @@ const styles: any = {
   `,
   contentInfoNonSplitRelative: `
     w-full
-    md:w-[43.125rem]
-    p-5
+    md:w-[43.375rem]
+    py-5
     gap-5
     flex
     flex-col
@@ -145,6 +145,7 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
             textSize={TEXT_SIZES.XS}
           />
         ) : null}
+
         {title ? (
           <DzTitle
             classNameTitle={cn(styles.title, textClassColor)}
@@ -168,9 +169,9 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
         {primaryCta ? (
           <DzButton
             className={cn(styles.btnCTA)}
-            {...(primaryCta?.ctaProps ?? {})}
             size={BUTTON_SIZES.LARGE}
             mode={ButtonModes.LIGHT}
+            {...(primaryCta?.ctaProps ?? {})}
           >
             {primaryCta.text}
           </DzButton>

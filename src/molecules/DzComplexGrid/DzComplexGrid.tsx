@@ -39,7 +39,7 @@ type ExtraData = {
   cardType?: CardTypes;
 };
 
-type RichCard = DataCardType & ExtraData;
+type RichCard = Omit<DataCardType, 'size'> & ExtraData;
 
 export interface DzComplexGridProps {
   cards: RichCard[];
@@ -63,7 +63,8 @@ const styles: any = {
     flex
     justify-between
     items-center
-    mb-10
+    mb-5
+    md:mb-10
   `,
   rangeContainer: `
     flex
@@ -152,6 +153,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   const handleChange = useCallback(currentStep => {
     const [_, step] = currentStep;
     setStepValue(step);
+    console.log('STEP::', step);
   }, []);
 
   const displayText = useMemo(() => {
@@ -162,10 +164,10 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
 
   return (
     <div>
-      <div className={cn(styles.headControls)}>
+      <div className={styles.headControls}>
         {displayText ? (
           <DzText
-            className={styles.heading}
+            className={cn(styles.heading)}
             {...(textProps ?? {})}
             text={displayText}
           />
@@ -180,7 +182,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
                   min={MINIMUM_VALUE}
                   max={maximumValue}
                   step={STEPS_SPAN}
-                  value={[MINIMUM_VALUE, initialValue]}
+                  value={[MINIMUM_VALUE, stepValue]}
                   onChange={handleChange}
                 />
               </div>
@@ -207,7 +209,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
             : 'gap-y-[3.75rem]'
         }
       >
-        {cards.map((card, key) => {
+        {cards.map((card: any, key) => {
           if (!card) return null;
 
           const { id, cardType } = card;
@@ -217,9 +219,13 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
           if (isArtworkCard(card)) {
             const { primaryCTA, secondaryCTA } = card;
             const primaryCTAProps =
-              stepValue < STEP_TO_HIDE_CTA ? primaryCTA : undefined;
+              !isMobile && stepValue < STEP_TO_HIDE_CTA
+                ? primaryCTA
+                : undefined;
             const secondaryCTAProps =
-              stepValue < STEP_TO_HIDE_CTA ? secondaryCTA : undefined;
+              !isMobile && stepValue < STEP_TO_HIDE_CTA
+                ? secondaryCTA
+                : undefined;
             cardData = {
               ...card,
               media: {
@@ -233,7 +239,10 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
 
           return (
             <DzColumn key={`${id}-${key}`} span={columnsSpanPerRow}>
-              <DzCard type={cardDataType} data={cardData} />
+              <DzCard
+                type={cardDataType}
+                data={{ ...cardData, size: columnsSpanPerRow }}
+              />
             </DzColumn>
           );
         })}

@@ -1,9 +1,11 @@
 import React, { FC, useMemo, useRef } from 'react';
 import { DesktopSubmenu } from './DesktopSubmenus';
-import { DzLink, DzLinkProps, RouterProps } from '../../atoms';
+import { DzLink, DzLinkProps, RouterProps, TEXT_LINK_SIZES } from '../../atoms';
 import { cn } from '../../utils/classnames';
 import { MobileSubmenus } from './MobileSubmenus';
 import useHover from '../../hooks/useHover';
+import { BREAKPOINTS } from '../../layout/breakpoints';
+import useWindowSize from '../../hooks/useWindowSize';
 
 export interface MenuItemsProps {
   items: any[];
@@ -52,33 +54,34 @@ const styles: any = {
     max-h-[1.25rem]
   `,
   menuContainerMobile: `
-    max-h-[36.1875rem]
-    overflow-y-auto
     mr-1
-    scrollbar
-    scrollbar-h-[0.1875rem]
-    scrollbar-w-[0.1875rem]
-    scrollbar-thumb-black-60
-    scrollbar-track-black-20
-    scrollbar-rounded-[0.1875rem]
   `,
   submenuItemMobile: `
     p-5
     w-full
     block
     min-w-fit
+    outline-transparent
   `,
   submenuItemDesktop: `
     w-full
     block
-    px-5
-    my-1.5
     min-w-fit
+    outline-transparent
+  `,
+  verticalPadding: `
+    py-3
+  `,
+  narrow: `
+    px-3
+  `,
+  wide: `
+    px-5
   `,
 };
 
 export const renderPerType = {
-  menuItemLink: (data: MenuItemLink, _, linkProps, className) => {
+  menuItemLink: (data: MenuItemLink, isMobile, linkProps, className) => {
     const { title, newTab, link } = data ?? {};
 
     return (
@@ -87,6 +90,7 @@ export const renderPerType = {
         href={link}
         openNewTab={newTab}
         className={className}
+        textLinkSize={isMobile ? TEXT_LINK_SIZES.MD : TEXT_LINK_SIZES.SM}
       >
         {title}
       </DzLink>
@@ -99,27 +103,32 @@ export const renderPerType = {
     className
   ) => {
     const { title, submenu } = data ?? {};
-    const rootURL = data?.rootLink?.link ?? '';
+
+    const rootLink = data?.rootLink?.[0] ?? {};
+    const { _type, link, newTab, page } = rootLink;
+    const rootURL = _type === 'menuItemPage' ? page?.url : link;
+    const openNewTab = newTab;
     const { items } = submenu ?? {};
+    const linkPropsEnrich = { ...linkProps, openNewTab };
 
     return isMobile ? (
       <MobileSubmenus
         title={title}
         rootUrl={rootURL}
         items={items}
-        linkProps={linkProps}
+        linkProps={linkPropsEnrich}
       />
     ) : (
       <DesktopSubmenu
         title={title}
         rootUrl={rootURL}
         items={items}
-        linkProps={linkProps}
+        linkProps={linkPropsEnrich}
         linkClass={className}
       />
     );
   },
-  menuItemPage: (data: MenuItemPage, _, linkProps, className) => {
+  menuItemPage: (data: MenuItemPage, isMobile, linkProps, className) => {
     const { title, newTab, anchor, page } = data ?? {};
     const { url = '' } = page ?? {};
     const urlWithAnchor = anchor ? `${url}#${anchor}` : url;
@@ -130,6 +139,7 @@ export const renderPerType = {
         href={urlWithAnchor}
         openNewTab={newTab}
         className={className}
+        textLinkSize={isMobile ? TEXT_LINK_SIZES.MD : TEXT_LINK_SIZES.SM}
       >
         {title}
       </DzLink>
@@ -137,13 +147,25 @@ export const renderPerType = {
   },
 };
 
-export const renderItems = (items, isMobile = false, linkProps = {}) => {
-  return items.map(item => {
+export const renderItems = (
+  items,
+  isMobile = false,
+  linkProps = {},
+  isNested = false
+) => {
+  const { width } = useWindowSize();
+  const paddingClasses = useMemo(
+    () => (width > BREAKPOINTS.MD && width < 900 ? styles.narrow : styles.wide),
+    [width]
+  );
+  const verticalPadding = isNested ? styles.verticalPadding : '';
+  const itemListClass = isMobile
+    ? styles.submenuItemMobile
+    : cn(styles.submenuItemDesktop, verticalPadding, paddingClasses);
+
+  return items?.map(item => {
     const { _type, title } = item ?? {};
     const renderFunction = renderPerType?.[_type];
-    const itemListClass = isMobile
-      ? styles.submenuItemMobile
-      : styles.submenuItemDesktop;
     const listItemStyles = _type === 'menuItemSubmenu' ? '' : itemListClass;
 
     const { mobileEnabled, desktopEnabled } = item;

@@ -6,6 +6,7 @@ import React, {
   useEffect,
   useState,
   forwardRef,
+  HTMLAttributes,
 } from 'react';
 
 export const ARROW_MODES = {
@@ -30,7 +31,7 @@ export const ARROW_DIRECTIONS_NAMES = [
 
 export type ArrowDirection = typeof ARROW_DIRECTIONS_NAMES[number];
 
-export interface DzArrowProps {
+export interface DzArrowProps extends HTMLAttributes<HTMLButtonElement> {
   direction: ArrowDirection;
   mode?: ArrowMode;
   disabled?: boolean;
@@ -95,6 +96,7 @@ export const DzArrow = forwardRef<HTMLButtonElement, DzArrowProps>(
       disabled = false,
       onClick,
       style,
+      ...rest
     } = props;
     const [isHover, setIsHover] = useState<boolean>(false);
     const [ArrowComponent, setArrowComponent] = useState<JSX.Element>(
@@ -140,6 +142,7 @@ export const DzArrow = forwardRef<HTMLButtonElement, DzArrowProps>(
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         onClick={onClick}
+        {...rest}
       >
         {ArrowComponent ? ArrowComponent : null}
       </button>

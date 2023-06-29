@@ -23,6 +23,8 @@ export interface InputTextProps
   formName?: string;
   extraChildren?: ReactNode;
   customClassContent?: string;
+  customInputClass?: string;
+  customExtraContentClass?: string;
 }
 
 const styles = {
@@ -51,7 +53,8 @@ const styles = {
   input: `
     appearance-none
     bg-transparent
-    outline-0
+    outline-none
+    md:outline-transparent
     w-full
     pr-[3.2rem]
   `,
@@ -102,6 +105,8 @@ export const DzInputText = forwardRef<HTMLInputElement, InputTextProps>(
       formName = '',
       className = '',
       customClassContent = '',
+      customInputClass = '',
+      customExtraContentClass = '',
       ...rest
     },
     ref
@@ -204,14 +209,19 @@ export const DzInputText = forwardRef<HTMLInputElement, InputTextProps>(
             ref={ref}
             id={formName || title}
             name={formName || title}
-            className={cn(styles.input)}
+            className={cn(styles.input, customInputClass)}
             type="text"
             disabled={disabled}
             placeholder={placeholder}
             onChange={handleChange}
             {...rest}
           />
-          <div className={cn(styles.extraContentContainer)}>
+          <div
+            className={cn(
+              styles.extraContentContainer,
+              customExtraContentClass
+            )}
+          >
             {extraInformation}
             {extraChildren}
           </div>

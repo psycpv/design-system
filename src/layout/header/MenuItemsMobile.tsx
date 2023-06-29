@@ -4,6 +4,7 @@ import React, {
   useState,
   MouseEventHandler,
   useCallback,
+  useMemo,
 } from 'react';
 import { cn } from '../../utils/classnames';
 import MenuLogo from '../../svgIcons/menu';
@@ -14,6 +15,7 @@ import { Popover, Transition } from '@headlessui/react';
 import { DzInputText } from '../../atoms/DzInputText';
 import { MenuItems } from './MenuItems';
 import { DzFooter, FooterData } from '../footer/DzFooter';
+import useWindowSize from '../../hooks/useWindowSize';
 
 export interface MenuItemsMobileProps {
   items: any[];
@@ -31,9 +33,14 @@ const styles: any = {
     left-0
     top-[3.75rem]
     w-full
-    overflow-hidden
+    overflow-y-scroll
     bg-white-100
-    h-[calc(100vh_-_3.75rem)] 
+    scrollbar
+    scrollbar-h-[0.1875rem]
+    scrollbar-w-[0.1875rem]
+    scrollbar-thumb-black-60
+    scrollbar-track-black-20
+    scrollbar-rounded-[0.1875rem]
   `,
   subMenu: `
     w-full
@@ -41,23 +48,18 @@ const styles: any = {
     flex
     flex-col
     relative
-    max-h-[calc(100vh_-_3.75rem)]
   `,
   search: `
     mt-5
     mb-2.5
     px-5
   `,
-  menuContainer: `
-    max-h-[36.1875rem]
-    overflow-y-auto
-    mr-1
-    scrollbar
-    scrollbar-h-[0.1875rem]
-    scrollbar-w-[0.1875rem]
-    scrollbar-thumb-black-60
-    scrollbar-track-black-20
-    scrollbar-rounded-[0.1875rem]
+  searchInput: `
+    placeholder:text-black-100
+  `,
+  searchIcon: `
+    pb-3
+    pr-5
   `,
   other: `
     p-5
@@ -76,12 +78,21 @@ const styles: any = {
     border-black-20
   `,
   toggleIcon: `
-    outline-transparent
+    outline-none
+    md:outline-transparent
     flex
-    w-[18px]
-    h-[18px]
+    w-[2.5rem]
+    h-[1.25rem]
     justify-center
     items-center
+  `,
+  searchBtn: `
+    w-[2.5rem]
+    h-[2.5rem]
+    flex
+    items-center
+    justify-center
+    outline-none
   `,
 };
 
@@ -92,34 +103,47 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
   newsletterAction = () => null,
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
-  const handleKeyDown = useCallback(
-    (e: any) => {
-      if (e.code === 'Enter') {
-        handleSearch(e);
-      }
-    },
+  const handleKeyDown = useCallback((e: any) => {
+    if (e.code === 'Enter') {
+      handleSearch(e);
+    }
+  },
     [handleSearch]
   );
+
+  const { width, height } = useWindowSize();
+  const containerHeight = useMemo(() => {
+    if (typeof window != 'undefined' && window.document) {
+      return window.innerHeight - 60;
+    }
+    return null;
+  }, [width, height]);
 
   return (
     <>
       <Popover as={Fragment}>
         <Popover.Button as={Fragment}>
-          {!openMenu ? (
-            <button
-              className={styles.toggleIcon}
-              onClick={() => setOpenMenu(open => !open)}
-            >
+          <button
+            className={cn(styles.toggleIcon)}
+            onClick={() =>
+              setOpenMenu(open => {
+                if (typeof window != 'undefined' && window.document) {
+                  if (open) {
+                    document.body.style.overflow = 'unset';
+                  } else {
+                    document.body.style.overflow = 'hidden';
+                  }
+                }
+                return !open;
+              })
+            }
+          >
+            {!openMenu ? (
               <MenuLogo className={cn(styles.logoMenu)} id="open-menu-logo" />
-            </button>
-          ) : (
-            <button
-              className={styles.toggleIcon}
-              onClick={() => setOpenMenu(open => !open)}
-            >
+            ) : (
               <CloseLogo className={cn(styles.logoMenu)} id="close-menu-logo" />
-            </button>
-          )}
+            )}
+          </button>
         </Popover.Button>
         <Transition
           as={Fragment}
@@ -131,13 +155,28 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
           leaveFrom="opacity-100 translate-y-0"
           leaveTo="opacity-0 translate-y-1"
         >
-          <Popover.Panel static className={cn(styles.submenuContainer)}>
+          <Popover.Panel
+            static
+            className={cn(
+              styles.submenuContainer,
+              containerHeight ? '' : 'h-screen'
+            )}
+            style={{
+              height: `${containerHeight}px`,
+            }}
+          >
             <div className={cn(styles.subMenu)}>
               <DzInputText
                 onKeyDown={handleKeyDown}
                 customClassContent={cn(styles.search)}
+                customInputClass={cn(styles.searchInput)}
+                customExtraContentClass={cn(styles.searchIcon)}
                 placeholder="Search"
-                extraChildren={<Search />}
+                extraChildren={
+                  <button className={styles.searchBtn}>
+                    <Search />
+                  </button>
+                }
               />
               <MenuItems items={items} isMobile />
               <button

@@ -1,6 +1,7 @@
 import React, {
   FC,
   Fragment,
+  ReactNode,
   forwardRef,
   useCallback,
   useEffect,
@@ -17,12 +18,14 @@ import {
   DzMediaProps,
   DzText,
   DzTitle,
+  DzTitleProps,
   TITLE_SIZES,
   TITLE_TYPES,
   DzLink,
   DzLinkProps,
   LINK_VARIANTS,
   TEXT_LINK_SIZES,
+  TEXT_SIZES,
 } from '../../atoms';
 import { DzArrow, ARROW_DIRECTIONS } from '../../atoms';
 import { cn } from '../../utils/classnames';
@@ -39,7 +42,7 @@ export interface DzHeroItem {
   subtitle?: string;
   secondaryTitle?: string;
   secondarySubtitle?: string;
-  description?: string;
+  description?: string | ReactNode;
   linkCTA?: LinkCTA;
 }
 
@@ -47,6 +50,7 @@ export interface DzHeroProps {
   items: DzHeroItem[];
   onSlideChange?: Function;
   className?: string;
+  primaryTitleProps?: Omit<DzTitleProps, 'title' | 'subtitle'>;
 }
 
 interface LinkCTA {
@@ -96,7 +100,7 @@ const styles: any = {
     md:mb-5
   `,
   linkCta: `
-   mt-8
+   mt-2.5
    mb-[2.219rem]
    md:mt-7
    md:mb-0
@@ -177,7 +181,7 @@ enum Actions {
 }
 
 export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
-  ({ items, className = '' }, ref) => {
+  ({ items, className = '', primaryTitleProps }, ref) => {
     const [currentItemIndex, setCurrentItemIndex] = useState<number>(0);
     const [activeAnimation, setActiveAnimation] = useState(0);
     const { width } = useWindowSize();
@@ -232,6 +236,7 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
                   titleType={TITLE_TYPES.H3}
                   subtitle={item.subtitle}
                   subtitleType={TITLE_TYPES.H4}
+                  {...primaryTitleProps}
                 />
                 {item.secondaryTitle || item.secondarySubtitle ? (
                   <DzTitle
@@ -243,11 +248,14 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
                     subtitle={item.secondarySubtitle}
                     subtitleType={TITLE_TYPES.P}
                   />
-                ) : null}
+                ) : (
+                  isSmall && <div />
+                )}
                 {item.description ? (
                   <DzText
                     className={cn(styles.description)}
                     text={item.description}
+                    textSize={TEXT_SIZES.MEDIUM}
                   />
                 ) : null}
                 {item.linkCTA ? (
@@ -257,7 +265,7 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
                       href={item.linkCTA.url}
                       LinkElement={item.linkCTA.linkElement}
                       textLinkSize={
-                        isSmall ? TEXT_LINK_SIZES.XS : TEXT_LINK_SIZES.SMALL
+                        isSmall ? TEXT_LINK_SIZES.XS : TEXT_LINK_SIZES.SM
                       }
                       variant={LINK_VARIANTS.TEXT}
                     >
@@ -268,8 +276,9 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
               </div>
             ))}
           </ContentWrapper>
-          <div className={cn(styles.controlsContainer)}>
-            {items.length > 1 ? (
+
+          {items.length > 1 ? (
+            <div className={cn(styles.controlsContainer)}>
               <div className={cn(styles.arrowsContainer)}>
                 <DzArrow
                   onClick={() => handleChange(Actions.PREV)}
@@ -280,8 +289,8 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
                   direction={ARROW_DIRECTIONS.RIGHT}
                 />
               </div>
-            ) : null}
-          </div>
+            </div>
+          ) : null}
         </div>
       </div>
     );
