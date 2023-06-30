@@ -46,7 +46,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
     setLeftNavEnabled(!swiperElRef?.current?.swiper.isBeginning);
     setRightNavEnabled(!swiperElRef?.current?.swiper.isEnd);
 
-    swiperElRef?.current?.addEventListener('transitionend', () => {
+    swiperElRef?.current?.addEventListener('progress', () => {
       setLeftNavEnabled(!swiperElRef?.current?.swiper.isBeginning);
       setRightNavEnabled(!swiperElRef?.current?.swiper.isEnd);
     });
@@ -108,7 +108,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         keyboard-enabled="true"
         mousewheel="true"
         mousewheel-force-to-axis="true"
-        scrollbar-draggable="true"
+        scrollbar-draggable="false"
         scrollbar-snap-on-release="false"
         slides-per-view="auto"
         slides-offset-before={OFFSET_BEFORE}
@@ -136,11 +136,11 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         as={Fragment}
         show={!isSmall && showNav}
         enter="transition ease-in duration-500"
-        enterFrom="-translate-x-full"
-        enterTo="translate-x-0"
+        enterFrom="-translate-x-full opacity-0"
+        enterTo="translate-x-0 opacity-100"
         leave="transition ease-out duration-500"
-        leaveFrom="translate-x-0"
-        leaveTo="-translate-x-full"
+        leaveFrom="translate-x-0 opacity-100"
+        leaveTo="-translate-x-full opacity-0"
       >
         <DzArrow
           ref={leftArrowRef}
@@ -158,11 +158,11 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
         as={Fragment}
         show={!isSmall && showNav}
         enter="transition ease-in duration-500"
-        enterFrom="translate-x-full"
-        enterTo="translate-x-0"
+        enterFrom="translate-x-full opacity-0"
+        enterTo="translate-x-0 opacity-100"
         leave="transition ease-out duration-500"
-        leaveFrom="translate-x-0"
-        leaveTo="translate-x-full"
+        leaveFrom="translate-x-0 opacity-100"
+        leaveTo="translate-x-full opacity-0"
       >
         <DzArrow
           ref={rightArrowRef}
@@ -175,6 +175,16 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
           aria-label="Next slide"
         />
       </Transition>
+      {/* Prevent the bottom padding area under the slides from receiving mouse events, including the scrollbar */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: "0px",
+          height: "64px",
+          width: "100%",
+          zIndex: 100,
+        }}
+      />
     </div>
   );
 };
