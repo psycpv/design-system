@@ -179,7 +179,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
       <div
         style={{
           position: "absolute",
-          bottom: "2px",
+          bottom: "0px",
           height: "64px",
           width: "100%",
           zIndex: 100,
