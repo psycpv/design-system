@@ -175,6 +175,16 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
           aria-label="Next slide"
         />
       </Transition>
+      {/* Prevent the bottom padding area under the slides from receiving mouse events, including the scrollbar */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: "2px",
+          height: "64px",
+          width: "100%",
+          zIndex: 100,
+        }}
+      />
     </div>
   );
 };
