@@ -1,5 +1,5 @@
 # Workflow name
-name: "Chromatic Deployment"
+name: 'Chromatic Deployment'
 
 # Event for the workflow
 on: push
@@ -15,10 +15,28 @@ jobs:
         with:
           fetch-depth: 0 # 👈 Required to retrieve git histoyyy
       - run: yarn
-        #👇 Adds Chromatic as a step in the workflow
-      - uses: chromaui/action@v1
+      - name: Get PR number
+        id: pr
+        run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #👇 Adds Chromatic as a step in the workflow
+      - name: Chromatic deployment
+        id: chromatic
+        uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
         with:
           #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/ember/en/deploy/ to obtain it
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Add Chromatic URLs as a comment
+        uses: thollander/actions-comment-pull-request@v2
+        if: ${{ steps.pr.outputs.pull_request_number }}
+        with:
+          message: "## Chromatic deployment  :mag:\n \
+            | Item                      | URL          |\n\
+            | ------------------------- | ------------- |\n\
+            | Build :package: | ${{ steps.chromatic.outputs.buildUrl }} |\n\
+            | Storybook :rocket: | ${{ steps.chromatic.outputs.storybookUrl }} |\n"
+          comment_tag: execution
+          pr_number: ${{ steps.pr.outputs.pull_request_number }}
