@@ -52,7 +52,7 @@ const styles: any = {
     font-medium
     text-sm
     py-4
-    outline-none
+    outline-transparent
   `,
   underline: `
     decoration-transparent

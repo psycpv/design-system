@@ -32,7 +32,7 @@ const styles = {
     block
     w-full
     shadow-sm
-    outline-none
+    outline-transparent
     border
   `,
   wordCount: `
