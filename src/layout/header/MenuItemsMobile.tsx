@@ -103,13 +103,16 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
   newsletterAction = () => null,
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
-  const { width, height } = useWindowSize();
-  const handleKeyDown = useCallback((e: any) => {
-    if (e.code === 'Enter') {
-      handleSearch(e);
-    }
-  }, []);
+  const handleKeyDown = useCallback(
+    (e: any) => {
+      if (e.code === 'Enter') {
+        handleSearch(e);
+      }
+    },
+    [handleSearch]
+  );
 
+  const { width, height } = useWindowSize();
   const containerHeight = useMemo(() => {
     if (typeof window != 'undefined' && window.document) {
       return window.innerHeight - 60;

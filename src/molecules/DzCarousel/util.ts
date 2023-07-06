@@ -1,5 +1,3 @@
-import { GUTTER } from '../../layout';
-
 export const OFFSET_AFTER = 20;
 export const OFFSET_BEFORE = 20;
 
@@ -18,7 +16,7 @@ export const OFFSET_BEFORE = 20;
  * OFFSET: Carousel total offset (OFFSET_BEFORE + OFFSET_AFTER)
  * GUTTER: Spacing between columns in the design system
  *
- * 
+ *
  * PD: Values are hard-coded because Tailwind JIT compiler cannot generate classes from dynamic strings
  *  */
 export const gridColsMaxWidths = {

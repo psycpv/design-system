@@ -10,10 +10,10 @@ describe('ATOMIC: Icon tests', () => {
       <div>
         <Icon.ArrowLeft />
         <Icon.ArrowRight />
-        <Icon.Checkmark/>
-        <Icon.ChevronLeft/>
-        <Icon.ChevronRight/>
-        <Icon.Menu/>
+        <Icon.Checkmark />
+        <Icon.ChevronLeft />
+        <Icon.ChevronRight />
+        <Icon.Menu />
       </div>
     );
     expect(screen.getByTitle(/Arrow Left Icon/i)).toBeInTheDocument();

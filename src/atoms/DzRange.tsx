@@ -6,7 +6,9 @@ export const FLAT_SHADOW = '0 1px 1px 0 rgba(0, 0, 0, 0.05)';
 
 type Range = { min: number; max: number };
 export const remapValue = (n: number, from: Range, to: Range) => {
-  return ((n - from.min) * (to.max - to.min)) / (from.max - from.min) + to.min;
+  return (
+    ((n - from?.min) * (to?.max - to?.min)) / (from?.max - from?.min) + to?.min
+  );
 };
 export const RANGE_HANDLE_SIZE = 12;
 
@@ -40,28 +42,28 @@ export const DzRange: React.FC<RangeProps> = ({
   const handleMinChange = ({
     target: { valueAsNumber: value },
   }: React.ChangeEvent<HTMLInputElement>) => {
-    if (value > values[1]) return;
-    setValues([value, values[1]]);
-    onChange?.([value, values[1]]);
+    if (value > values?.[1]) return;
+    setValues([value, values?.[1]]);
+    onChange?.([value, values?.[1]]);
   };
 
   const handleMaxChange = ({
     target: { valueAsNumber: value },
   }: React.ChangeEvent<HTMLInputElement>) => {
-    if (value < values[0]) return;
-    setValues([values[0], value]);
-    onChange?.([values[0], value]);
+    if (value < values?.[0]) return;
+    setValues([values?.[0], value]);
+    onChange?.([values?.[0], value]);
   };
 
   useEffect(() => {
-    if (!maxRef.current) return;
-    setMaxWidth(maxRef.current.offsetWidth);
+    if (!maxRef?.current) return;
+    setMaxWidth(maxRef?.current?.offsetWidth);
   }, []);
 
   useEffect(() => {
     const handleResize = () => {
-      if (!maxRef.current) return;
-      setMaxWidth(maxRef.current.offsetWidth);
+      if (!maxRef?.current) return;
+      setMaxWidth(maxRef?.current?.offsetWidth);
     };
 
     window.addEventListener('resize', handleResize, { passive: true });
@@ -77,7 +79,7 @@ export const DzRange: React.FC<RangeProps> = ({
   }, [...value]);
 
   const selectionRectangle = `rect(0, ${remapValue(
-    values[1],
+    values?.[1],
     { min, max },
     { min: 0, max: maxWidth - RANGE_HANDLE_SIZE }
   )}px, 2px, ${remapValue(
@@ -87,7 +89,7 @@ export const DzRange: React.FC<RangeProps> = ({
   )}px)`;
 
   const maxRectangle = `rect(0, ${maxWidth}px, ${RANGE_HANDLE_SIZE}px, ${remapValue(
-    values[1],
+    values?.[1],
     { min, max },
     { min: 0, max: maxWidth - RANGE_HANDLE_SIZE }
   )}px)`;
@@ -103,7 +105,7 @@ export const DzRange: React.FC<RangeProps> = ({
           max={max}
           step={step}
           onInput={handleMinChange}
-          value={values[0]}
+          value={values?.[0]}
           aria-label={ariaLabels?.[0]}
         />
       ) : null}
@@ -114,7 +116,7 @@ export const DzRange: React.FC<RangeProps> = ({
         max={max}
         step={step}
         onInput={handleMaxChange}
-        value={values[1]}
+        value={values?.[1]}
         style={{ clip: maxRectangle }}
         aria-label={ariaLabels?.[1]}
       />

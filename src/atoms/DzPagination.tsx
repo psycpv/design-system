@@ -22,7 +22,7 @@ const styles = {
     px-4
     sm:px-0
   `,
-  underline:`
+  underline: `
     decoration-transparent
     duration-300
     ease-in
@@ -114,7 +114,10 @@ export const DzPagination: FC<DzPaginationProps> = ({
   return (
     <div className={cn(styles.paginationContainer)}>
       <div className="-mt-px flex w-0 flex-1">
-        <div className={cn(styles.previousContainer, styles.underline)} onClick={onPrevious}>
+        <div
+          className={cn(styles.previousContainer, styles.underline)}
+          onClick={onPrevious}
+        >
           <ChevronLeft className="mr-3 h-3 w-3" aria-hidden="true" />
           {prevText}
         </div>
@@ -127,7 +130,10 @@ export const DzPagination: FC<DzPaginationProps> = ({
           }
           return (
             <div
-              className={cn(selected ? styles.selectedPage : styles.pageNumber, styles.underline)}
+              className={cn(
+                selected ? styles.selectedPage : styles.pageNumber,
+                styles.underline
+              )}
               onClick={() => onPageChange(page)}
             >
               {page}
@@ -136,7 +142,10 @@ export const DzPagination: FC<DzPaginationProps> = ({
         })}
       </div>
       <div className="-mt-px flex w-0 flex-1 justify-end">
-        <div className={cn(styles.nextContainer, styles.underline)} onClick={onNext}>
+        <div
+          className={cn(styles.nextContainer, styles.underline)}
+          onClick={onNext}
+        >
           {nextText}
           <ChevronRight className="ml-3 h-3 w-3" aria-hidden="true" />
         </div>
