@@ -32,7 +32,6 @@ export const styles: any = {
     outline-0
     md:outline-transparent
     hover:text-black-100
-    focus:text-black-100
     after:absolute
     after:bottom-0
     after:left-0
@@ -43,7 +42,6 @@ export const styles: any = {
     after:float-left
     hover:after:rounded-lg
     hover:after:bg-black-60
-    focus:after:bg-black-60
   `,
   listLink: `
     cursor-pointer

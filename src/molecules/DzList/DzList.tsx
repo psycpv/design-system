@@ -17,7 +17,6 @@ import {
   getStartingChars,
   ascLastNameThenFirstName,
   groupItemsByColumn,
-  getAllIdsMatches,
 } from './utils';
 
 export const DzList: FC<DzListProps> = ({
@@ -69,12 +68,11 @@ export const DzList: FC<DzListProps> = ({
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
-          const isHidden = !entry.isIntersecting;
           const letter = entry.target.id.charAt(0);
           const isUpperValue =
             entry.intersectionRect.y < 200 && entry.intersectionRect.y > 0;
-          console.table({ isHidden, letter, isUpperValue, currentChar });
-          if (letter !== currentChar && isUpperValue) {
+
+          if (isUpperValue) {
             setCurrentChar(letter);
           }
         });

@@ -1,13 +1,5 @@
 import { DzListItem } from './types';
 
-export function getAllIdsMatches(regEx) {
-  return Array.prototype.slice
-    .call(document.querySelectorAll('*'))
-    .filter(function(el) {
-      return el.id.match(regEx);
-    });
-}
-
 export const getStartingChars = list => {
   const startingChars = list.map(item => item.lastName.trim().charAt(0)).sort();
   return startingChars.filter(
