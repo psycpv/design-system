@@ -160,7 +160,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
     const { text } = textProps ?? {};
     const resultsTitle = `${numberOfResults} ${headingTitle}`;
     return displayNumberOfResults ? resultsTitle : text;
-  }, [displayNumberOfResults, numberOfResults, headingTitle]);
+  }, [displayNumberOfResults, numberOfResults, headingTitle, textProps]);
 
   return (
     <div>

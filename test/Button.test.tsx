@@ -1,12 +1,12 @@
 import React from 'react';
-import { cleanup, render, screen, fireEvent} from '@testing-library/react';
+import { cleanup, render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { DzButton } from '../src/atoms/DzButton';
 
 afterEach(cleanup);
 describe('ATOMIC: DzButton test', () => {
   it('should render the button without crashing', () => {
-    render(<DzButton >test</DzButton>);
+    render(<DzButton>test</DzButton>);
     expect(screen.getByRole('button')).toBeInTheDocument();
   });
 
