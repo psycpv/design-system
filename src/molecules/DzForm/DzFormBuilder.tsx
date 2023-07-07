@@ -10,7 +10,6 @@ import {
 } from '../../atoms';
 import { DzGridColumns, DzColumn } from '../../layout';
 import { cn } from '../../utils/classnames';
-import { FORM_FIELD_TYPES } from './DzForm';
 
 export interface DzFormBuilderProps {
   form: any;
@@ -96,7 +95,10 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
           return (
             <Fragment key={id}>
               {sectionTitle ? (
-                <DzText className={cn(styles.sectionTitle)} text={sectionTitle} />
+                <DzText
+                  className={cn(styles.sectionTitle)}
+                  text={sectionTitle}
+                />
               ) : null}
               {fields?.length ? (
                 <DzGridColumns key={id}>

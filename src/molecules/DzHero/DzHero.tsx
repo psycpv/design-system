@@ -92,17 +92,10 @@ const styles: any = {
     text-xl
     md:text-xxl
   `,
-  secondaryTitleContainer: `
-    md:my-2.5
-  `,
-  description: `
-    mb-2.5
-    md:mb-5
-  `,
   linkCta: `
    mt-2.5
    mb-[2.219rem]
-   md:mt-7
+   md:mt-[1.875rem]
    md:mb-0
   `,
   mediaImage: `
@@ -112,6 +105,12 @@ const styles: any = {
     flex
     gap-10
   `,
+  contentWrapper: `
+    flex
+    flex-col
+    gap-2.5
+    md:gap-5
+  `
 };
 
 const MediaWrapper = ({ children, activeIndex, onSlideChanged }) => {
@@ -229,35 +228,38 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
                     text={item.category}
                   />
                 ) : null}
-                <DzTitle
-                  title={item.title}
-                  classNameTitle={cn(styles.title)}
-                  classNameSubtitle={cn(styles.title)}
-                  titleType={TITLE_TYPES.H3}
-                  subtitle={item.subtitle}
-                  subtitleType={TITLE_TYPES.H4}
-                  {...primaryTitleProps}
-                />
-                {item.secondaryTitle || item.secondarySubtitle ? (
+
+                <div className={cn(styles.contentWrapper)}>
                   <DzTitle
-                    title={item.secondaryTitle}
-                    className={cn(styles.secondaryTitleContainer)}
-                    titleType={TITLE_TYPES.P}
-                    titleSize={TITLE_SIZES.LG}
-                    subtitleSize={TITLE_SIZES.LG}
-                    subtitle={item.secondarySubtitle}
-                    subtitleType={TITLE_TYPES.P}
+                    title={item.title}
+                    classNameTitle={cn(styles.title)}
+                    classNameSubtitle={cn(styles.title)}
+                    titleType={TITLE_TYPES.H3}
+                    subtitle={item.subtitle}
+                    subtitleType={TITLE_TYPES.H4}
+                    {...primaryTitleProps}
                   />
-                ) : (
-                  isSmall && <div />
-                )}
-                {item.description ? (
-                  <DzText
-                    className={cn(styles.description)}
-                    text={item.description}
-                    textSize={TEXT_SIZES.MEDIUM}
-                  />
-                ) : null}
+                  {item.secondaryTitle || item.secondarySubtitle ? (
+                    <DzTitle
+                      title={item.secondaryTitle}
+                      titleType={TITLE_TYPES.P}
+                      titleSize={TITLE_SIZES.LG}
+                      subtitleSize={TITLE_SIZES.LG}
+                      subtitle={item.secondarySubtitle}
+                      subtitleType={TITLE_TYPES.P}
+                    />
+                  ) : (
+                    isSmall && <div />
+                  )}
+                  {item.description ? (
+                    <DzText
+                      className={cn(styles.description)}
+                      text={item.description}
+                      textSize={isSmall ? TEXT_SIZES.SMALL : TEXT_SIZES.MEDIUM}
+                    />
+                  ) : null}
+                </div>
+
                 {item.linkCTA ? (
                   <div className={cn(styles.linkCta)}>
                     <DzLink

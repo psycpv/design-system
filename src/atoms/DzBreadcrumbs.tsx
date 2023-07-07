@@ -19,7 +19,7 @@ export const DzBreadcrumbs: FC<DzBreadcrumbsProps> = ({
 }) => {
   return (
     <nav className="flex" aria-label="Breadcrumb">
-      <ol role="list" className="flex items-center space-x-4">
+      <ol className="flex items-center space-x-4">
         <li>
           <div>
             <a href="/">

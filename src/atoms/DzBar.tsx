@@ -1,13 +1,9 @@
-import React, {
-  FC,
-  InputHTMLAttributes,
-  useState,
-  useEffect,
-} from 'react';
+import React, { FC, InputHTMLAttributes, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { cn } from '../utils/classnames';
 import { DzText, TEXT_TYPES } from './DzText';
 import { v4 as uuidv4 } from 'uuid';
+import { DzRange, RangeProps } from './DzRange';
 
 export const BAR_VARIANTS = {
   PROGRESS: 'progress',
@@ -15,7 +11,6 @@ export const BAR_VARIANTS = {
   CAROUSEL_TAB: 'carouselTab',
   SLIDER: 'slider',
 };
-import { DzRange, RangeProps } from './DzRange';
 
 export const BAR_VARIANT_NAMES = [
   BAR_VARIANTS.PROGRESS,
@@ -32,8 +27,7 @@ export interface DzBarProps {
   rangeProps?: RangeProps;
   tabBarSteps?: number;
   activeTab?: number;
-  onChangeRange?:(range: number[]) => void
-
+  onChangeRange?: (range: number[]) => void;
 }
 export type BarVariant = typeof BAR_VARIANT_NAMES[number];
 interface StyledInputRange extends InputHTMLAttributes<HTMLInputElement> {
@@ -95,17 +89,16 @@ const styles = {
     cursor-pointer
     h-[0.1875rem]
   `,
-  currentTab:`
+  currentTab: `
     !bg-black-100
   `,
-  tabStep:`
+  tabStep: `
     block
     h-px
     w-full
     bg-black-40
     hover:bg-black-80
-  `
-
+  `,
 };
 
 export const DzBar: FC<DzBarProps> = ({
@@ -123,10 +116,11 @@ export const DzBar: FC<DzBarProps> = ({
   activeTab = 0,
   onChangeRange = () => null,
 }) => {
-
   const [currentTab, setCurrentTab] = useState<number>(activeTab);
-  useEffect(()=> {setCurrentTab(activeTab)}, [activeTab])
-  
+  useEffect(() => {
+    setCurrentTab(activeTab);
+  }, [activeTab]);
+
   if (variant === BAR_VARIANTS.PROGRESS) {
     return (
       <>
@@ -168,26 +162,30 @@ export const DzBar: FC<DzBarProps> = ({
   }
 
   if (variant === BAR_VARIANTS.SLIDER) {
-    return <DzRange onChange={onChangeRange} {...rangeProps} doubleRange/>;
+    return <DzRange onChange={onChangeRange} {...rangeProps} doubleRange />;
   }
-  
-  if(variant === BAR_VARIANTS.CAROUSEL_TAB){
-    const steps = Array.from(Array(tabBarSteps).keys())
-    const currentTabStyle = (step: number)=> step === currentTab? styles.currentTab: '';
+
+  if (variant === BAR_VARIANTS.CAROUSEL_TAB) {
+    const steps = Array.from(Array(tabBarSteps).keys());
+    const currentTabStyle = (step: number) =>
+      step === currentTab ? styles.currentTab : '';
     return (
       <div className="flex items-center justify-center" aria-label="Progress">
-        <ol role="list" className="ml-8 flex items-center gap-5 w-full">
-          {steps.map((step) => (
-            <li key={step} onClick={()=>setCurrentTab(step)} className="flex w-full py-2.5 cursor-pointer">
-                <div className={cn(styles.tabStep,currentTabStyle(step) )}>
-                  <span className="sr-only">{step}</span>
-                </div>
-              
+        <ol className="ml-8 flex items-center gap-5 w-full">
+          {steps.map(step => (
+            <li
+              key={step}
+              onClick={() => setCurrentTab(step)}
+              className="flex w-full py-2.5 cursor-pointer"
+            >
+              <div className={cn(styles.tabStep, currentTabStyle(step))}>
+                <span className="sr-only">{step}</span>
+              </div>
             </li>
           ))}
         </ol>
       </div>
-    )
+    );
   }
   return <></>;
 };

@@ -218,7 +218,7 @@ const styles: any = {
       text-xs
       !decoration-white-100 
       !hover:!decoration-white-100
-    `
+    `,
   },
   alertType: `
     flex
