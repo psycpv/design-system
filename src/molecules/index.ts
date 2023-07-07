@@ -8,3 +8,4 @@ export * from './DzCarousel/DzCarousel';
 export * from './DzTabsCards/DzTabsCards';
 export * from './DzComplexGrid/DzComplexGrid';
 export * from './DzForm/DzForm';
+export * from './DzList';

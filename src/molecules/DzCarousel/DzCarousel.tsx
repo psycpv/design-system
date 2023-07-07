@@ -74,8 +74,8 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
       };
 
   useIsomorphicLayoutEffect(() => {
-    const imgHeight = (swiperElRef.current?.firstChild?.firstChild
-      ?.firstChild as HTMLElement)?.querySelector('img')?.offsetHeight;
+    const imgHeight = (swiperElRef?.current?.firstChild?.firstChild
+      ?.firstChild as HTMLElement)?.querySelector?.('img')?.offsetHeight;
 
     const arrowHeight =
       leftArrowRef.current?.offsetHeight ||
@@ -178,10 +178,10 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
       {/* Prevent the bottom padding area under the slides from receiving mouse events, including the scrollbar */}
       <div
         style={{
-          position: "absolute",
-          bottom: "0px",
-          height: "64px",
-          width: "100%",
+          position: 'absolute',
+          bottom: '0px',
+          height: '64px',
+          width: '100%',
           zIndex: 100,
         }}
       />
