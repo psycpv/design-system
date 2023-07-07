@@ -30,6 +30,7 @@ export const DzList: FC<DzListProps> = ({
 }) => {
   const keyOfFirstElement = useRef(1);
   const prevChar = useRef('');
+  const [notMatchingLetters, setNotMatchingLetters] = useState<string[]>([]);
 
   const { width } = useWindowSize();
   const isMobile = useMemo(() => {
@@ -37,7 +38,14 @@ export const DzList: FC<DzListProps> = ({
   }, [width]);
 
   const alphabetItems = useMemo(() => {
-    return useFullAlphabet ? alphabet : getStartingChars(list);
+    const startingChars = getStartingChars(list);
+    if (useFullAlphabet) {
+      const unavailableOptions = alphabet.filter(
+        x => !startingChars.includes(x)
+      );
+      setNotMatchingLetters(unavailableOptions);
+    }
+    return useFullAlphabet ? alphabet : startingChars;
   }, [list]);
 
   const [currentChar, setCurrentChar] = useState('A');
@@ -100,14 +108,16 @@ export const DzList: FC<DzListProps> = ({
       {isMobile && alphabetItems?.length ? (
         <ul style={{ top: stickyOffset }} className={cn(styles.menuList)}>
           {alphabetItems.map((letter, key) => {
+            const optionStyle =
+              currentChar === letter ? styles.activeItem : styles.defaultItem;
             return (
               <li key={`${letter}-option-${key}`}>
                 <button
                   className={cn(
                     styles.listItem,
-                    currentChar === letter
-                      ? styles.activeItem
-                      : styles.defaultItem
+                    notMatchingLetters.includes(letter)
+                      ? styles.disable
+                      : optionStyle
                   )}
                   onClick={el => {
                     setCurrentChar(letter);

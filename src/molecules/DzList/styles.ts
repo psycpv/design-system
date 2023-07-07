@@ -18,20 +18,26 @@ export const styles: any = {
   activeItem: `
     after:bg-black-60
     text-black-100
+    hover:text-black-100
+    hover:after:rounded-lg
+    cursor-pointer
+    hover:after:bg-black-60
   `,
   defaultItem: `
     text-black-60
     after:bg-black-20
+    hover:text-black-100
+    hover:after:rounded-lg
+    cursor-pointer
+    hover:after:bg-black-60
   `,
   listItem: `
     text-left
     min-w-[2.5438rem]
     pb-5
-    cursor-pointer
     relative
     outline-0
     md:outline-transparent
-    hover:text-black-100
     after:absolute
     after:bottom-0
     after:left-0
@@ -40,8 +46,7 @@ export const styles: any = {
     after:h-[0.1875rem]
     after:w-full
     after:float-left
-    hover:after:rounded-lg
-    hover:after:bg-black-60
+    
   `,
   listLink: `
     cursor-pointer
@@ -52,5 +57,10 @@ export const styles: any = {
     flex
     flex-col
     gap-10
+  `,
+  disable: `
+    pointer-none
+    text-black-40
+    after:bg-black-20
   `,
 };

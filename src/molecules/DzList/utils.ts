@@ -30,7 +30,14 @@ export const alphabet = [
 ];
 
 export const getStartingChars = list => {
-  const startingChars = list.map(item => item.lastName.trim().charAt(0)).sort();
+  const startingChars = list
+    .map(item =>
+      item.lastName
+        .trim()
+        .toUpperCase()
+        .charAt(0)
+    )
+    .sort();
   return startingChars.filter(
     (value, index, array) => array.indexOf(value) === index
   );
