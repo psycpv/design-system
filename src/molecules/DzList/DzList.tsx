@@ -17,11 +17,13 @@ import {
   getStartingChars,
   ascLastNameThenFirstName,
   groupItemsByColumn,
+  alphabet,
 } from './utils';
 
 export const DzList: FC<DzListProps> = ({
   numberOfCol = 4,
   list,
+  useFullAlphabet = true,
   sort = false,
   stickyOffset = '0px',
   customSort,
@@ -35,7 +37,7 @@ export const DzList: FC<DzListProps> = ({
   }, [width]);
 
   const alphabetItems = useMemo(() => {
-    return getStartingChars(list);
+    return useFullAlphabet ? alphabet : getStartingChars(list);
   }, [list]);
 
   const [currentChar, setCurrentChar] = useState('A');

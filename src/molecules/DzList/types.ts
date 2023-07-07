@@ -2,6 +2,7 @@ export interface DzListProps {
   numberOfCol?: number;
   list: DzListItem[];
   sort?: boolean;
+  useFullAlphabet?: boolean;
   stickyOffset?: string;
   customSort?: (a: DzListItem, b: DzListItem) => number;
 }

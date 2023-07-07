@@ -1,5 +1,34 @@
 import { DzListItem } from './types';
 
+export const alphabet = [
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F',
+  'G',
+  'H',
+  'I',
+  'J',
+  'K',
+  'L',
+  'M',
+  'N',
+  'O',
+  'P',
+  'Q',
+  'R',
+  'S',
+  'T',
+  'U',
+  'V',
+  'W',
+  'X',
+  'Y',
+  'Z',
+];
+
 export const getStartingChars = list => {
   const startingChars = list.map(item => item.lastName.trim().charAt(0)).sort();
   return startingChars.filter(
