@@ -26,12 +26,14 @@ const styles: any = {
   singleParagraph: `
     text-sm
     md:text-md
-    mb-10
+    mb-5
+    md:mb-10
   `,
   quote: `
     text-lg
     md:text-xl
-    mb-10
+    mb-5
+    md:mb-10
   `,
 };
 
