@@ -20,6 +20,7 @@ import {
   alphabet,
 } from './utils';
 
+const DISABLE_SCROLL_SELECTION = true;
 export const DzList: FC<DzListProps> = ({
   numberOfCol = 4,
   list,
@@ -97,9 +98,11 @@ export const DzList: FC<DzListProps> = ({
       }
     );
 
-    elements.forEach(element => {
-      observer.observe(element);
-    });
+    if (!DISABLE_SCROLL_SELECTION) {
+      elements.forEach(element => {
+        observer.observe(element);
+      });
+    }
 
     return () => observer.disconnect();
   }, []);
