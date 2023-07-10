@@ -78,7 +78,10 @@ export const DzList: FC<DzListProps> = ({
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
-          const letter = entry.target.id.charAt(0);
+          const letter = entry.target.id
+            .trim()
+            .toUpperCase()
+            .charAt(0);
           const isUpperValue =
             entry.intersectionRect.y < 200 && entry.intersectionRect.y > 0;
 
@@ -145,7 +148,10 @@ export const DzList: FC<DzListProps> = ({
                 <ul className={cn(styles.column)}>
                   {columnItems.map((item, k) => {
                     const { url, text, lastName } = item;
-                    const currentChar = lastName.charAt(0);
+                    const currentChar = lastName
+                      .trim()
+                      .toUpperCase()
+                      .charAt(0);
                     if (prevChar.current === currentChar) {
                       keyOfFirstElement.current = keyOfFirstElement.current + 1;
                     } else {
