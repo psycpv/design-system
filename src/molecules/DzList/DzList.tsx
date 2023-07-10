@@ -73,7 +73,6 @@ export const DzList: FC<DzListProps> = ({
     const hasIOSupport = !!window.IntersectionObserver;
     if (!hasIOSupport) return;
     const elements = document.querySelectorAll(`[id$='-section-1']`);
-    const root = document.querySelector('[id$="-options-container"]');
 
     if (!elements.length) return;
     const observer = new IntersectionObserver(
@@ -92,7 +91,6 @@ export const DzList: FC<DzListProps> = ({
         });
       },
       {
-        root,
         threshold: 1,
         rootMargin: '-120px 0px 0px 0px',
       }
