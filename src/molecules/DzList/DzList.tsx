@@ -179,7 +179,10 @@ export const DzList: FC<DzListProps> = ({
                           textLinkSize={
                             isMobile ? TEXT_LINK_SIZES.LG : TEXT_LINK_SIZES.MD
                           }
-                          className={cn(isHover ? styles.linkDesktop : '')}
+                          className={cn(
+                            styles.linkElement,
+                            isHover ? styles.linkDesktop : ''
+                          )}
                         >
                           {text}
                         </DzLink>

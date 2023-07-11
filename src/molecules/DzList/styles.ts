@@ -3,7 +3,7 @@ export const styles: any = {
     flex
     flex-col
     gap-5
-    md:gap-2.5
+    md:gap-0
   `,
   menuList: `
     flex
@@ -46,10 +46,14 @@ export const styles: any = {
     after:h-[0.1875rem]
     after:w-full
     after:float-left
-    
   `,
   listLink: `
+    md:my-2.5
     cursor-pointer
+  `,
+  linkElement: `
+    w-full
+    block
   `,
   menu: `
     relative
