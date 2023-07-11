@@ -63,4 +63,8 @@ export const styles: any = {
     text-black-40
     after:bg-black-20
   `,
+  linkDesktop: `
+    md:text-black-60
+    md:hover:text-black-100
+  `,
 };

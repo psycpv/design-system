@@ -19,6 +19,7 @@ import {
   groupItemsByColumn,
   alphabet,
 } from './utils';
+import useHover from '../../hooks/useHover';
 
 const DISABLE_SCROLL_SELECTION = true;
 export const DzList: FC<DzListProps> = ({
@@ -32,6 +33,9 @@ export const DzList: FC<DzListProps> = ({
   const keyOfFirstElement = useRef(1);
   const prevChar = useRef('');
   const [notMatchingLetters, setNotMatchingLetters] = useState<string[]>([]);
+
+  const hoverRef = useRef<HTMLDivElement | null>(null);
+  const isHover = useHover(hoverRef);
 
   const { width } = useWindowSize();
   const isMobile = useMemo(() => {
@@ -141,7 +145,7 @@ export const DzList: FC<DzListProps> = ({
         </ul>
       ) : null}
 
-      <div id="options-container">
+      <div ref={hoverRef} id="options-container">
         <DzGridColumns className="h-full w-full">
           {itemsByColumn.map((columnItems, i) => {
             return (
@@ -175,6 +179,7 @@ export const DzList: FC<DzListProps> = ({
                           textLinkSize={
                             isMobile ? TEXT_LINK_SIZES.LG : TEXT_LINK_SIZES.MD
                           }
+                          className={cn(isHover ? styles.linkDesktop : '')}
                         >
                           {text}
                         </DzLink>
