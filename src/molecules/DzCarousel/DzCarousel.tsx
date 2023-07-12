@@ -11,24 +11,23 @@ import useWindowSize from '../../hooks/useWindowSize';
 import { ARROW_DIRECTIONS, ARROW_MODES, DzArrow } from '../../atoms';
 import { Transition } from '@headlessui/react';
 import { Swiper } from 'swiper/types';
-import { OFFSET_AFTER, OFFSET_BEFORE, gridColsMaxWidths } from './util';
+import {
+  OFFSET_AFTER,
+  OFFSET_BEFORE,
+  cardSizeToCols,
+  gridColsMaxWidth,
+  gridColsWidths,
+} from './util';
 import { cn } from '../../utils/classnames';
 import { SwiperContainer, SwiperSlide } from '../../vendor/swiper';
 import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
-
-export interface DzCarouselProps {
-  children: ReactNode[];
-  swiperProps?: any;
-  slideSpanDesktop?: number;
-  slideSpanMobile?: number;
-  className?: string;
-}
+import { DzCarouselProps } from './types';
+import { DEFAULT_MOBILE_CARD_SIZE } from './constants';
 
 export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
   children,
   swiperProps,
-  slideSpanDesktop = 6,
-  slideSpanMobile = 10,
+  size,
   className = '',
 }) => {
   const swiperElRef = useRef<HTMLInputElement & { swiper: Swiper }>(null);
@@ -75,7 +74,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
 
   useIsomorphicLayoutEffect(() => {
     const imgHeight = (swiperElRef.current?.firstChild?.firstChild
-      ?.firstChild as HTMLElement)?.querySelector('img')?.offsetHeight;
+      ?.firstChild as HTMLElement)?.querySelector?.('img')?.offsetHeight;
 
     const arrowHeight =
       leftArrowRef.current?.offsetHeight ||
@@ -89,7 +88,6 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
     rightArrowRef.current,
     swiperElRef.current?.firstChild,
     children,
-    slideSpanDesktop,
   ]);
 
   return (
@@ -123,7 +121,10 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
           <SwiperSlide
             key={index}
             class={cn(
-              gridColsMaxWidths[isSmall ? slideSpanMobile : slideSpanDesktop],
+              gridColsWidths[
+                isSmall ? DEFAULT_MOBILE_CARD_SIZE : cardSizeToCols[size]
+              ],
+              gridColsMaxWidth[size],
               'h-auto'
             )}
           >
@@ -178,10 +179,10 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
       {/* Prevent the bottom padding area under the slides from receiving mouse events, including the scrollbar */}
       <div
         style={{
-          position: "absolute",
-          bottom: "0px",
-          height: "64px",
-          width: "100%",
+          position: 'absolute',
+          bottom: '0px',
+          height: '64px',
+          width: '100%',
           zIndex: 100,
         }}
       />
