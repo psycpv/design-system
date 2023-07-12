@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, ReactNode, useState } from 'react';
 import { cn } from '../utils/classnames';
 import { DzText, TEXT_SIZES, TEXT_TYPES } from './DzText';
 import { Listbox, Transition } from '@headlessui/react';
@@ -21,6 +21,10 @@ export interface DzSelectProps {
   errorMsg?: string;
   hasError?: boolean;
   useCheckbox?: boolean;
+  className?: string;
+  onSelect?: Function;
+  customSelectClass?: string;
+  customIcon?: ReactNode;
 }
 
 const styles = {
@@ -66,6 +70,12 @@ const styles = {
     shadow-lg
     outline-transparent
     focus:outline-transparent
+    scrollbar
+    scrollbar-h-[0.1875rem]
+    scrollbar-w-[0.1875rem]
+    scrollbar-thumb-black-60
+    scrollbar-track-black-20
+    scrollbar-rounded-[0.1875rem]
   `,
   active: `
     text-black-100
@@ -111,6 +121,10 @@ export const DzSelect: React.FunctionComponent<DzSelectProps> = ({
   errorMsg = '',
   hasError = false,
   useCheckbox = false,
+  className = '',
+  onSelect = () => null,
+  customSelectClass = '',
+  customIcon,
 }) => {
   const [selected, setSelected] = useState<SelectOption>(
     options?.[selectId] ?? null
@@ -149,78 +163,76 @@ export const DzSelect: React.FunctionComponent<DzSelectProps> = ({
   ) : null;
 
   return (
-    <div>
-      <Listbox
-        value={useCheckbox ? multipleSelect : selected}
-        onChange={(args: any) => {
-          if (!useCheckbox) {
-            setSelected(args);
-          } else {
-            setMultipleSelect(args);
-          }
-        }}
-        multiple={useCheckbox}
-      >
-        {({ open }) => (
-          <>
-            {titleSection}
-            {subTitle}
-            <div className="relative">
-              <Listbox.Button
-                className={cn(
-                  styles.selectBar,
-                  disabledStyles,
-                  hasError ? 'border-red-100 hover:border-red-100' : ''
-                )}
-              >
-                <span className={cn(styles.btnSelect)}>
-                  {useCheckbox ? multipleSelect?.[0]?.title : selected?.title}
-                </span>
-                <span className={cn(styles.selectSvgContainer)}>
-                  <BoldArrowDown fill="#4D4D4D" />
-                </span>
-              </Listbox.Button>
-              {errorMsgRender}
+    <Listbox
+      as="div"
+      className={cn('relative', className)}
+      value={useCheckbox ? multipleSelect : selected}
+      onChange={(args: any) => {
+        if (!useCheckbox) {
+          setSelected(args);
+        } else {
+          setMultipleSelect(args);
+        }
+        if (onSelect) onSelect(args);
+      }}
+      multiple={useCheckbox}
+    >
+      {({ open }) => (
+        <>
+          {titleSection}
+          {subTitle}
 
-              <Transition
-                show={open}
-                as={Fragment}
-                leave="transition ease-in duration-100"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <Listbox.Options className={cn(styles.listOptions)}>
-                  {options?.map(option => (
-                    <Listbox.Option
-                      key={option.id}
-                      className={({ active }) =>
-                        cn(
-                          active ? styles.active : styles.inactive,
-                          styles.listOption
-                        )
-                      }
-                      value={option}
-                      disabled={option?.disabled}
+          <Listbox.Button
+            className={cn(
+              styles.selectBar,
+              disabledStyles,
+              hasError ? 'border-red-100 hover:border-red-100' : '',
+              customSelectClass
+            )}
+          >
+            <span className={cn(styles.btnSelect)}>
+              {useCheckbox ? multipleSelect?.[0]?.title : selected?.title}
+            </span>
+            <span className={cn(styles.selectSvgContainer)}>
+              {customIcon ? customIcon : <BoldArrowDown fill="#4D4D4D" />}
+            </span>
+          </Listbox.Button>
+          {errorMsgRender}
+
+          <Transition
+            show={open}
+            as={Fragment}
+            leave="transition ease-in duration-100"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Listbox.Options className={cn(styles.listOptions)}>
+              {options?.map(option => (
+                <Listbox.Option
+                  key={option.id}
+                  className={({ active }) =>
+                    cn(
+                      active ? styles.active : styles.inactive,
+                      styles.listOption
+                    )
+                  }
+                  value={option}
+                  disabled={option?.disabled}
+                >
+                  {() => (
+                    <div
+                      className={cn(styles.listOptionWrapper, disabledStyles)}
                     >
-                      {() => (
-                        <div
-                          className={cn(
-                            styles.listOptionWrapper,
-                            disabledStyles
-                          )}
-                        >
-                          {itemListRender(option, useCheckbox)}
-                        </div>
-                      )}
-                    </Listbox.Option>
-                  ))}
-                </Listbox.Options>
-              </Transition>
-            </div>
-          </>
-        )}
-      </Listbox>
-    </div>
+                      {itemListRender(option, useCheckbox)}
+                    </div>
+                  )}
+                </Listbox.Option>
+              ))}
+            </Listbox.Options>
+          </Transition>
+        </>
+      )}
+    </Listbox>
   );
 };
 
