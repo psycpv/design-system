@@ -1,7 +1,8 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, ReactNode } from 'react';
 import { cn } from '../../utils/classnames';
 import {
   DzMedia,
+  MEDIA_TYPES,
   DzMediaProps,
   DzText,
   TEXT_SIZES,
@@ -37,12 +38,14 @@ interface DataSplit {
   secondarySubtitle?: string;
   description?: string;
   linkCTA?: LinkCTA;
+  portableTextDescription?: string | ReactNode;
 }
+
 interface LinkCTA {
   text: string;
   url: string;
   linkElement: any;
-  linkProps?: DzLinkProps;
+  linkProps?: Partial<DzLinkProps>;
 }
 
 export interface DzSplitProps {
@@ -50,6 +53,7 @@ export interface DzSplitProps {
   data: DataSplit;
   reverse?: boolean;
   animate?: boolean;
+  mediaContainerClass?: string;
 }
 
 const styles: any = {
@@ -92,6 +96,24 @@ const styles: any = {
     gap-2.5
     md:gap-5
   `,
+  shortPodcast: `
+    relative
+    h-[15.6875rem]
+    md:h-[32.375rem]
+  `,
+  largePodcast: `
+    relative
+    h-[27.9375rem]
+    md:h-[57.5rem]
+  `,
+  podcast: `
+    absolute
+    top-2/4
+    -translate-y-1/2
+  `,
+  background: `
+    bg-[#042498]
+  `,
 };
 const NUMBER_OF_CHARS_TEXT = 50;
 const NUMBER_OF_CHARS_BODY = 200;
@@ -99,6 +121,7 @@ export const DzSplit: FC<DzSplitProps> = ({
   type = SPLIT_TYPES.TALL,
   reverse = false,
   animate = false,
+  mediaContainerClass = '',
   data,
 }) => {
   const {
@@ -110,9 +133,28 @@ export const DzSplit: FC<DzSplitProps> = ({
     category,
     linkCTA,
     description,
+    portableTextDescription,
   } = data ?? {};
-  const containerTypeStyle =
-    type === SPLIT_TYPES.SHORT ? 'min-h-full' : 'min-h-full md:min-h-[57.5rem]';
+
+  const containerTypeStyle = useMemo(() => {
+    return type === SPLIT_TYPES.SHORT
+      ? 'min-h-full'
+      : 'min-h-full md:min-h-[57.5rem]';
+  }, [type]);
+
+  const containerTypeStylePodcast = useMemo(() => {
+    return type === SPLIT_TYPES.SHORT
+      ? styles.shortPodcast
+      : styles.largePodcast;
+  }, [type]);
+
+  const isPodcast = useMemo(() => {
+    return media.type === MEDIA_TYPES.PODCAST;
+  }, [media.type]);
+
+  const mediaContainerStyles = useMemo(() => {
+    return isPodcast ? containerTypeStylePodcast : containerTypeStyle;
+  }, [isPodcast, containerTypeStylePodcast, containerTypeStyle]);
 
   const { width } = useWindowSize();
 
@@ -128,8 +170,18 @@ export const DzSplit: FC<DzSplitProps> = ({
       )}
     >
       <div className={cn(styles.leftContainer)}>
-        <div className={cn(containerTypeStyle, 'w-full h-full')}>
+        <div
+          className={cn(mediaContainerStyles, 'w-full', mediaContainerClass)}
+        >
           <DzMedia
+            className={isPodcast ? styles.podcast : ''}
+            podcastProps={
+              isPodcast
+                ? {
+                    height: '50%',
+                  }
+                : undefined
+            }
             imgClass={animate ? styles.animateImg : ''}
             objectFit={MEDIA_OBJECT_FIT.COVER}
             objectPosition={ObjectPositionType.TOP}
@@ -177,6 +229,7 @@ export const DzSplit: FC<DzSplitProps> = ({
               text={sliceMaxCharLength(description, NUMBER_OF_CHARS_BODY)}
             />
           ) : null}
+          {portableTextDescription ? portableTextDescription : null}
         </div>
 
         {linkCTA ? (

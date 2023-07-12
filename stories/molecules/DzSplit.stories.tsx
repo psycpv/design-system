@@ -6,7 +6,7 @@ import {
   SPLIT_TYPES,
   SPLIT_TYPES_NAMES,
 } from '../../src/molecules/DzSplit/DzSplit';
-import { split } from '../../constants/mocks/DzSplit';
+import { split, splitVideo, splitPodcast } from '../../constants/mocks/DzSplit';
 
 const meta: Meta = {
   title: 'Molecules/Content/DzSplit',
@@ -52,4 +52,14 @@ DzSplitTallAnimated.args = {
   reverse: true,
   animate: true,
   data: split,
+};
+
+export const DzSplitVideo = Template.bind({});
+DzSplitVideo.args = { type: SPLIT_TYPES.SHORT, data: splitVideo };
+
+export const DzSplitPodcast = Template.bind({});
+DzSplitPodcast.args = {
+  type: SPLIT_TYPES.SHORT,
+  data: splitPodcast,
+  mediaContainerClass: 'bg-[#042498]',
 };
