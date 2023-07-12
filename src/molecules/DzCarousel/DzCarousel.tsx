@@ -21,7 +21,7 @@ import {
 import { cn } from '../../utils/classnames';
 import { SwiperContainer, SwiperSlide } from '../../vendor/swiper';
 import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
-import { DzCarouselProps } from './types';
+import { DzCarouselCardSize, DzCarouselProps } from './types';
 import { DEFAULT_MOBILE_CARD_SIZE } from './constants';
 
 export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
@@ -67,7 +67,10 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
       }
     : {
         class: 'pb-16',
-        'space-between': 120,
+        'space-between':
+          size === DzCarouselCardSize.L || size === DzCarouselCardSize.XL
+            ? 120
+            : 60,
         scrollbar: 'true',
         'grab-cursor': true,
       };
