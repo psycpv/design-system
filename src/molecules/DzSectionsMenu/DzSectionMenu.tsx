@@ -37,6 +37,8 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
         <DzSelect
           className={cn(styles.mblSelector)}
           customSelectClass={cn(styles.mblOptionBox)}
+          customListClass={cn(styles.mblList)}
+          customItemClass={cn(styles.mblElem)}
           onSelect={element => onSelection(element?.id ?? element?.value)}
           customIcon={<ArrowDown />}
           options={mobileSelectOptions}

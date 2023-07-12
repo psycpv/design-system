@@ -7,6 +7,7 @@ export const styles: any = {
   `,
   mblSelector: `
     basis-2/5
+    text-sm
   `,
   mblOptionBox: `
     !border-0
@@ -22,7 +23,6 @@ export const styles: any = {
   `,
   listDesktop: `
     flex
-    
   `,
   listItem: `
     text-sm
@@ -39,6 +39,12 @@ export const styles: any = {
     focus:underline
     focus:decoration-current
     decoration-black-60 
+  `,
+  mblList: `
+    !left-2.5
+  `,
+  mblElem: `
+    text-sm
   `,
   grayLink: `
     text-black-60

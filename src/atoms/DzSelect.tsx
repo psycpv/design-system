@@ -24,6 +24,8 @@ export interface DzSelectProps {
   className?: string;
   onSelect?: Function;
   customSelectClass?: string;
+  customListClass?: string;
+  customItemClass?: string;
   customIcon?: ReactNode;
 }
 
@@ -125,6 +127,8 @@ export const DzSelect: React.FunctionComponent<DzSelectProps> = ({
   onSelect = () => null,
   customSelectClass = '',
   customIcon,
+  customListClass = '',
+  customItemClass = '',
 }) => {
   const [selected, setSelected] = useState<SelectOption>(
     options?.[selectId] ?? null
@@ -137,7 +141,9 @@ export const DzSelect: React.FunctionComponent<DzSelectProps> = ({
     useCheckbox ? (
       <DzCheckbox title={option?.title} disabled={disabled} />
     ) : (
-      <span className={cn(styles.optionListText)}>{option?.title}</span>
+      <span className={cn(styles.optionListText, customItemClass)}>
+        {option?.title}
+      </span>
     );
   const errorMsgRender = hasError ? (
     <span className={cn(styles.error)}>{errorMsg}</span>
@@ -206,7 +212,9 @@ export const DzSelect: React.FunctionComponent<DzSelectProps> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className={cn(styles.listOptions)}>
+            <Listbox.Options
+              className={cn(styles.listOptions, customListClass)}
+            >
               {options?.map(option => (
                 <Listbox.Option
                   key={option.id}
