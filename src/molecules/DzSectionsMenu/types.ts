@@ -3,9 +3,10 @@ import { DzButtonProps } from '../../atoms/DzButton';
 export interface DzSectionMenuProps {
   sections?: SectionNavItem[];
   cta: SectionMenuCTA;
-  onSelection: Function;
+  onSelection?: Function;
   prefix?: string;
   usePrefix?: boolean;
+  sticky?: boolean;
 }
 
 interface SectionMenuCTA {

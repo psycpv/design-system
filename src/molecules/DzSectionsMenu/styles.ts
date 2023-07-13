@@ -4,6 +4,8 @@ export const styles: any = {
     justify-between
     md:justify-end
     items-center
+    bg-white-100
+    z-40
   `,
   mblSelector: `
     basis-2/5
@@ -23,6 +25,11 @@ export const styles: any = {
   `,
   listDesktop: `
     flex
+  `,
+  sticky: `
+    sticky
+    top-[3.75rem]
+    -mx-5
   `,
   listItem: `
     text-sm

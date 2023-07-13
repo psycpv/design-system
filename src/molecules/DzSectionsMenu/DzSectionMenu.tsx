@@ -8,12 +8,14 @@ import useWindowSize from '../../hooks/useWindowSize';
 import { ArrowDown } from '../../svgIcons';
 import { scrollToElementId } from '../../utils/misc';
 
+const HEADER_OFFSET = 120;
 export const DzSectionMenu: FC<DzSectionMenuProps> = ({
   sections,
   cta,
   onSelection,
   prefix,
   usePrefix = false,
+  sticky = false,
 }) => {
   const [isHover, setIsHover] = useState(false);
   const [menuSections, setMenuSections] = useState<SectionNavItem[]>(
@@ -21,7 +23,7 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
   );
 
   const scrollToElement = useCallback(id => {
-    scrollToElementId(id);
+    scrollToElementId(id, sticky ? HEADER_OFFSET : 0);
   }, []);
 
   const handleSelection = useCallback(
@@ -64,7 +66,7 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
   );
 
   return (
-    <div className={cn(styles.sectionsContainer)}>
+    <div className={cn(styles.sectionsContainer, sticky ? styles.sticky : '')}>
       {isMobile ? (
         <DzSelect
           className={cn(styles.mblSelector)}
