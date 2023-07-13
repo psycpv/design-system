@@ -4,6 +4,8 @@ export interface DzSectionMenuProps {
   sections: SectionNavItem[];
   cta: SectionMenuCTA;
   onSelection: Function;
+  prefix?: string;
+  usePrefix?: boolean;
 }
 
 interface SectionMenuCTA {

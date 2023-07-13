@@ -3,7 +3,7 @@ import { BUTTON_VARIANTS } from '../../src/atoms/DzButton';
 export const data = {
   sections: [
     { text: 'Survey', id: 'survey' },
-    { text: 'AvailableWorks', id: 'available-works' },
+    { text: 'Available Works', id: 'available-works' },
     { text: 'Exhibitions', id: 'exhibitions' },
     { text: 'Guide', id: 'guide' },
     { text: 'Biography', id: 'biography' },

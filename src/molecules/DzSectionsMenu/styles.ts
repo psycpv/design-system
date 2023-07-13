@@ -27,6 +27,7 @@ export const styles: any = {
   listItem: `
     text-sm
     p-5
+    capitalize
     cursor-pointer
     transition-text-decoration
     duration-300
@@ -50,4 +51,5 @@ export const styles: any = {
     text-black-60
     hover:text-black-100
   `,
+  none: `h-80`,
 };

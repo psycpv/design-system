@@ -1,19 +1,49 @@
-import React, { FC, useMemo, useState } from 'react';
+import React, { FC, useMemo, useState, useCallback, useEffect } from 'react';
 import { cn } from '../../utils/classnames';
-import { DzSectionMenuProps } from './types';
+import { DzSectionMenuProps, SectionNavItem } from './types';
 import { styles } from './styles';
 import { DzButton, DzSelect } from '../../atoms';
 import { BREAKPOINTS } from '../../layout/breakpoints';
 import useWindowSize from '../../hooks/useWindowSize';
 import { ArrowDown } from '../../svgIcons';
-import useHover from '../../hooks/useHover';
+import { scrollToElementId } from '../../utils/misc';
 
 export const DzSectionMenu: FC<DzSectionMenuProps> = ({
   sections,
   cta,
   onSelection,
+  prefix,
+  usePrefix = false,
 }) => {
   const [isHover, setIsHover] = useState(false);
+  const [menuSections, setMenuSections] = useState<SectionNavItem[]>(sections);
+
+  const scrollToElement = useCallback(id => {
+    scrollToElementId(id);
+  }, []);
+
+  const handleSelection = useCallback(
+    id => {
+      if (onSelection) onSelection(id);
+      if (usePrefix) scrollToElement(`${prefix}${id}`);
+    },
+    [onSelection, usePrefix]
+  );
+
+  useEffect(() => {
+    if (!usePrefix || !prefix) return;
+    const elements = document.querySelectorAll(`[id^='${prefix}']`);
+    if (!elements?.length) return;
+    const foundSections: SectionNavItem[] = [];
+    elements.forEach(element => {
+      const elementId = element.id.replace(prefix, '');
+      const name = elementId.replace(/-/g, ' ');
+      foundSections.push({ text: name, id: elementId });
+    });
+    if (foundSections.length) {
+      setMenuSections(foundSections);
+    }
+  }, [usePrefix, prefix]);
 
   const { width } = useWindowSize();
   const isMobile = useMemo(() => {
@@ -39,7 +69,7 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
           customSelectClass={cn(styles.mblOptionBox)}
           customListClass={cn(styles.mblList)}
           customItemClass={cn(styles.mblElem)}
-          onSelect={element => onSelection(element?.id ?? element?.value)}
+          onSelect={element => handleSelection(element?.id ?? element?.value)}
           customIcon={<ArrowDown />}
           options={mobileSelectOptions}
         />
@@ -50,15 +80,16 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
           >
-            {sections.map(section => {
+            {menuSections.map(section => {
               const { text, id } = section;
               return (
                 <li
+                  key={`submenu-item-${id ?? text}`}
                   className={cn(
                     styles.listItem,
                     isHover ? styles.grayLink : ''
                   )}
-                  onClick={() => onSelection(id)}
+                  onClick={() => handleSelection(id)}
                 >
                   {text}
                 </li>
