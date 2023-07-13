@@ -60,6 +60,7 @@ export interface DzButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const styles: any = {
   btn: `
+    underline-offset-[0.375rem]
     hover:underline
     disabled:pointer-events-none
     outline-transparent
