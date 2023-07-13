@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode, useState } from 'react';
+import React, { Fragment, ReactNode, useEffect, useState } from 'react';
 import { cn } from '../utils/classnames';
 import { DzText, TEXT_SIZES, TEXT_TYPES } from './DzText';
 import { Listbox, Transition } from '@headlessui/react';
@@ -136,6 +136,10 @@ export const DzSelect: React.FunctionComponent<DzSelectProps> = ({
   const [multipleSelect, setMultipleSelect] = useState<SelectOption[]>([]);
 
   const disabledStyles = disabled ? styles.disabled : '';
+
+  useEffect(() => {
+    setSelected(options?.[selectId]);
+  }, [options]);
 
   const itemListRender = (option: SelectOption, useCheckbox: boolean) =>
     useCheckbox ? (

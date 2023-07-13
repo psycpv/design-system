@@ -56,13 +56,13 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
 
   const mobileSelectOptions = useMemo(
     () =>
-      sections?.map(section => ({
+      menuSections?.map(section => ({
         title: section?.text,
         value: section?.id,
         id: section?.id,
         disabled: false,
       })) ?? [],
-    [sections]
+    [menuSections]
   );
 
   return (

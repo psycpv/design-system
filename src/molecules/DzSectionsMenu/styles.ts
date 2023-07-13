@@ -17,6 +17,7 @@ export const styles: any = {
     !w-fit
     !pr-[1.875rem]
     !pl-5
+    capitalize
   `,
   inquireBtn: `
     underline
@@ -50,6 +51,9 @@ export const styles: any = {
   `,
   mblList: `
     !left-2.5
+    !mt-0
+    min-w-fit
+    capitalize
   `,
   mblElem: `
     text-sm
