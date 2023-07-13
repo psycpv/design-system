@@ -31,7 +31,7 @@ export const stylesSizes: any = {
       `,
     secondaryTitle: `
         md:text-lg
-        text-md
+        !text-md
       `,
     description: `
         md:text-md
@@ -61,7 +61,7 @@ export const stylesSizes: any = {
       `,
     secondaryTitle: `
         md:text-lg
-        text-md
+        !text-md
       `,
     description: `
         md:text-md
@@ -91,7 +91,7 @@ export const stylesSizes: any = {
       `,
     secondaryTitle: `
         md:text-lg
-        text-md
+        !text-md
       `,
     description: `
         md:text-md
@@ -121,7 +121,7 @@ export const stylesSizes: any = {
       `,
     secondaryTitle: `
         md:text-lg
-        text-md
+        !text-md
       `,
     description: `
         md:text-md
@@ -147,7 +147,7 @@ export const stylesSizes: any = {
         text-lg
       `,
     secondaryTitle: `
-        text-md
+        !text-md
       `,
     description: `
         text-sm
@@ -169,10 +169,10 @@ export const stylesSizes: any = {
   },
   '2col': {
     title: `
-        text-md
+      text-md
       `,
     secondaryTitle: `
-        text-sm
+      !text-sm
       `,
     description: `
         text-sm

@@ -1,4 +1,4 @@
-import React, { FC, useMemo, ReactNode } from 'react';
+import React, { FC, useMemo, ReactNode, HTMLAttributes } from 'react';
 import { cn } from '../../utils/classnames';
 import {
   DzMedia,
@@ -16,6 +16,10 @@ import {
   TEXT_LINK_SIZES,
   MEDIA_ASPECT_RATIOS,
   MEDIA_OBJECT_FIT,
+  DzButtonProps,
+  DzButton,
+  BUTTON_SIZES,
+  ButtonModes,
 } from '../../atoms';
 import useWindowSize from '../../hooks/useWindowSize';
 import { BREAKPOINTS } from '../../layout/breakpoints';
@@ -38,6 +42,7 @@ interface DataSplit {
   secondarySubtitle?: string;
   description?: string;
   linkCTA?: LinkCTA;
+  buttonCTA?: ButtonCTA;
   portableTextDescription?: string | ReactNode;
 }
 
@@ -48,7 +53,12 @@ interface LinkCTA {
   linkProps?: Partial<DzLinkProps>;
 }
 
-export interface DzSplitProps {
+interface ButtonCTA {
+  text: string;
+  ctaProps?: DzButtonProps;
+}
+
+export interface DzSplitProps extends HTMLAttributes<HTMLDivElement> {
   type: SplitTypes;
   data: DataSplit;
   reverse?: boolean;
@@ -81,6 +91,11 @@ const styles: any = {
   linkCta: `
     mt-[0.969rem]
     md:mt-[1.875rem]
+  `,
+  buttonCta: `
+    mt-[0.969rem]
+    md:mt-[1.875rem]
+    self-start
   `,
   animateImg: `
     motion-safe:animate-slowZoomOut
@@ -132,8 +147,10 @@ export const DzSplit: FC<DzSplitProps> = ({
     secondarySubtitle,
     category,
     linkCTA,
+    buttonCTA,
     description,
     portableTextDescription,
+    ...rest
   } = data ?? {};
 
   const containerTypeStyle = useMemo(() => {
@@ -168,6 +185,7 @@ export const DzSplit: FC<DzSplitProps> = ({
         styles.splitContainer,
         reverse ? 'flex-col md:flex-row-reverse' : 'flex-col md:flex-row'
       )}
+      {...rest}
     >
       <div className={cn(styles.leftContainer)}>
         <div
@@ -243,6 +261,17 @@ export const DzSplit: FC<DzSplitProps> = ({
           >
             {linkCTA.text}
           </DzLink>
+        ) : null}
+
+        {!linkCTA && buttonCTA ? (
+          <DzButton
+            className={cn(styles.buttonCta)}
+            size={BUTTON_SIZES.LARGE}
+            mode={ButtonModes.LIGHT}
+            {...(buttonCTA?.ctaProps || {})}
+          >
+            {buttonCTA.text}
+          </DzButton>
         ) : null}
       </div>
     </div>

@@ -15,6 +15,7 @@ import {
   DataCardType,
   isArtworkCard,
   CARD_TYPES,
+  CardSizes,
 } from '../../molecules';
 import { cn } from '../../utils/classnames';
 import { FourSquares } from '../../svgIcons/four-squares';
@@ -240,7 +241,10 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
             <DzColumn key={`${id}-${key}`} span={columnsSpanPerRow}>
               <DzCard
                 type={cardDataType}
-                data={{ ...cardData, size: columnsSpanPerRow }}
+                data={{
+                  ...cardData,
+                  size: [CardSizes['12col'], columnsSpanPerRow],
+                }}
               />
             </DzColumn>
           );

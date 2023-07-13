@@ -55,9 +55,9 @@ export type TitleType = typeof TITLE_TAGS[number];
 export type SubTitleType = typeof SUBTITLE_TAGS[number];
 
 export interface DzTitleProps {
-  titleType: TitleType;
+  titleType?: TitleType;
   subtitleType?: SubTitleType;
-  title: string | ReactNode;
+  title?: string | ReactNode;
   subtitle?: string;
   className?: any;
   classNameTitle?: any;
@@ -131,22 +131,24 @@ export const DzTitle: FC<DzTitleProps> &
 
   return (
     <div className={className}>
-      <Heading
-        className={cn(
-          styles.heading,
-          styles[titleSize],
-          classNameTitle,
-          disabledClass
-        )}
-        {...rest}
-      />
-      {subtitleType ? (
+      {title ? (
+        <Heading
+          className={cn(
+            styles.heading,
+            styles[titleSize],
+            disabledClass,
+            classNameTitle
+          )}
+          {...rest}
+        />
+      ) : null}
+      {subtitle ? (
         <SubHeading
           className={cn(
             styles.subheading,
-            classNameSubtitle,
             styles[subtitleSize],
-            disabledClass
+            disabledClass,
+            classNameSubtitle
           )}
           {...rest}
         />

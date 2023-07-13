@@ -16,6 +16,7 @@ const styles: any = {
     w-full
     relative
     scroll-smooth
+    whitespace-pre-wrap
   `,
   leftPane: `
     basis-1/2
@@ -26,7 +27,6 @@ const styles: any = {
     pt-10
   `,
   rightPane: `
-    basis-1/2
     flex
     flex-col    
   `,
@@ -49,7 +49,7 @@ export const EditorialComplex: FC<EditorialComplexProps> = ({
           <DzMedia {...media} />
         </div>
       ) : null}
-      <div className={cn(styles.rightPane)}>
+      <div className={cn(styles.rightPane, media ? 'basis-1/2' : '')}>
         <EditorialText paragraphs={paragraphs} />
       </div>
     </div>

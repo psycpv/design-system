@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, HTMLAttributes } from 'react';
 import {
   DzMedia,
   DzMediaProps,
@@ -14,7 +14,13 @@ import {
 import { cn } from '../../utils/classnames';
 import { TextColors, PrimaryCTAInterstitial } from './DzInterstitial';
 
-export interface InterstitialFullWidthProps {
+export enum InterstitialMode {
+  LIGHT = 'Light',
+  DARK = 'Dark',
+}
+
+export interface InterstitialFullWidthProps
+  extends HTMLAttributes<HTMLDivElement> {
   title: string;
   description?: string;
   category?: string;
@@ -25,6 +31,7 @@ export interface InterstitialFullWidthProps {
   customClass?: string;
   customDescriptionClass?: string;
   classNameContent?: string;
+  mode?: InterstitialMode;
 }
 
 const styles: any = {
@@ -74,7 +81,7 @@ const styles: any = {
   contentInfoNonSplit: `
     w-full
     md:w-[43.375rem]
-    py-5
+    p-5
     gap-5
     flex
     flex-col
@@ -89,7 +96,7 @@ const styles: any = {
   contentInfoNonSplitRelative: `
     w-full
     md:w-[43.375rem]
-    py-5
+    p-5
     gap-5
     flex
     flex-col
@@ -102,8 +109,13 @@ const styles: any = {
   `,
 };
 
+const MODE_TEXT_COLORS = {
+  [InterstitialMode.DARK]: 'black-100',
+  [InterstitialMode.LIGHT]: 'white-100',
+};
+
 export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
-  textColor = 'white-100',
+  textColor = '',
   category,
   title = '',
   description,
@@ -112,8 +124,10 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
   customClass = '',
   customDescriptionClass = '',
   classNameContent = '',
+  mode = InterstitialMode.LIGHT,
+  ...rest
 }) => {
-  const textClassColor = `text-${textColor}`;
+  const textClassColor = `text-${textColor || MODE_TEXT_COLORS[mode]}`;
   return (
     <div
       className={cn(
@@ -121,6 +135,7 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
         media ? '' : styles.nonSplitFull,
         customClass
       )}
+      {...rest}
     >
       {media ? (
         <DzMedia
@@ -170,7 +185,11 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
           <DzButton
             className={cn(styles.btnCTA)}
             size={BUTTON_SIZES.LARGE}
-            mode={ButtonModes.LIGHT}
+            mode={
+              mode === InterstitialMode.LIGHT
+                ? ButtonModes.LIGHT
+                : ButtonModes.DARK
+            }
             {...(primaryCta?.ctaProps ?? {})}
           >
             {primaryCta.text}
