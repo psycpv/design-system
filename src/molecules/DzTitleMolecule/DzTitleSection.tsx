@@ -14,18 +14,14 @@ import { DzTitleSectionProps } from './DzTitleMolecule';
 
 const styles: any = {
   titleContainer: `
-    block
-    w-full
     flex
     gap-5
     flex-row
-  `,
-  titleClassContainer: `
-    w-full
+    justify-between
   `,
   title: `
-    text-lg
-    md:text-xxl
+    text-md
+    md:text-xl
   `,
   linkCta: `
     min-w-fit
@@ -55,7 +51,6 @@ export const DzTitleSection: FC<DzTitleSectionProps> = ({
   return (
     <div className={cn(styles.titleContainer, customClass)}>
       <DzTitle
-        className={cn(styles.titleClassContainer)}
         classNameTitle={cn(styles.title)}
         classNameSubtitle={cn(styles.title)}
         {...titleProps}

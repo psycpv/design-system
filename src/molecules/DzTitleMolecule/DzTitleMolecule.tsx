@@ -31,7 +31,7 @@ export interface DzMoleculeTitleCTA {
 export interface DzTitleSectionProps {
   title: string;
   subtitle?: string;
-  titleProps?: Omit<DzTitleProps, 'title' | 'subtitle'>;
+  titleProps?: Partial<DzTitleProps>;
   linkCTA?: DzMoleculeLinkCTA;
   customClass?: string;
 }
