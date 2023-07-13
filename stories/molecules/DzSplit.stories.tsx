@@ -7,6 +7,7 @@ import {
   SPLIT_TYPES_NAMES,
 } from '../../src/molecules/DzSplit/DzSplit';
 import { split, splitVideo, splitPodcast } from '../../constants/mocks/DzSplit';
+import { ButtonModes } from '../../src/atoms';
 
 const meta: Meta = {
   title: 'Molecules/Content/DzSplit',
@@ -28,6 +29,16 @@ const Template: Story<DzSplitProps> = args => <DzSplit {...args} />;
 
 export const DzSplitTall = Template.bind({});
 DzSplitTall.args = { type: SPLIT_TYPES.TALL, data: split };
+
+export const DzSplitTallButton = Template.bind({});
+DzSplitTallButton.args = {
+  type: SPLIT_TYPES.TALL,
+  data: {
+    ...split,
+    buttonCTA: { text: 'Button', ctaProps: { mode: ButtonModes.DARK } },
+    linkCTA: undefined,
+  },
+};
 
 export const DzSplitShort = Template.bind({});
 DzSplitShort.args = { type: SPLIT_TYPES.SHORT, data: split };
