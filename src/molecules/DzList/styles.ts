@@ -63,7 +63,7 @@ export const styles: any = {
     gap-10
   `,
   disable: `
-    cursor-none
+    cursor-default
     text-black-40
     after:bg-black-20
   `,
