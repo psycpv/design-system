@@ -16,7 +16,9 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
   usePrefix = false,
 }) => {
   const [isHover, setIsHover] = useState(false);
-  const [menuSections, setMenuSections] = useState<SectionNavItem[]>(sections);
+  const [menuSections, setMenuSections] = useState<SectionNavItem[]>(
+    sections ?? []
+  );
 
   const scrollToElement = useCallback(id => {
     scrollToElementId(id);
@@ -57,7 +59,7 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
         value: section?.id,
         id: section?.id,
         disabled: false,
-      })),
+      })) ?? [],
     [sections]
   );
 

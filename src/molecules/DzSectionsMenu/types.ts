@@ -1,7 +1,7 @@
 import { DzButtonProps } from '../../atoms/DzButton';
 
 export interface DzSectionMenuProps {
-  sections: SectionNavItem[];
+  sections?: SectionNavItem[];
   cta: SectionMenuCTA;
   onSelection: Function;
   prefix?: string;
