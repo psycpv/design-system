@@ -1,20 +1,17 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import {
-  DzCarousel,
-  DzCarouselProps,
-} from '../../src/molecules/DzCarousel/DzCarousel';
-import { CARD_TYPES, CardSizes, DzCard } from '../../src/molecules/DzCard';
+import { DzCarousel } from '../../src/molecules/DzCarousel/DzCarousel';
+import { CARD_TYPES, DzCard } from '../../src/molecules/DzCard';
 import { DzGridColumns, DzColumn } from '../../src/layout/DzGrid';
 import { contentData } from '../../constants/mocks/DzCard';
+import {
+  DzCarouselCardSize,
+  DzCarouselProps,
+} from '../../src/molecules/DzCarousel/types';
 
 const meta: Meta = {
   title: 'Molecules/Elements/DzCarousel',
   component: DzCarousel,
-  argTypes: {
-    slideSpanDesktop: { control: 'number' },
-    slideSpanMobile: { control: 'number' },
-  },
   parameters: {},
 };
 
@@ -37,19 +34,13 @@ const GridColumnsDebug = () => (
 
 const Template: Story<DzCarouselProps & { showGrid: boolean }> = args => (
   <>
-    <DzCarousel {...args}>
+    <DzCarousel {...args} size={args.size || DzCarouselCardSize.XL}>
       {Array(10)
         .fill(null)
         .map(_ => (
           <DzCard
             {...{
-              data: {
-                ...contentData,
-                size: [
-                  args.slideSpanMobile || CardSizes['12col'],
-                  args.slideSpanDesktop || CardSizes['6col'],
-                ],
-              },
+              data: contentData,
               type: CARD_TYPES.CONTENT,
             }}
           />

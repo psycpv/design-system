@@ -1,3 +1,6 @@
+import { CardSizes } from '../DzCard';
+import { DzCarouselCardSize } from './types';
+
 export const OFFSET_AFTER = 20;
 export const OFFSET_BEFORE = 20;
 
@@ -19,17 +22,39 @@ export const OFFSET_BEFORE = 20;
  *
  * PD: Values are hard-coded because Tailwind JIT compiler cannot generate classes from dynamic strings
  *  */
-export const gridColsMaxWidths = {
-  1: `max-w-[calc(0.0833*(100%-40px+1.25rem)-1.25rem)]`,
-  2: `max-w-[calc(0.1667*(100%-40px+1.25rem)-1.25rem)]`,
-  3: `max-w-[calc(0.2500*(100%-40px+1.25rem)-1.25rem)]`,
-  4: `max-w-[calc(0.3333*(100%-40px+1.25rem)-1.25rem)]`,
-  5: `max-w-[calc(0.4167*(100%-40px+1.25rem)-1.25rem)]`,
-  6: `max-w-[calc(0.5000*(100%-40px+1.25rem)-1.25rem)]`,
-  7: `max-w-[calc(0.5833*(100%-40px+1.25rem)-1.25rem)]`,
-  8: `max-w-[calc(0.6667*(100%-40px+1.25rem)-1.25rem)]`,
-  9: `max-w-[calc(0.7500*(100%-40px+1.25rem)-1.25rem)]`,
-  10: `max-w-[calc(0.8333*(100%-40px+1.25rem)-1.25rem)]`,
-  11: `max-w-[calc(0.9167*(100%-40px+1.25rem)-1.25rem)]`,
-  12: `max-w-[calc(1.0000*(100%-40px+1.25rem)-1.25rem)]`,
+export const gridColsWidths = {
+  1: `w-[calc(0.0833*(100%-40px+1.25rem)-1.25rem)]`,
+  2: `w-[calc(0.1667*(100%-40px+1.25rem)-1.25rem)]`,
+  3: `w-[calc(0.2500*(100%-40px+1.25rem)-1.25rem)]`,
+  4: `w-[calc(0.3333*(100%-40px+1.25rem)-1.25rem)]`,
+  5: `w-[calc(0.4167*(100%-40px+1.25rem)-1.25rem)]`,
+  6: `w-[calc(0.5000*(100%-40px+1.25rem)-1.25rem)]`,
+  7: `w-[calc(0.5833*(100%-40px+1.25rem)-1.25rem)]`,
+  8: `w-[calc(0.6667*(100%-40px+1.25rem)-1.25rem)]`,
+  9: `w-[calc(0.7500*(100%-40px+1.25rem)-1.25rem)]`,
+  10: `w-[calc(0.8333*(100%-40px+1.25rem)-1.25rem)]`,
+  11: `w-[calc(0.9167*(100%-40px+1.25rem)-1.25rem)]`,
+  12: `w-[calc(1.0000*(100%-40px+1.25rem)-1.25rem)]`,
+};
+
+export const gridColsMaxWidth = {
+  [DzCarouselCardSize.S]: 'max-w-[30rem]',
+  [DzCarouselCardSize.M]: 'max-w-[42.5rem]',
+  [DzCarouselCardSize.L]: 'max-w-[53.75rem]',
+  [DzCarouselCardSize.XL]: 'max-w-[75rem]',
+};
+
+export const cardSizeToCols = {
+  [DzCarouselCardSize.S]: 2,
+  [DzCarouselCardSize.M]: 3,
+  [DzCarouselCardSize.L]: 6,
+  [DzCarouselCardSize.XL]: 10,
+};
+
+// Temporal solution while we find a way to set Card sizes directly from the carousel
+export const carouselSizeToCardSize = {
+  [DzCarouselCardSize.S]: CardSizes['2col'],
+  [DzCarouselCardSize.M]: CardSizes['3col'],
+  [DzCarouselCardSize.L]: CardSizes['6col'],
+  [DzCarouselCardSize.XL]: CardSizes['10col'],
 };
