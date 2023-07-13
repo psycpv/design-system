@@ -138,6 +138,7 @@ export const DzSplit: FC<DzSplitProps> = ({
   animate = false,
   mediaContainerClass = '',
   data,
+  ...rest
 }) => {
   const {
     media,
@@ -150,7 +151,6 @@ export const DzSplit: FC<DzSplitProps> = ({
     buttonCTA,
     description,
     portableTextDescription,
-    ...rest
   } = data ?? {};
 
   const containerTypeStyle = useMemo(() => {
