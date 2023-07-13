@@ -2,32 +2,15 @@ import React, { FC } from 'react';
 import {
   DzText,
   DzTitle,
-  DzTitleProps,
   TITLE_SIZES,
   DzButton,
-  DzButtonProps,
   TITLE_TYPES,
   BUTTON_SIZES,
 } from '../../atoms';
 import { cn } from '../../utils/classnames';
 import { DzColumn, DzGridColumns } from '../../layout';
 import { sliceMaxCharLength } from '../../utils/validators';
-
-export interface DzTitlePageProps {
-  category?: string;
-  title: string;
-  subtitle?: string;
-  description?: string;
-  titleProps?: DzTitleProps;
-  primaryCTA?: CTATitle;
-  customClass?: string;
-}
-
-interface CTATitle {
-  ctaProps?: DzButtonProps;
-  title: string;
-  description?: string;
-}
+import { DzTitlePageProps } from './DzTitleMolecule';
 
 const styles: any = {
   titleContainer: `

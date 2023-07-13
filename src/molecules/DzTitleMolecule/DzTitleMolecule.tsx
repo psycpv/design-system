@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import { DzTitlePage, DzTitlePageProps } from './DzTitlePage';
-import { DzTitleSection, DzTitleSectionProps } from './DzTitleSection';
+import { DzTitleProps, DzButtonProps, DzLinkProps } from '../../atoms';
+import { DzTitlePage } from './DzTitlePage';
+import { DzTitleSection } from './DzTitleSection';
 import { DzTitleMol } from './DzTitleMol';
 
 export enum DzTitleMoleculeTypes {
@@ -9,6 +10,37 @@ export enum DzTitleMoleculeTypes {
   MOLECULE = 'molecule',
   EXHIBITION = 'exhibition',
   EXCEPTIONAL = 'exceptional',
+}
+
+export interface DzTitlePageProps {
+  category?: string;
+  title: string;
+  subtitle?: string;
+  description?: string;
+  titleProps?: DzTitleProps;
+  primaryCTA?: DzMoleculeTitleCTA;
+  customClass?: string;
+}
+
+export interface DzMoleculeTitleCTA {
+  ctaProps?: DzButtonProps;
+  title: string;
+  description?: string;
+}
+
+export interface DzTitleSectionProps {
+  title: string;
+  subtitle?: string;
+  titleProps?: Omit<DzTitleProps, 'title' | 'subtitle'>;
+  linkCTA?: DzMoleculeLinkCTA;
+  customClass?: string;
+}
+
+export interface DzMoleculeLinkCTA {
+  text: string;
+  url: string;
+  linkElement: any;
+  linkProps?: DzLinkProps;
 }
 
 export interface DzTitleMoleculeProps {

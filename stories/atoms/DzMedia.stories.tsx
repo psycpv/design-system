@@ -6,7 +6,7 @@ import {
   MEDIA_TYPES,
   MEDIA_VIDEO_SOURCE_TYPES,
 } from '../../src/atoms/DzMedia';
-import { vimeoProps } from '../../constants/mocks/DzMedia';
+import { vimeoProps, youtubeProps } from '../../constants/mocks/DzMedia';
 
 const meta: Meta = {
   title: 'Atoms/Media/DzMedia',
@@ -72,4 +72,27 @@ DzMediaUrl.args = {
       type="video/mp4"
     />
   ),
+};
+
+export const DzMediaYoutube = Template.bind({});
+DzMediaYoutube.args = {
+  type: MEDIA_TYPES.VIDEO,
+  videoSourceType: MEDIA_VIDEO_SOURCE_TYPES.YOUTUBE,
+  videoProps: {
+    source: youtubeProps,
+    options: {
+      enabled: true,
+      autoplay: true,
+      muted: true,
+      resetOnEnd: true,
+      clickToPlay: false,
+      toggleInvert: false,
+      loop: { active: true },
+      vimeo: {
+        loop: true,
+        autoplay: true,
+        muted: false,
+      },
+    },
+  },
 };

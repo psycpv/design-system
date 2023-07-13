@@ -11,24 +11,23 @@ import useWindowSize from '../../hooks/useWindowSize';
 import { ARROW_DIRECTIONS, ARROW_MODES, DzArrow } from '../../atoms';
 import { Transition } from '@headlessui/react';
 import { Swiper } from 'swiper/types';
-import { OFFSET_AFTER, OFFSET_BEFORE, gridColsMaxWidths } from './util';
+import {
+  OFFSET_AFTER,
+  OFFSET_BEFORE,
+  cardSizeToCols,
+  gridColsMaxWidth,
+  gridColsWidths,
+} from './util';
 import { cn } from '../../utils/classnames';
 import { SwiperContainer, SwiperSlide } from '../../vendor/swiper';
 import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
-
-export interface DzCarouselProps {
-  children: ReactNode[];
-  swiperProps?: any;
-  slideSpanDesktop?: number;
-  slideSpanMobile?: number;
-  className?: string;
-}
+import { DzCarouselCardSize, DzCarouselProps } from './types';
+import { DEFAULT_MOBILE_CARD_SIZE } from './constants';
 
 export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
   children,
   swiperProps,
-  slideSpanDesktop = 6,
-  slideSpanMobile = 10,
+  size,
   className = '',
 }) => {
   const swiperElRef = useRef<HTMLInputElement & { swiper: Swiper }>(null);
@@ -68,13 +67,16 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
       }
     : {
         class: 'pb-16',
-        'space-between': 120,
+        'space-between':
+          size === DzCarouselCardSize.L || size === DzCarouselCardSize.XL
+            ? 120
+            : 60,
         scrollbar: 'true',
         'grab-cursor': true,
       };
 
   useIsomorphicLayoutEffect(() => {
-    const imgHeight = (swiperElRef?.current?.firstChild?.firstChild
+    const imgHeight = (swiperElRef.current?.firstChild?.firstChild
       ?.firstChild as HTMLElement)?.querySelector?.('img')?.offsetHeight;
 
     const arrowHeight =
@@ -89,7 +91,6 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
     rightArrowRef.current,
     swiperElRef.current?.firstChild,
     children,
-    slideSpanDesktop,
   ]);
 
   return (
@@ -123,7 +124,10 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
           <SwiperSlide
             key={index}
             class={cn(
-              gridColsMaxWidths[isSmall ? slideSpanMobile : slideSpanDesktop],
+              gridColsWidths[
+                isSmall ? DEFAULT_MOBILE_CARD_SIZE : cardSizeToCols[size]
+              ],
+              gridColsMaxWidth[size],
               'h-auto'
             )}
           >

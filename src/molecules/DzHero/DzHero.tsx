@@ -37,6 +37,7 @@ register();
 
 export interface DzHeroItem {
   media: DzMediaProps;
+  hideMedia?: boolean;
   category?: string;
   title: string;
   subtitle?: string;
@@ -110,7 +111,7 @@ const styles: any = {
     flex-col
     gap-2.5
     md:gap-5
-  `
+  `,
 };
 
 const MediaWrapper = ({ children, activeIndex, onSlideChanged }) => {
@@ -208,9 +209,11 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
               setCurrentItemIndex(index);
             }}
           >
-            {items.map(item => (
-              <DzMedia imgClass={cn(styles.mediaImage)} {...item.media} />
-            ))}
+            {items.map(item => {
+              return !item.hideMedia ? (
+                <DzMedia imgClass={cn(styles.mediaImage)} {...item.media} />
+              ) : null;
+            })}
           </MediaWrapper>
         </div>
 

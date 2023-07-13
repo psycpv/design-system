@@ -10,21 +10,7 @@ import {
 } from '../../atoms';
 import { cn } from '../../utils/classnames';
 import { sliceMaxCharLength } from '../../utils/validators';
-
-export interface DzTitleSectionProps {
-  title: string;
-  subtitle?: string;
-  titleProps?: Omit<DzTitleProps, 'title' | 'subtitle'>;
-  linkCTA?: LinkCTA;
-  customClass?: string;
-}
-
-interface LinkCTA {
-  text: string;
-  url: string;
-  linkElement: any;
-  linkProps?: DzLinkProps;
-}
+import { DzTitleSectionProps } from './DzTitleMolecule';
 
 const styles: any = {
   titleContainer: `

@@ -34,6 +34,7 @@ export interface CardContentData extends BaseCard {
   secondaryTitle?: string | ReactNode;
   secondarySubtitle?: string;
   description?: string;
+  portableTextDescription?: string | ReactNode;
   linkCTA?: LinkCTA;
   primaryCTA?: PrimaryCTA;
   hideImage?: boolean;

@@ -1,6 +1,7 @@
 import React, { FC, useMemo, ImgHTMLAttributes, ReactNode } from 'react';
 import { cn } from '../utils/classnames';
 import { DzLink, DzLinkProps } from './DzLink';
+import { DzSpotify, DzSpotifyProps } from './DzSpotify';
 import Plyr from 'plyr-react';
 
 export enum ObjectPositionType {
@@ -18,6 +19,7 @@ export const MEDIA_VIDEO_SOURCE_TYPES = {
 export const MEDIA_TYPES = {
   IMAGE: 'image',
   VIDEO: 'video',
+  PODCAST: 'podcast',
 };
 
 export const MEDIA_OBJECT_FIT = {
@@ -57,6 +59,7 @@ export const MEDIA_ASPECT_RATIOS_NAMES = [
 export const MEDIA_TYPES_NAMES = [
   MEDIA_TYPES.IMAGE,
   MEDIA_TYPES.VIDEO,
+  MEDIA_TYPES.PODCAST,
 ] as const;
 
 export type VideoSource = typeof MEDIA_TYPES_NAMES[number];
@@ -72,6 +75,7 @@ export interface DzMediaProps extends ImgHTMLAttributes<HTMLImageElement> {
   imgClass?: any;
   linkProps?: DzLinkProps;
   className?: any;
+  podcastProps?: Omit<DzSpotifyProps, 'link'>;
   videoProps?: any;
   videoSourceType?: VideoSource;
   aspectRatio?: AspectRatioType;
@@ -123,7 +127,15 @@ const styles: any = {
 };
 
 const videoNode = {
-  youtube: () => null,
+  // https://developers.google.com/youtube/player_parameters#Parameters
+  youtube: data => {
+    return (
+      <div>
+        <Plyr {...data} />
+      </div>
+    );
+  },
+  // https://developer.vimeo.com/player/sdk/embed
   vimeo: data => {
     return (
       <div>
@@ -142,6 +154,7 @@ export const DzMedia: FC<DzMediaProps> = ({
   imgClass,
   imgProps = {},
   url = '',
+  podcastProps = {},
   linkProps = {},
   className = '',
   videoProps = {},
@@ -195,6 +208,10 @@ export const DzMedia: FC<DzMediaProps> = ({
 
   if (type === MEDIA_TYPES.IMAGE) {
     return LinkElem;
+  }
+
+  if (type === MEDIA_TYPES.PODCAST) {
+    return <DzSpotify link={url} className={className} {...podcastProps} />;
   }
 
   if (type === MEDIA_TYPES.VIDEO) {

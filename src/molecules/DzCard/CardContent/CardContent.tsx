@@ -31,6 +31,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
     secondaryTitle,
     secondarySubtitle,
     description,
+    portableTextDescription,
     linkCTA,
     primaryCTA,
     hideImage = false,
@@ -106,6 +107,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
               textSize={TEXT_SIZES.SMALL}
             />
           ) : null}
+          {portableTextDescription ? portableTextDescription : null}
         </div>
 
         {linkCTA ? (
