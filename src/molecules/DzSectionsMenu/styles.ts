@@ -5,7 +5,8 @@ export const styles: any = {
     md:justify-end
     items-center
     bg-white-100
-    z-40
+    z-50
+    h-[3.75rem]
   `,
   mblSelector: `
     basis-2/5
@@ -37,9 +38,17 @@ export const styles: any = {
   listDesktop: `
     flex
   `,
+  mblStickyUp: `
+    motion-safe:animate-slowTop
+    transition
+    md:transition-none
+    md:animate-none
+    md:visible
+  `,
   sticky: `
+    top-0
     sticky
-    top-[3.75rem]
+    md:ml-[10.3125rem]
     -mx-5
   `,
   listItem: `

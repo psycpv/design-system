@@ -106,6 +106,10 @@ module.exports = {
           '0%': { opacity: 0 },
           '100%': { opacity: 1 },
         },
+        topPositionMbl: {
+          '0%': { top: '1.75rem', opacity: 0 },
+          '100%': { top: '3.75rem', opacity: 1 },
+        },
       },
       transitionTimingFunction: {
         'dz-timing': 'cubic-bezier(.73,.71,.65,.99)',
@@ -117,6 +121,7 @@ module.exports = {
         slowZoomIn: '15s ease-in 0.3s 1 both zoomIn',
         slowZoomOut: '15s ease-in 0.3s 1 both zoomOut',
         fadeIn: 'fadeIn 0.3s ease-in both',
+        slowTop: 'topPositionMbl 0.3s ease-in both',
       },
       screens: {
         xs: '576px',

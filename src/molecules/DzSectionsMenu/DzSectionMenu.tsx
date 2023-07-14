@@ -7,7 +7,9 @@ import { BREAKPOINTS } from '../../layout/breakpoints';
 import useWindowSize from '../../hooks/useWindowSize';
 import { ArrowDown } from '../../svgIcons';
 import { scrollToElementId } from '../../utils/misc';
-
+import useScrollDirection, {
+  ScrollDirection,
+} from '../../hooks/useScrollDirection';
 const HEADER_OFFSET = 120;
 export const DzSectionMenu: FC<DzSectionMenuProps> = ({
   sections,
@@ -17,6 +19,7 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
   usePrefix = false,
   sticky = false,
 }) => {
+  const [direction] = useScrollDirection();
   const [isHover, setIsHover] = useState(false);
   const [menuSections, setMenuSections] = useState<SectionNavItem[]>(
     sections ?? []
@@ -33,6 +36,11 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
     },
     [onSelection, usePrefix]
   );
+
+  const scrollStickyTopStyle = useMemo(() => {
+    if (!direction) return '';
+    return direction === ScrollDirection.UP ? styles.mblStickyUp : '';
+  }, [direction]);
 
   useEffect(() => {
     if (!usePrefix || !prefix) return;
@@ -66,7 +74,12 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
   );
 
   return (
-    <div className={cn(styles.sectionsContainer, sticky ? styles.sticky : '')}>
+    <div
+      className={cn(
+        styles.sectionsContainer,
+        sticky ? cn(styles.sticky, scrollStickyTopStyle) : ''
+      )}
+    >
       {isMobile ? (
         <DzSelect
           className={cn(styles.mblSelector)}

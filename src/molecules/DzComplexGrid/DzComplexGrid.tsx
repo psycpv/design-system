@@ -214,8 +214,8 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
       <DzGridColumns
         className={
           columnsSpanPerRow === 12
-            ? 'gap-y-[3.75rem] md:gap-y-[7.5rem]'
-            : 'gap-y-[3.75rem]'
+            ? 'gap-y-[2.5rem] md:gap-y-[7.5rem]'
+            : 'gap-y-[2.5rem]'
         }
       >
         {cards.map((card: any, key) => {

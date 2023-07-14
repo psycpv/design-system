@@ -29,6 +29,9 @@ export const globalStyles = {
     md:scale-[1.03]
     ease-in duration-300
   `,
+  linkCardHover: `
+    decoration-current
+  `,
   titleHoverStyle: `
     decoration-black-60
     text-black-100

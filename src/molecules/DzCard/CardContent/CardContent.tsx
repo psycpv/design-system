@@ -63,6 +63,11 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
     [isHoverLink, styles]
   );
 
+  const linkHoverStyle = useMemo(
+    () => (isHoverLink ? styles.linkCardHover : ''),
+    [isHoverLink, styles]
+  );
+
   const renderWithLink = useCallback((children, linkProps) => {
     if (linkProps) {
       return (
@@ -151,6 +156,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
               href={linkCTA.url}
               LinkElement={linkCTA.linkElement}
               variant={LINK_VARIANTS.TEXT}
+              className={cn(linkHoverStyle)}
               textLinkSize={isSmall ? TEXT_LINK_SIZES.XS : TEXT_LINK_SIZES.SM}
             >
               {linkCTA.text}

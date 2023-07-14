@@ -100,7 +100,6 @@ const styles: any = {
   animateImg: `
     motion-safe:animate-slowZoomOut
     transition
-    dz-timing
   `,
   primarySubHeadline: `
     mt-2.5
