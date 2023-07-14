@@ -21,6 +21,19 @@ export const globalStyles = {
       flex
       flex-col
     `,
+  mediaZoom: `
+    md:hover:scale-[1.03]
+    ease-in duration-300
+  `,
+  mediaLinkZoom: `
+    md:scale-[1.03]
+    ease-in duration-300
+  `,
+  titleHoverStyle: `
+    decoration-black-60
+    text-black-100
+    underline
+  `,
 };
 
 export const stylesSizes: any = {
@@ -53,6 +66,9 @@ export const stylesSizes: any = {
         mt-2.5
         md:mt-[1.875rem]
       `,
+    mediaZoom: `
+      md:hover:scale-100
+    `,
   },
   '10col': {
     title: `

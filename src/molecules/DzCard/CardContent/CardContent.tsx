@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import {
   DzText,
   DzMedia,
@@ -37,9 +37,11 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
     hideImage = false,
     titleType = TITLE_TYPES.P,
     subtitleType = TITLE_TYPES.P,
+    enableZoom = false,
+    cardLink,
     ...rest
   } = data as CardContentData;
-
+  const [isHoverLink, setIsHover] = useState<boolean>(false);
   const { width } = useWindowSize();
   const isSmall = useMemo(() => {
     return width <= BREAKPOINTS.MD;
@@ -55,11 +57,37 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
     return mergeStyles(globalStyles, stylesSizes[span]);
   }, [size, isSmall]);
 
-  return (
+  const imageHoverStyle = useMemo(
+    () => (isHoverLink ? styles.mediaLinkZoom : ''),
+    [isHoverLink, styles]
+  );
+
+  const renderWithLink = useCallback((children, linkProps) => {
+    if (linkProps) {
+      return (
+        <DzLink
+          {...linkProps}
+          withoutStyle
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
+        >
+          {children}
+        </DzLink>
+      );
+    }
+    return children;
+  }, []);
+
+  return renderWithLink(
     <div {...rest} id={id} className={cn(styles.cardContainer)}>
       {!hideImage ? (
         <DzMedia
-          imgClass={styles.mediaImg}
+          className={enableZoom ? 'overflow-hidden' : ''}
+          imgClass={cn(
+            styles.mediaImg,
+            enableZoom ? styles.mediaZoom : '',
+            imageHoverStyle
+          )}
           aspectRatio={MEDIA_ASPECT_RATIOS['4:3']}
           {...media}
         />
@@ -76,12 +104,13 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
 
         <div className={cn(styles.contentWrapper)}>
           {/* Primary Headline (required) */}
+
           <DzTitle
             className={cn(styles.titleWrapper)}
             title={title}
             titleSize={TITLE_SIZES.LG}
-            classNameTitle={styles.title}
-            classNameSubtitle={styles.title}
+            classNameTitle={cn(styles.title)}
+            classNameSubtitle={cn(styles.title)}
             titleType={titleType}
             subtitle={subtitle}
             subtitleType={subtitleType}
@@ -91,8 +120,8 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
           {secondaryTitle || secondarySubtitle ? (
             <DzTitle
               title={secondaryTitle}
-              classNameTitle={styles.secondaryTitle}
-              classNameSubtitle={styles.secondaryTitle}
+              classNameTitle={cn(styles.secondaryTitle)}
+              classNameSubtitle={cn(styles.secondaryTitle)}
               titleType={TITLE_TYPES.P}
               subtitle={secondarySubtitle}
               subtitleType={TITLE_TYPES.P}
@@ -134,7 +163,8 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
           </div>
         ) : null}
       </div>
-    </div>
+    </div>,
+    cardLink
   );
 };
 

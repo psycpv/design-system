@@ -162,45 +162,54 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
     return displayNumberOfResults ? resultsTitle : text;
   }, [displayNumberOfResults, numberOfResults, headingTitle, textProps]);
 
+  const hideControls = useMemo(
+    () =>
+      !displayText &&
+      !(!isMobile && maximumValue !== 1) &&
+      !(useLink && linkCTA),
+    [displayText, useLink, linkCTA, maximumValue, isMobile]
+  );
   return (
     <div>
-      <div className={styles.headControls}>
-        {displayText ? (
-          <DzText
-            className={cn(styles.heading)}
-            {...(textProps ?? {})}
-            text={displayText}
-          />
-        ) : null}
+      {!hideControls ? (
+        <div className={styles.headControls}>
+          {displayText ? (
+            <DzText
+              className={cn(styles.heading)}
+              {...(textProps ?? {})}
+              text={displayText}
+            />
+          ) : null}
 
-        {!isMobile && maximumValue !== 1 ? (
-          !useLink ? (
-            <div className={cn(styles.rangeContainer)}>
-              <DzText text="View:" />
-              <div className={cn(styles.range)}>
-                <DzRange
-                  min={MINIMUM_VALUE}
-                  max={maximumValue}
-                  step={STEPS_SPAN}
-                  value={[MINIMUM_VALUE, stepValue]}
-                  onChange={handleChange}
-                />
+          {!isMobile && maximumValue !== 1 ? (
+            !useLink ? (
+              <div className={cn(styles.rangeContainer)}>
+                <DzText text="View:" />
+                <div className={cn(styles.range)}>
+                  <DzRange
+                    min={MINIMUM_VALUE}
+                    max={maximumValue}
+                    step={STEPS_SPAN}
+                    value={[MINIMUM_VALUE, stepValue]}
+                    onChange={handleChange}
+                  />
+                </div>
+                {CurrentIcon}
               </div>
-              {CurrentIcon}
-            </div>
-          ) : null
-        ) : null}
-        {useLink && linkCTA ? (
-          <DzLink
-            {...(linkCTA.linkProps ?? {})}
-            href={linkCTA.url}
-            LinkElement={linkCTA.linkElement}
-            variant={LINK_VARIANTS.TEXT}
-          >
-            {linkCTA.text}
-          </DzLink>
-        ) : null}
-      </div>
+            ) : null
+          ) : null}
+          {useLink && linkCTA ? (
+            <DzLink
+              {...(linkCTA.linkProps ?? {})}
+              href={linkCTA.url}
+              LinkElement={linkCTA.linkElement}
+              variant={LINK_VARIANTS.TEXT}
+            >
+              {linkCTA.text}
+            </DzLink>
+          ) : null}
+        </div>
+      ) : null}
 
       <DzGridColumns
         className={

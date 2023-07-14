@@ -23,6 +23,16 @@ export const styles: any = {
     underline
     !text-sm
     !px-5
+    transition-text-decoration
+    duration-300
+    ease-in
+    underline-offset-[0.375rem]
+    decoration-1
+    hover:underline
+    hover:decoration-current
+    focus:underline
+    focus:decoration-current
+    decoration-black-60 
   `,
   listDesktop: `
     flex

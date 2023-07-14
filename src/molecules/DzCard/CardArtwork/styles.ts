@@ -44,7 +44,7 @@ export const globalStyles: any = {
     !bg-black-20
   `,
   mediaZoom: `
-    md:hover:@2col/cardContainer:scale-[1.03]
+    md:hover:scale-[1.03]
     ease-in duration-300
   `,
   cardContainer: `

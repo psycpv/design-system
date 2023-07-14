@@ -32,6 +32,7 @@ export interface InterstitialFullWidthProps
   customDescriptionClass?: string;
   classNameContent?: string;
   mode?: InterstitialMode;
+  fullWidth?: boolean;
 }
 
 const styles: any = {
@@ -107,6 +108,9 @@ const styles: any = {
   description: `
     md:text-md
   `,
+  outsideFull: `
+    -mx-5
+  `,
 };
 
 const MODE_TEXT_COLORS = {
@@ -125,6 +129,7 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
   customDescriptionClass = '',
   classNameContent = '',
   mode = InterstitialMode.LIGHT,
+  fullWidth = false,
   ...rest
 }) => {
   const textClassColor = `text-${textColor || MODE_TEXT_COLORS[mode]}`;
@@ -133,6 +138,7 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
       className={cn(
         styles.nonSplit,
         media ? '' : styles.nonSplitFull,
+        fullWidth ? styles.outsideFull : '',
         customClass
       )}
       {...rest}

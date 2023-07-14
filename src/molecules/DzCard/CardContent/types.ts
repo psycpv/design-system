@@ -38,4 +38,6 @@ export interface CardContentData extends BaseCard {
   linkCTA?: LinkCTA;
   primaryCTA?: PrimaryCTA;
   hideImage?: boolean;
+  enableZoom?: boolean;
+  cardLink?: DzLinkProps;
 }

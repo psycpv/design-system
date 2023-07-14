@@ -46,6 +46,7 @@ export type DzLinkProps = {
   LinkElement?: any;
   linkProps?: any;
   textLinkSize?: TextLinkSize;
+  withoutStyle?: boolean;
 } & ComponentPropsWithRef<'a'>;
 
 export interface RouterProps {
@@ -112,6 +113,7 @@ export const DzLink: ForwardRefExoticComponent<DzLinkProps> = forwardRef(
       useRoute,
       LinkElement = 'a',
       textLinkSize = TEXT_LINK_SIZES.SM,
+      withoutStyle = false,
       ...rest
     },
     ref
@@ -123,13 +125,15 @@ export const DzLink: ForwardRefExoticComponent<DzLinkProps> = forwardRef(
         ? openNewTab
         : href && !href.startsWith('/') && !href.startsWith('#');
 
-    const linkStyle = cn(
-      styles.element,
-      styles[variant],
-      styles[textLinkSize],
-      useRoute ? inactiveStyle : '',
-      className
-    );
+    const linkStyle = !withoutStyle
+      ? cn(
+          styles.element,
+          styles[variant],
+          styles[textLinkSize],
+          useRoute ? inactiveStyle : '',
+          className
+        )
+      : '';
 
     const LinkElementType = LinkElement ?? 'a';
 
