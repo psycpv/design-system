@@ -131,7 +131,7 @@ const styles: any = {
   `,
 };
 const NUMBER_OF_CHARS_TEXT = 50;
-const NUMBER_OF_CHARS_BODY = 200;
+const NUMBER_OF_CHARS_BODY = 250;
 export const DzSplit: FC<DzSplitProps> = ({
   type = SPLIT_TYPES.TALL,
   reverse = false,
