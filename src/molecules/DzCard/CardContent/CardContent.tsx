@@ -19,6 +19,7 @@ import { mergeStyles } from '../../../lib/styles';
 import { globalStyles, stylesSizes } from './styles';
 import { CardContentData, CardContentProps } from './types';
 import { cn } from '../../../utils/classnames';
+import { slugify } from '../../../utils';
 
 export const CardContent: FC<CardContentProps> = ({ data }) => {
   const {
@@ -90,6 +91,10 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
           )}
           aspectRatio={MEDIA_ASPECT_RATIOS['4:3']}
           {...media}
+          imgProps={{
+            id: `CardMedia-${slugify(media?.imgProps?.alt) || ''}`,
+            ...(media?.imgProps || {}),
+          }}
         />
       ) : null}
 

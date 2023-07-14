@@ -11,6 +11,7 @@ import {
 import { CardMediaData, CardMediaProps } from './types';
 import { styles } from './styles';
 import { cn } from '../../../utils/classnames';
+import { slugify } from '../../../utils';
 
 export const CardMedia: FC<CardMediaProps> = ({ data }) => {
   const { id, media, description } = data as CardMediaData;
@@ -22,6 +23,10 @@ export const CardMedia: FC<CardMediaProps> = ({ data }) => {
         objectPosition={ObjectPositionType.CENTER}
         aspectRatio={MEDIA_ASPECT_RATIOS['16:9']}
         {...media}
+        imgProps={{
+          id: `CardMedia-${slugify(media?.imgProps?.alt) || ''}`,
+          ...(media?.imgProps || {}),
+        }}
       />
       <DzText
         className={cn(styles.media.descriptionText)}

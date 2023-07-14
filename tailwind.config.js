@@ -122,6 +122,9 @@ module.exports = {
         xs: '576px',
         md: '769px',
       },
+      dropShadow: {
+        100: '0px 2px 18px rgba(0, 0, 0, 0.06)',
+      },
     },
   },
   future: { hoverOnlyWhenSupported: true },

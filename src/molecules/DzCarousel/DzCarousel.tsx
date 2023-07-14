@@ -1,14 +1,7 @@
-import React, {
-  ReactNode,
-  useRef,
-  useMemo,
-  useState,
-  useEffect,
-  Fragment,
-} from 'react';
+import React, { useRef, useMemo, useState, useEffect, Fragment } from 'react';
 import { BREAKPOINTS } from '../../layout/breakpoints';
 import useWindowSize from '../../hooks/useWindowSize';
-import { ARROW_DIRECTIONS, ARROW_MODES, DzArrow } from '../../atoms';
+import { ArrowDirection, ArrowMode, DzArrow } from '../../atoms';
 import { Transition } from '@headlessui/react';
 import { Swiper } from 'swiper/types';
 import {
@@ -76,8 +69,11 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
       };
 
   useIsomorphicLayoutEffect(() => {
-    const imgHeight = (swiperElRef.current?.firstChild?.firstChild
-      ?.firstChild as HTMLElement)?.querySelector?.('img')?.offsetHeight;
+    const imgHeight = (swiperElRef.current?.querySelectorAll?.(
+      `[id^='CardMedia-']`
+    )?.[0] as HTMLElement)?.offsetHeight;
+
+    console.log(imgHeight);
 
     const arrowHeight =
       leftArrowRef.current?.offsetHeight ||
@@ -152,8 +148,8 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
           className="absolute left-10 z-10"
           style={{ top: navTopOffset }}
           onClick={() => swiperElRef.current?.swiper.slidePrev()}
-          direction={ARROW_DIRECTIONS.LEFT}
-          mode={ARROW_MODES.DARK_BACKGROUND}
+          direction={ArrowDirection.LEFT}
+          mode={ArrowMode.FILL}
           aria-label="Previous slide"
         />
       </Transition>
@@ -174,8 +170,8 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
           style={{ top: navTopOffset }}
           disabled={!rightNavEnabled}
           onClick={() => swiperElRef.current?.swiper.slideNext()}
-          direction={ARROW_DIRECTIONS.RIGHT}
-          mode={ARROW_MODES.DARK_BACKGROUND}
+          direction={ArrowDirection.RIGHT}
+          mode={ArrowMode.FILL}
           aria-label="Next slide"
         />
       </Transition>

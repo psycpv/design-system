@@ -26,8 +26,10 @@ import {
   LINK_VARIANTS,
   TEXT_LINK_SIZES,
   TEXT_SIZES,
+  ArrowDirection,
+  ArrowMode,
 } from '../../atoms';
-import { DzArrow, ARROW_DIRECTIONS } from '../../atoms';
+import { DzArrow } from '../../atoms';
 import { cn } from '../../utils/classnames';
 import { SwiperContainer, SwiperSlide } from '../../vendor/swiper';
 import useWindowSize from '../../hooks/useWindowSize';
@@ -287,11 +289,13 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
               <div className={cn(styles.arrowsContainer)}>
                 <DzArrow
                   onClick={() => handleChange(Actions.PREV)}
-                  direction={ARROW_DIRECTIONS.LEFT}
+                  direction={ArrowDirection.LEFT}
+                  mode={ArrowMode.OUTLINE}
                 />
                 <DzArrow
                   onClick={() => handleChange(Actions.NEXT)}
-                  direction={ARROW_DIRECTIONS.RIGHT}
+                  direction={ArrowDirection.RIGHT}
+                  mode={ArrowMode.OUTLINE}
                 />
               </div>
             </div>

@@ -18,6 +18,7 @@ import { mergeStyles } from '../../../lib/styles';
 import { typeToSize } from '../sizes';
 import useWindowSize from '../../../hooks/useWindowSize';
 import { BREAKPOINTS } from '../../../layout/breakpoints';
+import { slugify } from '../../../utils';
 
 export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
   const {
@@ -60,6 +61,10 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
         objectFit={MEDIA_OBJECT_FIT.CONTAIN}
         aspectRatio={MEDIA_ASPECT_RATIOS['4:3']}
         {...media}
+        imgProps={{
+          id: `CardMedia-${slugify(media?.imgProps?.alt) || ''}`,
+          ...(media?.imgProps || {}),
+        }}
       />
       <div className={cn(styles.artwork.infoContainer)}>
         <div className={cn(styles.artwork.leftPanel)}>

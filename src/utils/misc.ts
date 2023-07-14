@@ -9,3 +9,10 @@ export const scrollToElementId = (id: string, offset: number = 0) => {
     });
   }
 };
+
+export const slugify = (str: string): string =>
+  str
+    ?.trim()
+    ?.replace(/[^\w]+/g, ' ')
+    ?.replace(/\s+/g, '-')
+    ?.toLowerCase();
