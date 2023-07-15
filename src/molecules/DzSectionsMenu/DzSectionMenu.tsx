@@ -6,11 +6,13 @@ import { DzButton, DzSelect } from '../../atoms';
 import { BREAKPOINTS } from '../../layout/breakpoints';
 import useWindowSize from '../../hooks/useWindowSize';
 import { ArrowDown } from '../../svgIcons';
-import { scrollToElementId } from '../../utils/misc';
+import { scrollToElementId, slugify } from '../../utils/misc';
 import useScrollDirection, {
   ScrollDirection,
 } from '../../hooks/useScrollDirection';
+
 const HEADER_OFFSET = 120;
+
 export const DzSectionMenu: FC<DzSectionMenuProps> = ({
   sections,
   cta,
@@ -30,9 +32,10 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
   }, []);
 
   const handleSelection = useCallback(
-    id => {
+    (id, value) => {
       if (onSelection) onSelection(id);
       if (usePrefix) scrollToElement(`${prefix}${id}`);
+      if (window) window.history.pushState('', value, `#${prefix}${id}`);
     },
     [onSelection, usePrefix]
   );
@@ -86,7 +89,7 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
           customSelectClass={cn(styles.mblOptionBox)}
           customListClass={cn(styles.mblList)}
           customItemClass={cn(styles.mblElem)}
-          onSelect={element => handleSelection(element?.id ?? element?.value)}
+          onSelect={element => handleSelection(element.id, element.value)}
           customIcon={<ArrowDown />}
           options={mobileSelectOptions}
         />
@@ -101,12 +104,12 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
               const { text, id } = section;
               return (
                 <li
-                  key={`submenu-item-${id ?? text}`}
+                  key={`submenu-item-${id ?? slugify(text)}`}
                   className={cn(
                     styles.listItem,
                     isHover ? styles.grayLink : ''
                   )}
-                  onClick={() => handleSelection(id)}
+                  onClick={() => handleSelection(id, text)}
                 >
                   {text}
                 </li>

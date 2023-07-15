@@ -70,7 +70,6 @@ const styles: any = {
   splitContainer: `
     flex
     gap-5
-    py-5
   `,
   leftContainer: `
     basis-1/2

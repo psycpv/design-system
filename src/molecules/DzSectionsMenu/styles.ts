@@ -6,7 +6,8 @@ export const styles: any = {
     items-center
     bg-white-100
     z-50
-    h-[3.75rem]
+    h-10
+    md:h-[3.75rem]
   `,
   mblSelector: `
     basis-2/5
