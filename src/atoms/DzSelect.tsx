@@ -149,9 +149,11 @@ export const DzSelect: React.FunctionComponent<DzSelectProps> = ({
         {option?.title}
       </span>
     );
+
   const errorMsgRender = hasError ? (
     <span className={cn(styles.error)}>{errorMsg}</span>
   ) : null;
+
   const titleSection = title ? (
     <DzText
       textSize={TEXT_SIZES.XS}

@@ -248,10 +248,10 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
                     <DzTitle
                       title={item.secondaryTitle}
                       titleType={TITLE_TYPES.P}
-                      titleSize={TITLE_SIZES.LG}
-                      subtitleSize={TITLE_SIZES.LG}
+                      titleSize={isSmall ? TITLE_SIZES.MD : TITLE_SIZES.LG}
                       subtitle={item.secondarySubtitle}
                       subtitleType={TITLE_TYPES.P}
+                      subtitleSize={isSmall ? TITLE_SIZES.MD : TITLE_SIZES.LG}
                     />
                   ) : (
                     isSmall && <div />
