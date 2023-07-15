@@ -73,8 +73,6 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
       `[id^='CardMedia-']`
     )?.[0] as HTMLElement)?.offsetHeight;
 
-    console.log(imgHeight);
-
     const arrowHeight =
       leftArrowRef.current?.offsetHeight ||
       rightArrowRef.current?.offsetHeight ||

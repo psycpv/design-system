@@ -29,7 +29,6 @@ export const globalStyles: any = {
     `,
     artworkYear: `
       text-sm
-      uppercase
     `,
     priceTitle: `
       text-sm

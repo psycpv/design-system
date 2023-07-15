@@ -81,10 +81,14 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
                   <span className={cn(styles.artwork.artWorkTitle)}>
                     {artworkTitle}
                   </span>
-                  ,{' '}
-                  <span className={cn(styles.artwork.artworkYear)}>
-                    {artworkYear}
-                  </span>
+                  {artworkYear ? (
+                    <>
+                      ,{' '}
+                      <span className={cn(styles.artwork.artworkYear)}>
+                        {artworkYear}
+                      </span>
+                    </>
+                  ) : null}
                 </>
               }
             />
