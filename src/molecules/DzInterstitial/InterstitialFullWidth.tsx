@@ -52,6 +52,7 @@ const styles: any = {
     md:w-full
     top-2/4
     object-center
+    max-h-full
   `,
   category: `
     md:text-sm
