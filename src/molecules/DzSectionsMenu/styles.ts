@@ -31,10 +31,10 @@ export const styles: any = {
     underline-offset-[0.375rem]
     decoration-1
     hover:underline
-    hover:decoration-current
     focus:underline
-    focus:decoration-current
-    decoration-black-60 
+    decoration-black-40
+    hover:decoration-black-60
+    focus:decoration-black-60
   `,
   listDesktop: `
     flex
@@ -67,7 +67,7 @@ export const styles: any = {
     hover:decoration-current
     focus:underline
     focus:decoration-current
-    decoration-black-60 
+    decoration-black-60
   `,
   mblList: `
     !left-2.5
