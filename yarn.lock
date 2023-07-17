@@ -78,6 +78,18 @@
     typescript-memoize "^1.0.0-alpha.3"
     url-join "^4.0.0"
 
+"@auto-it/jira@^10.46.0":
+  version "10.46.0"
+  resolved "https://registry.yarnpkg.com/@auto-it/jira/-/jira-10.46.0.tgz#ee5844e6b01b989defea7264c452958c63d23b3b"
+  integrity sha512-XP1gHCrXcvmoc7pXIauQyaD/RZE7ksTfn4tPqEku3OMNFPAltoP9JJJLCNxUROMXyl2CTVZ7kz7HSEf8klJcfA==
+  dependencies:
+    "@auto-it/core" "10.46.0"
+    enquirer "^2.3.4"
+    fp-ts "^2.5.3"
+    io-ts "^2.1.2"
+    tslib "2.1.0"
+    url-join "^4.0.0"
+
 "@auto-it/npm@10.46.0":
   version "10.46.0"
   resolved "https://registry.yarnpkg.com/@auto-it/npm/-/npm-10.46.0.tgz#2c139b831fe73eee7b9065de01a953525eba20f1"
