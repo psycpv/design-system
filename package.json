@@ -119,5 +119,10 @@
     "url": "https://github.com/Zwirner/design-system/issues"
   },
   "homepage": "https://github.com/Zwirner/design-system#readme",
-  "description": "Fresh and cool React Design System for the David Zwirner digital products"
+  "description": "Fresh and cool React Design System for the David Zwirner digital products",
+  "auto": {
+    "plugins": [
+      "npm"
+    ]
+  }
 }
