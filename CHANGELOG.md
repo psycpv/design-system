@@ -1,3 +1,15 @@
+# v0.0.59 (Mon Jul 17 2023)
+
+#### 🐛 Bug Fix
+
+- Fix PageTitle component [#96](https://github.com/Zwirner/design-system/pull/96) ([@fstovarr](https://github.com/fstovarr))
+
+#### Authors: 1
+
+- Fabio Tovar ([@fstovarr](https://github.com/fstovarr))
+
+---
+
 # v0.0.57 (Mon Jul 17 2023)
 
 #### 🐛 Bug Fix
