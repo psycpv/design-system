@@ -1,0 +1,7 @@
+{
+  "plugins": [
+    "git-tag"
+  ],
+  "owner": "zwirner",
+  "repo": "design-system"
+}
