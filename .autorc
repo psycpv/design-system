@@ -3,5 +3,7 @@
     ["jira", {"url": "https://zwirner.atlassian.net/"}]
   ],
   "owner": "zwirner",
-  "repo": "design-system"
+  "repo": "design-system",
+  "name": "DZ Ops",
+  "email": "ops@davidzwirner.com"
 }
