@@ -1,0 +1,7 @@
+{
+  "plugins": [
+    ["jira", {"url": "https://zwirner.atlassian.net/"}]
+  ],
+  "owner": "zwirner",
+  "repo": "design-system"
+}
