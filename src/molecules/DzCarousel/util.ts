@@ -45,16 +45,16 @@ export const gridColsMaxWidth = {
 };
 
 export const cardSizeToCols = {
-  [DzCarouselCardSize.S]: 2,
-  [DzCarouselCardSize.M]: 3,
+  [DzCarouselCardSize.S]: 3,
+  [DzCarouselCardSize.M]: 4,
   [DzCarouselCardSize.L]: 6,
   [DzCarouselCardSize.XL]: 10,
 };
 
 // Temporal solution while we find a way to set Card sizes directly from the carousel
 export const carouselSizeToCardSize = {
-  [DzCarouselCardSize.S]: CardSizes['2col'],
-  [DzCarouselCardSize.M]: CardSizes['3col'],
+  [DzCarouselCardSize.S]: CardSizes['3col'],
+  [DzCarouselCardSize.M]: CardSizes['4col'],
   [DzCarouselCardSize.L]: CardSizes['6col'],
   [DzCarouselCardSize.XL]: CardSizes['10col'],
 };
