@@ -1,6 +1,7 @@
 {
   "plugins": [
-    "git-tag"
+    "git-tag",
+    ["jira", {"url": "https://zwirner.atlassian.net/"}]
   ],
   "owner": "zwirner",
   "repo": "design-system"
