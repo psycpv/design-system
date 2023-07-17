@@ -6,6 +6,8 @@ import {
   DzButton,
   TITLE_TYPES,
   BUTTON_SIZES,
+  LINK_VARIANTS,
+  DzLink,
 } from '../../atoms';
 import { cn } from '../../utils/classnames';
 import { DzColumn, DzGridColumns } from '../../layout';
@@ -45,6 +47,11 @@ const styles: any = {
   description: `
     md:text-md
   `,
+  linkCTA: `
+    text-xs
+    md:text-sm
+    md:mt-5
+  `,
 };
 
 const CHARACTER_LIMIT_TITLE = 50;
@@ -65,6 +72,7 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
   titleProps = DEFAULT_TITLE_PROPS,
   primaryCTA,
   customClass = '',
+  linkCTA,
 }) => {
   return (
     <div className={cn(styles.titleContainer, customClass)}>
@@ -83,7 +91,11 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
         <div className={cn(styles.rightContainer)}>
           <DzText
             className={cn(styles.description)}
-            text={sliceMaxCharLength(description, CHARACTER_LIMIT_BODY)}
+            text={
+              typeof description === 'string'
+                ? sliceMaxCharLength(description, CHARACTER_LIMIT_BODY)
+                : description
+            }
           />
           {primaryCTA ? (
             <DzGridColumns>
@@ -103,6 +115,15 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
                 </DzButton>
               </DzColumn>
             </DzGridColumns>
+          ) : null}
+          {linkCTA ? (
+            <DzLink
+              className={styles.linkCTA}
+              variant={LINK_VARIANTS.TEXT}
+              {...linkCTA}
+            >
+              Learn More
+            </DzLink>
           ) : null}
         </div>
       ) : null}

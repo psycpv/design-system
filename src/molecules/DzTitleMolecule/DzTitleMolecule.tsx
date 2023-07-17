@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { DzTitleProps, DzButtonProps, DzLinkProps } from '../../atoms';
 import { DzTitlePage } from './DzTitlePage';
 import { DzTitleSection } from './DzTitleSection';
@@ -16,9 +16,10 @@ export interface DzTitlePageProps {
   category?: string;
   title: string;
   subtitle?: string;
-  description?: string;
+  description?: string | ReactNode;
   titleProps?: DzTitleProps;
   primaryCTA?: DzMoleculeTitleCTA;
+  linkCTA?: DzLinkProps;
   customClass?: string;
 }
 
