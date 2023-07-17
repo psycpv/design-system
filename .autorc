@@ -1,6 +1,5 @@
 {
   "plugins": [
-    "git-tag",
     ["jira", {"url": "https://zwirner.atlassian.net/"}]
   ],
   "owner": "zwirner",
