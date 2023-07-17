@@ -129,7 +129,7 @@ const styles: any = {
   `,
 };
 const NUMBER_OF_CHARS_TEXT = 50;
-const NUMBER_OF_CHARS_BODY = 250;
+const NUMBER_OF_CHARS_BODY = 300;
 export const DzSplit: FC<DzSplitProps> = ({
   type = SPLIT_TYPES.TALL,
   reverse = false,
