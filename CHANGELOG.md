@@ -1,3 +1,15 @@
+# v0.0.62 (Tue Jul 18 2023)
+
+#### 🐛 Bug Fix
+
+- row-gap to 3.75rem on grid desktop [#98](https://github.com/Zwirner/design-system/pull/98) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.61 (Tue Jul 18 2023)
 
 #### 🐛 Bug Fix
