@@ -83,50 +83,28 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
         sticky ? cn(styles.sticky, scrollStickyTopStyle) : ''
       )}
     >
-      {isMobile ? (
-        <DzSelect
-          className={cn(styles.mblSelector)}
-          customSelectClass={cn(styles.mblOptionBox)}
-          customListClass={cn(styles.mblList)}
-          customItemClass={cn(styles.mblElem)}
-          onSelect={element => handleSelection(element.id, element.value)}
-          customIcon={<ArrowDown />}
-          options={mobileSelectOptions}
-        />
-      ) : (
-        <>
-          <ul
-            className={cn(styles.listDesktop)}
-            onMouseEnter={() => setIsHover(true)}
-            onMouseLeave={() => setIsHover(false)}
-          >
-            {menuSections.map(section => {
-              const { text, id } = section;
-              return (
-                <li
-                  key={`submenu-item-${id ?? slugify(text)}`}
-                  className={cn(
-                    styles.listItem,
-                    isHover ? styles.grayLink : ''
-                  )}
-                  onClick={() => handleSelection(id, text)}
-                >
-                  {text}
-                </li>
-              );
-            })}
-          </ul>
-          <hr
-            style={{
-              width: '0.0625rem',
-              margin: '0rem 0.625rem',
-              height: '1.25rem',
-              display: 'inline-block',
-              backgroundColor: '#CDCDCD',
-            }}
-          />
-        </>
-      )}
+      <div className={cn(styles.listWrapper)}>
+        <ul
+          className={cn(styles.listDesktop)}
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
+        >
+          {menuSections.map(section => {
+            const { text, id } = section;
+            return (
+              <li
+                key={`submenu-item-${id ?? slugify(text)}`}
+                className={cn(styles.listItem, isHover ? styles.grayLink : '')}
+                onClick={() => handleSelection(id, text)}
+              >
+                {text}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <hr className={cn(styles.divider)} style={{ width: '0.0625rem' }} />
 
       <DzButton className={cn(styles.inquireBtn)} {...(cta?.ctaProps ?? {})}>
         {cta?.text}

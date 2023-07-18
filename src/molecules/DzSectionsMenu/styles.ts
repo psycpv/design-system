@@ -6,8 +6,8 @@ export const styles: any = {
     items-center
     bg-white-100
     z-50
-    h-10
     md:h-[3.75rem]
+    overflow-y-hidden
   `,
   mblSelector: `
     basis-2/5
@@ -36,8 +36,26 @@ export const styles: any = {
     hover:decoration-black-60
     focus:decoration-black-60
   `,
+  listWrapper: `
+    relative
+    flex
+    flex-1
+    justify-end
+    overflow-y-hidden
+  `,
   listDesktop: `
     flex
+    overflow-x-auto
+
+    after:content-['_']
+    after:bg-gradient-to-l
+    after:from-white-100
+    after:to-transparent
+    after:absolute
+    after:right-0
+    after:bottom-0
+    after:w-5
+    after:h-full
   `,
   mblStickyUp: `
     motion-safe:animate-slowTop
@@ -49,7 +67,6 @@ export const styles: any = {
   sticky: `
     top-0
     sticky
-    md:ml-[10.3125rem]
     -mx-5
   `,
   listItem: `
@@ -68,6 +85,7 @@ export const styles: any = {
     focus:underline
     focus:decoration-current
     decoration-black-60
+    whitespace-nowrap
   `,
   mblList: `
     !left-2.5
@@ -83,4 +101,11 @@ export const styles: any = {
     hover:text-black-100
   `,
   none: `h-80`,
+  divider: `
+    mr-2.5
+    my-0
+    h-5
+    inline-block
+    bg-black-40
+  `,
 };

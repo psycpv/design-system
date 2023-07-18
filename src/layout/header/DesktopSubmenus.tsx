@@ -55,7 +55,6 @@ const styles: any = {
     absolute
   `,
   rootDesktop: `
-   
     cursor-pointer
     w-full
     block
