@@ -1,4 +1,4 @@
-import React, { FC, useMemo, MouseEventHandler } from 'react';
+import React, { FC, useMemo, MouseEventHandler, useState } from 'react';
 import { cn } from '../../utils/classnames';
 import { DzLogo, DzLinkProps, RouterProps } from '../../atoms';
 import { MenuItems } from './MenuItems';
@@ -36,6 +36,8 @@ export interface DzHeaderProps {
   footerData: FooterData;
 }
 
+const HEADER_CONTAINER_Z_INDEX = 50
+
 const styles: any = {
   headerContainer: `
     relative
@@ -45,6 +47,9 @@ const styles: any = {
     p-5
     items-center
     z-50
+  `,
+  headerContainerHovered: `
+    z-${HEADER_CONTAINER_Z_INDEX + 1}
   `,
   logo: `
     h-5
@@ -87,12 +92,18 @@ export const DzHeader: FC<DzHeaderProps> = ({
   const isSmall = useMemo(() => {
     return width <= BREAKPOINTS.MD;
   }, [width]);
+  const [isMouseOver, setIsMouseOver] = useState(false);
+  const onMouseOver = () => setIsMouseOver(true)
+  const onMouseLeave = () => setIsMouseOver(false)
 
   return (
     <header
       className={cn(styles.headerContainer, headerClass)}
       aria-label="Header"
       role="banner"
+      onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
+      style={isMouseOver ? { zIndex: HEADER_CONTAINER_Z_INDEX + 1 } : {}}
     >
       <div className={cn(styles.leftSide)}>
         <DzLogo
