@@ -1,3 +1,15 @@
+# v0.0.61 (Tue Jul 18 2023)
+
+#### 🐛 Bug Fix
+
+- Add menu gradient overlay when items don't fit [#97](https://github.com/Zwirner/design-system/pull/97) ([@fstovarr](https://github.com/fstovarr))
+
+#### Authors: 1
+
+- Fabio Tovar ([@fstovarr](https://github.com/fstovarr))
+
+---
+
 # v0.0.59 (Mon Jul 17 2023)
 
 #### 🐛 Bug Fix
