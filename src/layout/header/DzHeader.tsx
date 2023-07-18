@@ -36,7 +36,7 @@ export interface DzHeaderProps {
   footerData: FooterData;
 }
 
-const HEADER_CONTAINER_Z_INDEX = 50
+const HEADER_CONTAINER_Z_INDEX = 50;
 
 const styles: any = {
   headerContainer: `
@@ -93,8 +93,8 @@ export const DzHeader: FC<DzHeaderProps> = ({
     return width <= BREAKPOINTS.MD;
   }, [width]);
   const [isMouseOver, setIsMouseOver] = useState(false);
-  const onMouseOver = () => setIsMouseOver(true)
-  const onMouseLeave = () => setIsMouseOver(false)
+  const onMouseOver = () => setIsMouseOver(true);
+  const onMouseLeave = () => setIsMouseOver(false);
 
   return (
     <header
