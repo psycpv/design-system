@@ -11,8 +11,8 @@ export interface EditorialComplexProps extends EditorialTextProps {
 const styles: any = {
   editorialContainer: `
     flex
-    flex-col    
-    md:flex-row    
+    flex-col
+    md:flex-row
     w-full
     relative
     scroll-smooth
@@ -28,7 +28,8 @@ const styles: any = {
   `,
   rightPane: `
     flex
-    flex-col    
+    flex-col
+    basis-1/2
   `,
 };
 
@@ -49,7 +50,7 @@ export const EditorialComplex: FC<EditorialComplexProps> = ({
           <DzMedia {...media} />
         </div>
       ) : null}
-      <div className={cn(styles.rightPane, media ? 'basis-1/2' : '')}>
+      <div className={cn(styles.rightPane)}>
         <EditorialText paragraphs={paragraphs} />
       </div>
     </div>
