@@ -5,8 +5,7 @@ export const globalStyles = {
       w-full
       flex
       flex-col
-      gap-5
-      @container/cardContainer
+      gap-5      
     `,
   infoContainer: `
       flex
