@@ -1,3 +1,15 @@
+# v0.0.63 (Wed Jul 19 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-687: Font size update to Content Dz Card Col 4 [#99](https://github.com/Zwirner/design-system/pull/99) ([@fstovarr](https://github.com/fstovarr))
+
+#### Authors: 1
+
+- Fabio Tovar ([@fstovarr](https://github.com/fstovarr))
+
+---
+
 # v0.0.62 (Tue Jul 18 2023)
 
 #### 🐛 Bug Fix
