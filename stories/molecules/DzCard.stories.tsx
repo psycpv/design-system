@@ -1,6 +1,12 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DzCard, DzCardProps, CARD_TYPES, CardSizeType } from '../../src/molecules/DzCard';
+import {
+  DzCard,
+  DzCardProps,
+  CARD_TYPES,
+  CardSizeType,
+  CardViewport,
+} from '../../src/molecules/DzCard';
 import {
   mediaData,
   artWorkData,
@@ -14,6 +20,11 @@ const meta: Meta = {
   component: DzCard,
   parameters: {
     controls: { expanded: true },
+    argTypes: {
+      viewport: {
+        options: Object.values(CardViewport),
+      },
+    },
     backgrounds: {
       default: 'dzFigmaWhite',
     },
@@ -43,10 +54,13 @@ export default meta;
 interface CardStoryProps extends DzCardProps {
   span: ColumnSpan | ColumnSpan[];
   showGrid?: boolean;
+  viewport: CardViewport;
 }
+
 const Template: Story<CardStoryProps> = ({
   showGrid = false,
   span,
+  viewport,
   ...rest
 }) => {
   return (
@@ -56,7 +70,7 @@ const Template: Story<CardStoryProps> = ({
         <DzColumn className="z-10 relative" span={span}>
           <DzCard
             {...rest}
-            data={{ ...rest.data, size: span as CardSizeType }}
+            data={{ ...rest.data, viewport, size: span as CardSizeType }}
           />
         </DzColumn>
       </DzGridColumns>
@@ -65,15 +79,19 @@ const Template: Story<CardStoryProps> = ({
 };
 
 const mediaProps = { data: mediaData, type: CARD_TYPES.MEDIA, showGrid: false };
+
 const artworkProps = {
   data: artWorkData,
   type: CARD_TYPES.ARTWORK,
   showGrid: false,
+  viewport: CardViewport.Desktop,
 };
+
 const contentProps = {
   data: contentData,
   type: CARD_TYPES.CONTENT,
   showGrid: false,
+  viewport: CardViewport.Desktop,
 };
 
 export const MediaDzCardCol12 = Template.bind({});

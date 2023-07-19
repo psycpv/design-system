@@ -1,3 +1,5 @@
+import { CardViewport } from '../types';
+
 export const globalStyles = {
   cardContainer: `
       w-full
@@ -40,173 +42,318 @@ export const globalStyles = {
 };
 
 export const stylesSizes: any = {
-  '12col': {
-    title: `
-        md:text-xxl
+  [CardViewport.Carousel]: {
+    '12col': {
+      title: `
+          text-lg
+        `,
+      secondaryTitle: `
+          text-md
+        `,
+      description: `
+          text-sm
+        `,
+      btnCta: `
+          text-md
+        `,
+      slugText: `
+          text-xs
+        `,
+      contentWrapper: `
+          gap-2.5
+        `,
+      linkCta: `
+          mt-2.5
+        `,
+      mediaZoom: `
+        md:hover:scale-100
+      `,
+    },
+    '10col': {
+      title: `
+          text-lg
+        `,
+      secondaryTitle: `
+          text-md
+        `,
+      description: `
+          text-sm
+        `,
+      btnCta: `
+          text-md
+        `,
+      slugText: `
+          text-xs
+        `,
+      contentWrapper: `
+          gap-2.5
+        `,
+      linkCta: `
+          mt-2.5
+        `,
+    },
+    '6col': {
+      title: `
         text-lg
       `,
-    secondaryTitle: `
-        md:text-lg
-        !text-md
+      secondaryTitle: `
+        text-md
       `,
-    description: `
-        md:text-md
+      description: `
         text-sm
       `,
-    btnCta: `
-        md:text-sm
+      btnCta: `
+        text-md
+      `,
+      slugText: `
         text-xs
       `,
-    slugText: `
-        md:text-sm
-        text-xs
-      `,
-    contentWrapper: `
-        md:gap-5
+      contentWrapper: `
         gap-2.5
       `,
-    linkCta: `
+      linkCta: `
         mt-2.5
-        md:mt-[1.875rem]
       `,
-    mediaZoom: `
-      md:hover:scale-100
-    `,
-  },
-  '10col': {
-    title: `
-        md:text-xxl
+    },
+    '4col': {
+      title: `
         text-lg
       `,
-    secondaryTitle: `
-        md:text-lg
-        !text-md
+      secondaryTitle: `
+        text-md
       `,
-    description: `
-        md:text-md
+      description: `
         text-sm
       `,
-    btnCta: `
-        md:text-sm
+      btnCta: `
+        text-md
+      `,
+      slugText: `
         text-xs
       `,
-    slugText: `
-        md:text-sm
-        text-xs
-      `,
-    contentWrapper: `
-        md:gap-5
+      contentWrapper: `
         gap-2.5
       `,
-    linkCta: `
+      linkCta: `
         mt-2.5
-        md:mt-[1.875rem]
       `,
-  },
-  '6col': {
-    title: `
-        md:text-xxl
+    },
+    '3col': {
+      title: `
         text-lg
       `,
-    secondaryTitle: `
-        md:text-lg
-        !text-md
+      secondaryTitle: `
+        text-md
       `,
-    description: `
-        md:text-md
+      description: `
         text-sm
       `,
-    btnCta: `
-        md:text-sm
+      btnCta: `
+        text-md
+      `,
+      slugText: `
         text-xs
       `,
-    slugText: `
-        md:text-sm
-        text-xs
-      `,
-    contentWrapper: `
-        md:gap-5
+      contentWrapper: `
         gap-2.5
       `,
-    linkCta: `
+      linkCta: `
         mt-2.5
-        md:mt-[1.875rem]
       `,
+    },
+    '2col': {
+      title: `
+        text-md
+      `,
+      secondaryTitle: `
+        text-sm
+      `,
+      description: `
+        text-sm
+      `,
+      btnCta: `
+        text-xs
+      `,
+      slugText: `
+        text-xs
+      `,
+      contentWrapper: `
+        gap-2.5
+      `,
+      linkCta: `
+        mt-2.5
+      `,
+    },
   },
-  '4col': {
-    title: `
-        md:text-xl
-        text-lg
+  [CardViewport.Desktop]: {
+    '12col': {
+      title: `
+          md:text-xxl
+          text-lg
+        `,
+      secondaryTitle: `
+          md:text-lg
+          text-md
+        `,
+      description: `
+          md:text-md
+          text-sm
+        `,
+      btnCta: `
+          md:text-sm
+          text-xs
+        `,
+      slugText: `
+          md:text-sm
+          text-xs
+        `,
+      contentWrapper: `
+          md:gap-5
+          gap-2.5
+        `,
+      linkCta: `
+          mt-2.5
+          md:mt-[1.875rem]
+        `,
+      mediaZoom: `
+        md:hover:scale-100
       `,
-    secondaryTitle: `
-        md:text-lg
-        !text-md
-      `,
-    description: `
-        md:text-md
-        text-sm
-      `,
-    btnCta: `
-        md:text-sm
-        text-xs
-      `,
-    slugText: `
-        md:text-sm
-        text-xs
-      `,
-    contentWrapper: `
-        gap-2.5
-      `,
-    linkCta: `
-        mt-2.5
-      `,
-  },
-  '3col': {
-    title: `
-        text-lg
-      `,
-    secondaryTitle: `
-        !text-md
-      `,
-    description: `
-        text-sm
-      `,
-    btnCta: `
-        md:text-sm
-        text-xs
-      `,
-    slugText: `
-        md:text-sm
-        text-xs
-      `,
-    contentWrapper: `
-        gap-2.5
-      `,
-    linkCta: `
-        mt-2.5
-      `,
-  },
-  '2col': {
-    title: `
-      text-md
-      `,
-    secondaryTitle: `
-      !text-sm
-      `,
-    description: `
-        text-sm
-      `,
-    btnCta: `
-        text-xs
-      `,
-    slugText: `
-        text-xs
-      `,
-    contentWrapper: `
-        gap-2.5
-      `,
-    linkCta: `
-        mt-2.5
-      `,
+    },
+    '10col': {
+      title: `
+          md:text-xxl
+          text-lg
+        `,
+      secondaryTitle: `
+          md:text-lg
+          !text-md
+        `,
+      description: `
+          md:text-md
+          text-sm
+        `,
+      btnCta: `
+          md:text-sm
+          text-xs
+        `,
+      slugText: `
+          md:text-sm
+          text-xs
+        `,
+      contentWrapper: `
+          md:gap-5
+          gap-2.5
+        `,
+      linkCta: `
+          mt-2.5
+          md:mt-[1.875rem]
+        `,
+    },
+    '6col': {
+      title: `
+          md:text-xxl
+          text-lg
+        `,
+      secondaryTitle: `
+          md:text-lg
+          !text-md
+        `,
+      description: `
+          md:text-md
+          text-sm
+        `,
+      btnCta: `
+          md:text-sm
+          text-xs
+        `,
+      slugText: `
+          md:text-sm
+          text-xs
+        `,
+      contentWrapper: `
+          md:gap-5
+          gap-2.5
+        `,
+      linkCta: `
+          mt-2.5
+          md:mt-[1.875rem]
+        `,
+    },
+    '4col': {
+      title: `
+          md:text-xl
+          text-lg
+        `,
+      secondaryTitle: `
+          md:text-lg
+          text-md
+        `,
+      description: `
+          md:text-md
+          text-sm
+        `,
+      btnCta: `
+          md:text-sm
+          text-xs
+        `,
+      slugText: `
+          md:text-sm
+          text-xs
+        `,
+      contentWrapper: `
+          gap-2.5
+        `,
+      linkCta: `
+          mt-2.5
+        `,
+    },
+    '3col': {
+      title: `
+          text-lg
+        `,
+      secondaryTitle: `
+          !text-md
+        `,
+      description: `
+          text-sm
+        `,
+      btnCta: `
+          md:text-sm
+          text-xs
+        `,
+      slugText: `
+          md:text-sm
+          text-xs
+        `,
+      contentWrapper: `
+          gap-2.5
+        `,
+      linkCta: `
+          mt-2.5
+        `,
+    },
+    '2col': {
+      title: `
+        text-md
+        `,
+      secondaryTitle: `
+        !text-sm
+        `,
+      description: `
+          text-sm
+        `,
+      btnCta: `
+          text-xs
+        `,
+      slugText: `
+          text-xs
+        `,
+      contentWrapper: `
+          gap-2.5
+        `,
+      linkCta: `
+          mt-2.5
+        `,
+    },
   },
 };

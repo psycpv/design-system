@@ -10,6 +10,12 @@ export interface BaseCard {
   id?: string;
   //    12col or 12  or [Mobile Size, Desktop Size]
   size: CardSizeType | [CardSizeType, CardSizeType];
+  viewport?: CardViewport;
+}
+
+export enum CardViewport {
+  Desktop = 'Desktop',
+  Carousel = 'Carousel',
 }
 
 export const CARD_TYPES = {

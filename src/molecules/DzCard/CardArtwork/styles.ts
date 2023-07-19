@@ -1,3 +1,5 @@
+import { CardViewport } from '../types';
+
 export const globalStyles: any = {
   artwork: {
     infoContainer: `
@@ -56,114 +58,294 @@ export const globalStyles: any = {
 };
 
 export const stylesSizes: any = {
-  '12col': {
-    artwork: {
-      artistName: `
-        md:text-lg
+  [CardViewport.Carousel]: {
+    '12col': {
+      cardContainer: `
+        gap-5
       `,
-      artWorkTitle: `
-        md:text-lg
-      `,
-      artworkYear: `
-        md:text-lg
-      `,
-      priceTitle: `
-        md:text-md
-      `,
-    },
-    mediaZoom: `
-      md:hover:scale-100
-    `,
-    cardContainer: `
-      md:gap-5 
-    `,
-    buttons: `
-      py-[0.8125rem]
-      px-[1.5625rem]
-      md:py-[0.8125rem]
-      md:px-[1.5625rem]
-    `,
-  },
-  '10col': {
-    artwork: {
-      artistName: `
-        text-sm
-        md:text-lg
-      `,
-      artWorkTitle: `
-        text-sm
-        md:text-lg
-      `,
-      artworkYear: `
-        text-sm
-        md:text-lg
-      `,
-      priceTitle: `
-        text-sm
-        md:text-md
+      artwork: {
+        infoContainer: `
+          md:flex-col
+          justify-between
+          gap-5
+          md:gap-5
+        `,
+        artistName: `
+          text-sm
+        `,
+        artWorkTitle: `
+          text-sm
+        `,
+        artworkYear: `
+          text-sm
+        `,
+        priceTitle: `
+          text-sm
+        `,
+      },
+      buttons: `
+        py-[0.8125rem]
+        px-[1.5625rem]
+        md:py-[0.8125rem]
+        md:px-[1.5625rem]
       `,
     },
-    buttons: `
-      md:py-[0.8125rem]
-      md:px-[1.5625rem]
-    `,
-    cardContainer: `
-      md:gap-5
-    `,
-  },
-  '6col': {
-    artwork: {
-      artistName: `
-        md:text-md
+    '10col': {
+      cardContainer: `
+        gap-5
       `,
-      artWorkTitle: `
-        md:text-md
+      infoContainer: `
+        md:flex-col
+        justify-between
+        gap-5
+        md:gap-5
       `,
-      artworkYear: `
-        md:text-md
-      `,
-      priceTitle: `
-        md:text-md
-      `,
-    },
-    cardContainer: `
-      md:gap-5
-    `,
-    buttons: `
-      md:py-[0.8125rem]
-      md:px-[1.5625rem]
-    `,
-  },
-  '4col': {
-    artwork: {
-      artistName: `
-        md:text-md
-      `,
-      artWorkTitle: `
-        md:text-md
-      `,
-      artworkYear: `
-        md:text-md
-      `,
-      priceTitle: `
-        md:text-md
+      artwork: {
+        artistName: `
+          text-sm
+        `,
+        artWorkTitle: `
+          text-sm
+        `,
+        artworkYear: `
+          text-sm
+        `,
+        priceTitle: `
+          text-sm
+        `,
+      },
+      buttons: `
+        md:py-[0.8125rem]
+        md:px-[1.5625rem]
       `,
     },
-    buttons: `
-      md:py-[0.8125rem]
-      md:px-[1.5625rem]
-    `,
+    '6col': {
+      cardContainer: `
+        gap-5
+      `,
+      artwork: {
+        infoContainer: `
+          md:flex-col
+          justify-between
+          gap-5
+          md:gap-5
+        `,
+        artistName: `
+          text-sm
+        `,
+        artWorkTitle: `
+          text-sm
+        `,
+        artworkYear: `
+          text-sm
+        `,
+        priceTitle: `
+          text-sm
+        `,
+      },
+      buttons: `
+        md:py-[0.8125rem]
+        md:px-[1.5625rem]
+      `,
+    },
+    '4col': {
+      cardContainer: `
+        gap-5
+      `,
+      artwork: {
+        infoContainer: `
+          md:flex-col
+          justify-between
+          gap-5
+          md:gap-5
+        `,
+        artistName: `
+          text-sm
+        `,
+        artWorkTitle: `
+          text-sm
+        `,
+        artworkYear: `
+          text-sm
+        `,
+        priceTitle: `
+          text-sm
+        `,
+      },
+      buttons: `
+        md:py-[0.8125rem]
+        md:px-[1.5625rem]
+      `,
+    },
+    '3col': {
+      cardContainer: `
+        gap-5
+      `,
+      artwork: {
+        infoContainer: `
+          md:flex-col
+          justify-between
+          gap-5
+          md:gap-5
+        `,
+        artistName: `
+          text-sm
+        `,
+        artWorkTitle: `
+          text-sm
+        `,
+        artworkYear: `
+          text-sm
+        `,
+        priceTitle: `
+          text-sm
+        `,
+      },
+      buttons: `
+        md:py-[0.8125rem]
+        md:px-[1.5625rem]
+      `,
+    },
+    '2col': {
+      cardContainer: `
+        gap-5
+      `,
+      artwork: {
+        infoContainer: `
+          md:flex-col
+          justify-between
+          gap-5
+          md:gap-5
+        `,
+        artistName: `
+          text-sm
+        `,
+        artWorkTitle: `
+          text-sm
+        `,
+        artworkYear: `
+          text-sm
+        `,
+        priceTitle: `
+          text-sm
+        `,
+      },
+      buttons: `
+        md:py-[0.3125rem]
+        md:px-[1.5625rem]
+      `,
+    },
   },
-  '3col': {
-    buttons: `
-      md:py-[0.8125rem]
-      md:px-[1.5625rem]
-    `,
-  },
-  '2col': {
-    buttons: `
-      md:py-[0.3125rem]
-      md:px-[1.5625rem]
-    `,
+  [CardViewport.Desktop]: {
+    '12col': {
+      artwork: {
+        artistName: `
+          md:text-lg
+        `,
+        artWorkTitle: `
+          md:text-lg
+        `,
+        artworkYear: `
+          md:text-lg
+        `,
+        priceTitle: `
+          md:text-md
+        `,
+      },
+      mediaZoom: `
+        md:hover:scale-100
+      `,
+      cardContainer: `
+        md:gap-5 
+      `,
+      buttons: `
+        py-[0.8125rem]
+        px-[1.5625rem]
+        md:py-[0.8125rem]
+        md:px-[1.5625rem]
+      `,
+    },
+    '10col': {
+      artwork: {
+        artistName: `
+          text-sm
+          md:text-lg
+        `,
+        artWorkTitle: `
+          text-sm
+          md:text-lg
+        `,
+        artworkYear: `
+          text-sm
+          md:text-lg
+        `,
+        priceTitle: `
+          text-sm
+          md:text-md
+        `,
+      },
+      buttons: `
+        md:py-[0.8125rem]
+        md:px-[1.5625rem]
+      `,
+      cardContainer: `
+        md:gap-5
+      `,
+    },
+    '6col': {
+      artwork: {
+        artistName: `
+          md:text-md
+        `,
+        artWorkTitle: `
+          md:text-md
+        `,
+        artworkYear: `
+          md:text-md
+        `,
+        priceTitle: `
+          md:text-md
+        `,
+      },
+      cardContainer: `
+        md:gap-5
+      `,
+      buttons: `
+        md:py-[0.8125rem]
+        md:px-[1.5625rem]
+      `,
+    },
+    '4col': {
+      artwork: {
+        artistName: `
+          md:text-md
+        `,
+        artWorkTitle: `
+          md:text-md
+        `,
+        artworkYear: `
+          md:text-md
+        `,
+        priceTitle: `
+          md:text-md
+        `,
+      },
+      buttons: `
+        md:py-[0.8125rem]
+        md:px-[1.5625rem]
+      `,
+    },
+    '3col': {
+      buttons: `
+        md:py-[0.8125rem]
+        md:px-[1.5625rem]
+      `,
+    },
+    '2col': {
+      buttons: `
+        md:py-[0.3125rem]
+        md:px-[1.5625rem]
+      `,
+    },
   },
 };

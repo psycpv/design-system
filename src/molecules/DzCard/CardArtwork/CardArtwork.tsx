@@ -19,6 +19,7 @@ import { typeToSize } from '../sizes';
 import useWindowSize from '../../../hooks/useWindowSize';
 import { BREAKPOINTS } from '../../../layout/breakpoints';
 import { slugify } from '../../../utils';
+import { CardViewport } from '../types';
 
 export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
   const {
@@ -36,6 +37,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
     primaryCTA,
     secondaryCTA,
     enableZoom = true,
+    viewport = CardViewport.Desktop,
   } = data as CardArtworkData;
 
   const { width } = useWindowSize();
@@ -50,8 +52,8 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
         : typeToSize(size[1])
       : typeToSize(size);
 
-    return mergeStyles(globalStyles, stylesSizes[span]);
-  }, [size, isSmall]);
+    return mergeStyles(globalStyles, stylesSizes[viewport][span]);
+  }, [size, isSmall, viewport]);
 
   return (
     <div id={id} className={cn(styles.cardContainer)}>

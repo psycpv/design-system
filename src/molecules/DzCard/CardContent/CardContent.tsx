@@ -14,7 +14,7 @@ import {
 } from '../../../atoms';
 import useWindowSize from '../../../hooks/useWindowSize';
 import { BREAKPOINTS } from '../../../layout/breakpoints';
-import { typeToSize } from '..';
+import { CardViewport, typeToSize } from '..';
 import { mergeStyles } from '../../../lib/styles';
 import { globalStyles, stylesSizes } from './styles';
 import { CardContentData, CardContentProps } from './types';
@@ -40,6 +40,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
     subtitleType = TITLE_TYPES.P,
     enableZoom = false,
     cardLink,
+    viewport = CardViewport.Desktop,
     ...rest
   } = data as CardContentData;
   const [isHoverLink, setIsHover] = useState<boolean>(false);
@@ -55,8 +56,8 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
         : typeToSize(size[1])
       : typeToSize(size);
 
-    return mergeStyles(globalStyles, stylesSizes[span]);
-  }, [size, isSmall]);
+    return mergeStyles(globalStyles, stylesSizes[viewport][span]);
+  }, [size, isSmall, viewport]);
 
   const imageHoverStyle = useMemo(
     () => (isHoverLink ? styles.mediaLinkZoom : ''),
