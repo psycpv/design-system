@@ -48,9 +48,6 @@ const styles: any = {
     items-center
     z-50
   `,
-  headerContainerHovered: `
-    z-${HEADER_CONTAINER_Z_INDEX + 1}
-  `,
   logo: `
     h-5
   `,
