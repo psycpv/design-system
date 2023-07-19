@@ -78,7 +78,7 @@ const styles: any = {
   `,
   inactive: `
     text-black-60
-    hover:text-black-60
+    hover:text-black-100
     focus:text-black-60
   `,
   extraSmall: `
