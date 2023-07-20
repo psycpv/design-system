@@ -22,6 +22,8 @@ export const styles: any = {
     hover:after:rounded-lg
     cursor-pointer
     hover:after:bg-black-60
+    underline
+    underline-offset-4
   `,
   defaultItem: `
     text-black-60
@@ -32,20 +34,13 @@ export const styles: any = {
     hover:after:bg-black-60
   `,
   listItem: `
+    text-xs
     text-left
     min-w-[2.5438rem]
     pb-5
     relative
     outline-0
     md:outline-transparent
-    after:absolute
-    after:bottom-0
-    after:left-0
-    after:block
-    after:content-['']
-    after:h-[0.1875rem]
-    after:w-full
-    after:float-left
   `,
   listLink: `
     md:my-2.5
