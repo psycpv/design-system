@@ -126,7 +126,7 @@ const MediaWrapper = ({ children, activeIndex, onSlideChanged }) => {
     swiperElRef?.current?.addEventListener('transitionend', () => {
       onSlideChanged(swiperElRef?.current?.swiper.activeIndex);
     });
-  }, [activeIndex, swiperElRef.current]);
+  }, [activeIndex, children.length, onSlideChanged]);
 
   return children.length > 1 ? (
     <SwiperContainer

@@ -2,10 +2,7 @@ import React, { FC, useMemo, useState, useCallback, useEffect } from 'react';
 import { cn } from '../../utils/classnames';
 import { DzSectionMenuProps, SectionNavItem } from './types';
 import { styles } from './styles';
-import { DzButton, DzSelect } from '../../atoms';
-import { BREAKPOINTS } from '../../layout/breakpoints';
-import useWindowSize from '../../hooks/useWindowSize';
-import { ArrowDown } from '../../svgIcons';
+import { DzButton } from '../../atoms';
 import { scrollToElementId, slugify } from '../../utils/misc';
 import useScrollDirection, {
   ScrollDirection,
@@ -29,7 +26,7 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
 
   const scrollToElement = useCallback(id => {
     scrollToElementId(id, sticky ? HEADER_OFFSET : 0);
-  }, []);
+  }, [sticky]);
 
   const handleSelection = useCallback(
     (id, value) => {
@@ -37,7 +34,7 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
       if (usePrefix) scrollToElement(`${prefix}${id}`);
       if (window) window.history.pushState('', value, `#${prefix}${id}`);
     },
-    [onSelection, usePrefix]
+    [onSelection, prefix, scrollToElement, usePrefix]
   );
 
   const scrollStickyTopStyle = useMemo(() => {
@@ -59,22 +56,6 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
       setMenuSections(foundSections);
     }
   }, [usePrefix, prefix]);
-
-  const { width } = useWindowSize();
-  const isMobile = useMemo(() => {
-    return width <= BREAKPOINTS.MD;
-  }, [width]);
-
-  const mobileSelectOptions = useMemo(
-    () =>
-      menuSections?.map(section => ({
-        title: section?.text,
-        value: section?.id,
-        id: section?.id,
-        disabled: false,
-      })) ?? [],
-    [menuSections]
-  );
 
   return (
     <div

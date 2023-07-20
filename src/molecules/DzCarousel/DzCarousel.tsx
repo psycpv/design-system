@@ -33,6 +33,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
   const [rightNavEnabled, setRightNavEnabled] = useState(false);
   const [leftNavEnabled, setLeftNavEnabled] = useState(false);
   const [navTopOffset, setTopNavOffset] = useState('50%');
+  const swiperElement = swiperElRef?.current;
 
   useEffect(() => {
     setLeftNavEnabled(!swiperElRef?.current?.swiper.isBeginning);
@@ -50,7 +51,7 @@ export const DzCarousel: React.FunctionComponent<DzCarouselProps> = ({
     swiperElRef?.current?.addEventListener('reachbeginning', _ =>
       setLeftNavEnabled(false)
     );
-  }, [swiperElRef?.current]);
+  }, [swiperElement]);
 
   const swiperContainerProps = isSmall
     ? {

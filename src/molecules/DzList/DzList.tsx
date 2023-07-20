@@ -51,7 +51,7 @@ export const DzList: FC<DzListProps> = ({
       setNotMatchingLetters(unavailableOptions);
     }
     return useFullAlphabet ? alphabet : startingChars;
-  }, [list]);
+  }, [list, useFullAlphabet]);
 
   const [currentChar, setCurrentChar] = useState('A');
 

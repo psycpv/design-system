@@ -79,7 +79,7 @@ export const DzInputGroups: FC<DzInputGroupProps> = ({
 }) => {
   const [isValidValue, setIsValidValue] = useState<boolean>(!hasError);
   const [formNameId] = useState<string>(formName || `${uuidv4()}-${title}`);
-  const [_, setFormState] = useState<InputStateElement[]>([]);
+  const [, setFormState] = useState<InputStateElement[]>([]);
   const errorClass = !isValidValue ? styles.error : '';
 
   const handleChange = (e: any) => {
