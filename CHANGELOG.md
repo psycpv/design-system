@@ -1,3 +1,27 @@
+# v0.0.65 (Wed Jul 19 2023)
+
+#### 🐛 Bug Fix
+
+- fix header menu covering by subnav [#100](https://github.com/Zwirner/design-system/pull/100) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.64 (Wed Jul 19 2023)
+
+#### 🐛 Bug Fix
+
+- Fix DzEditorial styles [#101](https://github.com/Zwirner/design-system/pull/101) ([@fstovarr](https://github.com/fstovarr))
+
+#### Authors: 1
+
+- Fabio Tovar ([@fstovarr](https://github.com/fstovarr))
+
+---
+
 # v0.0.63 (Wed Jul 19 2023)
 
 #### 🐛 Bug Fix
