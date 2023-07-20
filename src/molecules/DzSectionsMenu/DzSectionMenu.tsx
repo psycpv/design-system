@@ -24,9 +24,12 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
     sections ?? []
   );
 
-  const scrollToElement = useCallback(id => {
-    scrollToElementId(id, sticky ? HEADER_OFFSET : 0);
-  }, [sticky]);
+  const scrollToElement = useCallback(
+    id => {
+      scrollToElementId(id, sticky ? HEADER_OFFSET : 0);
+    },
+    [sticky]
+  );
 
   const handleSelection = useCallback(
     (id, value) => {
