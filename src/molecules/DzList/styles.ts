@@ -44,11 +44,6 @@ export const styles: any = {
   `,
   listLink: `
     md:my-2.5
-    cursor-pointer
-  `,
-  linkElement: `
-    w-full
-    block
   `,
   menu: `
     relative
