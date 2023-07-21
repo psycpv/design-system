@@ -2,10 +2,7 @@ import React, { FC, useMemo, useState, useCallback, useEffect } from 'react';
 import { cn } from '../../utils/classnames';
 import { DzSectionMenuProps, SectionNavItem } from './types';
 import { styles } from './styles';
-import { DzButton, DzSelect } from '../../atoms';
-import { BREAKPOINTS } from '../../layout/breakpoints';
-import useWindowSize from '../../hooks/useWindowSize';
-import { ArrowDown } from '../../svgIcons';
+import { DzButton } from '../../atoms';
 import { scrollToElementId, slugify } from '../../utils/misc';
 import useScrollDirection, {
   ScrollDirection,
@@ -23,6 +20,7 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
 }) => {
   const [direction] = useScrollDirection();
   const [isHover, setIsHover] = useState(false);
+  const [activeEl, setActiveEl] = useState(null);
   const [menuSections, setMenuSections] = useState<SectionNavItem[]>(
     sections ?? []
   );
@@ -33,6 +31,8 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
 
   const handleSelection = useCallback(
     (id, value) => {
+      setActiveEl(id);
+
       if (onSelection) onSelection(id);
       if (usePrefix) scrollToElement(`${prefix}${id}`);
       if (window) window.history.pushState('', value, `#${prefix}${id}`);
@@ -60,22 +60,6 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
     }
   }, [usePrefix, prefix]);
 
-  const { width } = useWindowSize();
-  const isMobile = useMemo(() => {
-    return width <= BREAKPOINTS.MD;
-  }, [width]);
-
-  const mobileSelectOptions = useMemo(
-    () =>
-      menuSections?.map(section => ({
-        title: section?.text,
-        value: section?.id,
-        id: section?.id,
-        disabled: false,
-      })) ?? [],
-    [menuSections]
-  );
-
   return (
     <div
       className={cn(
@@ -88,13 +72,20 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
           className={cn(styles.listDesktop)}
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
+          onMouseUp={() => setIsHover(false)}
         >
           {menuSections.map(section => {
             const { text, id } = section;
             return (
               <li
                 key={`submenu-item-${id ?? slugify(text)}`}
-                className={cn(styles.listItem, isHover ? styles.grayLink : '')}
+                className={cn(
+                  styles.listItem,
+                  isHover ? styles.grayLink : '',
+                  activeEl === id || activeEl === null
+                    ? styles.activeLink
+                    : styles.grayLink
+                )}
                 onClick={() => handleSelection(id, text)}
               >
                 {text}

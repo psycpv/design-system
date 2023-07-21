@@ -46,6 +46,7 @@ export const styles: any = {
   listDesktop: `
     flex
     overflow-x-auto
+    pr-2.5
 
     after:content-['_']
     after:bg-gradient-to-l
@@ -71,7 +72,7 @@ export const styles: any = {
   `,
   listItem: `
     text-sm
-    p-5
+    p-4
     capitalize
     cursor-pointer
     transition-text-decoration
@@ -86,6 +87,7 @@ export const styles: any = {
     focus:decoration-current
     decoration-black-60
     whitespace-nowrap
+    active:text-black-100
   `,
   mblList: `
     !left-2.5
@@ -96,9 +98,13 @@ export const styles: any = {
   mblElem: `
     text-sm
   `,
+  actveLink: `
+    text-black-100
+  `,
   grayLink: `
     text-black-60
     hover:text-black-100
+    active:text-black-100
   `,
   none: `h-80`,
   divider: `
