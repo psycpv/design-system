@@ -1,3 +1,15 @@
+# v0.0.67 (Thu Jul 20 2023)
+
+#### 🐛 Bug Fix
+
+- remove alphabet listing scrollbar, underline active letter [#104](https://github.com/Zwirner/design-system/pull/104) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.66 (Thu Jul 20 2023)
 
 #### 🐛 Bug Fix
