@@ -152,7 +152,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   }, [steps, stepValue]);
 
   const handleChange = useCallback(currentStep => {
-    const [_, step] = currentStep;
+    const [, step] = currentStep;
     setStepValue(step);
   }, []);
 

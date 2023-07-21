@@ -6,5 +6,6 @@ export const useUpdateEffect: typeof useEffect = (effect, deps) => {
       return effect();
     }
     didMountRef.current = true;
+    //eslint-disable-next-line
   }, deps);
 };

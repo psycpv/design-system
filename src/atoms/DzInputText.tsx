@@ -125,7 +125,7 @@ export const DzInputText = forwardRef<HTMLInputElement, InputTextProps>(
       } else {
         setClassContent('');
       }
-    }, [debouncedValue]);
+    }, [debouncedValue, value, validator]);
 
     useEffect(() => {
       setIsValidValue(!hasError);

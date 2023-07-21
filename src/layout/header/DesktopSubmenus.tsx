@@ -143,7 +143,7 @@ export const DesktopSubmenu: FC<DesktopSubmenuProps> = ({
         setOpenSubMenu(true);
       }
     },
-    [isFocusRoot, openSubMenu]
+    [handleClick, isFocusRoot, openSubMenu]
   );
 
   return (

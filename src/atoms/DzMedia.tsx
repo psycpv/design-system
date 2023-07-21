@@ -204,7 +204,7 @@ export const DzMedia: FC<DzMediaProps> = ({
     return (
       <div className={cn(styles.mediaContainer, className)}>{renderImage}</div>
     );
-  }, [url, renderImage]);
+  }, [url, renderImage, className, linkProps]);
 
   if (type === MEDIA_TYPES.IMAGE) {
     return LinkElem;

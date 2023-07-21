@@ -59,10 +59,13 @@ export const DzForm: FC<DzFormProps> = ({ steps, mediaProps, onSubmit }) => {
     setCurrentStep(step => step - 1);
   }, []);
 
-  const handleFormSubmit = useCallback(event => {
-    event.preventDefault();
-    if (onSubmit) onSubmit();
-  }, []);
+  const handleFormSubmit = useCallback(
+    event => {
+      event.preventDefault();
+      if (onSubmit) onSubmit();
+    },
+    [onSubmit]
+  );
 
   return (
     <div className={cn(styles.formContainer)}>

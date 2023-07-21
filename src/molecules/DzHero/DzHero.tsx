@@ -126,7 +126,7 @@ const MediaWrapper = ({ children, activeIndex, onSlideChanged }) => {
     swiperElRef?.current?.addEventListener('transitionend', () => {
       onSlideChanged(swiperElRef?.current?.swiper.activeIndex);
     });
-  }, [activeIndex, swiperElRef.current]);
+  }, [activeIndex, children.length, onSlideChanged]);
 
   return children.length > 1 ? (
     <SwiperContainer
@@ -211,9 +211,13 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
               setCurrentItemIndex(index);
             }}
           >
-            {items.map(item => {
+            {items.map((item, index) => {
               return !item.hideMedia ? (
-                <DzMedia imgClass={cn(styles.mediaImage)} {...item.media} />
+                <DzMedia
+                  key={`mediaItem-${index}`}
+                  imgClass={cn(styles.mediaImage)}
+                  {...item.media}
+                />
               ) : null;
             })}
           </MediaWrapper>
@@ -225,8 +229,8 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
             activeAnimation={activeAnimation}
             onAnimationEnded={setActiveAnimation}
           >
-            {items.map(item => (
-              <div className={cn(styles.infoContainer)}>
+            {items.map((item, index) => (
+              <div className={cn(styles.infoContainer)} key={`item-${index}`}>
                 {item.category ? (
                   <DzText
                     className={cn(styles.category)}

@@ -25,7 +25,7 @@ register();
 
 export const SwiperContainer = forwardRef<HTMLElement, SwiperContainer>(
   ({ children, ...props }, ref) => (
-    <swiper-container ref={ref} {...props}>
+    <swiper-container ref={ref} {...props} suppressHydrationWarning>
       {children}
     </swiper-container>
   )

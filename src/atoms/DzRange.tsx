@@ -14,7 +14,8 @@ export const RANGE_HANDLE_SIZE = 12;
 
 export interface RangeProps {
   doubleRange?: boolean;
-  ariaLabels?: [string, string];
+  // [string, string]; expects 2 items
+  ariaLabels?: string[];
   min: number;
   max: number;
   step: number;

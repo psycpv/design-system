@@ -139,7 +139,7 @@ export const DzSelect: React.FunctionComponent<DzSelectProps> = ({
 
   useEffect(() => {
     setSelected(options?.[selectId]);
-  }, [options]);
+  }, [options, selectId, setSelected]);
 
   const itemListRender = (option: SelectOption, useCheckbox: boolean) =>
     useCheckbox ? (

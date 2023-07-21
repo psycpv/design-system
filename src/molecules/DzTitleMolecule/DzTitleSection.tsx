@@ -1,10 +1,8 @@
 import React, { FC } from 'react';
 import {
   DzTitle,
-  DzTitleProps,
   TITLE_SIZES,
   DzLink,
-  DzLinkProps,
   TITLE_TYPES,
   LINK_VARIANTS,
 } from '../../atoms';

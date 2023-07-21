@@ -19,7 +19,7 @@ const DEFAULT_TITLE_PROPS = {
   classNameSubtitle: cn(styles.title),
 };
 
-export const DzTitleMol: FC<DzTitleSectionProps> = (props) => {
+export const DzTitleMol: FC<DzTitleSectionProps> = props => {
   return (
     <DzTitleSection
       {...props}

@@ -153,7 +153,9 @@ export const renderItems = (
   linkProps = {},
   isNested = false
 ) => {
+  // eslint-disable-next-line
   const { width } = useWindowSize();
+  // eslint-disable-next-line
   const paddingClasses = useMemo(
     () => (width > BREAKPOINTS.MD && width < 900 ? styles.narrow : styles.wide),
     [width]

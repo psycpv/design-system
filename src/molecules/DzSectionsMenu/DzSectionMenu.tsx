@@ -25,9 +25,12 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
     sections ?? []
   );
 
-  const scrollToElement = useCallback(id => {
-    scrollToElementId(id, sticky ? HEADER_OFFSET : 0);
-  }, []);
+  const scrollToElement = useCallback(
+    id => {
+      scrollToElementId(id, sticky ? HEADER_OFFSET : 0);
+    },
+    [sticky]
+  );
 
   const handleSelection = useCallback(
     (id, value) => {
@@ -37,7 +40,7 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
       if (usePrefix) scrollToElement(`${prefix}${id}`);
       if (window) window.history.pushState('', value, `#${prefix}${id}`);
     },
-    [onSelection, usePrefix]
+    [onSelection, prefix, scrollToElement, usePrefix]
   );
 
   const scrollStickyTopStyle = useMemo(() => {

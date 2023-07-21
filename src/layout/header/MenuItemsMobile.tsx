@@ -118,6 +118,7 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
       return window.innerHeight - 60;
     }
     return null;
+    //eslint-disable-next-line
   }, [width, height]);
 
   return (
