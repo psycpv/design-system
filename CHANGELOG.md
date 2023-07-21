@@ -1,3 +1,15 @@
+# v0.0.69 (Fri Jul 21 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 552 fix linting and tests [#105](https://github.com/Zwirner/design-system/pull/105) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.68 (Fri Jul 21 2023)
 
 #### 🐛 Bug Fix
