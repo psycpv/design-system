@@ -20,6 +20,7 @@ import { globalStyles, stylesSizes } from './styles';
 import { CardContentData, CardContentProps } from './types';
 import { cn } from '../../../utils/classnames';
 import { slugify } from '../../../utils';
+import { camelCaseItemProps } from '../../../utils/props';
 
 export const CardContent: FC<CardContentProps> = ({ data }) => {
   const {
@@ -43,6 +44,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
     viewport = CardViewport.Desktop,
     ...rest
   } = data as CardContentData;
+  const restProps = camelCaseItemProps(rest);
   const [isHoverLink, setIsHover] = useState<boolean>(false);
   const { width } = useWindowSize();
   const isSmall = useMemo(() => {
@@ -86,7 +88,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
   }, []);
 
   return renderWithLink(
-    <div {...rest} id={id} className={cn(styles.cardContainer)}>
+    <div {...restProps} id={id} className={cn(styles.cardContainer)}>
       {!hideImage ? (
         <DzMedia
           className={enableZoom ? 'overflow-hidden' : ''}
