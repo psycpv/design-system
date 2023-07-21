@@ -4,7 +4,8 @@ export enum ScrollDirection {
   UP = 'up',
   DOWN = 'down',
 }
-function useScrollDirection(): [ScrollDirection] {
+
+function useScrollDirection(): ScrollDirection[] {
   const [scrollDir, setScrollDir] = useState<ScrollDirection>(
     ScrollDirection.DOWN
   );

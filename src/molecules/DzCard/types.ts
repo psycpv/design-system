@@ -9,7 +9,7 @@ export type CardSizeType = CardSizes | ColumnSpan;
 export interface BaseCard {
   id?: string;
   //    12col or 12  or [Mobile Size, Desktop Size]
-  size: CardSizeType | [CardSizeType, CardSizeType];
+  size: CardSizeType | CardSizeType[];
   viewport?: CardViewport;
 }
 
