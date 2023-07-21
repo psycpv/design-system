@@ -131,9 +131,12 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
   classNameContent = '',
   mode = InterstitialMode.LIGHT,
   fullWidth = false,
+  split,
   ...rest
 }) => {
   const textClassColor = `text-${textColor || MODE_TEXT_COLORS[mode]}`;
+  const restProps = {split, ...rest};
+  
   return (
     <div
       className={cn(
@@ -142,7 +145,7 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
         fullWidth ? styles.outsideFull : '',
         customClass
       )}
-      {...rest}
+      {...restProps}
     >
       {media ? (
         <DzMedia
