@@ -131,12 +131,11 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
   classNameContent = '',
   mode = InterstitialMode.LIGHT,
   fullWidth = false,
-  split,
   ...rest
 }) => {
   const textClassColor = `text-${textColor || MODE_TEXT_COLORS[mode]}`;
-  const restProps = {split, ...rest};
-  
+  const { split, ...restProps } = rest;
+
   return (
     <div
       className={cn(
