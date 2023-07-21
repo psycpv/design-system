@@ -1,3 +1,15 @@
+# v0.0.68 (Fri Jul 21 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-591: Artist Detail Subnavigation [#103](https://github.com/Zwirner/design-system/pull/103) ([@fstovarr](https://github.com/fstovarr))
+
+#### Authors: 1
+
+- Fabio Tovar ([@fstovarr](https://github.com/fstovarr))
+
+---
+
 # v0.0.67 (Thu Jul 20 2023)
 
 #### 🐛 Bug Fix
