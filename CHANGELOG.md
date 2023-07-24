@@ -1,3 +1,15 @@
+# v0.0.70 (Mon Jul 24 2023)
+
+#### 🐛 Bug Fix
+
+- artist list links hit area to spec [#106](https://github.com/Zwirner/design-system/pull/106) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.69 (Fri Jul 21 2023)
 
 #### 🐛 Bug Fix
