@@ -1,31 +1,86 @@
-import React, { FC } from 'react';
-import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import React from 'react';
+import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
+import PlusIcon from '../../svgIcons/plus';
+import MinusIcon from '../../svgIcons/minus';
+import { Close } from '../../svgIcons';
 
-const DzImageZoom = () => {
-  return (
-    <TransformWrapper
-      initialScale={1}
-      initialPositionX={200}
-      initialPositionY={100}
-    >
-      {({ zoomIn, zoomOut, resetTransform}) => (
-        <>
-          <div className="tools">
-            <button onClick={() => zoomIn()}>zoom in</button>
-            <button onClick={() => zoomOut()}>zoom out</button>
-            <button onClick={() => resetTransform()}>close</button>
-          </div>
-          <TransformComponent>
-            <img
-              src="http://localhost:3000/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fjuzvn5an%2Fartists%2F19209716a83e9ce1adfe63caa13b2e7b64d96c6d-2160x1228.webp&w=2048&q=75"
-              alt="test"
-            />
-            <div>Example text</div>
-          </TransformComponent>
-        </>
-      )}
-    </TransformWrapper>
-  );
+const styles: any = {
+  imageZoomModalContainer: `     
+    fixed 
+    h-screen 
+    left-0    
+    top-0 
+    w-screen 
+    z-[300]
+    bg-white-100
+  `,
+  modalHeaderContainer: `
+    h-[3.75rem] 
+    w-full 
+    flex 
+    justify-between
+    align-center
+    text-sm
+    items-center
+    px-[1.25rem]
+  `,
+  modalCloseButton: `
+    flex-none
+  `,
+  plusButton: `
+    mr-[2.5rem]
+  `,
+  icon: `
+    mr-[0.6rem]
+  `,
+  closeIcon: `
+    inline
+    ml-[0.6rem]
+  `,
 };
 
-export default DzImageZoom;
+interface DzImageZoomModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  imgUrl: string;
+}
+
+export const DzImageZoomModal = ({
+  isOpen,
+  onClose,
+  imgUrl,
+}: DzImageZoomModalProps) => {
+  const onClickClose = () => onClose();
+
+  return isOpen ? (
+    <div className={styles.imageZoomModalContainer}>
+      <TransformWrapper initialScale={1}>
+        {({ zoomIn, zoomOut }) => (
+          <>
+            <div className={styles.modalHeaderContainer}>
+              <div>
+                <button onClick={() => zoomIn()} className={styles.plusButton}>
+                  <PlusIcon className={styles.icon} />
+                  Zoom In
+                </button>
+                <button onClick={() => zoomOut()}>
+                  <MinusIcon className={styles.icon} />
+                  Zoom Out
+                </button>
+              </div>
+              <button
+                className={styles.modalCloseButton}
+                onClick={() => onClickClose()}
+              >
+                Close <Close className={styles.closeIcon} />
+              </button>
+            </div>
+            <TransformComponent>
+              <img src={imgUrl} alt="TODO" />
+            </TransformComponent>
+          </>
+        )}
+      </TransformWrapper>
+    </div>
+  ) : null;
+};
