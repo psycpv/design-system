@@ -45,7 +45,7 @@ export type DataCardType = CardArtworkData | CardMediaData | CardContentData;
 export interface DzCardProps {
   type: CardTypes;
   data: DataCardType;
-  onClickImage: (data: CardMediaData | CardArtworkData) => void;
+  onClickImage?: (data: CardMediaData | CardArtworkData) => void;
   imageStyles?: any;
 }
 
