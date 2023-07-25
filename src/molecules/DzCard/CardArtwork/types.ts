@@ -24,4 +24,5 @@ export interface CardArtworkData extends BaseCard {
 export interface CardArtworkProps {
   data: CardArtworkData;
   onClickImage?: (data: CardArtworkData) => void;
+  imageStyles?: any;
 }

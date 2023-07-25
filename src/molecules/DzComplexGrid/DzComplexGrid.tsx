@@ -54,7 +54,8 @@ export interface DzComplexGridProps {
   useLink?: boolean;
   linkCTA?: LinkCTA;
   defaultStart?: number;
-  onClickImage?: (data: CardMediaData | CardArtworkData) => void
+  onClickImage?: (data: CardMediaData | CardArtworkData) => void;
+  imageStyles?: any
 }
 
 const MINIMUM_VALUE = 1;
@@ -123,7 +124,8 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   useLink = false,
   linkCTA,
   defaultStart = INITIAL_VALUE,
-  onClickImage
+  onClickImage,
+  imageStyles
 }) => {
   const { width } = useWindowSize();
   const isMobile = useMemo(() => {
@@ -259,6 +261,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
                   size: [CardSizes['12col'], columnsSpanPerRow],
                 }}
                 onClickImage={(data) => onClickImage?.(data)}
+                imageStyles={imageStyles}
               />
             </DzColumn>
           );
