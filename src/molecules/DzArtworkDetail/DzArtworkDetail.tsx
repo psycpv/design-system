@@ -91,7 +91,6 @@ const cardsData =
       },
     }
   ]
-const cardsMediaOnlyData = cardsData.map(({ id, media }) => ({ id, media }))
 
 const styles: any = {
   container: `
@@ -105,10 +104,10 @@ const styles: any = {
   `,
   leftPane: `
     basis-1/3
-    relative
-    top-0
+    relative    
     h-fit
     pt-10    
+    md:sticky
     overflow-y-scroll
   `,
   rightPane: `
@@ -118,12 +117,15 @@ const styles: any = {
   `,
   ctaContainer: `
     bg-white-100
-    sticky    
+    sticky
+    bottom-0
     text-center
-    z-[300]    
-    pt-10    
+    z-[300]        
   `
 };
+
+// TODO externalize this to layouts/header.tsx
+const HEADER_HEIGHT = "60px"
 
 export const DzArtworkDetail: FC<DzArtworkDetailProps> = ({
   artistName,
@@ -137,42 +139,42 @@ export const DzArtworkDetail: FC<DzArtworkDetailProps> = ({
       <div
         className={cn(styles.leftPane)}
         style={{
-          height: "calc(100vh - 60px - 40px)",
-          position: "relative"
+          // TODO locate styles in styles.leftPane, currently not working there
+          height: `calc(100vh - ${HEADER_HEIGHT})`,
+          top: HEADER_HEIGHT
         }}
       >
-        <div>
-          <div>{artistName}</div>
-          <div>{artworkTitle}</div>
-          <div>{artworkYear}</div>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>this is the last paragraph, it should still be visible</p>
-        </div>
+        <div>{artistName}</div>
+        <div>{artworkTitle}</div>
+        <div>{artworkYear}</div>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>{description}</p>
+        <p>this is the last paragraph, it should still be visible</p>
+
         <div
           className={styles.ctaContainer}
-          style={{ bottom: 0, border: "1px solid yellow" }}
+          style={{bottom: 0}}
         >
           <div>
             <DzButton>Primary CTA</DzButton>
@@ -194,7 +196,7 @@ export const DzArtworkDetail: FC<DzArtworkDetailProps> = ({
           <div style={{ height: "200px", border: "1px solid green"}}>grid item</div>
           <div style={{ height: "200px", border: "1px solid green"}}>grid item</div>
           */}
-          <DzComplexGrid cards={[]} displayNumberOfResults={false} maxItemsPerRow={1} />
+          <DzComplexGrid cards={cardsData} maxItemsPerRow={1} />
         </div>
       ) : null}
     </div>
