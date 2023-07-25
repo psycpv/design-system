@@ -135,6 +135,7 @@ export const DzPagination: FC<DzPaginationProps> = ({
                 styles.underline
               )}
               onClick={() => onPageChange(page)}
+              key={page}
             >
               {page}
             </div>

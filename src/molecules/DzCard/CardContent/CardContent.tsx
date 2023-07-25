@@ -99,6 +99,8 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
           )}
           aspectRatio={MEDIA_ASPECT_RATIOS['4:3']}
           {...media}
+          linkProps={cardLink ? undefined : media.linkProps}
+          url={cardLink ? undefined : media.url}
           imgProps={{
             id: `CardMedia-${slugify(media?.imgProps?.alt) || ''}`,
             ...(media?.imgProps || {}),
@@ -157,7 +159,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
             <DzLink
               {...(linkCTA.linkProps ?? {})}
               href={linkCTA.url}
-              LinkElement={linkCTA.linkElement}
+              LinkElement={cardLink ? 'span' : linkCTA.linkElement}
               variant={LINK_VARIANTS.TEXT}
               className={cn(linkHoverStyle)}
               textLinkSize={isSmall ? TEXT_LINK_SIZES.XS : TEXT_LINK_SIZES.SM}

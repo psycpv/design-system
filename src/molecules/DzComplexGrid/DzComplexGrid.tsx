@@ -221,9 +221,10 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
         {cards.map((card: any, key) => {
           if (!card) return null;
 
-          const { id, cardType } = card;
-          let cardData = { ...card };
+          const { cardType, ...rest } = card;
+
           let cardDataType = cardType ?? CARD_TYPES.ARTWORK;
+          let cardData = { ...rest };
 
           if (isArtworkCard(card)) {
             const { primaryCTA, secondaryCTA } = card;
@@ -235,6 +236,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
               !isMobile && stepValue < STEP_TO_HIDE_CTA
                 ? secondaryCTA
                 : undefined;
+
             cardData = {
               ...card,
               media: {
@@ -247,7 +249,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
           }
 
           return (
-            <DzColumn key={`${id}-${key}`} span={columnsSpanPerRow}>
+            <DzColumn key={`${cardData.id}-${key}`} span={columnsSpanPerRow}>
               <DzCard
                 type={cardDataType}
                 data={{

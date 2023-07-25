@@ -25,7 +25,6 @@ export interface InterstitialFullWidthProps
   description?: string;
   category?: string;
   primaryCta?: PrimaryCTAInterstitial;
-  split?: boolean;
   media?: DzMediaProps;
   textColor?: TextColors;
   customClass?: string;
@@ -134,7 +133,6 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
   ...rest
 }) => {
   const textClassColor = `text-${textColor || MODE_TEXT_COLORS[mode]}`;
-  const { split, ...restProps } = rest;
 
   return (
     <div
@@ -144,7 +142,7 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
         fullWidth ? styles.outsideFull : '',
         customClass
       )}
-      {...restProps}
+      {...rest}
     >
       {media ? (
         <DzMedia
