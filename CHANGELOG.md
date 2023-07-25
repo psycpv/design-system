@@ -1,3 +1,15 @@
+# v0.0.71 (Tue Jul 25 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-661: Fix debug web project errors [#107](https://github.com/Zwirner/design-system/pull/107) ([@fstovarr](https://github.com/fstovarr))
+
+#### Authors: 1
+
+- Fabio Tovar ([@fstovarr](https://github.com/fstovarr))
+
+---
+
 # v0.0.70 (Mon Jul 24 2023)
 
 #### 🐛 Bug Fix
