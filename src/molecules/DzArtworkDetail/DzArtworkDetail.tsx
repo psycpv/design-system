@@ -118,6 +118,7 @@ const styles: any = {
   `
 };
 
+// TODO cursor-zoom-in isn't getting generated in tailwind.css, need to fix this
 const gridImageStyles: any = {
   cursorZoom: `
     cursor-zoom-in
