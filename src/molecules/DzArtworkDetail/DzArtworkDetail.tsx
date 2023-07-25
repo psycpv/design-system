@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { cn } from '../../utils/classnames';
 import { DzMediaProps, DzButton } from '../../atoms';
 import { DzComplexGrid } from "../DzComplexGrid/DzComplexGrid";
+import { DzImageZoomModal } from "../DzImageZoom/DzImageZoom";
 
 export interface DzArtworkDetailProps {
   artistName: string;
@@ -16,7 +17,6 @@ const cardsData =
     {
       "id": "1",
       "media": {
-        "url": "/",
         "type": "image",
         "imgProps": {
           "src": "https://images.davidzwirner.com/v7/_images_/davidzwirner/artwork/non-dz-artists/peyton-elizabeth/peyel0094/peyel0094_framed.jpg?w=2000&q=85&org_if_sml=1&force_format=webp",
@@ -27,7 +27,6 @@ const cardsData =
     {
       "id": "2",
       "media": {
-        "url": "/",
         "type": "image",
         "imgProps": {
           "src": "https://assets.davidzwirner.com/v7/_assets_/davidzwirner/artwork/jb/music_new/music_new.jpg",
@@ -38,7 +37,6 @@ const cardsData =
     {
       "id": "3",
       "media": {
-        "url": "/",
         "type": "image",
         "imgProps": {
           "src": "https://assets.davidzwirner.com/v7/_assets_/davidzwirner/artwork/jb/van-dongen_new/van-dongen_new.jpg",
@@ -49,7 +47,6 @@ const cardsData =
     {
       "id": "4",
       "media": {
-        "url": "/",
         "type": "image",
         "imgProps": {
           "src": "https://assets.davidzwirner.com/v7/_assets_/davidzwirner/artwork/jb/sisteron_2021/sisteron_new.jpg",
@@ -60,7 +57,6 @@ const cardsData =
     {
       "id": "5",
       "media": {
-        "url": "/",
         "type": "image",
         "imgProps": {
           "src": "https://assets.davidzwirner.com/v7/_assets_/davidzwirner/artwork/non-dz-artists/lewis-tau/lewta0013/lewta0013_framed_render.jpg",
@@ -71,7 +67,6 @@ const cardsData =
     {
       "id": "6",
       "media": {
-        "url": "/",
         "type": "image",
         "imgProps": {
           "src": "https://assets.davidzwirner.com/v7/_assets_/davidzwirner/artwork/non-dz-artists/moore-frank/moofr0031/moofr0031_framed_render_new.jpg",
@@ -82,7 +77,6 @@ const cardsData =
     {
       "id": "7",
       "media": {
-        "url": "/",
         "type": "image",
         "imgProps": {
           "src": "https://assets.davidzwirner.com/v7/_assets_/davidzwirner/artwork/non-dz-artists/muslimova-ebecho/museb0019/museb001910apframed.jpg",
@@ -124,6 +118,12 @@ const styles: any = {
   `
 };
 
+const gridImageStyles: any = {
+  cursorZoom: `
+    cursor-zoom-in
+  `
+}
+
 // TODO externalize this to layouts/header.tsx
 const HEADER_HEIGHT = "60px"
 
@@ -134,72 +134,82 @@ export const DzArtworkDetail: FC<DzArtworkDetailProps> = ({
   mediaItems,
   description,
 }) => {
-  return (
-    <div className={styles.container}>
-      <div
-        className={cn(styles.leftPane)}
-        style={{
-          // TODO locate styles in styles.leftPane, currently not working there
-          height: `calc(100vh - ${HEADER_HEIGHT})`,
-          top: HEADER_HEIGHT
-        }}
-      >
-        <div>{artistName}</div>
-        <div>{artworkTitle}</div>
-        <div>{artworkYear}</div>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>{description}</p>
-        <p>this is the last paragraph, it should still be visible</p>
+  const [currentZoomedUrl, setCurrentZoomedUrl] = useState<string | undefined>(undefined);
+  const onClickImage = (data) => {
+    const src = data?.media?.imgProps?.src;
+    if (src) {
+      setCurrentZoomedUrl(src)
+    }
+  }
 
+  return (
+    <>
+      <div className={styles.container}>
         <div
-          className={styles.ctaContainer}
-          style={{bottom: 0}}
+          className={cn(styles.leftPane)}
+          style={{
+            // TODO locate styles in styles.leftPane, currently not working there
+            height: `calc(100vh - ${HEADER_HEIGHT})`,
+            top: HEADER_HEIGHT
+          }}
         >
-          <div>
-            <DzButton>Primary CTA</DzButton>
-          </div>
-          <div>
-            <DzButton>Tertiary CTA</DzButton>
+          <div>{artistName}</div>
+          <div>{artworkTitle}</div>
+          <div>{artworkYear}</div>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>{description}</p>
+          <p>this is the last paragraph, it should still be visible</p>
+
+          <div
+            className={styles.ctaContainer}
+            style={{bottom: 0}}
+          >
+            <div>
+              <DzButton>Primary CTA</DzButton>
+            </div>
+            <div>
+              <DzButton>Tertiary CTA</DzButton>
+            </div>
           </div>
         </div>
+        {mediaItems ? (
+          <div className={cn(styles.rightPane)}>
+            <DzComplexGrid
+              cards={cardsData}
+              maxItemsPerRow={1}
+              onClickImage={onClickImage}
+              imageStyles={gridImageStyles.cursorZoom}
+            />
+          </div>
+        ) : null}
       </div>
-      {mediaItems ? (
-        <div className={cn(styles.rightPane)}>
-          {/*
-          <div style={{ height: "200px", border: "1px solid green"}}>grid item</div>
-          <div style={{ height: "200px", border: "1px solid green"}}>grid item</div>
-          <div style={{ height: "200px", border: "1px solid green"}}>grid item</div>
-          <div style={{ height: "200px", border: "1px solid green"}}>grid item</div>
-          <div style={{ height: "200px", border: "1px solid green"}}>grid item</div>
-          <div style={{ height: "200px", border: "1px solid green"}}>grid item</div>
-          <div style={{ height: "200px", border: "1px solid green"}}>grid item</div>
-          <div style={{ height: "200px", border: "1px solid green"}}>grid item</div>
-          */}
-          <DzComplexGrid cards={cardsData} maxItemsPerRow={1} />
-        </div>
-      ) : null}
-    </div>
+      <DzImageZoomModal
+        imgUrl={currentZoomedUrl}
+        onClose={() => setCurrentZoomedUrl(undefined)}
+        isOpen={!!currentZoomedUrl}
+      />
+    </>
   );
 };
 
