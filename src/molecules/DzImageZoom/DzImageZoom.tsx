@@ -42,7 +42,7 @@ const styles: any = {
 interface DzImageZoomModalProps {
   isOpen: boolean;
   onClose: () => void;
-  imgUrl: string;
+  imgUrl?: string;
 }
 
 export const DzImageZoomModal = ({

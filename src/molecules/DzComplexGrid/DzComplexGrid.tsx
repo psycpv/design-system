@@ -23,6 +23,8 @@ import { SixSquares } from '../../svgIcons/six-squares';
 import { EightSquares } from '../../svgIcons/eight-squares';
 import { BREAKPOINTS } from '../../layout/breakpoints';
 import useWindowSize from '../../hooks/useWindowSize';
+import { CardMediaData } from "../DzCard/CardMedia";
+import { CardArtworkData } from "../DzCard/CardArtwork";
 
 interface StepInterface {
   id: number;
@@ -52,6 +54,7 @@ export interface DzComplexGridProps {
   useLink?: boolean;
   linkCTA?: LinkCTA;
   defaultStart?: number;
+  onClickImage?: (data: CardMediaData | CardArtworkData) => void
 }
 
 const MINIMUM_VALUE = 1;
@@ -120,6 +123,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   useLink = false,
   linkCTA,
   defaultStart = INITIAL_VALUE,
+  onClickImage
 }) => {
   const { width } = useWindowSize();
   const isMobile = useMemo(() => {
@@ -254,6 +258,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
                   ...cardData,
                   size: [CardSizes['12col'], columnsSpanPerRow],
                 }}
+                onClickImage={(data) => onClickImage?.(data)}
               />
             </DzColumn>
           );

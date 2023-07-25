@@ -21,7 +21,7 @@ import { BREAKPOINTS } from '../../../layout/breakpoints';
 import { slugify } from '../../../utils';
 import { CardViewport } from '../types';
 
-export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
+export const CardArtwork: FC<CardArtworkProps> = ({ data, onClickImage }) => {
   const {
     id,
     size,
@@ -54,7 +54,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
 
     return mergeStyles(globalStyles, stylesSizes[viewport][span]);
   }, [size, isSmall, viewport]);
-
+  
   return (
     <div id={id} className={cn(styles.cardContainer)}>
       <DzMedia
@@ -66,6 +66,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
         imgProps={{
           id: `CardMedia-${slugify(media?.imgProps?.alt) || ''}`,
           ...(media?.imgProps || {}),
+          onClick: () => onClickImage?.(data)
         }}
       />
       <div className={cn(styles.artwork.infoContainer)}>

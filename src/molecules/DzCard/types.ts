@@ -45,6 +45,7 @@ export type DataCardType = CardArtworkData | CardMediaData | CardContentData;
 export interface DzCardProps {
   type: CardTypes;
   data: DataCardType;
+  onClickImage: (data: CardMediaData | CardArtworkData) => void
 }
 
 export function isArtworkCard(object: unknown): object is CardArtworkData {

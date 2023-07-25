@@ -8,4 +8,5 @@ export interface CardMediaData extends BaseCard {
 
 export interface CardMediaProps {
   data: CardMediaData;
+  onClickImage?: (data: CardMediaData) => void;
 }

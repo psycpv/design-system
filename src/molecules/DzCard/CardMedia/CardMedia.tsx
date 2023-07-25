@@ -13,7 +13,7 @@ import { styles } from './styles';
 import { cn } from '../../../utils/classnames';
 import { slugify } from '../../../utils';
 
-export const CardMedia: FC<CardMediaProps> = ({ data }) => {
+export const CardMedia: FC<CardMediaProps> = ({ data, onClickImage }) => {
   const { id, media, description } = data as CardMediaData;
   return (
     <div id={id} className={cn(styles.cardContainer)}>
@@ -26,6 +26,7 @@ export const CardMedia: FC<CardMediaProps> = ({ data }) => {
         imgProps={{
           id: `CardMedia-${slugify(media?.imgProps?.alt) || ''}`,
           ...(media?.imgProps || {}),
+          onClick: () => onClickImage?.(data)
         }}
       />
       <DzText
