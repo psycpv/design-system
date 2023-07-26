@@ -3,6 +3,7 @@ import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import PlusIcon from '../../svgIcons/plus';
 import MinusIcon from '../../svgIcons/minus';
 import { Close } from '../../svgIcons';
+import { useIsSmallWindowSize } from "../../hooks/useIsSmallWindowSize";
 
 const styles: any = {
   imageZoomModalContainer: `     
@@ -17,8 +18,9 @@ const styles: any = {
   modalHeaderContainer: `
     h-[3.75rem] 
     w-full 
-    flex 
-    justify-between
+    flex
+    justify-end 
+    md:justify-between
     align-center
     text-sm
     items-center
@@ -50,6 +52,7 @@ export const DzImageZoomModal = ({
   onClose,
   imgUrl,
 }: DzImageZoomModalProps) => {
+  const isSmall = useIsSmallWindowSize();
   const onClickClose = () => onClose();
 
   return isOpen ? (
@@ -58,16 +61,18 @@ export const DzImageZoomModal = ({
         {({ zoomIn, zoomOut }) => (
           <>
             <div className={styles.modalHeaderContainer}>
-              <div>
-                <button onClick={() => zoomIn()} className={styles.plusButton}>
-                  <PlusIcon className={styles.icon} />
-                  Zoom In
-                </button>
-                <button onClick={() => zoomOut()}>
-                  <MinusIcon className={styles.icon} />
-                  Zoom Out
-                </button>
-              </div>
+              {!isSmall && (
+                <div>
+                  <button onClick={() => zoomIn()} className={styles.plusButton}>
+                    <PlusIcon className={styles.icon} />
+                    Zoom In
+                  </button>
+                  <button onClick={() => zoomOut()}>
+                    <MinusIcon className={styles.icon} />
+                    Zoom Out
+                  </button>
+                </div>
+              )}
               <button
                 className={styles.modalCloseButton}
                 onClick={() => onClickClose()}

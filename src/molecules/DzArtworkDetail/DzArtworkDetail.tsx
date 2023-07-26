@@ -154,6 +154,13 @@ export const DzArtworkDetail: FC<DzArtworkDetailProps> = ({
       setCurrentZoomedUrl(src)
     }
   }
+  const firstItemMediaProps = {
+    ...cardsData[0].media,
+    imgProps: {
+      ...cardsData[0].media.imgProps,
+      onClick: () => onClickImage(cardsData[0])
+    }
+  };
 
   return (
     <>
@@ -170,7 +177,7 @@ export const DzArtworkDetail: FC<DzArtworkDetailProps> = ({
           }
         >
           {isSmall && cardsData?.length ? (
-            <DzMedia {...cardsData[0].media} />
+            <DzMedia {...firstItemMediaProps} />
           ) : undefined}
           <div>{artistName}</div>
           <div>{artworkTitle}</div>
