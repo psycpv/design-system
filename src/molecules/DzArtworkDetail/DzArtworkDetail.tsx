@@ -1,8 +1,9 @@
 import React, { FC, useState } from 'react';
 import { cn } from '../../utils/classnames';
-import { DzMediaProps, DzButton } from '../../atoms';
+import { DzMedia, DzMediaProps, DzButton } from '../../atoms';
 import { DzComplexGrid } from "../DzComplexGrid/DzComplexGrid";
 import { DzImageZoomModal } from "../DzImageZoom/DzImageZoom";
+import { useIsSmallWindowSize } from '../../hooks/useIsSmallWindowSize';
 
 export interface DzArtworkDetailProps {
   artistName: string;
@@ -111,10 +112,21 @@ const styles: any = {
   `,
   ctaContainer: `
     bg-white-100
-    sticky
+    fixed
+    md:sticky
     bottom-0
     text-center
-    z-[300]        
+    z-[300]
+    w-full
+    px-[1.25rem]
+    md:px-0
+    left-0
+    py-[0.625rem]
+    md:py-[1.25rem]
+  `,
+  ctaButton: `
+    md:block
+    m-auto
   `
 };
 
@@ -131,10 +143,11 @@ export const DzArtworkDetail: FC<DzArtworkDetailProps> = ({
   artistName,
   artworkTitle,
   artworkYear,
-  mediaItems,
   description,
 }) => {
+  const isSmall = useIsSmallWindowSize();
   const [currentZoomedUrl, setCurrentZoomedUrl] = useState<string | undefined>(undefined);
+  const gridItems = isSmall ? cardsData.slice(1) : cardsData;
   const onClickImage = (data) => {
     const src = data?.media?.imgProps?.src;
     if (src) {
@@ -147,12 +160,18 @@ export const DzArtworkDetail: FC<DzArtworkDetailProps> = ({
       <div className={styles.container}>
         <div
           className={cn(styles.leftPane)}
-          style={{
-            // TODO locate styles in styles.leftPane, currently not working there
-            height: `calc(100vh - ${HEADER_HEIGHT})`,
-            top: HEADER_HEIGHT
-          }}
+          style={isSmall
+            ? {}
+            : {
+                // TODO locate styles in styles.leftPane, currently not working there
+                height: `calc(100vh - ${HEADER_HEIGHT})`,
+                top: HEADER_HEIGHT
+              }
+          }
         >
+          {isSmall && cardsData?.length ? (
+            <DzMedia {...cardsData[0].media} />
+          ) : undefined}
           <div>{artistName}</div>
           <div>{artworkTitle}</div>
           <div>{artworkYear}</div>
@@ -182,18 +201,14 @@ export const DzArtworkDetail: FC<DzArtworkDetailProps> = ({
           <p>this is the last paragraph, it should still be visible</p>
 
           <div className={styles.ctaContainer}>
-            <div>
-              <DzButton>Primary CTA</DzButton>
-            </div>
-            <div>
-              <DzButton>Tertiary CTA</DzButton>
-            </div>
+            <DzButton className={styles.ctaButton}>Primary CTA</DzButton>
+            <DzButton className={styles.ctaButton}>Tertiary CTA</DzButton>
           </div>
         </div>
-        {mediaItems ? (
+        {gridItems ? (
           <div className={cn(styles.rightPane)}>
             <DzComplexGrid
-              cards={cardsData}
+              cards={gridItems}
               maxItemsPerRow={1}
               onClickImage={onClickImage}
               imageStyles={gridImageStyles.cursorZoom}
