@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { cn } from '../../utils/classnames';
-import { DzMedia, DzMediaProps, DzButton } from '../../atoms';
+import { DzLink, DzMedia, DzMediaProps, DzButton, LINK_VARIANTS } from '../../atoms';
 import { DzComplexGrid } from "../DzComplexGrid/DzComplexGrid";
 import { DzImageZoomModal } from "../DzImageZoom/DzImageZoom";
 import { useIsSmallWindowSize } from '../../hooks/useIsSmallWindowSize';
@@ -10,7 +10,8 @@ export interface DzArtworkDetailProps {
   artworkTitle: string;
   artworkYear?: string;
   mediaItems: DzMediaProps[];
-  description: string;
+  medium: string;
+  description?: string;
 }
 
 const cardsData =
@@ -143,15 +144,22 @@ export const DzArtworkDetail: FC<DzArtworkDetailProps> = ({
   artistName,
   artworkTitle,
   artworkYear,
-  description,
+  medium,
+  description
 }) => {
   const isSmall = useIsSmallWindowSize();
   const [currentZoomedUrl, setCurrentZoomedUrl] = useState<string | undefined>(undefined);
   const gridItems = isSmall ? cardsData.slice(1) : cardsData;
+  const descriptionRef = useRef<HTMLDivElement>(null);
   const onClickImage = (data) => {
     const src = data?.media?.imgProps?.src;
     if (src) {
       setCurrentZoomedUrl(src)
+    }
+  };
+  const onClickLearnMore = () => {
+    if (descriptionRef.current) {
+      setTimeout(() => window.scrollTo(0, descriptionRef?.current?.offsetTop || 0), 10);
     }
   }
   const firstItemMediaProps = {
@@ -176,37 +184,48 @@ export const DzArtworkDetail: FC<DzArtworkDetailProps> = ({
               }
           }
         >
-          {isSmall && cardsData?.length ? (
-            <DzMedia {...firstItemMediaProps} />
-          ) : undefined}
+          {isSmall && cardsData?.length
+            ? <DzMedia {...firstItemMediaProps} />
+            : undefined
+          }
           <div>{artistName}</div>
           <div>{artworkTitle}</div>
           <div>{artworkYear}</div>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
-          <p>{description}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
+          <p>{medium}</p>
           <p>this is the last paragraph, it should still be visible</p>
 
+          {description && (
+            <DzLink
+              href="#"
+              id="description"
+              onClick={onClickLearnMore}
+              variant={LINK_VARIANTS.TEXT}
+            >
+              Learn More
+            </DzLink>
+          )}
           <div className={styles.ctaContainer}>
             <DzButton className={styles.ctaButton}>Primary CTA</DzButton>
             <DzButton className={styles.ctaButton}>Tertiary CTA</DzButton>
@@ -220,6 +239,7 @@ export const DzArtworkDetail: FC<DzArtworkDetailProps> = ({
               onClickImage={onClickImage}
               imageStyles={gridImageStyles.cursorZoom}
             />
+            {description && <div ref={descriptionRef}>{description}</div>}
           </div>
         ) : null}
       </div>
