@@ -1,3 +1,15 @@
+# v0.0.72 (Wed Jul 26 2023)
+
+#### 🐛 Bug Fix
+
+- Add validation for media items in CardContent [#110](https://github.com/Zwirner/design-system/pull/110) ([@fstovarr](https://github.com/fstovarr))
+
+#### Authors: 1
+
+- Fabio Tovar ([@fstovarr](https://github.com/fstovarr))
+
+---
+
 # v0.0.71 (Tue Jul 25 2023)
 
 #### 🐛 Bug Fix
