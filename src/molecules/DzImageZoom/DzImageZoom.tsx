@@ -81,7 +81,12 @@ export const DzImageZoomModal = ({
               </button>
             </div>
             <TransformComponent>
-              <img src={imgUrl} alt="TODO" />
+              <img
+                src={imgUrl}
+                alt="TODO"
+                className="cursor-grab active:cursor-grabbing"
+                style={{ pointerEvents: "auto"}}
+              />
             </TransformComponent>
           </>
         )}
