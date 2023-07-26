@@ -118,7 +118,6 @@ const styles: any = {
   `
 };
 
-// TODO cursor-zoom-in isn't getting generated in tailwind.css, need to fix this
 const gridImageStyles: any = {
   cursorZoom: `
     cursor-zoom-in
@@ -182,10 +181,7 @@ export const DzArtworkDetail: FC<DzArtworkDetailProps> = ({
           <p>{description}</p>
           <p>this is the last paragraph, it should still be visible</p>
 
-          <div
-            className={styles.ctaContainer}
-            style={{bottom: 0}}
-          >
+          <div className={styles.ctaContainer}>
             <div>
               <DzButton>Primary CTA</DzButton>
             </div>
