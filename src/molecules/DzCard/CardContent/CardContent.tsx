@@ -89,7 +89,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
 
   return renderWithLink(
     <div {...restProps} id={id} className={cn(styles.cardContainer)}>
-      {!hideImage ? (
+      {!hideImage && media ? (
         <DzMedia
           className={enableZoom ? 'overflow-hidden' : ''}
           imgClass={cn(
