@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { DzButtonProps, DzMediaProps } from '../../../atoms';
 import { BaseCard } from '../types';
 
@@ -13,6 +14,7 @@ export interface CardArtworkData extends BaseCard {
   artworkYear: string;
   medium: string;
   dimensions: string;
+  portableTextDimensions?: string | ReactNode;
   edition: string;
   price?: number;
   framed?: string;

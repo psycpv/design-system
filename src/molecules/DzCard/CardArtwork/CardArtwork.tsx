@@ -31,6 +31,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
     artworkYear,
     medium,
     dimensions,
+    portableTextDimensions,
     edition,
     price,
     framed,
@@ -111,6 +112,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
                 textType={TEXT_TYPES.P}
               />
             ) : null}
+            {portableTextDimensions ? portableTextDimensions : null}
             {edition ? (
               <DzText
                 className={cn(styles.artwork.tombstoneText)}
