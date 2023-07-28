@@ -1,3 +1,15 @@
+# v0.0.73 (Fri Jul 28 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-605: Update DzSplit [#109](https://github.com/Zwirner/design-system/pull/109) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
 # v0.0.72 (Wed Jul 26 2023)
 
 #### 🐛 Bug Fix
