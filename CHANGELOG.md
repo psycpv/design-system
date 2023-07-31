@@ -1,3 +1,51 @@
+# v0.0.73 (Fri Jul 28 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-605: Update DzSplit [#109](https://github.com/Zwirner/design-system/pull/109) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
+# v0.0.72 (Wed Jul 26 2023)
+
+#### 🐛 Bug Fix
+
+- Add validation for media items in CardContent [#110](https://github.com/Zwirner/design-system/pull/110) ([@fstovarr](https://github.com/fstovarr))
+
+#### Authors: 1
+
+- Fabio Tovar ([@fstovarr](https://github.com/fstovarr))
+
+---
+
+# v0.0.71 (Tue Jul 25 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-661: Fix debug web project errors [#107](https://github.com/Zwirner/design-system/pull/107) ([@fstovarr](https://github.com/fstovarr))
+
+#### Authors: 1
+
+- Fabio Tovar ([@fstovarr](https://github.com/fstovarr))
+
+---
+
+# v0.0.70 (Mon Jul 24 2023)
+
+#### 🐛 Bug Fix
+
+- artist list links hit area to spec [#106](https://github.com/Zwirner/design-system/pull/106) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.69 (Fri Jul 21 2023)
 
 #### 🐛 Bug Fix

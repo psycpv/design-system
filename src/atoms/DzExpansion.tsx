@@ -141,7 +141,7 @@ export const DzExpansion: FC<DzExpansionProps> = ({
             />
           ) : null;
           return (
-            <>
+            <Fragment key={`${slug}-${title}`}>
               <div className={cn(styles.item)}>
                 <Disclosure>
                   {({ open }) => (
@@ -179,7 +179,7 @@ export const DzExpansion: FC<DzExpansionProps> = ({
                 </Disclosure>
               </div>
               <hr className={cn(styles.divider)} />
-            </>
+            </Fragment>
           );
         })}
       </div>

@@ -211,15 +211,15 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
               setCurrentItemIndex(index);
             }}
           >
-            {items.map((item, index) => {
-              return !item.hideMedia ? (
+            {items
+              .filter(item => !item.hideMedia)
+              .map(item => (
                 <DzMedia
-                  key={`mediaItem-${index}`}
+                  key={`${item.media.url}-${item.title}`}
                   imgClass={cn(styles.mediaImage)}
                   {...item.media}
                 />
-              ) : null;
-            })}
+              ))}
           </MediaWrapper>
         </div>
 
@@ -229,8 +229,11 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
             activeAnimation={activeAnimation}
             onAnimationEnded={setActiveAnimation}
           >
-            {items.map((item, index) => (
-              <div className={cn(styles.infoContainer)} key={`item-${index}`}>
+            {items.map(item => (
+              <div
+                className={cn(styles.infoContainer)}
+                key={`${item.media.url}-${item.title}`}
+              >
                 {item.category ? (
                   <DzText
                     className={cn(styles.category)}

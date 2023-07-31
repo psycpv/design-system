@@ -88,6 +88,7 @@ const styles: any = {
     md:text-xxl
   `,
   linkCta: `
+    cursor-pointer
     mt-[0.969rem]
     md:mt-[1.875rem]
   `,
@@ -123,9 +124,10 @@ const styles: any = {
     absolute
     top-2/4
     -translate-y-1/2
+    md:!h-3/6
   `,
   background: `
-    bg-[#042498]
+    bg-[#000098]
   `,
 };
 const NUMBER_OF_CHARS_TEXT = 50;
@@ -191,13 +193,6 @@ export const DzSplit: FC<DzSplitProps> = ({
         >
           <DzMedia
             className={isPodcast ? styles.podcast : ''}
-            podcastProps={
-              isPodcast
-                ? {
-                    height: '50%',
-                  }
-                : undefined
-            }
             imgClass={animate ? styles.animateImg : ''}
             objectFit={MEDIA_OBJECT_FIT.COVER}
             objectPosition={ObjectPositionType.TOP}

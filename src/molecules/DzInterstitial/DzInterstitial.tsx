@@ -24,19 +24,22 @@ export const INTERSTITIAL_TEXT_COLORS_NAMES = [
 export type TextColors = typeof INTERSTITIAL_TEXT_COLORS_NAMES[number];
 
 export interface DzInterstitialProps {
-  data: InterstitialSplitProps | InterstitialFullWidthProps;
+  data: (InterstitialSplitProps | InterstitialFullWidthProps) & {
+    split: boolean;
+  };
 }
 export interface PrimaryCTAInterstitial {
   text: string;
   ctaProps?: DzButtonProps;
 }
 
-export const DzInterstitial: FC<DzInterstitialProps> = ({ data }) => {
-  const { split = false } = data;
-  if (split) {
-    return <InterstitialSplit {...(data as InterstitialSplitProps)} />;
-  }
-  return <InterstitialFullWidth {...(data as InterstitialFullWidthProps)} />;
-};
+export const DzInterstitial: FC<DzInterstitialProps> = ({
+  data: { split = false, ...rest },
+}) =>
+  split ? (
+    <InterstitialSplit {...(rest as InterstitialSplitProps)} />
+  ) : (
+    <InterstitialFullWidth {...(rest as InterstitialFullWidthProps)} />
+  );
 
 export default DzInterstitial;

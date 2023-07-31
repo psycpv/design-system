@@ -44,11 +44,6 @@ export const styles: any = {
   `,
   listLink: `
     md:my-2.5
-    cursor-pointer
-  `,
-  linkElement: `
-    w-full
-    block
   `,
   menu: `
     relative
@@ -65,5 +60,6 @@ export const styles: any = {
   linkDesktop: `
     md:text-black-60
     md:hover:text-black-100
+    md:py-2.5
   `,
 };

@@ -81,9 +81,9 @@ export const DzTabs: FC<DzTabsProps> = ({
   ariaLabel = 'Tabs',
   children,
 }) => {
-  const renderPanels = Children.map(children, child => {
-    return <Tab.Panel> {child}</Tab.Panel>;
-  });
+  const renderPanels = Children.map(children, child => (
+    <Tab.Panel>{child}</Tab.Panel>
+  ));
   const listType = variant === TAB_TYPES.CONTENT ? 'div' : 'nav';
   const ItemType = variant === TAB_TYPES.CONTENT ? 'div' : 'a';
   return (
@@ -94,7 +94,7 @@ export const DzTabs: FC<DzTabsProps> = ({
         aria-label={ariaLabel}
       >
         {tabs.map(({ title, current, ...rest }) => (
-          <Tab as={Fragment}>
+          <Tab key={title} as={Fragment}>
             {({ selected }) => (
               <ItemType
                 key={title}

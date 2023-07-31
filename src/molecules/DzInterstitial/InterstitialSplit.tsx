@@ -20,7 +20,6 @@ export interface InterstitialSplitProps {
   description?: string;
   category?: string;
   primaryCta?: PrimaryCTAInterstitial;
-  split?: boolean;
   media?: DzMediaProps;
   textColor?: TextColors;
   customClass?: string;
