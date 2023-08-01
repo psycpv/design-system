@@ -1,6 +1,6 @@
-import useWindowSize from "./useWindowSize";
-import { useMemo } from "react";
-import { BREAKPOINTS } from "../layout/breakpoints";
+import useWindowSize from './useWindowSize';
+import { useMemo } from 'react';
+import { BREAKPOINTS } from '../layout/breakpoints';
 
 export const useIsSmallWindowSize = () => {
   const { width } = useWindowSize();
@@ -8,4 +8,4 @@ export const useIsSmallWindowSize = () => {
   return useMemo(() => {
     return width <= BREAKPOINTS.MD;
   }, [width]);
-}
+};

@@ -23,8 +23,8 @@ import { SixSquares } from '../../svgIcons/six-squares';
 import { EightSquares } from '../../svgIcons/eight-squares';
 import { BREAKPOINTS } from '../../layout/breakpoints';
 import useWindowSize from '../../hooks/useWindowSize';
-import { CardMediaData } from "../DzCard/CardMedia";
-import { CardArtworkData } from "../DzCard/CardArtwork";
+import { CardMediaData } from '../DzCard/CardMedia';
+import { CardArtworkData } from '../DzCard/CardArtwork';
 
 interface StepInterface {
   id: number;
@@ -265,7 +265,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
                   ...cardData,
                   size: [CardSizes['12col'], columnsSpanPerRow],
                 }}
-                onClickImage={(data) => onClickImage?.(data)}
+                onClickImage={data => onClickImage?.(data)}
                 imageStyles={imageStyles}
               />
             </DzColumn>

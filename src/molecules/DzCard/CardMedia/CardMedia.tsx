@@ -26,7 +26,7 @@ export const CardMedia: FC<CardMediaProps> = ({ data, onClickImage }) => {
         imgProps={{
           id: `CardMedia-${slugify(media?.imgProps?.alt) || ''}`,
           ...(media?.imgProps || {}),
-          onClick: () => onClickImage?.(data)
+          onClick: () => onClickImage?.(data),
         }}
       />
       <DzText

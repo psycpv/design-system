@@ -3,7 +3,7 @@ import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import PlusIcon from '../../svgIcons/plus';
 import MinusIcon from '../../svgIcons/minus';
 import { Close } from '../../svgIcons';
-import { useIsSmallWindowSize } from "../../hooks/useIsSmallWindowSize";
+import { useIsSmallWindowSize } from '../../hooks/useIsSmallWindowSize';
 
 const styles: any = {
   imageZoomModalContainer: `     
@@ -63,7 +63,10 @@ export const DzImageZoomModal = ({
             <div className={styles.modalHeaderContainer}>
               {!isSmall && (
                 <div>
-                  <button onClick={() => zoomIn()} className={styles.plusButton}>
+                  <button
+                    onClick={() => zoomIn()}
+                    className={styles.plusButton}
+                  >
                     <PlusIcon className={styles.icon} />
                     Zoom In
                   </button>
@@ -85,7 +88,7 @@ export const DzImageZoomModal = ({
                 src={imgUrl}
                 alt="TODO"
                 className="cursor-grab active:cursor-grabbing"
-                style={{ pointerEvents: "auto"}}
+                style={{ pointerEvents: 'auto' }}
               />
             </TransformComponent>
           </>

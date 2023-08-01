@@ -1,14 +1,14 @@
-import React from "react"
-import { FC } from "react";
-import { IconProps } from "./types";
+import React from 'react';
+import { FC } from 'react';
+import { IconProps } from './types';
 
-export const PlusIcon: FC<IconProps> = (props) => (
+export const PlusIcon: FC<IconProps> = props => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={18}
     height={18}
     fill="none"
-    style={{display: 'inline'}}
+    style={{ display: 'inline' }}
     {...props}
   >
     <path
