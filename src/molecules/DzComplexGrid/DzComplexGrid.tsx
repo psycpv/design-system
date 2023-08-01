@@ -55,7 +55,8 @@ export interface DzComplexGridProps {
   linkCTA?: LinkCTA;
   defaultStart?: number;
   onClickImage?: (data: CardMediaData | CardArtworkData) => void;
-  imageStyles?: any
+  imageStyles?: any;
+  gridColumnsStyles?: any;
 }
 
 const MINIMUM_VALUE = 1;
@@ -125,7 +126,8 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   linkCTA,
   defaultStart = INITIAL_VALUE,
   onClickImage,
-  imageStyles
+  imageStyles,
+  gridColumnsStyles,
 }) => {
   const { width } = useWindowSize();
   const isMobile = useMemo(() => {
@@ -218,11 +220,12 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
       ) : null}
 
       <DzGridColumns
-        className={
+        className={cn(
           columnsSpanPerRow === 12
             ? 'gap-y-[2.5rem] md:gap-y-[7.5rem]'
-            : 'gap-y-[2.5rem] md:gap-y-[3.75rem]'
-        }
+            : 'gap-y-[2.5rem] md:gap-y-[3.75rem]',
+          gridColumnsStyles
+        )}
       >
         {cards.map((card: any, key) => {
           if (!card) return null;
