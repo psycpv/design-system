@@ -4,6 +4,8 @@ import PlusIcon from '../../svgIcons/plus';
 import MinusIcon from '../../svgIcons/minus';
 import { Close } from '../../svgIcons';
 import { useIsSmallWindowSize } from '../../hooks/useIsSmallWindowSize';
+import { useImageSize } from '../../hooks/useImageSize';
+import useWindowSize from '../../hooks/useWindowSize';
 
 const styles: any = {
   imageZoomModalContainer: `     
@@ -54,10 +56,18 @@ export const DzImageZoomModal = ({
 }: DzImageZoomModalProps) => {
   const isSmall = useIsSmallWindowSize();
   const onClickClose = () => onClose();
+  const { width } = useWindowSize();
+  const [imageDimensions, { error }] = useImageSize(imgUrl);
+  const initialScale =
+    imageDimensions && width
+      ? width > imageDimensions.width
+        ? width / imageDimensions.width
+        : 1
+      : 1;
 
-  return isOpen ? (
+  return isOpen && imageDimensions && !error ? (
     <div className={styles.imageZoomModalContainer}>
-      <TransformWrapper initialScale={1}>
+      <TransformWrapper initialScale={initialScale}>
         {({ zoomIn, zoomOut }) => (
           <>
             <div className={styles.modalHeaderContainer}>
@@ -83,7 +93,10 @@ export const DzImageZoomModal = ({
                 Close <Close className={styles.closeIcon} />
               </button>
             </div>
-            <TransformComponent>
+            <TransformComponent
+              wrapperClass="!w-screen"
+              contentClass="!w-screen"
+            >
               <img
                 src={imgUrl}
                 alt="TODO"
