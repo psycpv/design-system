@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import PlusIcon from '../../svgIcons/plus';
 import MinusIcon from '../../svgIcons/minus';
@@ -64,6 +64,12 @@ export const DzImageZoomModal = ({
         ? width / imageDimensions.width
         : 1
       : 1;
+
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      window.document.body.style.overflow = isOpen ? "hidden" : "unset"
+    }
+  }, [isOpen])
 
   return isOpen && imageDimensions && !error ? (
     <div className={styles.imageZoomModalContainer}>
