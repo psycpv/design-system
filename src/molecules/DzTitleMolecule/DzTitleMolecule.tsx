@@ -1,5 +1,6 @@
 import React, { FC, ReactNode } from 'react';
 import { DzTitleProps, DzButtonProps, DzLinkProps } from '../../atoms';
+import { ColumnProps } from '../../layout/DzGrid';
 import { DzTitlePage } from './DzTitlePage';
 import { DzTitleSection } from './DzTitleSection';
 import { DzTitleMol } from './DzTitleMol';
@@ -21,6 +22,8 @@ export interface DzTitlePageProps {
   primaryCTA?: DzMoleculeTitleCTA;
   linkCTA?: DzLinkProps;
   customClass?: string;
+  fullLeftContainer?: boolean;
+  customCTAContainerProps?: ColumnProps;
 }
 
 export interface DzMoleculeTitleCTA {
@@ -35,6 +38,7 @@ export interface DzTitleSectionProps {
   titleProps?: Partial<DzTitleProps>;
   linkCTA?: DzMoleculeLinkCTA;
   customClass?: string;
+  fullLeftContainer?: boolean;
 }
 
 export interface DzMoleculeLinkCTA {
