@@ -3,6 +3,7 @@ import { DzTitleProps, DzButtonProps, DzLinkProps } from '../../atoms';
 import { DzTitlePage } from './DzTitlePage';
 import { DzTitleSection } from './DzTitleSection';
 import { DzTitleMol } from './DzTitleMol';
+import DzTitleExhibition from "./DzTitleExhibition";
 
 export enum DzTitleMoleculeTypes {
   PAGE = 'page',
@@ -44,6 +45,10 @@ export interface DzMoleculeLinkCTA {
   linkProps?: DzLinkProps;
 }
 
+export interface DzTitleExhibitionProps {
+  title: string;
+}
+
 export interface DzTitleMoleculeProps {
   data: DzTitlePageProps | DzTitleSectionProps;
   type: DzTitleMoleculeTypes;
@@ -63,6 +68,10 @@ export const DzTitleMolecule: FC<DzTitleMoleculeProps> = ({
 
   if (type === DzTitleMoleculeTypes.MOLECULE) {
     return <DzTitleMol {...(data as DzTitleSectionProps)} />;
+  }
+
+  if (type === DzTitleMoleculeTypes.EXHIBITION) {
+    return <DzTitleExhibition {...(data as DzTitleExhibitionProps)} />;
   }
 
   return <div>Not supported type</div>;

@@ -41,3 +41,10 @@ MoleculeTitleVariant.args = {
   type: DzTitleMoleculeTypes.MOLECULE,
   data: sectionData,
 };
+
+const exhibitionData = {}
+export const ExhibitionTitleVariant = Template.bind({});
+ExhibitionTitleVariant.args = {
+  type: DzTitleMoleculeTypes.EXHIBITION,
+  data: exhibitionData
+}
