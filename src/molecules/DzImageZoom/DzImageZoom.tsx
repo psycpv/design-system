@@ -14,8 +14,8 @@ const styles: any = {
     left-0    
     top-0 
     w-screen 
-    z-[300]
-    bg-white-100
+    z-[300]    
+    bg-[#e8e8e8]
   `,
   modalHeaderContainer: `
     h-[3.75rem] 
@@ -27,6 +27,7 @@ const styles: any = {
     text-sm
     items-center
     px-[1.25rem]
+    bg-white-100
   `,
   modalCloseButton: `
     flex-none
