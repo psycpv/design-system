@@ -74,7 +74,7 @@ export const DzImageZoomModal = ({
 
   return isOpen && imageDimensions && !error ? (
     <div className={styles.imageZoomModalContainer}>
-      <TransformWrapper initialScale={initialScale * 1.25} disablePadding centerOnInit>
+      <TransformWrapper initialScale={initialScale} disablePadding>
         {({ zoomIn, zoomOut }) => (
           <>
             <div className={styles.modalHeaderContainer}>
