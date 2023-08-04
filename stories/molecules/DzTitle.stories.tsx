@@ -5,7 +5,7 @@ import {
   DzTitleMoleculeProps,
   DzTitleMoleculeTypes,
 } from '../../src/molecules/DzTitleMolecule/DzTitleMolecule';
-import { pageData, sectionData } from '../../constants/mocks/DzTitle';
+import { exhibitionData, pageData, sectionData } from '../../constants/mocks/DzTitle';
 
 const meta: Meta = {
   title: 'Molecules/Content/DzTitleMolecule',
@@ -42,7 +42,6 @@ MoleculeTitleVariant.args = {
   data: sectionData,
 };
 
-const exhibitionData = {}
 export const ExhibitionTitleVariant = Template.bind({});
 ExhibitionTitleVariant.args = {
   type: DzTitleMoleculeTypes.EXHIBITION,
