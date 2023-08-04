@@ -21,7 +21,11 @@ import { BREAKPOINTS } from '../../../layout/breakpoints';
 import { slugify } from '../../../utils';
 import { CardViewport } from '../types';
 
-export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
+export const CardArtwork: FC<CardArtworkProps> = ({
+  data,
+  onClickImage,
+  imageStyles,
+}) => {
   const {
     id,
     size,
@@ -60,13 +64,18 @@ export const CardArtwork: FC<CardArtworkProps> = ({ data }) => {
     <div id={id} className={cn(styles.cardContainer)}>
       <DzMedia
         className="overflow-hidden"
-        imgClass={cn(styles.mediaImg, enableZoom ? styles.mediaZoom : '')}
+        imgClass={cn(
+          styles.mediaImg,
+          imageStyles,
+          enableZoom ? styles.mediaZoom : ''
+        )}
         objectFit={MEDIA_OBJECT_FIT.CONTAIN}
         aspectRatio={MEDIA_ASPECT_RATIOS['4:3']}
         {...media}
         imgProps={{
           id: `CardMedia-${slugify(media?.imgProps?.alt) || ''}`,
           ...(media?.imgProps || {}),
+          onClick: () => onClickImage?.(data),
         }}
       />
       <div className={cn(styles.artwork.infoContainer)}>

@@ -23,6 +23,8 @@ import { SixSquares } from '../../svgIcons/six-squares';
 import { EightSquares } from '../../svgIcons/eight-squares';
 import { BREAKPOINTS } from '../../layout/breakpoints';
 import useWindowSize from '../../hooks/useWindowSize';
+import { CardMediaData } from '../DzCard/CardMedia';
+import { CardArtworkData } from '../DzCard/CardArtwork';
 
 interface StepInterface {
   id: number;
@@ -52,6 +54,9 @@ export interface DzComplexGridProps {
   useLink?: boolean;
   linkCTA?: LinkCTA;
   defaultStart?: number;
+  onClickImage?: (data: CardMediaData | CardArtworkData) => void;
+  imageStyles?: any;
+  gridColumnsStyles?: any;
 }
 
 const MINIMUM_VALUE = 1;
@@ -120,6 +125,9 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   useLink = false,
   linkCTA,
   defaultStart = INITIAL_VALUE,
+  onClickImage,
+  imageStyles,
+  gridColumnsStyles,
 }) => {
   const { width } = useWindowSize();
   const isMobile = useMemo(() => {
@@ -212,11 +220,12 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
       ) : null}
 
       <DzGridColumns
-        className={
+        className={cn(
           columnsSpanPerRow === 12
             ? 'gap-y-[2.5rem] md:gap-y-[7.5rem]'
-            : 'gap-y-[2.5rem] md:gap-y-[3.75rem]'
-        }
+            : 'gap-y-[2.5rem] md:gap-y-[3.75rem]',
+          gridColumnsStyles
+        )}
       >
         {cards.map((card: any, key) => {
           if (!card) return null;
@@ -256,6 +265,8 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
                   ...cardData,
                   size: [CardSizes['12col'], columnsSpanPerRow],
                 }}
+                onClickImage={data => onClickImage?.(data)}
+                imageStyles={imageStyles}
               />
             </DzColumn>
           );
