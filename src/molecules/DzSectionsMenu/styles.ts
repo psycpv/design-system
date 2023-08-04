@@ -61,9 +61,7 @@ export const styles: any = {
   mblStickyUp: `
     motion-safe:animate-slowTop
     transition
-    md:transition-none
-    md:animate-none
-    md:visible
+    
   `,
   sticky: `
     top-0

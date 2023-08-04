@@ -8,7 +8,7 @@ export interface DzSectionMenuProps {
   usePrefix?: boolean;
   sticky?: boolean;
   useLinks?: boolean;
-  linksProps?: DzLinkProps;
+  linksProps?: Partial<DzLinkProps>;
 }
 
 interface SectionMenuCTA {
