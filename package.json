@@ -102,6 +102,7 @@
     "classnames": "^2.3.2",
     "plyr-react": "^5.1.2",
     "react-drag-drop-files": "^2.3.10",
+    "react-zoom-pan-pinch": "^3.1.0",
     "swiper": "^9.3.1",
     "uuid": "^9.0.0"
   },

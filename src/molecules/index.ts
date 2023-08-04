@@ -10,3 +10,4 @@ export * from './DzComplexGrid/DzComplexGrid';
 export * from './DzForm/DzForm';
 export * from './DzSectionsMenu';
 export * from './DzList';
+export * from './DzImageZoom/DzImageZoom';

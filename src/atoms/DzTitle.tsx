@@ -58,7 +58,7 @@ export interface DzTitleProps {
   titleType?: TitleType;
   subtitleType?: SubTitleType;
   title?: string | ReactNode;
-  subtitle?: string;
+  subtitle?: string | ReactNode;
   className?: any;
   classNameTitle?: any;
   classNameSubtitle?: any;
