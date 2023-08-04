@@ -68,9 +68,9 @@ export const DzImageZoomModal = ({
 
   useEffect(() => {
     if (typeof window !== undefined) {
-      window.document.body.style.overflow = isOpen ? "hidden" : "unset"
+      window.document.body.style.overflow = isOpen ? 'hidden' : 'unset';
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   return isOpen && imageDimensions && !error ? (
     <div className={styles.imageZoomModalContainer}>
