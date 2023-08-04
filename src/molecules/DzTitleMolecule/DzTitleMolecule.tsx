@@ -24,7 +24,7 @@ export interface DzTitlePageProps {
 }
 
 export interface DzMoleculeTitleCTA {
-  ctaProps?: DzButtonProps;
+  ctaProps?: DzButtonProps & {supertitle?: string};
   title: string;
   description?: string;
 }
