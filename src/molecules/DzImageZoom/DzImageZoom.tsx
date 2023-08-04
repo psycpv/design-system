@@ -48,12 +48,14 @@ interface DzImageZoomModalProps {
   isOpen: boolean;
   onClose: () => void;
   imgUrl?: string;
+  alt: string;
 }
 
 export const DzImageZoomModal = ({
   isOpen,
   onClose,
   imgUrl,
+  alt,
 }: DzImageZoomModalProps) => {
   const isSmall = useIsSmallWindowSize();
   const onClickClose = () => onClose();
@@ -106,7 +108,7 @@ export const DzImageZoomModal = ({
             >
               <img
                 src={imgUrl}
-                alt="TODO"
+                alt={alt}
                 className="cursor-grab active:cursor-grabbing"
                 style={{ pointerEvents: 'auto' }}
               />
