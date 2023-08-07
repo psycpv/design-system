@@ -1,3 +1,15 @@
+# v0.0.74 (Fri Aug 04 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 458 artwork detail page [#113](https://github.com/Zwirner/design-system/pull/113) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.73 (Fri Jul 28 2023)
 
 #### 🐛 Bug Fix
