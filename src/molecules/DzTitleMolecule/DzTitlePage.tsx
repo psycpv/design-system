@@ -112,9 +112,7 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
                 ) : null}
                 <div>
                   {primaryCTA.supertitle ? (
-                    <div className={styles.primaryCTASupertitle}>
-                      {primaryCTA.supertitle}
-                    </div>
+                    <DzText className={styles.primaryCTASupertitle} text={primaryCTA.supertitle} />
                   ) : null}
                   <DzButton
                     className="w-full"
