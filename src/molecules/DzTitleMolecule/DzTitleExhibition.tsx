@@ -36,6 +36,7 @@ export interface DzTitleExhibitionProps {
   title: string;
   location: LocationData;
   artists: Array<ArtistData>;
+  pressReleasePDFURL?: string;
 }
 
 const styles: any = {
@@ -104,6 +105,7 @@ const collectHours = (location: LocationData): Array<string> => {
 const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   artists,
   location,
+  pressReleasePDFURL,
   title,
 }) => {
   const {
@@ -206,6 +208,22 @@ const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
             </div>
           </div>
         </DzColumn>
+        {pressReleasePDFURL && (
+          <DzColumn span={12}>
+            <div className={styles.infoColumnContainer}>
+              <div className={styles.infoColumnTitle} />
+              <div className={styles.infoColumnBody}>
+                <DzLink
+                  className={styles.mdText}
+                  href={pressReleasePDFURL}
+                  variant={LINK_VARIANTS.TEXT}
+                >
+                  View Press Release
+                </DzLink>
+              </div>
+            </div>
+          </DzColumn>
+        )}
       </DzGridColumns>
     </>
   );
