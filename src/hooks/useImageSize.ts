@@ -9,9 +9,14 @@ type Dimensions = {
   height: number;
 };
 
-type UseImageSizeResult = [Dimensions | null, { loading: boolean; error: string | null }];
+// TODO set UseImageSizeResult as return type when eslint version is upgraded to support tuple types, otherwise
+// results in error: Parsing error: Cannot read properties of undefined (reading 'map')
+//type UseImageSizeResult = [{ width: number, height: number} | null, { loading: boolean; error: string | null }];
 
-const getImageSize = (url: string, options: Options = {}): Promise<Dimensions> => {
+const getImageSize = (
+  url: string,
+  options: Options = {}
+): Promise<Dimensions> => {
   return new Promise((resolve, reject) => {
     if (typeof window === 'undefined') {
       return reject('Window is not defined');
@@ -33,7 +38,7 @@ const getImageSize = (url: string, options: Options = {}): Promise<Dimensions> =
       resolve({ width: img.naturalWidth, height: img.naturalHeight });
     });
 
-    img.addEventListener('error', (event) => {
+    img.addEventListener('error', event => {
       if (timer) {
         clearTimeout(timer);
       }
@@ -49,7 +54,7 @@ const getImageSize = (url: string, options: Options = {}): Promise<Dimensions> =
   });
 };
 
-export const useImageSize = (url?: string, options?: Options): UseImageSizeResult => {
+export const useImageSize = (url?: string, options?: Options): any => {
   const [dimensions, setDimensions] = useState<Dimensions | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -57,7 +62,10 @@ export const useImageSize = (url?: string, options?: Options): UseImageSizeResul
   useEffect(() => {
     const fetch = async () => {
       if (!url) {
-        return [{ width: -1, height: -1}, { loading: false, error: null}]
+        return [
+          { width: -1, height: -1 },
+          { loading: false, error: null },
+        ];
       }
 
       setLoading(true);
