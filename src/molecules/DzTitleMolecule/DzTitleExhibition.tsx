@@ -4,34 +4,9 @@ import { cn } from '../../utils/classnames';
 import { DzText, DzLink, TITLE_TYPES, LINK_VARIANTS } from '../../atoms';
 import { DzColumn, DzGridColumns } from '../../layout';
 import { useIsSmallWindowSize } from '../../hooks/useIsSmallWindowSize';
-
-interface AddressData {
-  addressLine: string;
-  addressLine2: string;
-  city: string;
-  country: string;
-  state: string;
-  zipCode: string;
-}
-interface AvailableTimeData {
-  from: string;
-  to: string;
-  _key: string;
-  _type: string;
-}
-interface LocationHourData {
-  day: string;
-  availableTimes: Array<AvailableTimeData>;
-}
-interface LocationData {
-  address: AddressData;
-  hours: Array<LocationHourData>;
-  name: string;
-}
-interface ArtistData {
-  fullName: string;
-  artistPage?: { slug?: any };
-}
+import { LocationData } from './types/DzTitleExhibitionTypes';
+import { ArtistData } from './types/DzTitleExhibitionTypes';
+import { collectHours } from './utils/collectHours';
 
 export interface DzTitleExhibitionProps {
   artists: Array<ArtistData>;
@@ -76,36 +51,7 @@ const styles: any = {
   container: `
     mb-[5rem]
     md:mt-[5rem]
-  `
-};
-
-const collectHours = (location: LocationData): Array<string> => {
-  if (!location?.hours) {
-    return [];
-  }
-  const hoursToLHD: Record<string, Array<LocationHourData>> = {};
-
-  location.hours.forEach(locationHourData => {
-    const { availableTimes } = locationHourData;
-
-    availableTimes.forEach(({ from, to }) => {
-      const fromToKey = `${from}-${to}`;
-      let locationHourDatas = hoursToLHD[fromToKey];
-
-      if (!locationHourDatas) {
-        locationHourDatas = [];
-        hoursToLHD[fromToKey] = locationHourDatas;
-      }
-      locationHourDatas.push(locationHourData);
-    });
-  });
-
-  return Object.keys(hoursToLHD).map(hours => {
-    const locationHourDatas = hoursToLHD[hours];
-    const dayNames = locationHourDatas.map(({ day }) => day.slice(0, 3));
-
-    return `${dayNames.join(', ')}: ${hours}`;
-  });
+  `,
 };
 
 const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
