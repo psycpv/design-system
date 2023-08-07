@@ -1,12 +1,7 @@
 import React, { FC } from 'react';
 import DzTitleMolecule, { DzTitleMoleculeTypes } from './DzTitleMolecule';
-import {
-  DzText,
-  DzLink,
-  TEXT_SIZES,
-  TITLE_TYPES,
-  LINK_VARIANTS,
-} from '../../atoms';
+import { cn } from '../../utils/classnames';
+import { DzText, DzLink, TITLE_TYPES, LINK_VARIANTS } from '../../atoms';
 import { DzColumn, DzGridColumns } from '../../layout';
 
 interface AddressData {
@@ -52,19 +47,58 @@ const styles: any = {
   infoColumnTitle: `
     w-1/3
     md:w-full
-    text-md
+    md:text-md
     text-black-60
     mb-[1.25rem]
   `,
   infoColumnBody: `
     w-2/3
     md:w-full
-    text-md
+    md:text-md
     text-black-100
   `,
   addressCity: `
     mb-[1.25rem]
+    md:text-md
   `,
+  mdText: `
+    md:text-md
+  `,
+  black60Text: `
+    text-black-60
+  `,
+  locationHours: `
+    mt-[0.5rem]
+  `,
+};
+
+const collectHours = (location: LocationData): Array<string> => {
+  if (!location?.hours) {
+    return [];
+  }
+  const hoursToLHD: Record<string, Array<LocationHourData>> = {};
+
+  location.hours.forEach(locationHourData => {
+    const { availableTimes } = locationHourData;
+
+    availableTimes.forEach(({ from, to }) => {
+      const fromToKey = `${from}-${to}`;
+      let locationHourDatas = hoursToLHD[fromToKey];
+
+      if (!locationHourDatas) {
+        locationHourDatas = [];
+        hoursToLHD[fromToKey] = locationHourDatas;
+      }
+      locationHourDatas.push(locationHourData);
+    });
+  });
+
+  return Object.keys(hoursToLHD).map(hours => {
+    const locationHourDatas = hoursToLHD[hours];
+    const dayNames = locationHourDatas.map(({ day }) => day.slice(0, 3));
+
+    return `${dayNames.join(', ')}: ${hours}`;
+  });
 };
 
 const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
@@ -79,6 +113,7 @@ const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
     addressLine2,
     zipCode,
   } = location.address;
+  const locationHours = collectHours(location);
 
   return (
     <>
@@ -103,52 +138,51 @@ const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
       <DzGridColumns>
         <DzColumn span={[12, 3]}>
           <div className={styles.infoColumnContainer}>
-            <div className={styles.infoColumnTitle}>Now Open</div>
-            <div className={styles.infoColumnBody}>April 20-June,3 2023</div>
+            <DzText className={styles.infoColumnTitle} text={'Now Open'} />
+            <DzText
+              className={styles.infoColumnBody}
+              text={'April 20-June,3 2023'}
+            />
           </div>
         </DzColumn>
         <DzColumn span={[12, 3]}>
           <div className={styles.infoColumnContainer}>
-            <div className={styles.infoColumnTitle}>Location</div>
+            <DzText className={styles.infoColumnTitle} text={'Location'} />
             <div className={styles.infoColumnBody}>
+              <DzText text={city} className={styles.addressCity} />
               <DzText
-                textSize={TEXT_SIZES.MEDIUM}
-                text={city}
-                className={styles.addressCity}
+                text={addressLine}
+                className={cn(styles.mdText, styles.black60Text)}
               />
-              <DzText textSize={TEXT_SIZES.MEDIUM} text={addressLine} />
               {addressLine2 && (
                 <DzText
-                  textSize={TEXT_SIZES.MEDIUM}
                   text={location.address.addressLine2}
+                  className={cn(styles.mdText, styles.black60Text)}
                 />
               )}
               <DzText
-                textSize={TEXT_SIZES.MEDIUM}
                 text={`${country}, ${zipCode}`}
+                className={cn(styles.mdText, styles.black60Text)}
+              />
+              <DzText
+                className={cn(
+                  styles.mdText,
+                  styles.black60Text,
+                  styles.locationHours
+                )}
+                text={locationHours}
               />
             </div>
           </div>
         </DzColumn>
         <DzColumn span={[12, 3]}>
           <div className={styles.infoColumnContainer}>
-            <div className={styles.infoColumnTitle}>Gallery Hours</div>
-            <div className={styles.infoColumnBody}>
-              {location.hours.map(({ day, availableTimes }) =>
-                availableTimes.map(({ from, to }) => (
-                  <DzText
-                    text={`${day} ${from} - ${to}`}
-                    textSize={TEXT_SIZES.MEDIUM}
-                    key={day}
-                  />
-                ))
-              )}
-            </div>
+            {/* TODO secondary gallery location here */}
           </div>
         </DzColumn>
         <DzColumn span={[12, 3]}>
           <div className={styles.infoColumnContainer}>
-            <div className={styles.infoColumnTitle}>Artists</div>
+            <DzText className={styles.infoColumnTitle} text="Artists" />
             <div className={styles.infoColumnBody}>
               {artists?.map(({ fullName, artistPage }) =>
                 artistPage?.slug?.current ? (
@@ -156,7 +190,7 @@ const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
                     title={fullName}
                     href={artistPage.slug.current}
                     variant={LINK_VARIANTS.TEXT}
-                    textLinkSize={TEXT_SIZES.MEDIUM}
+                    className={styles.mdText}
                     key={fullName}
                   >
                     {fullName}
@@ -164,7 +198,7 @@ const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
                 ) : (
                   <DzText
                     text={fullName}
-                    textSize={TEXT_SIZES.MEDIUM}
+                    className={styles.mdText}
                     key={fullName}
                   />
                 )
