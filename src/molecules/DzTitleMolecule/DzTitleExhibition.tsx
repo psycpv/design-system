@@ -73,6 +73,10 @@ const styles: any = {
   locationHours: `
     mt-[0.5rem]
   `,
+  container: `
+    mb-[5rem]
+    md:mt-[5rem]
+  `
 };
 
 const collectHours = (location: LocationData): Array<string> => {
@@ -134,14 +138,14 @@ const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
           },
           primaryCTA: {
             title: 'Inquire',
-            supertitle: 'Interested in this exhibition?',
+            supertitle: 'Interested?',
             ctaProps: {
               onClick: () => null,
             },
           },
         }}
       />
-      <DzGridColumns>
+      <DzGridColumns className={styles.container}>
         <DzColumn span={[12, 3]}>
           <div className={styles.infoColumnContainer}>
             <DzText className={styles.infoColumnTitle} text={'Now Open'} />
