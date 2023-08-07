@@ -52,10 +52,10 @@ const styles: any = {
     md:text-sm
     md:mt-5
   `,
-  primaryCTASupertitle:`
+  primaryCTASupertitle: `
     text-sm
     text-black-60
-  `
+  `,
 };
 
 const CHARACTER_LIMIT_TITLE = 50;
@@ -111,7 +111,11 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
                   />
                 ) : null}
                 <div>
-                  {primaryCTA.supertitle ? <div className={styles.primaryCTASupertitle}>{primaryCTA.supertitle}</div> : null}
+                  {primaryCTA.supertitle ? (
+                    <div className={styles.primaryCTASupertitle}>
+                      {primaryCTA.supertitle}
+                    </div>
+                  ) : null}
                   <DzButton
                     className="w-full"
                     {...primaryCTA.ctaProps}

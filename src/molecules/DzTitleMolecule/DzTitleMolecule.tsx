@@ -3,7 +3,7 @@ import { DzTitleProps, DzButtonProps, DzLinkProps } from '../../atoms';
 import { DzTitlePage } from './DzTitlePage';
 import { DzTitleSection } from './DzTitleSection';
 import { DzTitleMol } from './DzTitleMol';
-import DzTitleExhibition, { DzTitleExhibitionProps } from "./DzTitleExhibition";
+import DzTitleExhibition, { DzTitleExhibitionProps } from './DzTitleExhibition';
 
 export enum DzTitleMoleculeTypes {
   PAGE = 'page',
@@ -25,7 +25,7 @@ export interface DzTitlePageProps {
 }
 
 export interface DzMoleculeTitleCTA {
-  ctaProps?: DzButtonProps & {supertitle?: string};
+  ctaProps?: DzButtonProps & { supertitle?: string };
   title: string;
   description?: string;
   supertitle?: string;
@@ -45,7 +45,6 @@ export interface DzMoleculeLinkCTA {
   linkElement: any;
   linkProps?: DzLinkProps;
 }
-
 
 export interface DzTitleMoleculeProps {
   data: DzTitlePageProps | DzTitleSectionProps;
