@@ -1,3 +1,15 @@
+# v0.0.76 (Mon Aug 07 2023)
+
+#### 🐛 Bug Fix
+
+- fix linting error, leave TODO for tuple types [#119](https://github.com/Zwirner/design-system/pull/119) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.75 (Mon Aug 07 2023)
 
 #### 🐛 Bug Fix
