@@ -3,6 +3,7 @@ import DzTitleMolecule, { DzTitleMoleculeTypes } from './DzTitleMolecule';
 import { cn } from '../../utils/classnames';
 import { DzText, DzLink, TITLE_TYPES, LINK_VARIANTS } from '../../atoms';
 import { DzColumn, DzGridColumns } from '../../layout';
+import { useIsSmallWindowSize } from '../../hooks/useIsSmallWindowSize';
 
 interface AddressData {
   addressLine: string;
@@ -33,10 +34,11 @@ interface ArtistData {
 }
 
 export interface DzTitleExhibitionProps {
-  title: string;
-  location: LocationData;
   artists: Array<ArtistData>;
+  checklistPDFURL?: string;
+  location: LocationData;
   pressReleasePDFURL?: string;
+  title: string;
 }
 
 const styles: any = {
@@ -104,6 +106,7 @@ const collectHours = (location: LocationData): Array<string> => {
 
 const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   artists,
+  checklistPDFURL,
   location,
   pressReleasePDFURL,
   title,
@@ -115,6 +118,7 @@ const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
     addressLine2,
     zipCode,
   } = location.address;
+  const isSmall = useIsSmallWindowSize();
   const locationHours = collectHours(location);
 
   return (
@@ -209,7 +213,7 @@ const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
           </div>
         </DzColumn>
         {pressReleasePDFURL && (
-          <DzColumn span={12}>
+          <DzColumn span={isSmall ? 12 : 3}>
             <div className={styles.infoColumnContainer}>
               <div className={styles.infoColumnTitle} />
               <div className={styles.infoColumnBody}>
@@ -219,6 +223,22 @@ const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
                   variant={LINK_VARIANTS.TEXT}
                 >
                   View Press Release
+                </DzLink>
+              </div>
+            </div>
+          </DzColumn>
+        )}
+        {checklistPDFURL && (
+          <DzColumn span={isSmall ? 12 : 3}>
+            <div className={styles.infoColumnContainer}>
+              <div className={styles.infoColumnTitle} />
+              <div className={styles.infoColumnBody}>
+                <DzLink
+                  className={styles.mdText}
+                  href={checklistPDFURL}
+                  variant={LINK_VARIANTS.TEXT}
+                >
+                  Download Checklist
                 </DzLink>
               </div>
             </div>
