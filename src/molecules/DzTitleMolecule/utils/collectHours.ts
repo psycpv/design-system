@@ -1,4 +1,7 @@
-import { LocationHourData, LocationData } from "../types/DzTitleExhibitionTypes";
+import {
+  LocationHourData,
+  LocationData,
+} from '../types/DzTitleExhibitionTypes';
 
 export const collectHours = (location: LocationData): Array<string> => {
   if (!location?.hours) {

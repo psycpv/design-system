@@ -11,7 +11,7 @@ import { collectHours } from './utils/collectHours';
 export interface DzTitleExhibitionProps {
   artists: Array<ArtistData>;
   checklistPDFURL?: string;
-  location: LocationData;
+  location?: LocationData;
   pressReleasePDFURL?: string;
   title: string;
 }
@@ -54,22 +54,15 @@ const styles: any = {
   `,
 };
 
-const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
+export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   artists,
   checklistPDFURL,
   location,
   pressReleasePDFURL,
   title,
 }) => {
-  const {
-    city,
-    country,
-    addressLine,
-    addressLine2,
-    zipCode,
-  } = location.address;
   const isSmall = useIsSmallWindowSize();
-  const locationHours = collectHours(location);
+  const locationHours = location ? collectHours(location) : '';
 
   return (
     <>
@@ -102,34 +95,39 @@ const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
           </div>
         </DzColumn>
         <DzColumn span={[12, 3]}>
-          <div className={styles.infoColumnContainer}>
-            <DzText className={styles.infoColumnTitle} text={'Location'} />
-            <div className={styles.infoColumnBody}>
-              <DzText text={city} className={styles.addressCity} />
-              <DzText
-                text={addressLine}
-                className={cn(styles.mdText, styles.black60Text)}
-              />
-              {addressLine2 && (
+          {location?.address && (
+            <div className={styles.infoColumnContainer}>
+              <DzText className={styles.infoColumnTitle} text={'Location'} />
+              <div className={styles.infoColumnBody}>
                 <DzText
-                  text={location.address.addressLine2}
+                  text={location.address.city}
+                  className={styles.addressCity}
+                />
+                <DzText
+                  text={location.address.addressLine}
                   className={cn(styles.mdText, styles.black60Text)}
                 />
-              )}
-              <DzText
-                text={`${country}, ${zipCode}`}
-                className={cn(styles.mdText, styles.black60Text)}
-              />
-              <DzText
-                className={cn(
-                  styles.mdText,
-                  styles.black60Text,
-                  styles.locationHours
+                {location.address.addressLine2 && (
+                  <DzText
+                    text={location.address.addressLine2}
+                    className={cn(styles.mdText, styles.black60Text)}
+                  />
                 )}
-                text={locationHours}
-              />
+                <DzText
+                  text={`${location.address.country}, ${location.address.zipCode}`}
+                  className={cn(styles.mdText, styles.black60Text)}
+                />
+                <DzText
+                  className={cn(
+                    styles.mdText,
+                    styles.black60Text,
+                    styles.locationHours
+                  )}
+                  text={locationHours}
+                />
+              </div>
             </div>
-          </div>
+          )}
         </DzColumn>
         <DzColumn span={[12, 3]}>
           <div className={styles.infoColumnContainer}>
