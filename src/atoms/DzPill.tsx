@@ -36,6 +36,7 @@ const styles: any = {
   `,
   desktop: `
     px-5
+    h-[1.875rem]
     py-2.5
   `,
   mobile: `
