@@ -80,6 +80,7 @@ const EXHIBITION_STATES_TO_LABELS = {
 export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   artists,
   checklistPDFURL,
+  displayDate,
   endDate,
   location,
   openingReception,
@@ -153,7 +154,7 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
             />
             <DzText
               className={styles.infoColumnBody}
-              text={exhibitionDateRangeText}
+              text={displayDate || exhibitionDateRangeText}
             />
             {!isSmall && openingReception && (
               <>
