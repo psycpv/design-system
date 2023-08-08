@@ -60,8 +60,8 @@ const styles: any = {
     mt-[0.5rem]
   `,
   container: `
-    mb-[5rem]
-    md:mt-[5rem]
+    mb-[3.75rem]
+    md:mt-[3.75rem]
   `,
   openingReceptionTitle: `
     md:mt-[1.25rem]
