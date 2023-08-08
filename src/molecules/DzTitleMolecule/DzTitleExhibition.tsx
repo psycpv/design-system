@@ -1,13 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import DzTitleMolecule, { DzTitleMoleculeTypes } from './DzTitleMolecule';
-import { cn } from '../../utils/classnames';
 import {
-  DzText,
-  DzLink,
-  TITLE_TYPES,
-  LINK_VARIANTS,
-  TEXT_LINK_SIZES,
-} from '../../atoms';
+  format,
+  isBefore,
+  isValid,
+  isWithinInterval,
+  parseISO,
+} from 'date-fns';
+import { cn } from '../../utils/classnames';
+import { DzText, DzLink, TITLE_TYPES, LINK_VARIANTS } from '../../atoms';
 import { DzColumn, DzGridColumns } from '../../layout';
 import { useIsSmallWindowSize } from '../../hooks/useIsSmallWindowSize';
 import { LocationData } from './types/DzTitleExhibitionTypes';
@@ -17,9 +18,11 @@ import { collectHours } from './utils/collectHours';
 export interface DzTitleExhibitionProps {
   artists: Array<ArtistData>;
   checklistPDFURL?: string;
+  endDate?: string;
   location?: LocationData;
   openingReception?: string;
   pressReleasePDFURL?: string;
+  startDate?: string;
   title: string;
 }
 
@@ -65,19 +68,57 @@ const styles: any = {
   `,
   smallText: `
     text-sm
-  `
+  `,
+};
+
+const EXHIBITION_STATES_TO_LABELS = {
+  PRELAUNCH: 'Coming Soon',
+  OPEN: 'Now Open',
+  POSTLAUNCH: 'Past',
 };
 
 export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   artists,
   checklistPDFURL,
+  endDate,
   location,
   openingReception,
   pressReleasePDFURL,
+  startDate,
   title,
 }) => {
   const isSmall = useIsSmallWindowSize();
   const locationHours = location ? collectHours(location) : '';
+  const [exhibitionState, setExhibitionState] = useState<
+    'PRELAUNCH' | 'OPEN' | 'POSTLAUNCH' | undefined
+  >();
+  const [exhibitionDateRangeText, setExhibitionDateRangeText] = useState('');
+
+  useEffect(() => {
+    if (startDate && endDate) {
+      const startDateObj = parseISO(startDate);
+      const endDateObj = parseISO(endDate);
+      const now = new Date();
+
+      if (isValid(startDateObj) && isValid(endDateObj)) {
+        if (isBefore(now, startDateObj)) {
+          setExhibitionState('PRELAUNCH');
+        } else if (
+          isWithinInterval(now, { start: startDateObj, end: endDateObj })
+        ) {
+          setExhibitionState('OPEN');
+        } else {
+          setExhibitionState('POSTLAUNCH');
+        }
+        setExhibitionDateRangeText(
+          `${format(startDateObj, 'MMMM d')}—${format(
+            endDateObj,
+            'MMMM d,yyyy'
+          )}`
+        );
+      }
+    }
+  }, [endDate, startDate, setExhibitionState, setExhibitionDateRangeText]);
 
   return (
     <>
@@ -102,10 +143,17 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
       <DzGridColumns className={styles.container}>
         <DzColumn span={[12, 3]}>
           <div className={styles.infoColumnContainer}>
-            <DzText className={styles.infoColumnTitle} text={'Now Open'} />
+            <DzText
+              className={styles.infoColumnTitle}
+              text={
+                exhibitionState
+                  ? EXHIBITION_STATES_TO_LABELS[exhibitionState]
+                  : ''
+              }
+            />
             <DzText
               className={styles.infoColumnBody}
-              text={'April 20-June,3 2023'}
+              text={exhibitionDateRangeText}
             />
             {!isSmall && openingReception && (
               <>

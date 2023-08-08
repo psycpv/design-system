@@ -100,6 +100,7 @@
     "@heroicons/react": "^2.0.15",
     "@seznam/compose-react-refs": "^1.0.6",
     "classnames": "^2.3.2",
+    "date-fns": "^2.30.0",
     "plyr-react": "^5.1.2",
     "react-drag-drop-files": "^2.3.10",
     "react-zoom-pan-pinch": "^3.1.0",

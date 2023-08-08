@@ -23,6 +23,8 @@ export const sectionData = {
 export const exhibitionData = {
   title: 'Sherrie Levine: Wood',
   openingReception: 'April 19, 6-9pm',
+  startDate: '2023-08-06',
+  endDate: '2023-08-29',
   pressReleasePDFURL: "https://cdn.sanity.io/files/juzvn5an/test/3117e550d45fd4effbcd064d048cf9768f2298d0.pdf",
   checklistPDFURL: "https://cdn.sanity.io/files/juzvn5an/test/3117e550d45fd4effbcd064d048cf9768f2298d0.pdf",
   artists: [
