@@ -19,7 +19,7 @@ const styles: any = {
     whitespace-pre-wrap
   `,
   leftPane: `
-    basis-1/2
+    basis-1/3
     relative
     md:sticky
     top-0
@@ -29,7 +29,7 @@ const styles: any = {
   rightPane: `
     flex
     flex-col
-    basis-1/2
+    basis-2/3
   `,
 };
 

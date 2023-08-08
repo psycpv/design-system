@@ -28,12 +28,12 @@ const styles: any = {
     flex
     flex-col
     gap-2.5
-    basis-1/2
+    basis-2/3
   `,
   rightContainer: `
     flex
     flex-col
-    basis-1/2
+    basis-1/3
     gap-5
     md:gap-0
   `,
