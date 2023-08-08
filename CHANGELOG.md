@@ -1,3 +1,15 @@
+# v0.0.77 (Tue Aug 08 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-488: add changes for installation views [#115](https://github.com/Zwirner/design-system/pull/115) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
 # v0.0.76 (Mon Aug 07 2023)
 
 #### 🐛 Bug Fix
