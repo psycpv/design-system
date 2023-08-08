@@ -70,6 +70,10 @@ const styles: any = {
   smallText: `
     text-sm
   `,
+  pageTitleContainer:`
+    mb-[2.5rem]
+    md:mb-0
+  `,
 };
 
 const EXHIBITION_STATES_TO_LABELS = {
@@ -129,6 +133,7 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
         data={{
           title,
           category: 'Exhibition',
+          customClass: styles.pageTitleContainer,
           description: '  ', // TODO make description optional; current it is required to show CTA
           descriptionColSpan: 6,
           titleProps: {
