@@ -1,7 +1,13 @@
 import React, { FC } from 'react';
 import DzTitleMolecule, { DzTitleMoleculeTypes } from './DzTitleMolecule';
 import { cn } from '../../utils/classnames';
-import { DzText, DzLink, TITLE_TYPES, LINK_VARIANTS } from '../../atoms';
+import {
+  DzText,
+  DzLink,
+  TITLE_TYPES,
+  LINK_VARIANTS,
+  TEXT_LINK_SIZES,
+} from '../../atoms';
 import { DzColumn, DzGridColumns } from '../../layout';
 import { useIsSmallWindowSize } from '../../hooks/useIsSmallWindowSize';
 import { LocationData } from './types/DzTitleExhibitionTypes';
@@ -12,6 +18,7 @@ export interface DzTitleExhibitionProps {
   artists: Array<ArtistData>;
   checklistPDFURL?: string;
   location?: LocationData;
+  openingReception?: string;
   pressReleasePDFURL?: string;
   title: string;
 }
@@ -27,7 +34,7 @@ const styles: any = {
     md:w-full
     md:text-md
     text-black-60
-    mb-[1.25rem]
+    mb-[0.625rem]
   `,
   infoColumnBody: `
     w-2/3
@@ -52,12 +59,17 @@ const styles: any = {
     mb-[5rem]
     md:mt-[5rem]
   `,
+  openingReceptionTitle: `
+    md:mt-[1.25rem]
+    md:mb-[0.625rem]
+  `,
 };
 
 export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   artists,
   checklistPDFURL,
   location,
+  openingReception,
   pressReleasePDFURL,
   title,
 }) => {
@@ -92,8 +104,35 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
               className={styles.infoColumnBody}
               text={'April 20-June,3 2023'}
             />
+            {!isSmall && openingReception && (
+              <>
+                <DzText
+                  text="Opening Reception"
+                  className={cn(
+                    styles.mdText,
+                    styles.black60Text,
+                    styles.openingReceptionTitle
+                  )}
+                />
+                <DzText text={openingReception} className={cn(styles.mdText)} />
+              </>
+            )}
           </div>
         </DzColumn>
+        {isSmall && openingReception && (
+          <DzColumn span={12}>
+            <div className={styles.infoColumnContainer}>
+              <DzText
+                text="Opening Reception"
+                className={styles.infoColumnTitle}
+              />
+              <DzText
+                text={openingReception}
+                className={styles.infoColumnBody}
+              />
+            </div>
+          </DzColumn>
+        )}
         <DzColumn span={[12, 3]}>
           {location?.address && (
             <div className={styles.infoColumnContainer}>
