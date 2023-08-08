@@ -130,12 +130,13 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
           title,
           category: 'Exhibition',
           description: '  ', // TODO make description optional; current it is required to show CTA
+          descriptionColSpan: 6,
           titleProps: {
             titleType: TITLE_TYPES.H1,
           },
           primaryCTA: {
             title: 'Inquire',
-            supertitle: 'Interested?',
+            supertitle: 'Interested in this exhibition?',
             ctaProps: {
               onClick: () => null,
             },

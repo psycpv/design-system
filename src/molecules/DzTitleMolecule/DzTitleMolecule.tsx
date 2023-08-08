@@ -4,6 +4,7 @@ import { DzTitlePage } from './DzTitlePage';
 import { DzTitleSection } from './DzTitleSection';
 import { DzTitleMol } from './DzTitleMol';
 import DzTitleExhibition, { DzTitleExhibitionProps } from './DzTitleExhibition';
+import { ColumnSpan } from "../../layout";
 
 export enum DzTitleMoleculeTypes {
   PAGE = 'page',
@@ -22,6 +23,7 @@ export interface DzTitlePageProps {
   primaryCTA?: DzMoleculeTitleCTA;
   linkCTA?: DzLinkProps;
   customClass?: string;
+  descriptionColSpan?: ColumnSpan;
 }
 
 export interface DzMoleculeTitleCTA {

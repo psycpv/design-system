@@ -10,7 +10,7 @@ import {
   DzLink,
 } from '../../atoms';
 import { cn } from '../../utils/classnames';
-import { DzColumn, DzGridColumns } from '../../layout';
+import { ColumnSpan, DzColumn, DzGridColumns } from '../../layout';
 import { sliceMaxCharLength } from '../../utils/validators';
 import { DzTitlePageProps } from './DzTitleMolecule';
 
@@ -53,8 +53,9 @@ const styles: any = {
     md:mt-5
   `,
   primaryCTASupertitle: `
-    text-sm
+    text-xs
     text-black-60
+    mb-[0.175rem]
   `,
 };
 
@@ -73,6 +74,7 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
   title,
   subtitle,
   description,
+  descriptionColSpan = 4,
   titleProps = DEFAULT_TITLE_PROPS,
   primaryCTA,
   customClass = '',
@@ -103,7 +105,7 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
           />
           {primaryCTA ? (
             <DzGridColumns>
-              <DzColumn span={4} start={9}>
+              <DzColumn span={descriptionColSpan} start={(13 - descriptionColSpan) as ColumnSpan}>
                 {primaryCTA.description ? (
                   <DzText
                     className="mb-[0.3125rem] text-black-60"
