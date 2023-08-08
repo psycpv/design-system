@@ -63,6 +63,9 @@ const styles: any = {
     md:mt-[1.25rem]
     md:mb-[0.625rem]
   `,
+  smallText: `
+    text-sm
+  `
 };
 
 export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
@@ -207,7 +210,7 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
               <div className={styles.infoColumnTitle} />
               <div className={styles.infoColumnBody}>
                 <DzLink
-                  className={styles.mdText}
+                  className={styles.smallText}
                   href={pressReleasePDFURL}
                   variant={LINK_VARIANTS.TEXT}
                 >
@@ -223,7 +226,7 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
               <div className={styles.infoColumnTitle} />
               <div className={styles.infoColumnBody}>
                 <DzLink
-                  className={styles.mdText}
+                  className={styles.smallText}
                   href={checklistPDFURL}
                   variant={LINK_VARIANTS.TEXT}
                 >
