@@ -103,20 +103,22 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
                   text={location.address.city}
                   className={styles.addressCity}
                 />
-                <DzText
-                  text={location.address.addressLine}
-                  className={cn(styles.mdText, styles.black60Text)}
-                />
-                {location.address.addressLine2 && (
+                <DzLink href={location.url} target="_blank">
                   <DzText
-                    text={location.address.addressLine2}
+                    text={location.address.addressLine}
                     className={cn(styles.mdText, styles.black60Text)}
                   />
-                )}
-                <DzText
-                  text={`${location.address.country}, ${location.address.zipCode}`}
-                  className={cn(styles.mdText, styles.black60Text)}
-                />
+                  {location.address.addressLine2 && (
+                    <DzText
+                      text={location.address.addressLine2}
+                      className={cn(styles.mdText, styles.black60Text)}
+                    />
+                  )}
+                  <DzText
+                    text={`${location.address.country}, ${location.address.zipCode}`}
+                    className={cn(styles.mdText, styles.black60Text)}
+                  />
+                </DzLink>
                 <DzText
                   className={cn(
                     styles.mdText,

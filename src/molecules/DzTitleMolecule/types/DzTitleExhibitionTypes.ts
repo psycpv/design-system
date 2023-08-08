@@ -20,6 +20,7 @@ export interface LocationData {
   address: AddressData;
   hours: Array<LocationHourData>;
   name: string;
+  url: string;
 }
 export interface ArtistData {
   fullName: string;
