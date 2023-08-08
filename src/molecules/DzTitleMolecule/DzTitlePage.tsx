@@ -53,7 +53,8 @@ const styles: any = {
     md:mt-5
   `,
   primaryCTASupertitle: `
-    text-xs
+    text-md
+    md:text-xs
     text-black-60
     mb-[0.175rem]
   `,
