@@ -18,6 +18,7 @@ import { collectHours } from './utils/collectHours';
 export interface DzTitleExhibitionProps {
   artists: Array<ArtistData>;
   checklistPDFURL?: string;
+  displayDate?: string;
   endDate?: string;
   location?: LocationData;
   openingReception?: string;
