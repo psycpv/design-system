@@ -216,7 +216,7 @@ export const DzMedia: FC<DzMediaProps> = ({
 
   if (type === MEDIA_TYPES.VIDEO) {
     const videoRender = videoNode?.[videoSourceType]?.(videoProps, sourceSet);
-    return <div>{videoRender}</div>;
+    return <div className={cn(className)}>{videoRender}</div>;
   }
 
   return null;

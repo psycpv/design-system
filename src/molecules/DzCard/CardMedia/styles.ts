@@ -7,6 +7,7 @@ export const styles: any = {
   },
   cardContainer: `
     w-full
+    h-full
     @container/cardContainer
   `,
   mediaImg: `

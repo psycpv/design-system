@@ -40,7 +40,8 @@ export const styles: any = {
     relative
     flex
     flex-1
-    justify-end
+    justify-start
+    md:justify-end
     overflow-y-hidden
   `,
   listDesktop: `
@@ -61,9 +62,7 @@ export const styles: any = {
   mblStickyUp: `
     motion-safe:animate-slowTop
     transition
-    md:transition-none
-    md:animate-none
-    md:visible
+    
   `,
   sticky: `
     top-0
