@@ -2,7 +2,7 @@ import React, { FC, useMemo, useState, useCallback, useEffect } from 'react';
 import { cn } from '../../utils/classnames';
 import { DzSectionMenuProps, SectionNavItem } from './types';
 import { styles } from './styles';
-import { DzButton } from '../../atoms';
+import { DzButton, DzLink } from '../../atoms';
 import { scrollToElementId, slugify } from '../../utils/misc';
 import useScrollDirection, {
   ScrollDirection,
@@ -17,6 +17,8 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
   prefix,
   usePrefix = false,
   sticky = false,
+  useLinks = false,
+  linksProps = {},
 }) => {
   const [direction] = useScrollDirection();
   const [isHover, setIsHover] = useState(false);
@@ -78,7 +80,7 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
           onMouseUp={() => setIsHover(false)}
         >
           {menuSections.map(section => {
-            const { text, id } = section;
+            const { text, id, url } = section;
             return (
               <li
                 key={`submenu-item-${id ?? slugify(text)}`}
@@ -91,18 +93,30 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
                 )}
                 onClick={() => handleSelection(id, text)}
               >
-                {text}
+                {useLinks && url ? (
+                  <DzLink {...linksProps} href={url}>
+                    {text}
+                  </DzLink>
+                ) : (
+                  text
+                )}
               </li>
             );
           })}
         </ul>
       </div>
 
-      <hr className={cn(styles.divider)} style={{ width: '0.0625rem' }} />
-
-      <DzButton className={cn(styles.inquireBtn)} {...(cta?.ctaProps ?? {})}>
-        {cta?.text}
-      </DzButton>
+      {cta ? (
+        <>
+          <hr className={cn(styles.divider)} style={{ width: '0.0625rem' }} />
+          <DzButton
+            className={cn(styles.inquireBtn)}
+            {...(cta?.ctaProps ?? {})}
+          >
+            {cta?.text}
+          </DzButton>
+        </>
+      ) : null}
     </div>
   );
 };
