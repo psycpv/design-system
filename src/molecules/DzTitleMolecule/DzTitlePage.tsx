@@ -106,7 +106,10 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
           />
           {primaryCTA ? (
             <DzGridColumns>
-              <DzColumn span={descriptionColSpan} start={(13 - descriptionColSpan) as ColumnSpan}>
+              <DzColumn
+                span={descriptionColSpan}
+                start={(13 - descriptionColSpan) as ColumnSpan}
+              >
                 {primaryCTA.description ? (
                   <DzText
                     className="mb-[0.3125rem] text-black-60"

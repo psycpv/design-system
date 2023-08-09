@@ -69,7 +69,7 @@ const styles: any = {
   smallText: `
     text-sm
   `,
-  pageTitleContainer:`
+  pageTitleContainer: `
     mb-[2.5rem]
     md:mb-0
   `,
