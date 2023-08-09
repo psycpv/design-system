@@ -46,8 +46,7 @@ const styles: any = {
     md:text-md
     text-black-100
   `,
-  addressCity: `
-    mb-[1.25rem]
+  addressCity: `    
     md:text-md
   `,
   mdText: `
