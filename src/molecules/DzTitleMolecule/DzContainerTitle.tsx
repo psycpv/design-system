@@ -1,21 +1,24 @@
-import React, {FC, ReactNode} from 'react'
+import React, { FC, ReactNode } from 'react';
 
-
-import DzTitleMolecule, { DzMoleculeLinkCTA, DzMoleculeTitleCTA, DzTitleMoleculeTypes } from "./DzTitleMolecule";
-import { TITLE_SIZES, TITLE_TYPES, TitleType } from "../../atoms";
-import { ColumnProps } from "../../layout";
+import DzTitleMolecule, {
+  DzMoleculeLinkCTA,
+  DzMoleculeTitleCTA,
+  DzTitleMoleculeTypes,
+} from './DzTitleMolecule';
+import { TITLE_SIZES, TITLE_TYPES, TitleType } from '../../atoms';
+import { ColumnProps } from '../../layout';
 
 interface ContainerTitleProps {
-  type?: DzTitleMoleculeTypes
-  titleType?: TitleType
-  title: string
-  category?: string
-  description?: string | ReactNode
-  titleSize?: string
-  linkCTA?: DzMoleculeLinkCTA
-  primaryCTA?: DzMoleculeTitleCTA
-  fullLeftContainer?: boolean
-  customCTAContainerProps?: ColumnProps
+  type?: DzTitleMoleculeTypes;
+  titleType?: TitleType;
+  title: string;
+  category?: string;
+  description?: string | ReactNode;
+  titleSize?: string;
+  linkCTA?: DzMoleculeLinkCTA;
+  primaryCTA?: DzMoleculeTitleCTA;
+  fullLeftContainer?: boolean;
+  customCTAContainerProps?: ColumnProps;
 }
 
 const styles: any = {
@@ -24,13 +27,13 @@ const styles: any = {
   `,
   moleculeTitleContainer: `
     mb-5 md:mb-10
-  `
-}
+  `,
+};
 
 const stylesPerType: any = {
   [DzTitleMoleculeTypes.PAGE]: styles.pageTitleContainer,
   [DzTitleMoleculeTypes.MOLECULE]: styles.moleculeTitleContainer,
-}
+};
 
 export const DzContainerTitle: FC<ContainerTitleProps> = ({
   type = DzTitleMoleculeTypes.PAGE,
@@ -62,7 +65,7 @@ export const DzContainerTitle: FC<ContainerTitleProps> = ({
         customCTAContainerProps,
       }}
     />
-  )
-}
+  );
+};
 
 export default DzContainerTitle;

@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from 'react';
-import DzTitleMolecule, { DzTitleMoleculeTypes } from './DzTitleMolecule';
 import {
   format,
   isBefore,
@@ -14,6 +13,7 @@ import { useIsSmallWindowSize } from '../../hooks/useIsSmallWindowSize';
 import { LocationData } from './types/DzTitleExhibitionTypes';
 import { ArtistData } from './types/DzTitleExhibitionTypes';
 import { collectHours } from './utils/collectHours';
+import DzContainerTitle from './DzContainerTitle';
 
 export interface DzTitleExhibitionProps {
   artists: Array<ArtistData>;
@@ -143,25 +143,18 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
 
   return (
     <>
-      <DzTitleMolecule
-        type={DzTitleMoleculeTypes.PAGE}
-        data={{
-          title,
-          category: 'Exhibition',
-          customClass: styles.pageTitleContainer,
-          description: '  ', // TODO make description optional; current it is required to show CTA
-          descriptionColSpan: 6,
-          titleProps: {
-            titleType: TITLE_TYPES.H1,
-          },
-          primaryCTA: {
-            title: 'Inquire',
-            supertitle: 'Interested in this exhibition?',
-            ctaProps: {
-              onClick: () => null,
-            },
-          },
+      <DzContainerTitle
+        category="Exhibition"
+        primaryCTA={{
+          title: 'Inquire',
+          description: 'Interested in this exhibition?',
         }}
+        title={title}
+        customCTAContainerProps={{
+          span: 12,
+          start: 1,
+        }}
+        fullLeftContainer
       />
       <DzGridColumns className={styles.container}>
         <DzColumn span={[12, 3]}>
