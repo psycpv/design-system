@@ -1,13 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
-import {
-  format,
-  isBefore,
-  isValid,
-  isWithinInterval,
-  parseISO,
-} from 'date-fns';
+import React, { FC } from 'react';
 import { cn } from '../../utils/classnames';
-import { DzText, DzLink, TITLE_TYPES, LINK_VARIANTS } from '../../atoms';
+import { DzText, DzLink, LINK_VARIANTS } from '../../atoms';
 import { DzColumn, DzGridColumns } from '../../layout';
 import { useIsSmallWindowSize } from '../../hooks/useIsSmallWindowSize';
 import { LocationData } from './types/DzTitleExhibitionTypes';
@@ -19,12 +12,11 @@ export interface DzTitleExhibitionProps {
   artists: Array<ArtistData>;
   checklistPDFURL?: string;
   displayDate?: string;
-  endDate?: string;
+  exhibitionState: EXHIBITION_STATES;
+  exhibitionDateRangeText: string;
   location?: LocationData;
   reception?: string;
   pressReleasePDFURL?: string;
-  startDate?: string;
-  status?: string;
   title: string;
 }
 
@@ -76,70 +68,31 @@ const styles: any = {
   `,
 };
 
+export enum EXHIBITION_STATES {
+  PRELAUNCH = 'PRELAUNCH',
+  OPEN = 'OPEN',
+  POSTLAUNCH = 'POSTLAUNCH',
+}
+
 const EXHIBITION_STATES_TO_LABELS = {
   PRELAUNCH: 'Coming Soon',
   OPEN: 'Now Open',
   POSTLAUNCH: 'Past',
 };
 
-const STATUS_TO_EXHIBITION_STATES = {
-  close: 'POSTLAUNCH',
-  open: 'OPEN',
-  'coming soon': 'PRELAUNCH',
-};
-
 export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   artists,
   checklistPDFURL,
   displayDate,
-  endDate,
+  exhibitionState,
+  exhibitionDateRangeText,
   location,
   reception,
   pressReleasePDFURL,
-  startDate,
-  status,
   title,
 }) => {
   const isSmall = useIsSmallWindowSize();
   const locationHours = location ? collectHours(location) : '';
-  const [exhibitionState, setExhibitionState] = useState<
-    'PRELAUNCH' | 'OPEN' | 'POSTLAUNCH' | undefined
-  >();
-  const [exhibitionDateRangeText, setExhibitionDateRangeText] = useState('');
-
-  useEffect(() => {
-    if (startDate && endDate) {
-      const startDateObj = parseISO(startDate);
-      const endDateObj = parseISO(endDate);
-      const now = new Date();
-
-      if (status || (isValid(startDateObj) && isValid(endDateObj))) {
-        if (status && STATUS_TO_EXHIBITION_STATES[status]) {
-          setExhibitionState(STATUS_TO_EXHIBITION_STATES[status]);
-        } else if (isBefore(now, startDateObj)) {
-          setExhibitionState('PRELAUNCH');
-        } else if (
-          isWithinInterval(now, { start: startDateObj, end: endDateObj })
-        ) {
-          setExhibitionState('OPEN');
-        } else {
-          setExhibitionState('POSTLAUNCH');
-        }
-        setExhibitionDateRangeText(
-          `${format(startDateObj, 'MMMM d')}—${format(
-            endDateObj,
-            'MMMM d,yyyy'
-          )}`
-        );
-      }
-    }
-  }, [
-    endDate,
-    startDate,
-    setExhibitionState,
-    setExhibitionDateRangeText,
-    status,
-  ]);
 
   return (
     <>
