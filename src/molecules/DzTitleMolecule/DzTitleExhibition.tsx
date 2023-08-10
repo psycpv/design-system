@@ -108,17 +108,15 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   const [exhibitionDateRangeText, setExhibitionDateRangeText] = useState('');
 
   useEffect(() => {
-    if (status && STATUS_TO_EXHIBITION_STATES[status]) {
-      setExhibitionState(STATUS_TO_EXHIBITION_STATES[status]);
-      return;
-    }
     if (startDate && endDate) {
       const startDateObj = parseISO(startDate);
       const endDateObj = parseISO(endDate);
       const now = new Date();
 
-      if (isValid(startDateObj) && isValid(endDateObj)) {
-        if (isBefore(now, startDateObj)) {
+      if (status || (isValid(startDateObj) && isValid(endDateObj))) {
+        if (status && STATUS_TO_EXHIBITION_STATES[status]) {
+          setExhibitionState(STATUS_TO_EXHIBITION_STATES[status]);
+        } else if (isBefore(now, startDateObj)) {
           setExhibitionState('PRELAUNCH');
         } else if (
           isWithinInterval(now, { start: startDateObj, end: endDateObj })
