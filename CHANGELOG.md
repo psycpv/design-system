@@ -1,3 +1,15 @@
+# v0.0.79 (Thu Aug 10 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 486 exhibition detail prelaunch [#120](https://github.com/Zwirner/design-system/pull/120) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.78 (Wed Aug 09 2023)
 
 #### 🐛 Bug Fix
