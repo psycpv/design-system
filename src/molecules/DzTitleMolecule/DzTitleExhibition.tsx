@@ -21,9 +21,10 @@ export interface DzTitleExhibitionProps {
   displayDate?: string;
   endDate?: string;
   location?: LocationData;
-  openingReception?: string;
+  reception?: string;
   pressReleasePDFURL?: string;
   startDate?: string;
+  status?: string;
   title: string;
 }
 
@@ -81,15 +82,22 @@ const EXHIBITION_STATES_TO_LABELS = {
   POSTLAUNCH: 'Past',
 };
 
+const STATUS_TO_EXHIBITION_STATES = {
+  close: 'POSTLAUNCH',
+  open: 'OPEN',
+  'coming soon': 'PRELAUNCH',
+};
+
 export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   artists,
   checklistPDFURL,
   displayDate,
   endDate,
   location,
-  openingReception,
+  reception,
   pressReleasePDFURL,
   startDate,
+  status,
   title,
 }) => {
   const isSmall = useIsSmallWindowSize();
@@ -100,6 +108,10 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   const [exhibitionDateRangeText, setExhibitionDateRangeText] = useState('');
 
   useEffect(() => {
+    if (status && STATUS_TO_EXHIBITION_STATES[status]) {
+      setExhibitionState(STATUS_TO_EXHIBITION_STATES[status]);
+      return;
+    }
     if (startDate && endDate) {
       const startDateObj = parseISO(startDate);
       const endDateObj = parseISO(endDate);
@@ -123,7 +135,13 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
         );
       }
     }
-  }, [endDate, startDate, setExhibitionState, setExhibitionDateRangeText]);
+  }, [
+    endDate,
+    startDate,
+    setExhibitionState,
+    setExhibitionDateRangeText,
+    status,
+  ]);
 
   return (
     <>
@@ -162,7 +180,7 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
               className={styles.infoColumnBody}
               text={displayDate || exhibitionDateRangeText}
             />
-            {!isSmall && openingReception && (
+            {!isSmall && reception && (
               <>
                 <DzText
                   text="Opening Reception"
@@ -172,22 +190,19 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
                     styles.openingReceptionTitle
                   )}
                 />
-                <DzText text={openingReception} className={cn(styles.mdText)} />
+                <DzText text={reception} className={cn(styles.mdText)} />
               </>
             )}
           </div>
         </DzColumn>
-        {isSmall && openingReception && (
+        {isSmall && reception && (
           <DzColumn span={12}>
             <div className={styles.infoColumnContainer}>
               <DzText
                 text="Opening Reception"
                 className={styles.infoColumnTitle}
               />
-              <DzText
-                text={openingReception}
-                className={styles.infoColumnBody}
-              />
+              <DzText text={reception} className={styles.infoColumnBody} />
             </div>
           </DzColumn>
         )}
