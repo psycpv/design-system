@@ -26,9 +26,10 @@ export type DzEditorialDataType =
 export interface DzEditorialProps {
   type: EditorialType;
   data: DzEditorialDataType;
+  isWide?: boolean;
 }
 
-export const DzEditorial: FC<DzEditorialProps> = ({ type, data }) => {
+export const DzEditorial: FC<DzEditorialProps> = ({ type, data, isWide = true }) => {
   if (type === EDITORIAL_TYPES.SIMPLE) {
     const { paragraphs = [] } = (data as EditorialSimpleProps) ?? {};
     return <EditorialSimple paragraphs={paragraphs} />;
@@ -41,6 +42,7 @@ export const DzEditorial: FC<DzEditorialProps> = ({ type, data }) => {
         media={media}
         paragraphs={paragraphs}
         reverse={reverse}
+        isWide={isWide}
       />
     );
   }
