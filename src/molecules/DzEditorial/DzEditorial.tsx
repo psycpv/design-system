@@ -39,11 +39,7 @@ export const DzEditorial: FC<DzEditorialProps> = ({
     return <EditorialSimple paragraphs={paragraphs} />;
   }
   if (type === EDITORIAL_TYPES.COMPLEX) {
-    const {
-      media,
-      paragraphs = [],
-      reverse = false,
-    } = (data as EditorialComplexProps) ?? {};
+    const { media, paragraphs = [], reverse = false } = (data as EditorialComplexProps) ?? {};
     return (
       <EditorialComplex
         media={media}
