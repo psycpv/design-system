@@ -10,7 +10,7 @@ import {
   DzLink,
 } from '../../atoms';
 import { cn } from '../../utils/classnames';
-import { DzColumn, DzGridColumns } from '../../layout';
+import { ColumnSpan, DzColumn, DzGridColumns } from '../../layout';
 import { sliceMaxCharLength } from '../../utils/validators';
 import { DzTitlePageProps } from './DzTitleMolecule';
 
@@ -58,6 +58,12 @@ const styles: any = {
     md:text-sm
     md:mt-5
   `,
+  primaryCTASupertitle: `
+    text-md
+    md:text-xs
+    text-black-60
+    mb-[0.175rem]
+  `,
 };
 
 const CHARACTER_LIMIT_TITLE = 50;
@@ -75,6 +81,7 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
   title,
   subtitle,
   description,
+  descriptionColSpan = 4,
   titleProps = DEFAULT_TITLE_PROPS,
   primaryCTA,
   customClass = '',
@@ -112,20 +119,32 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
           />
           {primaryCTA ? (
             <DzGridColumns>
-              <DzColumn span={4} start={9} {...customCTAContainerProps}>
+              <DzColumn
+                span={descriptionColSpan}
+                start={(13 - descriptionColSpan) as ColumnSpan}
+                {...customCTAContainerProps}
+              >
                 {primaryCTA.description ? (
                   <DzText
                     className="mb-[0.3125rem] text-black-60"
                     text={primaryCTA.description}
                   />
                 ) : null}
-                <DzButton
-                  className="w-full"
-                  {...primaryCTA.ctaProps}
-                  size={BUTTON_SIZES.LARGE}
-                >
-                  {primaryCTA.title}
-                </DzButton>
+                <div>
+                  {primaryCTA.supertitle ? (
+                    <DzText
+                      className={styles.primaryCTASupertitle}
+                      text={primaryCTA.supertitle}
+                    />
+                  ) : null}
+                  <DzButton
+                    className="w-full"
+                    {...primaryCTA.ctaProps}
+                    size={BUTTON_SIZES.LARGE}
+                  >
+                    {primaryCTA.title}
+                  </DzButton>
+                </div>
               </DzColumn>
             </DzGridColumns>
           ) : null}

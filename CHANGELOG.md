@@ -1,3 +1,39 @@
+# v0.0.80 (Thu Aug 10 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 486 exhibition detail prelaunch [#128](https://github.com/Zwirner/design-system/pull/128) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.79 (Thu Aug 10 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 486 exhibition detail prelaunch [#120](https://github.com/Zwirner/design-system/pull/120) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.78 (Wed Aug 09 2023)
+
+#### 🐛 Bug Fix
+
+- left align subnav on mobile [#125](https://github.com/Zwirner/design-system/pull/125) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.77 (Tue Aug 08 2023)
 
 #### 🐛 Bug Fix

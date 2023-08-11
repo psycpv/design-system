@@ -40,7 +40,8 @@ export const styles: any = {
     relative
     flex
     flex-1
-    justify-end
+    justify-start
+    md:justify-end
     overflow-y-hidden
   `,
   listDesktop: `
