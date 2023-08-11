@@ -57,6 +57,7 @@ export interface DzComplexGridProps {
   onClickImage?: (data: CardMediaData | CardArtworkData) => void;
   imageStyles?: any;
   gridColumnsStyles?: any;
+  isAbleToRedirect?: boolean
 }
 
 const MINIMUM_VALUE = 1;
@@ -128,6 +129,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   onClickImage,
   imageStyles,
   gridColumnsStyles,
+  isAbleToRedirect = false
 }) => {
   const { width } = useWindowSize();
   const isMobile = useMemo(() => {
@@ -265,7 +267,13 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
                   ...cardData,
                   size: [CardSizes['12col'], columnsSpanPerRow],
                 }}
-                onClickImage={data => onClickImage?.(data)}
+                onClickImage={data => {
+                  if (isAbleToRedirect && (data as CardArtworkData)?.slug) {
+                    window.location.href = (data as CardArtworkData)?.slug as string
+                  } else {
+                    onClickImage?.(data)
+                  }
+                }}
                 imageStyles={imageStyles}
               />
             </DzColumn>

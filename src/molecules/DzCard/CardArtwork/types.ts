@@ -21,6 +21,7 @@ export interface CardArtworkData extends BaseCard {
   enableZoom?: boolean;
   primaryCTA?: CardCTA;
   secondaryCTA?: CardCTA;
+  slug?: string;
 }
 
 export interface CardArtworkProps {
