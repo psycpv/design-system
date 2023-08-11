@@ -6,7 +6,7 @@ import { EditorialText, EditorialTextProps } from './EditorialText';
 export interface EditorialComplexProps extends EditorialTextProps {
   media?: DzMediaProps;
   reverse?: boolean;
-  isWide?: boolean
+  isWide?: boolean;
 }
 
 const styles: any = {
@@ -37,14 +37,14 @@ const styles: any = {
   `,
   rightPaneDesktop: `
     basis-2/3
-  `
+  `,
 };
 
 export const EditorialComplex: FC<EditorialComplexProps> = ({
   media,
   paragraphs,
   reverse = false,
-  isWide = false
+  isWide = false,
 }) => {
   return (
     <div
@@ -54,11 +54,15 @@ export const EditorialComplex: FC<EditorialComplexProps> = ({
       )}
     >
       {media ? (
-        <div className={cn(styles.leftPane, isWide ? styles.leftPaneDesktop : '')}>
+        <div
+          className={cn(styles.leftPane, isWide ? styles.leftPaneDesktop : '')}
+        >
           <DzMedia {...media} />
         </div>
       ) : null}
-      <div className={cn(styles.rightPane, isWide ? styles.rightPaneDesktop : '')}>
+      <div
+        className={cn(styles.rightPane, isWide ? styles.rightPaneDesktop : '')}
+      >
         <EditorialText paragraphs={paragraphs} />
       </div>
     </div>
