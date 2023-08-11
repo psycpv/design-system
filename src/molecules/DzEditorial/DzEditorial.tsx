@@ -40,7 +40,7 @@ export const DzEditorial: FC<DzEditorialProps> = ({
   }
   if (type === EDITORIAL_TYPES.COMPLEX) {
     const { media, paragraphs = [], reverse = false } =
-     (data as EditorialComplexProps) ?? {};
+      (data as EditorialComplexProps) ?? {};
     return (
       <EditorialComplex
         media={media}
