@@ -38,21 +38,22 @@ const styles: any = {
     px-5
     h-[1.875rem]
     border-gray-300
+    text-black-80
+    ring-black-40
     hover:ring-black-60
-    focus:ring-black-60
     hover:bg-white-100
-    focus:bg-white-100
-    active:bg-white-100
     hover:underline
-    focus:underline
     hover:decoration-black-60
+    focus:ring-black-60
+    focus:bg-white-100
+    focus:underline
     focus:decoration-black-60
+    active:ring-black-60
+    active:bg-white-100
     active:decoration-black-100
     active:text-black-100
-    active:ring-black-100
-    text-black-80
+    active:ring-black-60
     active:text-black-100
-    hover:text-black-80
   `,
   mobile: `
     px-5
