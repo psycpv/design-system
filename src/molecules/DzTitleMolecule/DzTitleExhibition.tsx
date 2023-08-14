@@ -16,8 +16,10 @@ export interface DzTitleExhibitionProps {
   exhibitionDateRangeText: string;
   location?: LocationData;
   reception?: string;
+  showCoordinates?: boolean;
   pressReleasePDFURL?: string;
   title: string;
+  subpageTitle?: string;
 }
 
 const styles: any = {
@@ -89,10 +91,13 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   location,
   reception,
   pressReleasePDFURL,
+  showCoordinates = false,
   title,
+  subpageTitle,
 }) => {
   const isSmall = useIsSmallWindowSize();
   const locationHours = location ? collectHours(location) : '';
+  const titleText = `${title}${subpageTitle ? ` — ${subpageTitle}` : ''}`;
 
   return (
     <>
@@ -102,14 +107,15 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
           title: 'Inquire',
           description: 'Interested in this exhibition?',
         }}
-        title={title}
+        title={titleText}
         customCTAContainerProps={{
           span: 12,
           start: 1,
         }}
         fullLeftContainer
       />
-      <DzGridColumns className={styles.container}>
+      {showCoordinates && (
+        <DzGridColumns className={styles.container}>
         <DzColumn span={[12, 3]}>
           <div className={styles.infoColumnContainer}>
             <DzText
@@ -251,6 +257,7 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
           </DzColumn>
         )}
       </DzGridColumns>
+      )}
     </>
   );
 };
