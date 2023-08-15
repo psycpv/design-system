@@ -1,3 +1,15 @@
+# v0.0.81 (Tue Aug 15 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-154, NWEB-129 exhibitions detail launch [#132](https://github.com/Zwirner/design-system/pull/132) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.80 (Thu Aug 10 2023)
 
 #### 🐛 Bug Fix
