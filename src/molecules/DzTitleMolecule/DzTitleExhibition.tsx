@@ -82,6 +82,7 @@ const EXHIBITION_STATES_TO_LABELS = {
   POSTLAUNCH: 'Past',
 };
 
+// TODO add a variant for this in DzTitleMolecule and pass through props from consumer
 export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   artists,
   checklistPDFURL,
