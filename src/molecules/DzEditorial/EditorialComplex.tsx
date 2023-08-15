@@ -32,10 +32,10 @@ const styles: any = {
     flex-col
     basis-1/2
   `,
-  leftPaneDesktop: `
+  leftPaneWide: `
     basis-1/3
   `,
-  rightPaneDesktop: `
+  rightPaneWide: `
     basis-2/3
   `,
 };
@@ -55,13 +55,13 @@ export const EditorialComplex: FC<EditorialComplexProps> = ({
     >
       {media ? (
         <div
-          className={cn(styles.leftPane, isWide ? styles.leftPaneDesktop : '')}
+          className={cn(styles.leftPane, isWide ? styles.leftPaneWide : '')}
         >
           <DzMedia {...media} />
         </div>
       ) : null}
       <div
-        className={cn(styles.rightPane, isWide ? styles.rightPaneDesktop : '')}
+        className={cn(styles.rightPane, isWide ? styles.rightPaneWide : '')}
       >
         <EditorialText paragraphs={paragraphs} />
       </div>

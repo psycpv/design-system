@@ -9,6 +9,7 @@ export const EDITORIAL_TYPES = {
   SIMPLE: 'simple',
   COMPLEX: 'complex',
   QUOTE: 'quote',
+  LEFT_BLOCK: 'left-block',
 };
 
 export const EDITORIAL_TYPES_NAMES = [
@@ -32,11 +33,11 @@ export interface DzEditorialProps {
 export const DzEditorial: FC<DzEditorialProps> = ({
   type,
   data,
-  isWide = true,
+  isWide = false,
 }) => {
-  if (type === EDITORIAL_TYPES.SIMPLE) {
+  if (type === EDITORIAL_TYPES.SIMPLE || type === EDITORIAL_TYPES.LEFT_BLOCK) {
     const { paragraphs = [] } = (data as EditorialSimpleProps) ?? {};
-    return <EditorialSimple paragraphs={paragraphs} />;
+    return <EditorialSimple paragraphs={paragraphs} isWide={isWide} />;
   }
   if (type === EDITORIAL_TYPES.COMPLEX) {
     const { media, paragraphs = [], reverse = false } =

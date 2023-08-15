@@ -28,6 +28,8 @@ const styles: any = {
     flex
     flex-col
     gap-2.5
+  `,
+  leftContainerWide: `
     basis-2/3
   `,
   fullLeft: `
@@ -39,9 +41,12 @@ const styles: any = {
   rightContainer: `
     flex
     flex-col
-    basis-1/3
+    basis-1/2
     gap-5
     md:gap-0
+  `,
+  rightContainerWide: `
+    basis-1/3
   `,
   titleClassContainer: `
     w-full
@@ -88,13 +93,15 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
   linkCTA,
   fullLeftContainer = false,
   customCTAContainerProps = {},
+  isWide = false,
 }) => {
   return (
     <div className={cn(styles.titleContainer, customClass)}>
       <div
         className={cn(
           styles.leftContainer,
-          fullLeftContainer ? styles.fullLeft : styles.halfLeft
+          fullLeftContainer ? styles.fullLeft : styles.halfLeft,
+          isWide ? styles.leftContainerWide : '',
         )}
       >
         {category ? <DzText text={category} /> : null}
@@ -108,7 +115,7 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
         />
       </div>
       {description || primaryCTA || linkCTA ? (
-        <div className={cn(styles.rightContainer)}>
+        <div className={cn(styles.rightContainer, isWide ? styles.rightContainerWide : '')}>
           <DzText
             className={cn(styles.description)}
             text={
