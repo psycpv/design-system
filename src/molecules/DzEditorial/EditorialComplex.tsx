@@ -54,15 +54,11 @@ export const EditorialComplex: FC<EditorialComplexProps> = ({
       )}
     >
       {media ? (
-        <div
-          className={cn(styles.leftPane, isWide ? styles.leftPaneWide : '')}
-        >
+        <div className={cn(styles.leftPane, isWide ? styles.leftPaneWide : '')}>
           <DzMedia {...media} />
         </div>
       ) : null}
-      <div
-        className={cn(styles.rightPane, isWide ? styles.rightPaneWide : '')}
-      >
+      <div className={cn(styles.rightPane, isWide ? styles.rightPaneWide : '')}>
         <EditorialText paragraphs={paragraphs} />
       </div>
     </div>

@@ -23,13 +23,21 @@ const styles: any = {
   `,
   rightPaneWide: `
     basis-2/3
-  `
+  `,
 };
 
-export const EditorialSimple: FC<EditorialSimpleProps> = ({ paragraphs, isWide = false}) => {
+export const EditorialSimple: FC<EditorialSimpleProps> = ({
+  paragraphs,
+  isWide = false,
+}) => {
   return (
     <div className={cn(styles.editorialContainer)}>
-      <div className={cn(styles.rightPane, isWide ? styles.rightPaneWide : 'mx-auto')}>
+      <div
+        className={cn(
+          styles.rightPane,
+          isWide ? styles.rightPaneWide : 'mx-auto'
+        )}
+      >
         <EditorialText paragraphs={paragraphs} />
       </div>
     </div>

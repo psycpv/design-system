@@ -101,7 +101,7 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
         className={cn(
           styles.leftContainer,
           fullLeftContainer ? styles.fullLeft : styles.halfLeft,
-          isWide ? styles.leftContainerWide : '',
+          isWide ? styles.leftContainerWide : ''
         )}
       >
         {category ? <DzText text={category} /> : null}
@@ -115,7 +115,12 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
         />
       </div>
       {description || primaryCTA || linkCTA ? (
-        <div className={cn(styles.rightContainer, isWide ? styles.rightContainerWide : '')}>
+        <div
+          className={cn(
+            styles.rightContainer,
+            isWide ? styles.rightContainerWide : ''
+          )}
+        >
           <DzText
             className={cn(styles.description)}
             text={
