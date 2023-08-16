@@ -101,8 +101,8 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   subtitle,
   subpageTitle,
 }) => {
-  const isSmall = useIsSmallWindowSize();
   const locationHours = location ? collectHours(location) : '';
+  const isSmall = useIsSmallWindowSize();
   const titleText = `${title}${subtitle ? `: ${subtitle}` : ''}${
     subpageTitle ? ` — ${subpageTitle}` : ''
   }`;
