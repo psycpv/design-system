@@ -121,6 +121,7 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
           start: 1,
         }}
         fullLeftContainer
+        disableMaxTitleLength
       />
       {showCoordinates && (
         <DzGridColumns className={styles.container}>

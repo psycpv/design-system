@@ -26,6 +26,7 @@ export interface DzTitlePageProps {
   descriptionColSpan?: ColumnSpan;
   fullLeftContainer?: boolean;
   customCTAContainerProps?: ColumnProps;
+  disableMaxTitleLength?: boolean;
 }
 
 export interface DzMoleculeTitleCTA {

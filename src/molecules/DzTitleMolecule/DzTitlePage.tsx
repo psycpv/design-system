@@ -86,6 +86,7 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
   linkCTA,
   fullLeftContainer = false,
   customCTAContainerProps = {},
+  disableMaxTitleLength,
 }) => {
   return (
     <div className={cn(styles.titleContainer, customClass)}>
@@ -102,7 +103,11 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
           classNameSubtitle={cn(styles.title)}
           {...titleProps}
           subtitle={sliceMaxCharLength(subtitle, CHARACTER_LIMIT_TITLE)}
-          title={sliceMaxCharLength(title, CHARACTER_LIMIT_TITLE)}
+          title={
+            disableMaxTitleLength
+              ? title
+              : sliceMaxCharLength(title, CHARACTER_LIMIT_TITLE)
+          }
         />
       </div>
       {description || primaryCTA || linkCTA ? (
