@@ -1,3 +1,15 @@
+# v0.0.82 (Wed Aug 16 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB 80 Design System > Atoms: Update the style for Desktop Pill [#121](https://github.com/Zwirner/design-system/pull/121) ([@romulo114](https://github.com/romulo114))
+
+#### Authors: 1
+
+- Romulo Benjamim ([@romulo114](https://github.com/romulo114))
+
+---
+
 # v0.0.81 (Tue Aug 15 2023)
 
 #### 🐛 Bug Fix
