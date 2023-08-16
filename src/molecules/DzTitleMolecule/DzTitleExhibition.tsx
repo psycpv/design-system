@@ -19,6 +19,7 @@ export interface DzTitleExhibitionProps {
   showCoordinates?: boolean;
   pressReleasePDFURL?: string;
   title: string;
+  subtitle?: string;
   subpageTitle?: string;
 }
 
@@ -94,11 +95,12 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   pressReleasePDFURL,
   showCoordinates = false,
   title,
+  subtitle,
   subpageTitle,
 }) => {
   const isSmall = useIsSmallWindowSize();
   const locationHours = location ? collectHours(location) : '';
-  const titleText = `${title}${subpageTitle ? ` — ${subpageTitle}` : ''}`;
+  const titleText = `${title}${subtitle ? `: ${subtitle}`: ''}${subpageTitle ? ` — ${subpageTitle}` : ''}`;
 
   return (
     <>
