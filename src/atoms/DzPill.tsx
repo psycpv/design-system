@@ -21,6 +21,7 @@ export interface DzPillProps {
   title: string;
   showIcon?: boolean;
   active?: boolean;
+  disabled?: boolean;
   onClickPill?: MouseEventHandler<any>;
   onClickClose?: MouseEventHandler<any>;
   className?: string;
@@ -29,6 +30,17 @@ const styles: any = {
   active: `
     bg-white-100
     ring-black-100
+  `,
+  disabled: `
+    !ring-black-10
+    !cursor-default
+    !text-black-20    
+    hover:text-black-20
+    focus:text-black-20
+    active:text-black-20
+    hover:bg-white-100
+    focus:bg-white-100
+    active:bg-white-100    
   `,
   artist: `
     p-2.5
@@ -79,6 +91,8 @@ const styles: any = {
   `,
   title: `
     my-auto
+  `,
+  titleHover: `
     hover:underline
   `,
   titleStyle: {
@@ -101,6 +115,7 @@ export const DzPill: FC<DzPillProps> = ({
   onClickPill,
   onClickClose,
   className = '',
+  disabled,
 }) => {
   const closeIcon =
     (variant === PILL_VARIANTS.ARTIST || variant === PILL_VARIANTS.FILTER) &&
@@ -118,18 +133,21 @@ export const DzPill: FC<DzPillProps> = ({
       <div className={cn(styles.statusCircle)}></div>
     ) : null;
   const activeClass = active ? styles.active : '';
+  const disabledClass = disabled ? styles.disabled : '';
   const activeClassText = active ? 'text-black-100' : '';
+  const hoverClass = disabled ? '' : styles.titleHover;
   return (
     <div
-      className={cn(styles.pill, styles?.[variant], activeClass, className)}
+      className={cn(styles.pill, styles?.[variant], activeClass, disabledClass, className)}
       onClick={onClickPill}
     >
       {statusRender}
       <p
         className={cn(
           styles.title,
+          hoverClass,
           styles.titleStyle?.[variant],
-          activeClassText
+          activeClassText,
         )}
       >
         {title}
