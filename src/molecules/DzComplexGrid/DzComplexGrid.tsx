@@ -265,14 +265,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
                   ...cardData,
                   size: [CardSizes['12col'], columnsSpanPerRow],
                 }}
-                onClickImage={data => {
-                  if ((data as CardArtworkData)?.slug) {
-                    window.location.href = (data as CardArtworkData)
-                      ?.slug as string;
-                  } else {
-                    onClickImage?.(data);
-                  }
-                }}
+                onClickImage={data => onClickImage?.(data)}
                 imageStyles={imageStyles}
               />
             </DzColumn>
