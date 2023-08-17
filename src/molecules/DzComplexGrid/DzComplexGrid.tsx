@@ -47,6 +47,7 @@ type RichCard = Omit<DataCardType, 'size'> & ExtraData;
 export interface DzComplexGridProps {
   cards: RichCard[];
   steps?: StepInterface[];
+  hideRange?: boolean;
   displayNumberOfResults?: boolean;
   headingTitle?: string;
   maxItemsPerRow?: number;
@@ -120,6 +121,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   steps = DEFAULT_STEPS,
   headingTitle = 'Artworks',
   displayNumberOfResults = false,
+  hideRange = false,
   maxItemsPerRow = steps.length,
   textProps,
   useLink = false,
@@ -189,7 +191,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
             />
           ) : null}
 
-          {!isMobile && maximumValue !== 1 ? (
+          {!hideRange && !isMobile && maximumValue !== 1 ? (
             !useLink ? (
               <div className={cn(styles.rangeContainer)}>
                 <DzText text="View:" />
