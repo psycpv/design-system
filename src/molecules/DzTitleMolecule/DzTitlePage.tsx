@@ -22,6 +22,10 @@ const styles: any = {
     flex-col
     gap-5
     md:flex-row
+    `,
+  titleColsContainer: `
+    grid
+    grid-cols-12
   `,
   leftContainer: `
     w-full
@@ -30,7 +34,7 @@ const styles: any = {
     gap-2.5
   `,
   leftContainerWide: `
-    basis-2/3
+    col-span-8
   `,
   fullLeft: `
     basis-full
@@ -46,7 +50,7 @@ const styles: any = {
     md:gap-0
   `,
   rightContainerWide: `
-    basis-1/3
+    col-span-4
   `,
   titleClassContainer: `
     w-full
@@ -96,7 +100,13 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
   isWide = false,
 }) => {
   return (
-    <div className={cn(styles.titleContainer, customClass)}>
+    <div
+      className={cn(
+        styles.titleContainer,
+        customClass,
+        isWide ? styles.titleColsContainer : ''
+      )}
+    >
       <div
         className={cn(
           styles.leftContainer,

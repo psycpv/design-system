@@ -14,6 +14,10 @@ const styles: any = {
     w-full
     relative
     scrollbar-w-none
+    `,
+  editorialColsContainer: `
+    grid
+    grid-cols-12
   `,
   rightPane: `
     basis-1/2
@@ -22,7 +26,7 @@ const styles: any = {
     gap-5
   `,
   rightPaneWide: `
-    basis-2/3
+    col-span-8
   `,
 };
 
@@ -31,7 +35,12 @@ export const EditorialSimple: FC<EditorialSimpleProps> = ({
   isWide = false,
 }) => {
   return (
-    <div className={cn(styles.editorialContainer)}>
+    <div
+      className={cn(
+        styles.editorialContainer,
+        isWide ? styles.editorialColsContainer : ''
+      )}
+    >
       <div
         className={cn(
           styles.rightPane,
