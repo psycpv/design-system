@@ -29,10 +29,7 @@ export interface DzEditorialProps {
   data: DzEditorialDataType;
 }
 
-export const DzEditorial: FC<DzEditorialProps> = ({
-  type,
-  data,
-}) => {
+export const DzEditorial: FC<DzEditorialProps> = ({ type, data }) => {
   if (type === EDITORIAL_TYPES.SIMPLE) {
     const { paragraphs = [] } = (data as EditorialSimpleProps) ?? {};
     return <EditorialSimple paragraphs={paragraphs} />;
