@@ -61,16 +61,19 @@ export const CardArtwork: FC<CardArtworkProps> = ({
     return mergeStyles(globalStyles, stylesSizes[viewport][span]);
   }, [size, isSmall, viewport]);
 
-  const renderWithLink = useCallback(children => {
-    if (data?.slug) {
-      return (
-        <DzLink href={data?.slug} withoutStyle>
-          {children}
-        </DzLink>
-      );
-    }
-    return children;
-  }, [data]);
+  const renderWithLink = useCallback(
+    children => {
+      if (data?.slug) {
+        return (
+          <DzLink href={data?.slug} withoutStyle>
+            {children}
+          </DzLink>
+        );
+      }
+      return children;
+    },
+    [data]
+  );
 
   return renderWithLink(
     <div id={id} className={cn(styles.cardContainer, 'group')}>
