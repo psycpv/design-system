@@ -1,3 +1,15 @@
+# v0.0.84 (Mon Aug 21 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-118: Glitch seen upon page load [#129](https://github.com/Zwirner/design-system/pull/129) ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+#### Authors: 1
+
+- Sergei ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+---
+
 # v0.0.83 (Mon Aug 21 2023)
 
 #### 🐛 Bug Fix
