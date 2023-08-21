@@ -1,31 +1,16 @@
 import React, { ReactNode, useMemo } from 'react';
-import styled, { css } from 'styled-components';
 import { cn } from '../utils/classnames';
-
-export interface ColumnCell {
-  /** number (between 1 and 12) of columns to span */
-  span?: ColumnSpan | ColumnSpan[];
-  /** number (between 1 and 12) of columns to begin at */
-  start?: ColumnStart | ColumnStart[];
-}
-
-interface InnerCell {
-  gridColumn?: string[];
-  display?: string[];
-  children?: ReactNode;
-}
-
-interface CellProps extends InnerCell {
-  className?: string;
-}
-
-export interface GridColProps extends ColumnProps {
-  position?: 'relative' | 'absolute';
-}
-
-export interface ColumnProps extends ColumnCell, CellProps {
-  wrap?: boolean;
-}
+import {
+  DisplayMdStyles,
+  DisplayStyles,
+  GRID_COLUMN_FULL_WIDTHS,
+  defaultGridCols,
+  gridColEndMdStyles,
+  gridColEndStyles,
+  gridColStartMdStyles,
+  gridColStartStyles,
+  gridColumnStyles,
+} from './constants';
 
 /** Number of columns a cell may span */
 export type ColumnSpan = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -69,6 +54,13 @@ const valueAtOrLast = <T extends unknown>(xs: T[], i: number) => {
   return xs[i] !== null && xs[i] !== undefined ? xs[i] : xs[xs.length - 1];
 };
 
+type ColumnCell = {
+  /** number (between 1 and 12) of columns to span */
+  span?: ColumnSpan | ColumnSpan[];
+  /** number (between 1 and 12) of columns to begin at */
+  start?: ColumnStart | ColumnStart[];
+};
+
 export const calculateGridColumn = ({
   span: columnSpan,
   start: columnStart,
@@ -97,7 +89,9 @@ export const calculateGridColumn = ({
       if (span && span + start > LAST_COLUMN_POSITION) {
         throw new Error('`span` and `start` must fit within the grid');
       }
-      return span ? `${start} / span ${span}` : `${start} / -1`;
+      const gridColStart = start;
+      const gridColEnd = span ? `span ${span}` : `-1`;
+      return { gridColStart, gridColEnd };
     });
   }
 
@@ -109,36 +103,21 @@ export const calculateGridColumn = ({
       throw new Error('`span` and `start` must fit within the grid');
     }
 
-    return start ? `${start} / span ${span}` : `span ${span}`;
+    const gridColStart = start ? start : `span ${span}`;
+    const gridColEnd = start ? `span ${span}` : undefined;
+
+    return { gridColStart, gridColEnd };
   });
 };
 
-/** Hardcoded list of full-width column spans */
-export const GRID_COLUMN_FULL_WIDTHS = [
-  '1 / -1',
-  '1 / 12',
-  '1 / span 12',
-  'span 12',
-];
-
-export const GUTTER = '1.25rem';
-
-const gridColumnStyles = {
-  gridCol: `
-    grid
-    grid-cols-12
-    gap-5
-  `,
-};
-
+export interface GridColProps extends ColumnProps {
+  position?: 'relative' | 'absolute';
+}
 /**
  * A 12-column fluid grid
  */
-export const DzGridColumns: React.FC<GridColProps> = ({
-  children,
-  className = '',
-  position = 'relative',
-}) => {
+export const DzGridColumns = (props: GridColProps) => {
+  const { children, className = '', position = 'relative' } = props;
   return (
     <div className={cn(gridColumnStyles.gridCol, className, position)}>
       {children}
@@ -146,16 +125,14 @@ export const DzGridColumns: React.FC<GridColProps> = ({
   );
 };
 
+export interface ColumnProps extends ColumnCell, Omit<CellProps, 'gridColumn'> {
+  wrap?: boolean;
+}
 /**
  * A column sits within the GridColumns and spans the columns,
  * sitting between gutters.
  */
-export const DzColumn: React.FC<ColumnProps> = ({
-  span,
-  start,
-  wrap,
-  ...rest
-}) => {
+export const DzColumn = ({ span, start, wrap, ...rest }: ColumnProps) => {
   const gridColumnValue = useMemo(() => {
     return calculateGridColumn({ span, start });
   }, [span, start]);
@@ -168,55 +145,54 @@ export const DzColumn: React.FC<ColumnProps> = ({
   );
 };
 
-const InnerCell = styled.div<InnerCell>`
-  ${(props: any) => {
-    return css`
-      grid-column: ${props.gridColumn[1]};
-      display: ${props.display[1]};
-    `;
-  }};
+type CellProps = {
+  className?: string;
+  gridColumn?: ReturnType<typeof calculateGridColumn>;
+  display?: Array<keyof typeof DisplayStyles>;
+  children?: ReactNode;
+};
 
-  @media (max-width: 768px) {
-    ${(props: any) => {
-      return css`
-        grid-column: ${props.gridColumn[0]};
-        display: ${props.display[0]};
-      `;
-    }};
-  }
-`;
-
-const Cell: React.FC<CellProps> = ({
-  children,
-  className = '',
-  gridColumn = [],
-  display = [],
-}) => {
-  const smCol = gridColumn[0];
-  const mdCol = gridColumn[1] ?? gridColumn[0];
-  const smWrap = display[0] ?? 'block';
-  const mdWrap = display[1] ?? display[0] ?? 'block';
+const Cell = (props: CellProps) => {
+  const { children, className = '', gridColumn = [], display = [] } = props;
+  const { gridColStart, gridColEnd } = gridColumn[0];
+  const { gridColStart: gridColStartMd, gridColEnd: gridColEndMd } =
+    gridColumn[1] ?? gridColumn[0];
+  const defaultWrapVisibility = 'block';
+  const smWrap = display[0] ?? defaultWrapVisibility;
+  const mdWrap = display[1] ?? display[0] ?? defaultWrapVisibility;
+  const gridColEndNormalized = gridColEnd ? gridColEndStyles[gridColEnd] : '';
+  const gridColEndMdNormalized = gridColEndMd
+    ? gridColEndMdStyles[gridColEndMd]
+    : '';
 
   return (
-    <InnerCell
-      className={cn(className)}
-      gridColumn={[smCol, mdCol]}
-      display={[smWrap, mdWrap]}
+    <div
+      className={cn(
+        className,
+        DisplayStyles[smWrap],
+        DisplayMdStyles[mdWrap],
+        gridColStartStyles[gridColStart],
+        gridColStartMdStyles[gridColStartMd],
+        gridColEndNormalized,
+        gridColEndMdNormalized
+      )}
     >
       {children}
-    </InnerCell>
+    </div>
   );
 };
 
-const ColumnWrap: React.FC<{ gridColumnValue: string[] }> = ({
-  gridColumnValue,
-}) => {
-  return (
-    <Cell
-      gridColumn={['auto / -1']}
-      display={gridColumnValue.map(value => {
-        return GRID_COLUMN_FULL_WIDTHS.includes(value) ? 'none' : 'block';
-      })}
-    />
-  );
+type ColumnWrapProps = {
+  gridColumnValue: ReturnType<typeof calculateGridColumn>;
+};
+
+const ColumnWrap = ({ gridColumnValue }: ColumnWrapProps) => {
+  const displayValues = gridColumnValue.map(({ gridColStart, gridColEnd }) => {
+    const parsedValues = gridColEnd
+      ? `${gridColStart} / ${gridColEnd}`
+      : `${gridColStart}`;
+    return GRID_COLUMN_FULL_WIDTHS.includes(parsedValues) ? 'none' : 'block';
+  });
+
+  return <Cell gridColumn={[defaultGridCols]} display={displayValues} />;
 };
