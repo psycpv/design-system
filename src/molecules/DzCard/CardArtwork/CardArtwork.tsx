@@ -70,7 +70,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({
       );
     }
     return children;
-  }, []);
+  }, [data]);
 
   return renderWithLink(
     <div id={id} className={cn(styles.cardContainer, 'group')}>
