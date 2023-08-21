@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo, useState } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import {
   DzMedia,
   DzText,
@@ -61,20 +61,12 @@ export const CardArtwork: FC<CardArtworkProps> = ({
     return mergeStyles(globalStyles, stylesSizes[viewport][span]);
   }, [size, isSmall, viewport]);
 
-  const [isHoverLink, setIsHover] = useState<boolean>(false);
-  const imageHoverStyle = useMemo(
-    () => (isHoverLink ? 'md:scale-[1.03]' : ''),
-    [isHoverLink, styles]
-  );
-
   const renderWithLink = useCallback(children => {
     if (data?.slug) {
       return (
         <DzLink
           href={data?.slug}
           withoutStyle
-          onMouseEnter={() => setIsHover(true)}
-          onMouseLeave={() => setIsHover(false)}
         >
           {children}
         </DzLink>
@@ -84,14 +76,14 @@ export const CardArtwork: FC<CardArtworkProps> = ({
   }, []);
 
   return renderWithLink(
-    <div id={id} className={cn(styles.cardContainer)}>
+    <div id={id} className={cn(styles.cardContainer, 'group')}>
       <DzMedia
         className="overflow-hidden"
         imgClass={cn(
           styles.mediaImg,
           imageStyles,
           enableZoom ? styles.mediaZoom : '',
-          imageHoverStyle
+          'md:group-hover:scale-[1.03]'
         )}
         objectFit={MEDIA_OBJECT_FIT.CONTAIN}
         aspectRatio={MEDIA_ASPECT_RATIOS['4:3']}
