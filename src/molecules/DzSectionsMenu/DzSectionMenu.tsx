@@ -40,9 +40,10 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
 
       if (onSelection) onSelection(id);
       if (usePrefix) scrollToElement(`${prefix}${id}`);
-      if (window) window.history.pushState('', value, `#${prefix}${id}`);
+      if (window && !useLinks)
+        window.history.pushState('', value, `#${prefix}${id}`);
     },
-    [onSelection, prefix, scrollToElement, usePrefix]
+    [onSelection, prefix, scrollToElement, usePrefix, useLinks]
   );
 
   const scrollStickyTopStyle = useMemo(() => {

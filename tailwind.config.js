@@ -130,6 +130,10 @@ module.exports = {
       dropShadow: {
         100: '0px 2px 18px rgba(0, 0, 0, 0.06)',
       },
+      textDecorationColor: {
+        'black-60': '#757575',
+        'black-100': '#000',
+      }
     },
   },
   future: { hoverOnlyWhenSupported: true },
