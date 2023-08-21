@@ -190,6 +190,8 @@ export const DzButton: ForwardRefExoticComponent<DzButtonProps> = forwardRef(
     const handleClick = (
       event: React.MouseEvent<HTMLButtonElement, MouseEvent>
     ) => {
+      event.preventDefault();
+
       if (!disabled && onClick) {
         onClick(event);
       }

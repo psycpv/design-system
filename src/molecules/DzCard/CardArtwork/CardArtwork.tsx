@@ -64,10 +64,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({
   const renderWithLink = useCallback(children => {
     if (data?.slug) {
       return (
-        <DzLink
-          href={data?.slug}
-          withoutStyle
-        >
+        <DzLink href={data?.slug} withoutStyle>
           {children}
         </DzLink>
       );
