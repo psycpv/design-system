@@ -54,12 +54,12 @@ const valueAtOrLast = <T extends unknown>(xs: T[], i: number) => {
   return xs[i] !== null && xs[i] !== undefined ? xs[i] : xs[xs.length - 1];
 };
 
-export interface ColumnCell {
+type ColumnCell = {
   /** number (between 1 and 12) of columns to span */
   span?: ColumnSpan | ColumnSpan[];
   /** number (between 1 and 12) of columns to begin at */
   start?: ColumnStart | ColumnStart[];
-}
+};
 
 export const calculateGridColumn = ({
   span: columnSpan,
@@ -145,12 +145,12 @@ export const DzColumn = ({ span, start, wrap, ...rest }: ColumnProps) => {
   );
 };
 
-interface CellProps {
+type CellProps = {
   className?: string;
   gridColumn?: ReturnType<typeof calculateGridColumn>;
   display?: Array<keyof typeof DisplayStyles>;
   children?: ReactNode;
-}
+};
 
 const Cell = (props: CellProps) => {
   const { children, className = '', gridColumn = [], display = [] } = props;
