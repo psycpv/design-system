@@ -1,10 +1,12 @@
 /**TW classes dymanically applied depending on incoming props. Should be listed to not to be "optimised" */
 export enum DisplayStyles {
   block = 'block',
+  flex = 'flex',
   none = 'hidden',
 }
 export enum DisplayMdStyles {
   block = 'md:block',
+  flex = 'md:flex',
   none = 'md:hidden',
 }
 
