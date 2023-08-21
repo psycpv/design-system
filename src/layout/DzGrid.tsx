@@ -1,105 +1,21 @@
 import React, { ReactNode, useMemo } from 'react';
 import { cn } from '../utils/classnames';
+import {
+  DisplayMdStyles,
+  DisplayStyles,
+  GRID_COLUMN_FULL_WIDTHS,
+  defaultGridCols,
+  gridColEndMdStyles,
+  gridColEndStyles,
+  gridColStartMdStyles,
+  gridColStartStyles,
+  gridColumnStyles,
+} from './constants';
 
 /** Number of columns a cell may span */
 export type ColumnSpan = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 /** DzColumn number to begin a cell at */
 export type ColumnStart = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-
-/**TW classes dymanically applied depending on incoming props. Should be listed to not to be "optimised" */
-const displayStyles = {
-  block: 'block',
-  none: 'hidden',
-} as const;
-const displayMdStyles = {
-  block: 'md:block',
-  none: 'md:hidden',
-} as const;
-
-const gridColStartStyles = {
-  ['1']: 'col-start-1',
-  ['2']: 'col-start-2',
-  ['3']: 'col-start-3',
-  ['4']: 'col-start-4',
-  ['5']: 'col-start-5',
-  ['6']: 'col-start-6',
-  ['7']: 'col-start-7',
-  ['8']: 'col-start-8',
-  ['9']: 'col-start-9',
-  ['10']: 'col-start-10',
-  ['11']: 'col-start-11',
-  ['12']: 'col-start-12',
-  ['auto']: 'col-start-auto',
-  ['span 1']: 'col-start-[span_1]',
-  ['span 2']: 'col-start-[span_2]',
-  ['span 3']: 'col-start-[span_3]',
-  ['span 4']: 'col-start-[span_4]',
-  ['span 5']: 'col-start-[span_5]',
-  ['span 6']: 'col-start-[span_6]',
-  ['span 7']: 'col-start-[span_7]',
-  ['span 8']: 'col-start-[span_8]',
-  ['span 9']: 'col-start-[span_9]',
-  ['span 10']: 'col-start-[span_10]',
-  ['span 11']: 'col-start-[span_11]',
-  ['span 12']: 'col-start-[span_12]',
-} as const;
-const gridColStartMdStyles = {
-  ['1']: 'md:col-start-1',
-  ['2']: 'md:col-start-2',
-  ['3']: 'md:col-start-3',
-  ['4']: 'md:col-start-4',
-  ['5']: 'md:col-start-5',
-  ['6']: 'md:col-start-6',
-  ['7']: 'md:col-start-7',
-  ['8']: 'md:col-start-8',
-  ['9']: 'md:col-start-9',
-  ['10']: 'md:col-start-10',
-  ['11']: 'md:col-start-11',
-  ['12']: 'md:col-start-12',
-  ['auto']: 'md:col-start-auto',
-  ['span 1']: 'md:col-start-[span_1]',
-  ['span 2']: 'md:col-start-[span_2]',
-  ['span 3']: 'md:col-start-[span_3]',
-  ['span 4']: 'md:col-start-[span_4]',
-  ['span 5']: 'md:col-start-[span_5]',
-  ['span 6']: 'md:col-start-[span_6]',
-  ['span 7']: 'md:col-start-[span_7]',
-  ['span 8']: 'md:col-start-[span_8]',
-  ['span 9']: 'md:col-start-[span_9]',
-  ['span 10']: 'md:col-start-[span_10]',
-  ['span 11']: 'md:col-start-[span_11]',
-  ['span 12']: 'md:col-start-[span_12]',
-} as const;
-const gridColEndStyles = {
-  ['span 1']: 'col-end-[span_1]',
-  ['span 2']: 'col-end-[span_2]',
-  ['span 3']: 'col-end-[span_3]',
-  ['span 4']: 'col-end-[span_4]',
-  ['span 5']: 'col-end-[span_5]',
-  ['span 6']: 'col-end-[span_6]',
-  ['span 7']: 'col-end-[span_7]',
-  ['span 8']: 'col-end-[span_8]',
-  ['span 9']: 'col-end-[span_9]',
-  ['span 10']: 'col-end-[span_10]',
-  ['span 11']: 'col-end-[span_11]',
-  ['span 12']: 'col-end-[span_12]',
-  ['-1']: 'col-end-[-1]',
-} as const;
-const gridColEndMdStyles = {
-  ['span 1']: 'md:col-end-[span_1]',
-  ['span 2']: 'md:col-end-[span_2]',
-  ['span 3']: 'md:col-end-[span_3]',
-  ['span 4']: 'md:col-end-[span_4]',
-  ['span 5']: 'md:col-end-[span_5]',
-  ['span 6']: 'md:col-end-[span_6]',
-  ['span 7']: 'md:col-end-[span_7]',
-  ['span 8']: 'md:col-end-[span_8]',
-  ['span 9']: 'md:col-end-[span_9]',
-  ['span 10']: 'md:col-end-[span_10]',
-  ['span 11']: 'md:col-end-[span_11]',
-  ['span 12']: 'md:col-end-[span_12]',
-  ['-1']: 'md:col-end-[-1]',
-} as const;
 
 /** The number of columns */
 export const NUMBER_OF_COLUMNS = 12;
@@ -107,11 +23,6 @@ export const NUMBER_OF_COLUMNS = 12;
 export const FIRST_COLUMN_POSITION = 1;
 /** Position of the last column, 1-based */
 export const LAST_COLUMN_POSITION = NUMBER_OF_COLUMNS + 1;
-/** Default values for ColumnWrap */
-const defaultGridCols = {
-  gridColStart: 'auto',
-  gridColEnd: '-1',
-} as const;
 
 const normalizeValue = <T extends number>({
   left,
@@ -199,24 +110,6 @@ export const calculateGridColumn = ({
   });
 };
 
-/** Hardcoded list of full-width column spans */
-export const GRID_COLUMN_FULL_WIDTHS = [
-  '1 / -1',
-  '1 / 12',
-  '1 / span 12',
-  'span 12',
-];
-
-export const GUTTER = '1.25rem';
-
-const gridColumnStyles = {
-  gridCol: `
-    grid
-    grid-cols-12
-    gap-5
-  `,
-};
-
 export interface GridColProps extends ColumnProps {
   position?: 'relative' | 'absolute';
 }
@@ -255,7 +148,7 @@ export const DzColumn = ({ span, start, wrap, ...rest }: ColumnProps) => {
 interface CellProps {
   className?: string;
   gridColumn?: ReturnType<typeof calculateGridColumn>;
-  display?: string[];
+  display?: Array<keyof typeof DisplayStyles>;
   children?: ReactNode;
 }
 
@@ -264,8 +157,9 @@ const Cell = (props: CellProps) => {
   const { gridColStart, gridColEnd } = gridColumn[0];
   const { gridColStart: gridColStartMd, gridColEnd: gridColEndMd } =
     gridColumn[1] ?? gridColumn[0];
-  const smWrap = display[0] ?? 'block';
-  const mdWrap = display[1] ?? display[0] ?? 'block';
+  const defaultWrapVisibility = 'block';
+  const smWrap = display[0] ?? defaultWrapVisibility;
+  const mdWrap = display[1] ?? display[0] ?? defaultWrapVisibility;
   const gridColEndNormalized = gridColEnd ? gridColEndStyles[gridColEnd] : '';
   const gridColEndMdNormalized = gridColEndMd
     ? gridColEndMdStyles[gridColEndMd]
@@ -275,8 +169,8 @@ const Cell = (props: CellProps) => {
     <div
       className={cn(
         className,
-        displayStyles[smWrap],
-        displayMdStyles[mdWrap],
+        DisplayStyles[smWrap],
+        DisplayMdStyles[mdWrap],
         gridColStartStyles[gridColStart],
         gridColStartMdStyles[gridColStartMd],
         gridColEndNormalized,
@@ -293,16 +187,12 @@ type ColumnWrapProps = {
 };
 
 const ColumnWrap = ({ gridColumnValue }: ColumnWrapProps) => {
-  const parsedValues = gridColumnValue.map(({ gridColStart, gridColEnd }) => {
-    return gridColEnd ? `${gridColStart} / ${gridColEnd}` : `${gridColStart}`;
+  const displayValues = gridColumnValue.map(({ gridColStart, gridColEnd }) => {
+    const parsedValues = gridColEnd
+      ? `${gridColStart} / ${gridColEnd}`
+      : `${gridColStart}`;
+    return GRID_COLUMN_FULL_WIDTHS.includes(parsedValues) ? 'none' : 'block';
   });
 
-  return (
-    <Cell
-      gridColumn={[defaultGridCols]}
-      display={parsedValues.map(value => {
-        return GRID_COLUMN_FULL_WIDTHS.includes(value) ? 'none' : 'block';
-      })}
-    />
-  );
+  return <Cell gridColumn={[defaultGridCols]} display={displayValues} />;
 };
