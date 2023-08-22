@@ -1,3 +1,15 @@
+# v0.0.85 (Tue Aug 22 2023)
+
+#### 🐛 Bug Fix
+
+- add hideRange prop [#141](https://github.com/Zwirner/design-system/pull/141) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.84 (Mon Aug 21 2023)
 
 #### 🐛 Bug Fix
