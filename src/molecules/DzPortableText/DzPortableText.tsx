@@ -37,7 +37,7 @@ export const DzPortableText: FC<DzPortableTextProps> = ({
   portableProps,
   customStyles,
   builder,
-  nextImage
+  nextImage,
 }) => {
   const CUSTOM_COMPONENTS = useMemo(() => {
     return {
@@ -152,7 +152,7 @@ export const DzPortableText: FC<DzPortableTextProps> = ({
         },
       },
     };
-  }, [customStyles]);
+  }, [customStyles, builder, nextImage]);
 
   return <PortableText components={CUSTOM_COMPONENTS} {...portableProps} />;
 };
