@@ -37,6 +37,7 @@ export const DzPortableText: FC<DzPortableTextProps> = ({
   portableProps,
   customStyles,
   builder,
+  nextImage
 }) => {
   const CUSTOM_COMPONENTS = useMemo(() => {
     return {
@@ -60,7 +61,7 @@ export const DzPortableText: FC<DzPortableTextProps> = ({
                     size: CardSizes['10col'],
                     media: {
                       type: MEDIA_TYPES.IMAGE,
-                      ImgElement: Image,
+                      ImgElement: nextImage,
                       imgProps: { src: imgSrc, alt, fill: true },
                     },
                     description: caption ?? '',

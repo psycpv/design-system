@@ -4,6 +4,7 @@ export interface DzPortableTextProps {
   portableProps: PortableTextProps;
   customStyles?: CustomStyles;
   builder: any;
+  nextImage: any;
 }
 
 interface CustomStyles {
