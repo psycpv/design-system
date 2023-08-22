@@ -33,7 +33,7 @@ const generalSpacer = (children: any) => {
   return null;
 };
 
-const DzPortableText: FC<DzPortableTextProps> = ({
+export const DzPortableText: FC<DzPortableTextProps> = ({
   portableProps,
   customStyles,
   builder,
