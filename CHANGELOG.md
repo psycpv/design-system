@@ -1,3 +1,15 @@
+# v0.0.86 (Tue Aug 22 2023)
+
+#### 🐛 Bug Fix
+
+- fix error via optional chaining [#142](https://github.com/Zwirner/design-system/pull/142) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.85 (Tue Aug 22 2023)
 
 #### 🐛 Bug Fix
