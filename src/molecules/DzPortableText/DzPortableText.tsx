@@ -22,16 +22,21 @@ import { DzCard, CARD_TYPES, CardSizes } from '../DzCard';
 import { styles } from './styles';
 
 const generalSpacer = (children: any) => {
-  if (children && Array.isArray(children) && children[0] === '' && children.length === 1) {
-    return <span className="block h-5 w-full" />
+  if (
+    children &&
+    Array.isArray(children) &&
+    children[0] === '' &&
+    children.length === 1
+  ) {
+    return <span className="block h-5 w-full" />;
   }
-  return null
-}
+  return null;
+};
 
 const DzPortableText: FC<DzPortableTextProps> = ({
   portableProps,
   customStyles,
-  builder
+  builder,
 }) => {
   const CUSTOM_COMPONENTS = useMemo(() => {
     return {
@@ -81,7 +86,10 @@ const DzPortableText: FC<DzPortableTextProps> = ({
             <>
               {generalSpacer(children)}
               <span
-                className={cn(styles.grayParagraph, customStyles ? customStyles['greyNote'] : '')}
+                className={cn(
+                  styles.grayParagraph,
+                  customStyles ? customStyles['greyNote'] : ''
+                )}
               >
                 {children}
               </span>
@@ -110,7 +118,10 @@ const DzPortableText: FC<DzPortableTextProps> = ({
               {generalSpacer(children)}
 
               <DzText
-                className={cn(styles.singleParagraph, customStyles ? customStyles['normal'] : '')}
+                className={cn(
+                  styles.singleParagraph,
+                  customStyles ? customStyles['normal'] : ''
+                )}
                 text={children as any}
                 textType={TEXT_TYPES.P}
               />
@@ -124,8 +135,14 @@ const DzPortableText: FC<DzPortableTextProps> = ({
             <>
               {generalSpacer(children)}
               <DzTitle
-                className={cn(styles.h1Container, customStyles ? customStyles['h1'] : '')}
-                classNameTitle={cn(styles.h1, customStyles ? customStyles['h1-title'] : '')}
+                className={cn(
+                  styles.h1Container,
+                  customStyles ? customStyles['h1'] : ''
+                )}
+                classNameTitle={cn(
+                  styles.h1,
+                  customStyles ? customStyles['h1-title'] : ''
+                )}
                 title={children}
                 titleType={TITLE_TYPES.H1}
               />

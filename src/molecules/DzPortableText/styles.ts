@@ -31,5 +31,5 @@ export const styles: any = {
   link: `
     @apply text-sm
     md:text-md
-  `
+  `,
 };
