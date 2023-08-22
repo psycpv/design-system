@@ -12,7 +12,7 @@ export const collectHours = (location: LocationData): Array<string> => {
   location.hours.forEach(locationHourData => {
     const { availableTimes } = locationHourData;
 
-    availableTimes.forEach(({ from, to }) => {
+    availableTimes?.forEach(({ from, to }) => {
       const fromToKey = `${from}-${to}`;
       let locationHourDatas = hoursToLHD[fromToKey];
 
