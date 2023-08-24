@@ -156,7 +156,13 @@ export const DzPill: FC<DzPillProps> = ({
   const hoverClass = disabled ? '' : styles.titleHover;
   return (
     <div
-      className={cn(styles.pill, styles?.[variant], activeClass, disabledClass, className)}
+      className={cn(
+        styles.pill,
+        styles?.[variant],
+        activeClass,
+        disabledClass,
+        className
+      )}
       onClick={onClickPill}
     >
       {statusRender}
@@ -165,7 +171,7 @@ export const DzPill: FC<DzPillProps> = ({
           styles.title,
           hoverClass,
           styles.titleStyle?.[variant],
-          activeClassText,
+          activeClassText
         )}
       >
         {title}
