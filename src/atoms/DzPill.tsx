@@ -29,7 +29,7 @@ export interface DzPillProps {
 const styles: any = {
   active: `
     bg-white-100
-    ring-black-100
+    !ring-black-100
   `,
   disabled: `
     !ring-black-10
