@@ -30,6 +30,7 @@ export const cards = [
         variant: BUTTON_VARIANTS.TERTIARY,
       },
     },
+    slug: '/artwork/see-the-true-work-of-angels-2023-d7e3b',
   },
   {
     id: '2',
@@ -46,7 +47,7 @@ export const cards = [
     artworkTitle: 'Artwork Title',
     artworkYear: 'YEAR',
     medium: 'Monotype on Plike paper',
-    dimensions: '13 x 12 inches (33 x 30.5 cm)',
+    dimensions: '"13 x 12 inches (33 x 30.5 cm)"',
     edition: 'Edition 1 of 5, 2AP',
     price: 2000,
     framed: 'Unframed',
@@ -59,6 +60,7 @@ export const cards = [
         variant: BUTTON_VARIANTS.TERTIARY,
       },
     },
+    slug: '/artwork/puritan-theorem-1991-e83a3',
   },
   {
     id: '3',

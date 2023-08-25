@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import {
   DzMedia,
   DzText,
@@ -9,6 +9,7 @@ import {
   MEDIA_OBJECT_FIT,
   MEDIA_ASPECT_RATIOS,
   BUTTON_SIZES,
+  DzLink,
 } from '../../../atoms';
 import { cn } from '../../../utils/classnames';
 import { priceFormatter } from '../../../utils/formatters';
@@ -60,14 +61,29 @@ export const CardArtwork: FC<CardArtworkProps> = ({
     return mergeStyles(globalStyles, stylesSizes[viewport][span]);
   }, [size, isSmall, viewport]);
 
-  return (
-    <div id={id} className={cn(styles.cardContainer)}>
+  const renderWithLink = useCallback(
+    children => {
+      if (data?.slug) {
+        return (
+          <DzLink href={data?.slug} withoutStyle>
+            {children}
+          </DzLink>
+        );
+      }
+      return children;
+    },
+    [data]
+  );
+
+  return renderWithLink(
+    <div id={id} className={cn(styles.cardContainer, 'group')}>
       <DzMedia
         className="overflow-hidden"
         imgClass={cn(
           styles.mediaImg,
           imageStyles,
-          enableZoom ? styles.mediaZoom : ''
+          enableZoom ? styles.mediaZoom : '',
+          'md:group-hover:scale-[1.03]'
         )}
         objectFit={MEDIA_OBJECT_FIT.CONTAIN}
         aspectRatio={MEDIA_ASPECT_RATIOS['4:3']}
