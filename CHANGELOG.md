@@ -1,3 +1,15 @@
+# v0.0.87 (Fri Aug 25 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-109 Artwork Records in Tile View should click through to Artwork Detail Pages [#130](https://github.com/Zwirner/design-system/pull/130) ([@romulo114](https://github.com/romulo114))
+
+#### Authors: 1
+
+- Romulo Benjamim ([@romulo114](https://github.com/romulo114))
+
+---
+
 # v0.0.86 (Tue Aug 22 2023)
 
 #### 🐛 Bug Fix
