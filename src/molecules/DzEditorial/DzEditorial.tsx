@@ -10,7 +10,7 @@ export enum EDITORIAL_TYPES {
   COMPLEX = 'complex',
   QUOTE = 'quote',
   LEFT_BLOCK = 'left-block',
-};
+}
 
 export const EDITORIAL_TYPES_NAMES = [
   EDITORIAL_TYPES.SIMPLE,
