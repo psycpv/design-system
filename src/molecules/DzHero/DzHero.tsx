@@ -121,7 +121,7 @@ const MediaWrapper = ({ children, activeIndex, onSlideChanged }) => {
 
   useEffect(() => {
     if (children.length > 1)
-      swiperElRef.current?.swiper.slideToLoop(activeIndex);
+      swiperElRef.current?.swiper?.slideToLoop(activeIndex);
 
     swiperElRef?.current?.addEventListener('transitionend', () => {
       onSlideChanged(swiperElRef?.current?.swiper.activeIndex);

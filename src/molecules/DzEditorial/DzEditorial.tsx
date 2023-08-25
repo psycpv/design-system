@@ -9,7 +9,7 @@ export enum EDITORIAL_TYPES {
   SIMPLE = 'simple',
   COMPLEX = 'complex',
   QUOTE = 'quote',
-  LEFT_BLOCK = 'left-block',
+  LEFT_BLOCK = 'leftBlock',
 }
 
 export const EDITORIAL_TYPES_NAMES = [
