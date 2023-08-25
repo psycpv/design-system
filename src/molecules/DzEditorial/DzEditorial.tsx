@@ -5,11 +5,12 @@ import { EditorialSimple, EditorialSimpleProps } from './EditorialSimple';
 import { EditorialQuote, EditorialQuoteProps } from './EditorialQuote';
 export { EDITORIAL_TEXT_TYPES, EDITORIAL_TEXT_NAMES } from './EditorialText';
 
-export const EDITORIAL_TYPES = {
-  SIMPLE: 'simple',
-  COMPLEX: 'complex',
-  QUOTE: 'quote',
-};
+export enum EDITORIAL_TYPES {
+  SIMPLE = 'simple',
+  COMPLEX = 'complex',
+  QUOTE = 'quote',
+  LEFT_BLOCK = 'leftBlock',
+}
 
 export const EDITORIAL_TYPES_NAMES = [
   EDITORIAL_TYPES.SIMPLE,
@@ -17,14 +18,13 @@ export const EDITORIAL_TYPES_NAMES = [
   EDITORIAL_TYPES.QUOTE,
 ] as const;
 
-export type EditorialType = typeof EDITORIAL_TYPES_NAMES[number];
 export type DzEditorialDataType =
   | EditorialComplexProps
   | EditorialSimpleProps
   | EditorialQuoteProps;
 
 export interface DzEditorialProps {
-  type: EditorialType;
+  type: EDITORIAL_TYPES;
   data: DzEditorialDataType;
 }
 
@@ -32,6 +32,10 @@ export const DzEditorial: FC<DzEditorialProps> = ({ type, data }) => {
   if (type === EDITORIAL_TYPES.SIMPLE) {
     const { paragraphs = [] } = (data as EditorialSimpleProps) ?? {};
     return <EditorialSimple paragraphs={paragraphs} />;
+  }
+  if (type === EDITORIAL_TYPES.LEFT_BLOCK) {
+    const { paragraphs = [] } = (data as EditorialSimpleProps) ?? {};
+    return <EditorialSimple paragraphs={paragraphs} isWide />;
   }
   if (type === EDITORIAL_TYPES.COMPLEX) {
     const { media, paragraphs = [], reverse = false } =

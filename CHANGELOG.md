@@ -1,3 +1,27 @@
+# v0.0.90 (Fri Aug 25 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 58 ex landing now open [#134](https://github.com/Zwirner/design-system/pull/134) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.89 (Fri Aug 25 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB 82 Design System & Web: Refactor 6 cols Editorial molecule to 8 cols [#122](https://github.com/Zwirner/design-system/pull/122) ([@romulo114](https://github.com/romulo114))
+
+#### Authors: 1
+
+- Romulo Benjamim ([@romulo114](https://github.com/romulo114))
+
+---
+
 # v0.0.88 (Fri Aug 25 2023)
 
 #### 🐛 Bug Fix

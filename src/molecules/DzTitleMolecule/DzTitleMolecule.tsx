@@ -26,6 +26,7 @@ export interface DzTitlePageProps {
   descriptionColSpan?: ColumnSpan;
   fullLeftContainer?: boolean;
   customCTAContainerProps?: ColumnProps;
+  isWide?: boolean;
   disableMaxTitleLength?: boolean;
 }
 

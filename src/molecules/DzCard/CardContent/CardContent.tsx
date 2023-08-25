@@ -42,6 +42,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
     enableZoom = false,
     cardLink,
     viewport = CardViewport.Desktop,
+    containerClassName = ' ',
     ...rest
   } = data as CardContentData;
   const restProps = camelCaseItemProps(rest);
@@ -88,7 +89,11 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
   }, []);
 
   return renderWithLink(
-    <div {...restProps} id={id} className={cn(styles.cardContainer)}>
+    <div
+      {...restProps}
+      id={id}
+      className={cn(styles.cardContainer, containerClassName)}
+    >
       {!hideImage && media ? (
         <DzMedia
           className={enableZoom ? 'overflow-hidden' : ''}
@@ -141,7 +146,8 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
               titleType={TITLE_TYPES.P}
               subtitle={secondarySubtitle}
               subtitleType={TITLE_TYPES.P}
-              titleSize={TITLE_SIZES.SM}
+              titleSize={TITLE_SIZES.MD}
+              subtitleSize={TITLE_SIZES.MD}
             />
           ) : null}
 

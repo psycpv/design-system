@@ -36,3 +36,6 @@ DzEditorialComplexLeftImage.args = {
 
 export const DzEditorialQuote = Template.bind({});
 DzEditorialQuote.args = { type: EDITORIAL_TYPES.QUOTE, data: quote };
+
+export const DzEditorialLeftBlock = Template.bind({});
+DzEditorialLeftBlock.args = { type: EDITORIAL_TYPES.LEFT_BLOCK, data: simple, isWide: true };
