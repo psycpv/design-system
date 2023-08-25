@@ -22,12 +22,19 @@ const styles: any = {
     flex-col
     gap-5
     md:flex-row
+    `,
+  titleColsContainer: `
+    grid
+    grid-cols-12
   `,
   leftContainer: `
     w-full
     flex
     flex-col
     gap-2.5
+  `,
+  leftContainerWide: `
+    col-span-8
   `,
   fullLeft: `
     basis-full
@@ -41,6 +48,9 @@ const styles: any = {
     basis-1/2
     gap-5
     md:gap-0
+  `,
+  rightContainerWide: `
+    col-span-4
   `,
   titleClassContainer: `
     w-full
@@ -86,14 +96,22 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
   linkCTA,
   fullLeftContainer = false,
   customCTAContainerProps = {},
+  isWide = false,
   disableMaxTitleLength,
 }) => {
   return (
-    <div className={cn(styles.titleContainer, customClass)}>
+    <div
+      className={cn(
+        styles.titleContainer,
+        customClass,
+        isWide ? styles.titleColsContainer : ''
+      )}
+    >
       <div
         className={cn(
           styles.leftContainer,
-          fullLeftContainer ? styles.fullLeft : styles.halfLeft
+          fullLeftContainer ? styles.fullLeft : styles.halfLeft,
+          isWide ? styles.leftContainerWide : ''
         )}
       >
         {category ? <DzText text={category} /> : null}
@@ -111,7 +129,12 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
         />
       </div>
       {description || primaryCTA || linkCTA ? (
-        <div className={cn(styles.rightContainer)}>
+        <div
+          className={cn(
+            styles.rightContainer,
+            isWide ? styles.rightContainerWide : ''
+          )}
+        >
           <DzText
             className={cn(styles.description)}
             text={
