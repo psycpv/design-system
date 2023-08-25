@@ -19,6 +19,7 @@ export interface DzTitleExhibitionProps {
   showCoordinates?: boolean;
   pressReleasePDFURL?: string;
   title: string;
+  subtitle?: string;
   subpageTitle?: string;
 }
 
@@ -68,6 +69,9 @@ const styles: any = {
     mb-[2.5rem]
     md:mb-0
   `,
+  addressLine: `
+    inline-block    
+  `,
 };
 
 export enum EXHIBITION_STATES {
@@ -94,11 +98,14 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   pressReleasePDFURL,
   showCoordinates = false,
   title,
+  subtitle,
   subpageTitle,
 }) => {
-  const isSmall = useIsSmallWindowSize();
   const locationHours = location ? collectHours(location) : '';
-  const titleText = `${title}${subpageTitle ? ` — ${subpageTitle}` : ''}`;
+  const isSmall = useIsSmallWindowSize();
+  const titleText = `${title}${subtitle ? `: ${subtitle}` : ''}${
+    subpageTitle ? ` — ${subpageTitle}` : ''
+  }`;
 
   return (
     <>
@@ -114,6 +121,7 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
           start: 1,
         }}
         fullLeftContainer
+        disableMaxTitleLength
       />
       {showCoordinates && (
         <DzGridColumns className={styles.container}>
@@ -169,17 +177,32 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
                   <DzLink href={location.url} target="_blank">
                     <DzText
                       text={location.address.addressLine}
-                      className={cn(styles.mdText, styles.black60Text)}
+                      className={cn(
+                        styles.mdText,
+                        styles.black60Text,
+                        styles.addressLine
+                      )}
+                      style={{ textDecoration: 'inherit' }}
                     />
                     {location.address.addressLine2 && (
                       <DzText
                         text={location.address.addressLine2}
-                        className={cn(styles.mdText, styles.black60Text)}
+                        className={cn(
+                          styles.mdText,
+                          styles.black60Text,
+                          styles.addressLine
+                        )}
+                        style={{ textDecoration: 'inherit' }}
                       />
                     )}
                     <DzText
                       text={`${location.address.country}, ${location.address.zipCode}`}
-                      className={cn(styles.mdText, styles.black60Text)}
+                      className={cn(
+                        styles.mdText,
+                        styles.black60Text,
+                        styles.addressLine
+                      )}
+                      style={{ textDecoration: 'inherit' }}
                     />
                   </DzLink>
                   <DzText
