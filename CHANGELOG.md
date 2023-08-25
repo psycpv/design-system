@@ -1,3 +1,15 @@
+# v0.0.89 (Fri Aug 25 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB 82 Design System & Web: Refactor 6 cols Editorial molecule to 8 cols [#122](https://github.com/Zwirner/design-system/pull/122) ([@romulo114](https://github.com/romulo114))
+
+#### Authors: 1
+
+- Romulo Benjamim ([@romulo114](https://github.com/romulo114))
+
+---
+
 # v0.0.88 (Fri Aug 25 2023)
 
 #### 🐛 Bug Fix
