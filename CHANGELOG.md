@@ -1,3 +1,15 @@
+# v0.0.88 (Fri Aug 25 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 736 exhibitions detail launch [#133](https://github.com/Zwirner/design-system/pull/133) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.87 (Fri Aug 25 2023)
 
 #### 🐛 Bug Fix
