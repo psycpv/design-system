@@ -36,7 +36,24 @@ const styles: any = {
   `,
   desktop: `
     px-5
-    py-2.5
+    h-[1.875rem]
+    border-gray-300
+    text-black-80
+    ring-black-40
+    hover:ring-black-60
+    hover:bg-white-100
+    hover:underline
+    hover:decoration-black-60
+    focus:ring-black-60
+    focus:bg-white-100
+    focus:underline
+    focus:decoration-black-60
+    active:ring-black-60
+    active:bg-white-100
+    active:decoration-black-100
+    active:text-black-100
+    active:ring-black-60
+    active:text-black-100
   `,
   mobile: `
     px-5
@@ -86,7 +103,8 @@ const styles: any = {
       text-md
     `,
     desktop: `
-      text-sm
+      text-xs
+      decoration-black-60
     `,
     mobile: `
       text-xs

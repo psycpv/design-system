@@ -1,3 +1,99 @@
+# v0.0.88 (Fri Aug 25 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 736 exhibitions detail launch [#133](https://github.com/Zwirner/design-system/pull/133) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.87 (Fri Aug 25 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-109 Artwork Records in Tile View should click through to Artwork Detail Pages [#130](https://github.com/Zwirner/design-system/pull/130) ([@romulo114](https://github.com/romulo114))
+
+#### Authors: 1
+
+- Romulo Benjamim ([@romulo114](https://github.com/romulo114))
+
+---
+
+# v0.0.86 (Tue Aug 22 2023)
+
+#### 🐛 Bug Fix
+
+- fix error via optional chaining [#142](https://github.com/Zwirner/design-system/pull/142) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.85 (Tue Aug 22 2023)
+
+#### 🐛 Bug Fix
+
+- add hideRange prop [#141](https://github.com/Zwirner/design-system/pull/141) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.84 (Mon Aug 21 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-118: Glitch seen upon page load [#129](https://github.com/Zwirner/design-system/pull/129) ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+#### Authors: 1
+
+- Sergei ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+---
+
+# v0.0.83 (Mon Aug 21 2023)
+
+#### 🐛 Bug Fix
+
+- Remove license [#138](https://github.com/Zwirner/design-system/pull/138) ([@tabuchid](https://github.com/tabuchid))
+
+#### Authors: 1
+
+- Doug Tabuchi ([@tabuchid](https://github.com/tabuchid))
+
+---
+
+# v0.0.82 (Wed Aug 16 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB 80 Design System > Atoms: Update the style for Desktop Pill [#121](https://github.com/Zwirner/design-system/pull/121) ([@romulo114](https://github.com/romulo114))
+
+#### Authors: 1
+
+- Romulo Benjamim ([@romulo114](https://github.com/romulo114))
+
+---
+
+# v0.0.81 (Tue Aug 15 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-154, NWEB-129 exhibitions detail launch [#132](https://github.com/Zwirner/design-system/pull/132) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.80 (Thu Aug 10 2023)
 
 #### 🐛 Bug Fix

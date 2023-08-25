@@ -4,7 +4,6 @@ import { ColumnProps } from '../../layout/DzGrid';
 import { DzTitlePage } from './DzTitlePage';
 import { DzTitleSection } from './DzTitleSection';
 import { DzTitleMol } from './DzTitleMol';
-import DzTitleExhibition, { DzTitleExhibitionProps } from './DzTitleExhibition';
 import { ColumnSpan } from '../../layout';
 
 export enum DzTitleMoleculeTypes {
@@ -28,13 +27,13 @@ export interface DzTitlePageProps {
   fullLeftContainer?: boolean;
   customCTAContainerProps?: ColumnProps;
   isWide?: boolean;
+  disableMaxTitleLength?: boolean;
 }
 
 export interface DzMoleculeTitleCTA {
-  ctaProps?: DzButtonProps & { supertitle?: string };
+  ctaProps?: DzButtonProps;
   title: string;
   description?: string;
-  supertitle?: string;
 }
 
 export interface DzTitleSectionProps {
@@ -72,10 +71,6 @@ export const DzTitleMolecule: FC<DzTitleMoleculeProps> = ({
 
   if (type === DzTitleMoleculeTypes.MOLECULE) {
     return <DzTitleMol {...(data as DzTitleSectionProps)} />;
-  }
-
-  if (type === DzTitleMoleculeTypes.EXHIBITION) {
-    return <DzTitleExhibition {...(data as DzTitleExhibitionProps)} />;
   }
 
   return <div>Not supported type</div>;

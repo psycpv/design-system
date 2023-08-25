@@ -10,7 +10,7 @@ import {
   DzLink,
 } from '../../atoms';
 import { cn } from '../../utils/classnames';
-import { ColumnSpan, DzColumn, DzGridColumns } from '../../layout';
+import { DzColumn, DzGridColumns } from '../../layout';
 import { sliceMaxCharLength } from '../../utils/validators';
 import { DzTitlePageProps } from './DzTitleMolecule';
 
@@ -90,7 +90,6 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
   title,
   subtitle,
   description,
-  descriptionColSpan = 4,
   titleProps = DEFAULT_TITLE_PROPS,
   primaryCTA,
   customClass = '',
@@ -98,6 +97,7 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
   fullLeftContainer = false,
   customCTAContainerProps = {},
   isWide = false,
+  disableMaxTitleLength,
 }) => {
   return (
     <div
@@ -121,7 +121,11 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
           classNameSubtitle={cn(styles.title)}
           {...titleProps}
           subtitle={sliceMaxCharLength(subtitle, CHARACTER_LIMIT_TITLE)}
-          title={sliceMaxCharLength(title, CHARACTER_LIMIT_TITLE)}
+          title={
+            disableMaxTitleLength
+              ? title
+              : sliceMaxCharLength(title, CHARACTER_LIMIT_TITLE)
+          }
         />
       </div>
       {description || primaryCTA || linkCTA ? (
@@ -141,32 +145,20 @@ export const DzTitlePage: FC<DzTitlePageProps> = ({
           />
           {primaryCTA ? (
             <DzGridColumns>
-              <DzColumn
-                span={descriptionColSpan}
-                start={(13 - descriptionColSpan) as ColumnSpan}
-                {...customCTAContainerProps}
-              >
+              <DzColumn span={4} start={9} {...customCTAContainerProps}>
                 {primaryCTA.description ? (
                   <DzText
                     className="mb-[0.3125rem] text-black-60"
                     text={primaryCTA.description}
                   />
                 ) : null}
-                <div>
-                  {primaryCTA.supertitle ? (
-                    <DzText
-                      className={styles.primaryCTASupertitle}
-                      text={primaryCTA.supertitle}
-                    />
-                  ) : null}
-                  <DzButton
-                    className="w-full"
-                    {...primaryCTA.ctaProps}
-                    size={BUTTON_SIZES.LARGE}
-                  >
-                    {primaryCTA.title}
-                  </DzButton>
-                </div>
+                <DzButton
+                  className="w-full"
+                  {...primaryCTA.ctaProps}
+                  size={BUTTON_SIZES.LARGE}
+                >
+                  {primaryCTA.title}
+                </DzButton>
               </DzColumn>
             </DzGridColumns>
           ) : null}

@@ -5,11 +5,11 @@ import { EditorialSimple, EditorialSimpleProps } from './EditorialSimple';
 import { EditorialQuote, EditorialQuoteProps } from './EditorialQuote';
 export { EDITORIAL_TEXT_TYPES, EDITORIAL_TEXT_NAMES } from './EditorialText';
 
-export const EDITORIAL_TYPES = {
-  SIMPLE: 'simple',
-  COMPLEX: 'complex',
-  QUOTE: 'quote',
-  LEFT_BLOCK: 'left-block',
+export enum EDITORIAL_TYPES {
+  SIMPLE = 'simple',
+  COMPLEX = 'complex',
+  QUOTE = 'quote',
+  LEFT_BLOCK = 'left-block',
 };
 
 export const EDITORIAL_TYPES_NAMES = [
@@ -18,14 +18,13 @@ export const EDITORIAL_TYPES_NAMES = [
   EDITORIAL_TYPES.QUOTE,
 ] as const;
 
-export type EditorialType = typeof EDITORIAL_TYPES_NAMES[number];
 export type DzEditorialDataType =
   | EditorialComplexProps
   | EditorialSimpleProps
   | EditorialQuoteProps;
 
 export interface DzEditorialProps {
-  type: EditorialType;
+  type: EDITORIAL_TYPES;
   data: DzEditorialDataType;
 }
 
