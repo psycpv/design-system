@@ -1,3 +1,15 @@
+# v0.0.91 (Fri Aug 25 2023)
+
+#### 🐛 Bug Fix
+
+- rename EDITORIAL_TYPES to EditorialType [#144](https://github.com/Zwirner/design-system/pull/144) ([@romulo114](https://github.com/romulo114))
+
+#### Authors: 1
+
+- Romulo Benjamim ([@romulo114](https://github.com/romulo114))
+
+---
+
 # v0.0.90 (Fri Aug 25 2023)
 
 #### 🐛 Bug Fix
