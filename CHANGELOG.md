@@ -1,3 +1,15 @@
+# v0.0.93 (Tue Aug 29 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-241 Move DzPortableText component from Web to DesignSystem and Refactor Web application [#140](https://github.com/Zwirner/design-system/pull/140) ([@romulo114](https://github.com/romulo114))
+
+#### Authors: 1
+
+- Romulo Benjamim ([@romulo114](https://github.com/romulo114))
+
+---
+
 # v0.0.92 (Tue Aug 29 2023)
 
 #### 🐛 Bug Fix
