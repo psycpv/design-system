@@ -1,3 +1,15 @@
+# v0.0.94 (Tue Aug 29 2023)
+
+#### 🐛 Bug Fix
+
+- refactor prop for hiding controls in DzComplexGrid [#148](https://github.com/Zwirner/design-system/pull/148) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.93 (Tue Aug 29 2023)
 
 #### 🐛 Bug Fix
