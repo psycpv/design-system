@@ -129,6 +129,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
             className={cn(styles.titleWrapper)}
             title={title}
             titleSize={TITLE_SIZES.LG}
+            subtitleSize={TITLE_SIZES.LG}
             classNameTitle={cn(styles.title)}
             classNameSubtitle={cn(styles.title)}
             titleType={titleType}
