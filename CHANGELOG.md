@@ -1,3 +1,15 @@
+# v0.0.92 (Tue Aug 29 2023)
+
+#### 🐛 Bug Fix
+
+- fix primary subtitle size [#145](https://github.com/Zwirner/design-system/pull/145) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.91 (Fri Aug 25 2023)
 
 #### 🐛 Bug Fix
