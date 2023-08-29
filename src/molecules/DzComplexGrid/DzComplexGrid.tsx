@@ -47,7 +47,7 @@ type RichCard = Omit<DataCardType, 'size'> & ExtraData;
 export interface DzComplexGridProps {
   cards: RichCard[];
   steps?: StepInterface[];
-  hideRange?: boolean;
+  hideControls?: boolean;
   displayNumberOfResults?: boolean;
   headingTitle?: string;
   maxItemsPerRow?: number;
@@ -121,7 +121,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   steps = DEFAULT_STEPS,
   headingTitle = 'Artworks',
   displayNumberOfResults = false,
-  hideRange = false,
+  hideControls = false,
   maxItemsPerRow = steps.length,
   textProps,
   useLink = false,
@@ -172,16 +172,17 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
     return displayNumberOfResults ? resultsTitle : text;
   }, [displayNumberOfResults, numberOfResults, headingTitle, textProps]);
 
-  const hideControls = useMemo(
+  const hideControlsContainer = useMemo(
     () =>
-      !displayText &&
-      !(!isMobile && maximumValue !== 1) &&
-      !(useLink && linkCTA),
-    [displayText, useLink, linkCTA, maximumValue, isMobile]
+      hideControls ||
+      (!displayText &&
+        !(!isMobile && maximumValue !== 1) &&
+        !(useLink && linkCTA)),
+    [displayText, useLink, linkCTA, maximumValue, isMobile, hideControls]
   );
   return (
     <div>
-      {!hideControls ? (
+      {!hideControlsContainer ? (
         <div className={styles.headControls}>
           {displayText ? (
             <DzText
@@ -191,7 +192,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
             />
           ) : null}
 
-          {!hideRange && !isMobile && maximumValue !== 1 ? (
+          {!hideControls && !isMobile && maximumValue !== 1 ? (
             !useLink ? (
               <div className={cn(styles.rangeContainer)}>
                 <DzText text="View:" />
