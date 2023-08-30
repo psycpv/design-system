@@ -1,6 +1,6 @@
 export interface AddressData {
   addressLine: string;
-  addressLine2: string;
+  addressLine2?: string;
   city: string;
   country: string;
   state: string;
