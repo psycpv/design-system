@@ -124,7 +124,7 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
       />
       {showCoordinates && (
         <DzGridColumns className={styles.container}>
-          <DzColumn span={[12, 3]}>
+          <DzColumn span={[12, 4]}>
             <div className={styles.infoColumnContainer}>
               <DzText
                 className={styles.infoColumnTitle}
@@ -164,7 +164,7 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
               </div>
             </DzColumn>
           )}
-          <DzColumn span={[12, 3]}>
+          <DzColumn span={[12, 4]}>
             {location?.address && (
               <div className={styles.infoColumnContainer}>
                 <DzText className={styles.infoColumnTitle} text={'Location'} />
@@ -191,12 +191,14 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
               </div>
             )}
           </DzColumn>
-          <DzColumn span={[12, 3]}>
+          {/*
+          <DzColumn span={[12, 4]}>
             <div className={styles.infoColumnContainer}>
-              {/* TODO secondary gallery location here */}
+              TODO: second gallery location here
             </div>
           </DzColumn>
-          <DzColumn span={[12, 3]}>
+          */}
+          <DzColumn span={[12, 4]}>
             <div className={styles.infoColumnContainer}>
               <DzText className={styles.infoColumnTitle} text="Artists" />
               <div className={styles.infoColumnBody}>
