@@ -152,7 +152,7 @@ export const DzPortableText: FC<DzPortableTextProps> = ({
         },
       },
     };
-  }, [customStyles, builder, nextImage]);
+  }, [customStyles, builder, ImgElement]);
 
   return <PortableText components={CUSTOM_COMPONENTS} {...portableProps} />;
 };
