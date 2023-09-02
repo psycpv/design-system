@@ -34,7 +34,8 @@ const styles: any = {
     gap-2.5
   `,
   leftContainerWide: `
-    col-span-8
+    col-span-12
+    md:col-span-8
   `,
   fullLeft: `
     basis-full
@@ -50,7 +51,8 @@ const styles: any = {
     md:gap-0
   `,
   rightContainerWide: `
-    col-span-4
+    col-span-12
+    md:col-span-4
   `,
   titleClassContainer: `
     w-full
