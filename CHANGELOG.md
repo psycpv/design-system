@@ -1,3 +1,27 @@
+# v0.0.96 (Thu Aug 31 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-241 Refactor DzPortableText component [#152](https://github.com/Zwirner/design-system/pull/152) ([@romulo114](https://github.com/romulo114))
+
+#### Authors: 1
+
+- Romulo Benjamim ([@romulo114](https://github.com/romulo114))
+
+---
+
+# v0.0.95 (Thu Aug 31 2023)
+
+#### ⚠️ Pushed to `main`
+
+- test ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
 # v0.0.94 (Tue Aug 29 2023)
 
 #### 🐛 Bug Fix
