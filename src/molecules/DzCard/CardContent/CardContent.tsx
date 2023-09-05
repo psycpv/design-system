@@ -42,7 +42,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
     enableZoom = false,
     cardLink,
     viewport = CardViewport.Desktop,
-    containerClassName = ' ',
+    isDisabled = false,
     ...rest
   } = data as CardContentData;
   const restProps = camelCaseItemProps(rest);
@@ -92,7 +92,10 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
     <div
       {...restProps}
       id={id}
-      className={cn(styles.cardContainer, containerClassName)}
+      className={cn(
+        styles.cardContainer,
+        isDisabled ? 'transition-opacity duration-200 opacity-20' : ''
+      )}
     >
       {!hideImage && media ? (
         <DzMedia
