@@ -1,3 +1,15 @@
+# v0.0.97 (Wed Sep 06 2023)
+
+#### 🐛 Bug Fix
+
+- refactor containerClassName to isDisabled prop [#154](https://github.com/Zwirner/design-system/pull/154) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.96 (Thu Aug 31 2023)
 
 #### 🐛 Bug Fix
