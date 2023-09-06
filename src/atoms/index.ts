@@ -12,6 +12,7 @@ export * from './DzLabel';
 export * from './DzLink';
 export * from './DzLogo';
 export * from './DzModal';
+export * from './DzModalContainer';
 export * from './DzModalPopover';
 export * from './DzPagination';
 export * from './DzPill';
