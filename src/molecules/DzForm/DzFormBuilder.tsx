@@ -1,6 +1,7 @@
 import React, { FC, Fragment } from 'react';
 import {
   DzText,
+  DzTextBox,
   DzButton,
   DzInputText,
   DzSelect,
@@ -43,6 +44,9 @@ const styles: any = {
     md:ml-auto
     w-[20.9375rem]  
   `,
+  ctaContainer: `
+    flex
+  `,
 };
 
 const atomsPerType = {
@@ -54,6 +58,12 @@ const atomsPerType = {
   },
   uploader: data => {
     return <DzFileUploader {...data} />;
+  },
+  text: text => {
+    return <DzText text={text} />;
+  },
+  textbox: data => {
+    return <DzTextBox {...data} />;
   },
 };
 
@@ -128,15 +138,20 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
           );
         })}
       </div>
-      <DzButton
-        {...CTAProps}
-        className={cn(styles.ctaButton)}
-        size={BUTTON_SIZES.LARGE}
-        onClick={onClick ?? formAction}
-        form={formName}
-      >
-        {CTAText}
-      </DzButton>
+      <div className={cn(styles.ctaContainer)}>
+        {CTAProps.description && (
+          <DzText text={CTAProps.description} className="flex-1" />
+        )}
+        <DzButton
+          {...CTAProps}
+          className={cn(styles.ctaButton)}
+          size={BUTTON_SIZES.LARGE}
+          onClick={onClick ?? formAction}
+          form={formName}
+        >
+          {CTAText}
+        </DzButton>
+      </div>
     </div>
   );
 };
