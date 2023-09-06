@@ -6,8 +6,19 @@ export const splitLocationAddressLines = (
   if (!location) {
     return [];
   }
-  const { addressLine, addressLine2, city, state, zipCode } = location;
+  const {
+    addressLine,
+    addressLine2,
+    city,
+    country,
+    reverseZipAndCity,
+    state,
+    zipCode,
+  } = location;
 
+  if (country === 'Hong Kong') {
+    return [`${addressLine}, ${addressLine2}`, `${city}, ${country}`];
+  }
   switch (city) {
     case 'New York':
       if (addressLine.includes('20th')) {
@@ -15,7 +26,7 @@ export const splitLocationAddressLines = (
           ? [`${addressLine}, ${addressLine2}`, `${city}, ${state} ${zipCode}`]
           : [addressLine, `${city}, ${state} ${zipCode}`];
       }
-      return [addressLine, `${city}, ${state} ${zipCode}`, 'USA'];
+      return [addressLine, `${city}, ${state} ${zipCode}`];
     case 'Los Angeles':
       return [addressLine, `${city}, CA ${zipCode}`];
     case 'London':
@@ -23,9 +34,10 @@ export const splitLocationAddressLines = (
         ? [`${addressLine}, ${addressLine2}`, `${city} ${zipCode}`]
         : [addressLine, `${city} ${zipCode}`];
     case 'Paris':
+      if (reverseZipAndCity) {
+        return [addressLine, `${zipCode} ${city}`];
+      }
       return [addressLine, `${city} ${zipCode}`];
-    case 'Hong Kong':
-      return [addressLine, city];
   }
   return [addressLine, `${city}, ${state} ${zipCode}`];
 };

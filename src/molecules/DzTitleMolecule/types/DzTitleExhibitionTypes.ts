@@ -4,6 +4,7 @@ export interface AddressData {
   city: string;
   country: string;
   state: string;
+  reverseZipAndCity?: boolean;
   zipCode: string;
 }
 export interface AvailableTimeData {
