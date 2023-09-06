@@ -13,12 +13,14 @@ export const FORM_FIELD_TYPES = {
   INPUT: 'input',
   SELECT: 'select',
   UPLOADER: 'uploader',
+  TEXTBOX: 'textbox',
 };
 
 export interface DzFormProps {
   steps: any[];
-  mediaProps: DzMediaProps;
+  mediaProps?: DzMediaProps;
   onSubmit: any;
+  showStepsCount?: boolean;
 }
 const styles: any = {
   formContainer: `
@@ -33,6 +35,9 @@ const styles: any = {
   rightContainer: `
     md:basis-1/2
   `,
+  fullContainer: `
+    flex-1
+  `,
   contextContainer: `
     flex
     gap-2.5
@@ -44,7 +49,12 @@ const styles: any = {
   `,
 };
 
-export const DzForm: FC<DzFormProps> = ({ steps, mediaProps, onSubmit }) => {
+export const DzForm: FC<DzFormProps> = ({
+  steps,
+  mediaProps,
+  onSubmit,
+  showStepsCount = true,
+}) => {
   const [currentStep, setCurrentStep] = useState(1);
   const stepsLength = useMemo(() => steps.length, [steps]);
   const stepFormData = useMemo(() => {
@@ -69,19 +79,30 @@ export const DzForm: FC<DzFormProps> = ({ steps, mediaProps, onSubmit }) => {
 
   return (
     <div className={cn(styles.formContainer)}>
-      <div className={cn(styles.leftContainer)}>
-        <DzMedia {...mediaProps} aspectRatio={MEDIA_ASPECT_RATIOS['4:3']} />
-      </div>
-      <div className={cn(styles.rightContainer)}>
-        <div className={cn(styles.contextContainer)}>
-          {currentStep > 1 ? (
-            <div className={cn(styles.prevChevron)} onClick={handlePrevAction}>
-              <ChevronLeft />
-            </div>
-          ) : null}
-
-          <DzText text={`Step ${currentStep} of ${stepsLength}`} />
+      {mediaProps && (
+        <div className={cn(styles.leftContainer)}>
+          <DzMedia {...mediaProps} aspectRatio={MEDIA_ASPECT_RATIOS['4:3']} />
         </div>
+      )}
+      <div
+        className={cn(
+          mediaProps ? styles.rightContainer : styles.fullContainer
+        )}
+      >
+        {showStepsCount && (
+          <div className={cn(styles.contextContainer)}>
+            {currentStep > 1 ? (
+              <div
+                className={cn(styles.prevChevron)}
+                onClick={handlePrevAction}
+              >
+                <ChevronLeft />
+              </div>
+            ) : null}
+
+            <DzText text={`Step ${currentStep} of ${stepsLength}`} />
+          </div>
+        )}
 
         {stepFormData ? (
           <form
