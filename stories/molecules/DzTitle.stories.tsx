@@ -30,6 +30,12 @@ PageTitleVariant.args = {
   data: pageData,
 };
 
+export const PageTitle8ColsVariant = Template.bind({});
+PageTitle8ColsVariant.args = {
+  type: DzTitleMoleculeTypes.PAGE,
+  data: { ...pageData, isWide: true },
+};
+
 export const SectionTitleVariant = Template.bind({});
 SectionTitleVariant.args = {
   type: DzTitleMoleculeTypes.SECTION,

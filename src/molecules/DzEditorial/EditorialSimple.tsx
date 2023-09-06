@@ -26,7 +26,8 @@ const styles: any = {
     gap-5
   `,
   rightPaneWide: `
-    col-span-8
+    col-span-12
+    md:col-span-8
   `,
 };
 
