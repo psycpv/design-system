@@ -24,8 +24,8 @@ const styles: any = {
     md:flex-row
     `,
   titleColsContainer: `
-    grid
-    grid-cols-12
+    md:grid
+    md:grid-cols-12
   `,
   leftContainer: `
     w-full
@@ -34,7 +34,6 @@ const styles: any = {
     gap-2.5
   `,
   leftContainerWide: `
-    col-span-12
     md:col-span-8
   `,
   fullLeft: `
