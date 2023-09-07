@@ -1,3 +1,15 @@
+# v0.0.100 (Thu Sep 07 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 53 inquire form [#156](https://github.com/Zwirner/design-system/pull/156) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.99 (Thu Sep 07 2023)
 
 #### 🐛 Bug Fix
