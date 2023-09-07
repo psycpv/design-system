@@ -15,8 +15,8 @@ export const EDITORIAL_TEXT_NAMES = [
 export type EditorialTextType = typeof EDITORIAL_TEXT_NAMES[number];
 
 export interface EditorialPart {
-  text: string;
-  portableTextText: ReactNode;
+  text?: string;
+  portableTextText?: ReactNode;
   type: EditorialTextType;
 }
 export interface EditorialTextProps {
