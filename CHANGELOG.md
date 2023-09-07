@@ -1,3 +1,15 @@
+# v0.0.102 (Thu Sep 07 2023)
+
+#### ⚠️ Pushed to `main`
+
+- NWEB-116: add optional portable text to dzEditorial ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
 # v0.0.101 (Thu Sep 07 2023)
 
 #### 🐛 Bug Fix
