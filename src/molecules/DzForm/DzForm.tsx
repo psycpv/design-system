@@ -65,7 +65,11 @@ export const DzForm: FC<DzFormProps> = ({
   }, [steps, currentStep]);
 
   const handleForwardAction = useCallback(() => {
-    setCurrentStep(step => step + 1);
+    if (currentStep === stepsLength) {
+      onSubmit();
+    } else {
+      setCurrentStep(step => step + 1);
+    }
   }, []);
   const handlePrevAction = useCallback(() => {
     setCurrentStep(step => step - 1);
