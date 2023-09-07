@@ -42,7 +42,7 @@ const styles: any = {
     mb-10
     md:mb-0
     md:ml-auto
-    w-[20.9375rem]  
+    w-full        
   `,
   ctaContainer: `
     flex
@@ -138,20 +138,24 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
           );
         })}
       </div>
-      <div className={cn(styles.ctaContainer)}>
-        {CTAProps.description && (
-          <DzText text={CTAProps.description} className="flex-1" />
-        )}
-        <DzButton
-          {...CTAProps}
-          className={cn(styles.ctaButton)}
-          size={BUTTON_SIZES.LARGE}
-          onClick={onClick ?? formAction}
-          form={formName}
-        >
-          {CTAText}
-        </DzButton>
-      </div>
+      <DzGridColumns className={CTAProps.description ? '' : 'gap-y-0'}>
+        <DzColumn span={[12, 6]}>
+          {CTAProps.description && (
+            <DzText text={CTAProps.description} className="flex-1" />
+          )}
+        </DzColumn>
+        <DzColumn span={[12, CTAProps.description ? 6 : 12]}>
+          <DzButton
+            {...CTAProps}
+            className={cn(styles.ctaButton)}
+            size={BUTTON_SIZES.LARGE}
+            onClick={onClick ?? formAction}
+            form={formName}
+          >
+            {CTAText}
+          </DzButton>
+        </DzColumn>
+      </DzGridColumns>
     </div>
   );
 };

@@ -21,6 +21,7 @@ export interface DzFormProps {
   mediaProps?: DzMediaProps;
   onSubmit: any;
   showStepsCount?: boolean;
+  containerClassName?: string;
 }
 const styles: any = {
   formContainer: `
@@ -54,6 +55,7 @@ export const DzForm: FC<DzFormProps> = ({
   mediaProps,
   onSubmit,
   showStepsCount = true,
+  containerClassName,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const stepsLength = useMemo(() => steps.length, [steps]);
@@ -78,7 +80,7 @@ export const DzForm: FC<DzFormProps> = ({
   );
 
   return (
-    <div className={cn(styles.formContainer)}>
+    <div className={cn(styles.formContainer, containerClassName || '')}>
       {mediaProps && (
         <div className={cn(styles.leftContainer)}>
           <DzMedia {...mediaProps} aspectRatio={MEDIA_ASPECT_RATIOS['4:3']} />
