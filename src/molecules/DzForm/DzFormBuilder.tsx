@@ -1,6 +1,7 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC, Fragment, useState } from 'react';
 import {
   DzText,
+  DzTextBox,
   DzButton,
   DzInputText,
   DzSelect,
@@ -14,7 +15,9 @@ import { cn } from '../../utils/classnames';
 export interface DzFormBuilderProps {
   form: any;
   formAction: Function;
+  isSubmitDisabled?: boolean;
   submitAction: Function;
+  onFieldValidation: Function;
 }
 const styles: any = {
   formLayout: `
@@ -41,7 +44,10 @@ const styles: any = {
     mb-10
     md:mb-0
     md:ml-auto
-    w-[20.9375rem]  
+    w-full        
+  `,
+  ctaContainer: `
+    flex
   `,
 };
 
@@ -55,9 +61,20 @@ const atomsPerType = {
   uploader: data => {
     return <DzFileUploader {...data} />;
   },
+  text: text => {
+    return <DzText text={text} />;
+  },
+  textbox: data => {
+    return <DzTextBox {...data} />;
+  },
 };
 
-export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
+export const DzFormBuilder: FC<DzFormBuilderProps> = ({
+  form,
+  formAction,
+  isSubmitDisabled,
+  onFieldValidation,
+}) => {
   const {
     formName,
     title,
@@ -67,6 +84,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
     CTAProps,
   } = form ?? {};
   const { text: CTAText, onClick } = CTAProps ?? {};
+
   return (
     <div className={cn(styles.formLayout)}>
       <div className={cn(styles.headInformation)}>
@@ -110,6 +128,9 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
                       ...(title ? { title: `${title}${requiredTag}` } : {}),
                       ...(required ? { required } : {}),
                       ...data,
+                      onValidation: (isValid: boolean) => {
+                        onFieldValidation(key, isValid);
+                      },
                     };
                     const Component = atomsPerType?.[type]?.(componentProps);
                     return Component ? (
@@ -128,15 +149,25 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
           );
         })}
       </div>
-      <DzButton
-        {...CTAProps}
-        className={cn(styles.ctaButton)}
-        size={BUTTON_SIZES.LARGE}
-        onClick={onClick ?? formAction}
-        form={formName}
-      >
-        {CTAText}
-      </DzButton>
+      <DzGridColumns className={CTAProps.description ? '' : 'gap-y-0'}>
+        <DzColumn span={[12, 6]}>
+          {CTAProps.description && (
+            <DzText text={CTAProps.description} className="flex-1" />
+          )}
+        </DzColumn>
+        <DzColumn span={[12, CTAProps.description ? 6 : 12]}>
+          <DzButton
+            {...CTAProps}
+            className={cn(styles.ctaButton)}
+            disabled={isSubmitDisabled}
+            size={BUTTON_SIZES.LARGE}
+            onClick={onClick ?? formAction}
+            form={formName}
+          >
+            {CTAText}
+          </DzButton>
+        </DzColumn>
+      </DzGridColumns>
     </div>
   );
 };

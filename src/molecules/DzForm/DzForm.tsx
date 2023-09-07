@@ -1,4 +1,4 @@
-import React, { FC, useState, useMemo, useCallback } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import {
   DzMedia,
   DzMediaProps,
@@ -13,12 +13,15 @@ export const FORM_FIELD_TYPES = {
   INPUT: 'input',
   SELECT: 'select',
   UPLOADER: 'uploader',
+  TEXTBOX: 'textbox',
 };
 
 export interface DzFormProps {
   steps: any[];
-  mediaProps: DzMediaProps;
+  mediaProps?: DzMediaProps;
   onSubmit: any;
+  showStepsCount?: boolean;
+  containerClassName?: string;
 }
 const styles: any = {
   formContainer: `
@@ -33,6 +36,9 @@ const styles: any = {
   rightContainer: `
     md:basis-1/2
   `,
+  fullContainer: `
+    flex-1
+  `,
   contextContainer: `
     flex
     gap-2.5
@@ -44,18 +50,40 @@ const styles: any = {
   `,
 };
 
-export const DzForm: FC<DzFormProps> = ({ steps, mediaProps, onSubmit }) => {
+export const DzForm: FC<DzFormProps> = ({
+  steps,
+  mediaProps,
+  onSubmit,
+  showStepsCount = true,
+  containerClassName,
+}) => {
   const [currentStep, setCurrentStep] = useState(1);
   const stepsLength = useMemo(() => steps.length, [steps]);
+
   const stepFormData = useMemo(() => {
-    const stepData = steps[currentStep - 1];
-    return stepData;
+    return steps[currentStep - 1];
   }, [steps, currentStep]);
 
+  const [fieldValidityStates, setFieldValidityStates] = useState<
+    Record<string | number, boolean>
+  >({});
+
+  const [
+    areAllCurrentStepFieldsValid,
+    setAreAllCurrentStepFieldsValid,
+  ] = useState(false);
+
   const handleForwardAction = useCallback(() => {
-    setCurrentStep(step => step + 1);
+    if (currentStep === stepsLength) {
+      onSubmit();
+    } else {
+      setFieldValidityStates({});
+      setCurrentStep(step => step + 1);
+    }
   }, []);
+
   const handlePrevAction = useCallback(() => {
+    setFieldValidityStates({});
     setCurrentStep(step => step - 1);
   }, []);
 
@@ -67,21 +95,48 @@ export const DzForm: FC<DzFormProps> = ({ steps, mediaProps, onSubmit }) => {
     [onSubmit]
   );
 
-  return (
-    <div className={cn(styles.formContainer)}>
-      <div className={cn(styles.leftContainer)}>
-        <DzMedia {...mediaProps} aspectRatio={MEDIA_ASPECT_RATIOS['4:3']} />
-      </div>
-      <div className={cn(styles.rightContainer)}>
-        <div className={cn(styles.contextContainer)}>
-          {currentStep > 1 ? (
-            <div className={cn(styles.prevChevron)} onClick={handlePrevAction}>
-              <ChevronLeft />
-            </div>
-          ) : null}
+  const onFieldValidation = (fieldId: string | number, isValid: boolean) => {
+    setFieldValidityStates(currentStates => ({
+      ...currentStates,
+      [fieldId]: isValid,
+    }));
+  };
 
-          <DzText text={`Step ${currentStep} of ${stepsLength}`} />
+  useEffect(() => {
+    setAreAllCurrentStepFieldsValid(
+      Object.values(fieldValidityStates).reduce(
+        (allFieldsValidity, isFieldValid) => allFieldsValidity && isFieldValid,
+        true
+      )
+    );
+  }, [fieldValidityStates]);
+
+  return (
+    <div className={cn(styles.formContainer, containerClassName || '')}>
+      {mediaProps && (
+        <div className={cn(styles.leftContainer)}>
+          <DzMedia {...mediaProps} aspectRatio={MEDIA_ASPECT_RATIOS['4:3']} />
         </div>
+      )}
+      <div
+        className={cn(
+          mediaProps ? styles.rightContainer : styles.fullContainer
+        )}
+      >
+        {showStepsCount && (
+          <div className={cn(styles.contextContainer)}>
+            {currentStep > 1 ? (
+              <div
+                className={cn(styles.prevChevron)}
+                onClick={handlePrevAction}
+              >
+                <ChevronLeft />
+              </div>
+            ) : null}
+
+            <DzText text={`Step ${currentStep} of ${stepsLength}`} />
+          </div>
+        )}
 
         {stepFormData ? (
           <form
@@ -93,7 +148,11 @@ export const DzForm: FC<DzFormProps> = ({ steps, mediaProps, onSubmit }) => {
             <DzFormBuilder
               form={stepFormData}
               formAction={handleForwardAction}
-              submitAction={() => {}}
+              onFieldValidation={onFieldValidation}
+              isSubmitDisabled={!areAllCurrentStepFieldsValid}
+              submitAction={() => {
+                console.info('TODO submitAction');
+              }}
             />
           </form>
         ) : null}

@@ -15,6 +15,7 @@ export interface DzTitleExhibitionProps {
   exhibitionState: EXHIBITION_STATES;
   exhibitionDateRangeText: string;
   location?: LocationData;
+  onClickCTA?: () => void;
   reception?: string;
   showCoordinates?: boolean;
   pressReleasePDFURL?: string;
@@ -94,6 +95,7 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   exhibitionState,
   exhibitionDateRangeText,
   location,
+  onClickCTA,
   reception,
   pressReleasePDFURL,
   showCoordinates = false,
@@ -114,6 +116,9 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
         primaryCTA={{
           title: 'Inquire',
           description: 'Interested in this exhibition?',
+          ctaProps: {
+            onClick: onClickCTA,
+          },
         }}
         title={titleText}
         customCTAContainerProps={{
