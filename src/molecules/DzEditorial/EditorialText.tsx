@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { DzText, TEXT_TYPES, TEXT_SIZES } from '../../atoms';
 import { cn } from '../../utils/classnames';
 
@@ -16,6 +16,7 @@ export type EditorialTextType = typeof EDITORIAL_TEXT_NAMES[number];
 
 export interface EditorialPart {
   text: string;
+  portableTextText: ReactNode;
   type: EditorialTextType;
 }
 export interface EditorialTextProps {
@@ -42,12 +43,14 @@ export const EditorialText: FC<EditorialTextProps> = ({ paragraphs }) => {
   return (
     <>
       {paragraphs.map((p, k) => {
+        const { portableTextText, text } = p ?? {};
+        if (portableTextText) return portableTextText;
         if (p.type === EDITORIAL_TEXT_TYPES.PARAGRAPH) {
           return (
             <DzText
               key={`${p}-${k}`}
               className={cn(styles.singleParagraph)}
-              text={p.text}
+              text={text}
               textType={TEXT_TYPES.P}
             />
           );
@@ -57,7 +60,7 @@ export const EditorialText: FC<EditorialTextProps> = ({ paragraphs }) => {
             key={`${p}-${k}`}
             className={cn(styles.quote)}
             textType={TEXT_TYPES.P}
-            text={p.text}
+            text={text}
             textSize={TEXT_SIZES.LARGE}
           />
         );
