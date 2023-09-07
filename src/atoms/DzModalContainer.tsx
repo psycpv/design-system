@@ -1,4 +1,10 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, {
+  MouseEventHandler,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Close } from '../svgIcons';
 
 interface DzModalContainerProps {
@@ -38,18 +44,27 @@ export const DzModalContainer = ({
   onClose,
 }: DzModalContainerProps) => {
   const [isModalOpen, setIsModalOpen] = useState(isOpen);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const onClickClose = () => {
+    setIsModalOpen(false);
+    onClose?.();
+  };
+  const onClickContainer = event => {
+    if (event.target === containerRef.current) {
+      onClickClose();
+    }
+  };
 
   useEffect(() => {
     setIsModalOpen(isOpen);
   }, [isOpen]);
 
-  const onClickClose = () => {
-    setIsModalOpen(false);
-    onClose?.();
-  };
-
   return isModalOpen ? (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onClick={onClickContainer}
+      ref={containerRef}
+    >
       <div className={styles.contentContainer}>
         <Close onClick={onClickClose} className={styles.closeIcon} />
         {children}
