@@ -1,3 +1,15 @@
+# v0.0.99 (Thu Sep 07 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-116: add extra options for dzCards [#143](https://github.com/Zwirner/design-system/pull/143) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
 # v0.0.98 (Wed Sep 06 2023)
 
 #### 🐛 Bug Fix
