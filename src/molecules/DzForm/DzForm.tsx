@@ -1,4 +1,4 @@
-import React, { FC, useState, useMemo, useCallback } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import {
   DzMedia,
   DzMediaProps,
@@ -59,19 +59,31 @@ export const DzForm: FC<DzFormProps> = ({
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const stepsLength = useMemo(() => steps.length, [steps]);
+
   const stepFormData = useMemo(() => {
-    const stepData = steps[currentStep - 1];
-    return stepData;
+    return steps[currentStep - 1];
   }, [steps, currentStep]);
+
+  const [fieldValidityStates, setFieldValidityStates] = useState<
+    Record<string | number, boolean>
+  >({});
+
+  const [
+    areAllCurrentStepFieldsValid,
+    setAreAllCurrentStepFieldsValid,
+  ] = useState(false);
 
   const handleForwardAction = useCallback(() => {
     if (currentStep === stepsLength) {
       onSubmit();
     } else {
+      setFieldValidityStates({});
       setCurrentStep(step => step + 1);
     }
   }, []);
+
   const handlePrevAction = useCallback(() => {
+    setFieldValidityStates({});
     setCurrentStep(step => step - 1);
   }, []);
 
@@ -82,6 +94,22 @@ export const DzForm: FC<DzFormProps> = ({
     },
     [onSubmit]
   );
+
+  const onFieldValidation = (fieldId: string | number, isValid: boolean) => {
+    setFieldValidityStates(currentStates => ({
+      ...currentStates,
+      [fieldId]: isValid,
+    }));
+  };
+
+  useEffect(() => {
+    setAreAllCurrentStepFieldsValid(
+      Object.values(fieldValidityStates).reduce(
+        (allFieldsValidity, isFieldValid) => allFieldsValidity && isFieldValid,
+        true
+      )
+    );
+  }, [fieldValidityStates]);
 
   return (
     <div className={cn(styles.formContainer, containerClassName || '')}>
@@ -120,7 +148,11 @@ export const DzForm: FC<DzFormProps> = ({
             <DzFormBuilder
               form={stepFormData}
               formAction={handleForwardAction}
-              submitAction={() => {}}
+              onFieldValidation={onFieldValidation}
+              isSubmitDisabled={!areAllCurrentStepFieldsValid}
+              submitAction={() => {
+                console.info('TODO submitAction');
+              }}
             />
           </form>
         ) : null}

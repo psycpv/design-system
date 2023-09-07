@@ -18,6 +18,7 @@ export interface InputTextProps
   required?: boolean;
   disabled?: boolean;
   hasError?: boolean;
+  onValidation?: (isValid: boolean) => void;
   validator?: Function;
   errorMsg?: string;
   formName?: string;
@@ -95,6 +96,7 @@ export const DzInputText = forwardRef<HTMLInputElement, InputTextProps>(
       placeholder,
       title,
       subtitle,
+      onValidation,
       extras = '',
       extraChildren = null,
       required = false,
@@ -119,7 +121,10 @@ export const DzInputText = forwardRef<HTMLInputElement, InputTextProps>(
     const errorClass = !isValidValue ? styles.error : '';
 
     useEffect(() => {
-      setIsValidValue(validator(value));
+      const isValid = !required && !value ? true : validator(value);
+
+      setIsValidValue(isValid);
+      onValidation?.(!!isValid);
       if (value) {
         setClassContent(styles.content);
       } else {

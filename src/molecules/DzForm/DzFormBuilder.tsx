@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC, Fragment, useState } from 'react';
 import {
   DzText,
   DzTextBox,
@@ -15,7 +15,9 @@ import { cn } from '../../utils/classnames';
 export interface DzFormBuilderProps {
   form: any;
   formAction: Function;
+  isSubmitDisabled?: boolean;
   submitAction: Function;
+  onFieldValidation: Function;
 }
 const styles: any = {
   formLayout: `
@@ -67,7 +69,12 @@ const atomsPerType = {
   },
 };
 
-export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
+export const DzFormBuilder: FC<DzFormBuilderProps> = ({
+  form,
+  formAction,
+  isSubmitDisabled,
+  onFieldValidation,
+}) => {
   const {
     formName,
     title,
@@ -77,6 +84,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
     CTAProps,
   } = form ?? {};
   const { text: CTAText, onClick } = CTAProps ?? {};
+
   return (
     <div className={cn(styles.formLayout)}>
       <div className={cn(styles.headInformation)}>
@@ -120,6 +128,9 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
                       ...(title ? { title: `${title}${requiredTag}` } : {}),
                       ...(required ? { required } : {}),
                       ...data,
+                      onValidation: (isValid: boolean) => {
+                        onFieldValidation(key, isValid);
+                      },
                     };
                     const Component = atomsPerType?.[type]?.(componentProps);
                     return Component ? (
@@ -148,6 +159,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
           <DzButton
             {...CTAProps}
             className={cn(styles.ctaButton)}
+            disabled={isSubmitDisabled}
             size={BUTTON_SIZES.LARGE}
             onClick={onClick ?? formAction}
             form={formName}
