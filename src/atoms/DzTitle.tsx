@@ -57,8 +57,8 @@ export type SubTitleType = typeof SUBTITLE_TAGS[number];
 export interface DzTitleProps {
   titleType?: TitleType;
   subtitleType?: SubTitleType;
-  title?: string | ReactNode;
-  subtitle?: string | ReactNode;
+  title?: ReactNode;
+  subtitle?: ReactNode;
   className?: any;
   classNameTitle?: any;
   classNameSubtitle?: any;

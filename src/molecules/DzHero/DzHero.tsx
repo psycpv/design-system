@@ -45,7 +45,8 @@ export interface DzHeroItem {
   subtitle?: string;
   secondaryTitle?: string;
   secondarySubtitle?: string;
-  description?: string | ReactNode;
+  description?: ReactNode;
+  portableTextDescription?: ReactNode;
   linkCTA?: LinkCTA;
 }
 
@@ -215,7 +216,7 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
               .filter(item => !item.hideMedia)
               .map(item => (
                 <DzMedia
-                  key={`${item.media.url}-${item.title}`}
+                  key={`${item?.media?.url}-${item.title}`}
                   imgClass={cn(styles.mediaImage)}
                   {...item.media}
                 />
@@ -232,7 +233,7 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
             {items.map(item => (
               <div
                 className={cn(styles.infoContainer)}
-                key={`${item.media.url}-${item.title}`}
+                key={`${item?.media?.url}-${item.title}`}
               >
                 {item.category ? (
                   <DzText
@@ -270,6 +271,9 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
                       textSize={isSmall ? TEXT_SIZES.SMALL : TEXT_SIZES.MEDIUM}
                     />
                   ) : null}
+                  {item.portableTextDescription
+                    ? item.portableTextDescription
+                    : null}
                 </div>
 
                 {item.linkCTA ? (

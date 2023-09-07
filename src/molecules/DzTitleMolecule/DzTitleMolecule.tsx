@@ -18,7 +18,7 @@ export interface DzTitlePageProps {
   category?: string;
   title: string;
   subtitle?: string;
-  description?: string | ReactNode;
+  description?: ReactNode;
   titleProps?: DzTitleProps;
   primaryCTA?: DzMoleculeTitleCTA;
   linkCTA?: DzLinkProps;

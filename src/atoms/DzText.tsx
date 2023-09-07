@@ -36,7 +36,7 @@ type TextElements = HTMLAttributes<HTMLParagraphElement> &
 
 export interface DzTextProps extends TextElements {
   textType?: TextType;
-  text: string | ReactNode;
+  text: ReactNode;
   className?: any;
   disabled?: boolean;
   textSize?: TextSize;

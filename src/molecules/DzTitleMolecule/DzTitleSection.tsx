@@ -18,8 +18,8 @@ const styles: any = {
     justify-between
   `,
   title: `
-    text-md
-    md:text-xl
+    text-lg
+    md:text-xxl
   `,
   linkCta: `
     min-w-fit

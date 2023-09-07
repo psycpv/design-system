@@ -26,7 +26,10 @@ export const DzEditorialSimple = Template.bind({});
 DzEditorialSimple.args = { type: EditorialType.SIMPLE, data: simple };
 
 export const DzEditorialComplexRightImage = Template.bind({});
-DzEditorialComplexRightImage.args = { type: EditorialType.COMPLEX, data: complex };
+DzEditorialComplexRightImage.args = {
+  type: EditorialType.COMPLEX,
+  data: complex,
+};
 
 export const DzEditorialComplexLeftImage = Template.bind({});
 DzEditorialComplexLeftImage.args = {
@@ -38,4 +41,8 @@ export const DzEditorialQuote = Template.bind({});
 DzEditorialQuote.args = { type: EditorialType.QUOTE, data: quote };
 
 export const DzEditorialLeftBlock = Template.bind({});
-DzEditorialLeftBlock.args = { type: EditorialType.LEFT_BLOCK, data: simple, isWide: true };
+DzEditorialLeftBlock.args = {
+  type: EditorialType.LEFT_BLOCK,
+  data: simple,
+  isWide: true,
+};

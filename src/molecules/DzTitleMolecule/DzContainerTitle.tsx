@@ -13,7 +13,7 @@ interface ContainerTitleProps {
   titleType?: TitleType;
   title: string;
   category?: string;
-  description?: string | ReactNode;
+  description?: ReactNode;
   titleSize?: string;
   linkCTA?: DzMoleculeLinkCTA;
   primaryCTA?: DzMoleculeTitleCTA;
