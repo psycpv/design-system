@@ -1,3 +1,15 @@
+# v0.0.101 (Thu Sep 07 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-116: add editorial portable text [#158](https://github.com/Zwirner/design-system/pull/158) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
 # v0.0.100 (Thu Sep 07 2023)
 
 #### 🐛 Bug Fix
