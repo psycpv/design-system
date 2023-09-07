@@ -21,6 +21,7 @@ export const DzInquireFormModal = ({
         steps={inquireFormSteps}
         onSubmit={onSubmit}
         showStepsCount={false}
+        containerClassName="bg-white-100 max-w-[984px] p-[1.25rem]"
       />
     </DzModalContainer>
   );

@@ -9,18 +9,26 @@ interface DzModalContainerProps {
 
 const styles: any = {
   container: `
-    bg-white-100
-    absolute
-    m-auto
-    left-0
-    right-0
+    bg-neutral-100
+    fixed
     z-[999]
+    w-screen
+    h-screen
+    top-0
+    left-0
+    px-[1.25rem]
+    flex
+    items-center
+    justify-center
   `,
   closeIcon: `
     absolute
-    right-0
-    top-0
+    right-[1.25rem]
+    top-[1.25rem]
     cursor-pointer
+  `,
+  contentContainer: `
+    relative
   `,
 };
 
@@ -42,8 +50,10 @@ export const DzModalContainer = ({
 
   return isModalOpen ? (
     <div className={styles.container}>
-      <Close onClick={onClickClose} className={styles.closeIcon} />
-      {children}
+      <div className={styles.contentContainer}>
+        <Close onClick={onClickClose} className={styles.closeIcon} />
+        {children}
+      </div>
     </div>
   ) : null;
 };
