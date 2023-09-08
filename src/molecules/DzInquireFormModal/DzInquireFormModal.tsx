@@ -41,9 +41,7 @@ export const DzInquireFormModal = ({
   return (
     <DzModalContainer isOpen={isOpen} onClose={onClose}>
       <DzForm
-        steps={{
-          ...inquireFormSteps,
-        }}
+        steps={inquireFormSteps}
         onSubmit={onSubmit}
         showStepsCount={false}
         containerClassName="bg-white-100 max-w-[984px] p-[1.25rem]"
