@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC, Fragment, useCallback } from 'react';
 import {
   DzText,
   DzTextBox,
@@ -85,6 +85,11 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
   } = form ?? {};
   const { text: CTAText, onClick } = CTAProps ?? {};
 
+  const unchangedValidation = useCallback((key: any) => {
+    return (isValid: boolean) => {
+      onFieldValidation(key, isValid);
+    };
+  }, []);
   return (
     <div className={cn(styles.formLayout)}>
       <div className={cn(styles.headInformation)}>
@@ -128,9 +133,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
                       ...(title ? { title: `${title}${requiredTag}` } : {}),
                       ...(required ? { required } : {}),
                       ...data,
-                      onValidation: (isValid: boolean) => {
-                        onFieldValidation(key, isValid);
-                      },
+                      onValidation: () => unchangedValidation(key),
                     };
                     const Component = atomsPerType?.[type]?.(componentProps);
                     return Component ? (
