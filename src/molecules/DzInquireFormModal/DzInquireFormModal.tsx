@@ -10,14 +10,21 @@ import {
 } from '../../atoms';
 import { inquireFormSteps } from './inquireFormSteps';
 import { TITLE_TYPES } from '../../atoms';
+import { InquireFormContextData } from './useDZInquireFormModalProps';
+
 interface InquireFormModalProps {
+  contextData?: InquireFormContextData;
   isOpen: boolean;
   onClose: () => void;
+  title: string;
+  subtitle: string;
 }
 
 export const DzInquireFormModal = ({
   isOpen,
   onClose,
+  subtitle,
+  title,
 }: InquireFormModalProps) => {
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<
     boolean | undefined
@@ -28,10 +35,15 @@ export const DzInquireFormModal = ({
     setIsSubmitSuccessful(true);
   };
 
+  inquireFormSteps[0].title = title;
+  inquireFormSteps[0].primarySubtitle = subtitle;
+
   return (
     <DzModalContainer isOpen={isOpen} onClose={onClose}>
       <DzForm
-        steps={inquireFormSteps}
+        steps={{
+          ...inquireFormSteps,
+        }}
         onSubmit={onSubmit}
         showStepsCount={false}
         containerClassName="bg-white-100 max-w-[984px] p-[1.25rem]"

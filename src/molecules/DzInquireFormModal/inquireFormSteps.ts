@@ -5,9 +5,9 @@ export const inquireFormSteps = [
   {
     id: '1',
     formName: 'inquiryForm',
-    title: 'Title',
-    primarySubtitle: 'Primary Subtitle',
-    secondarySubtitle: 'Secondary Subtitle',
+    title: '',
+    primarySubtitle: '',
+    secondarySubtitle: '',
     formSections: [
       {
         id: '1a',

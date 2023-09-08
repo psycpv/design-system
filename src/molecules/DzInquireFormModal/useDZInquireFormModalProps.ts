@@ -1,13 +1,29 @@
 import { useState } from 'react';
 
+export interface InquireFormContextData {
+  id?: string;
+  title?: string;
+}
+
 export const useDZInquireFormModalProps = () => {
-  const [isInquireOpen, setIsInquireOpen] = useState(false);
-  const openClickHandler = () => setIsInquireOpen(true);
-  const onInquireClose = () => setIsInquireOpen(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [
+    contextData,
+    setContextData,
+  ] = useState<InquireFormContextData | null>();
+  const openClickHandler = (contextData: InquireFormContextData) => {
+    setIsOpen(true);
+    setContextData(contextData);
+  };
+  const onClose = () => {
+    setIsOpen(false);
+    setContextData(null);
+  };
 
   return {
-    isInquireOpen,
+    contextData,
+    isOpen,
     openClickHandler,
-    onInquireClose,
+    onClose,
   };
 };
