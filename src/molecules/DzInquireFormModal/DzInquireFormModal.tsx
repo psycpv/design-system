@@ -13,7 +13,7 @@ import { TITLE_TYPES } from '../../atoms';
 import { InquireFormContextData } from './useDZInquireFormModalProps';
 
 interface InquireFormModalProps {
-  contextData?: InquireFormContextData;
+  contextData?: InquireFormContextData | null;
   isOpen: boolean;
   onClose: () => void;
   title: string;

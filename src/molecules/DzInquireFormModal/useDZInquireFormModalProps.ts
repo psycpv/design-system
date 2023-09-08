@@ -7,11 +7,10 @@ export interface InquireFormContextData {
 
 export const useDZInquireFormModalProps = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [
-    contextData,
-    setContextData,
-  ] = useState<InquireFormContextData | null>();
-  const openClickHandler = (contextData: InquireFormContextData) => {
+  const [contextData, setContextData] = useState<
+    InquireFormContextData | undefined | null
+  >();
+  const openClickHandler = (contextData?: InquireFormContextData) => {
     setIsOpen(true);
     setContextData(contextData);
   };
