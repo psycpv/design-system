@@ -1,10 +1,4 @@
-import React, {
-  MouseEventHandler,
-  ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { Close } from '../svgIcons';
 
 interface DzModalContainerProps {
@@ -32,6 +26,7 @@ const styles: any = {
     right-[1.25rem]
     top-[1.25rem]
     cursor-pointer
+    z-[100]
   `,
   contentContainer: `
     relative

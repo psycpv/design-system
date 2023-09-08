@@ -1,4 +1,11 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  FC,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import {
   DzMedia,
   DzMediaProps,
@@ -22,7 +29,9 @@ export interface DzFormProps {
   onSubmit: any;
   showStepsCount?: boolean;
   containerClassName?: string;
+  successContent?: ReactNode;
 }
+
 const styles: any = {
   formContainer: `
     flex
@@ -48,6 +57,14 @@ const styles: any = {
   prevChevron: `
     cursor-pointer
   `,
+  successContainer: `
+    top-0
+    left-0
+    absolute
+    bg-white-100
+    w-full
+    h-full
+  `,
 };
 
 export const DzForm: FC<DzFormProps> = ({
@@ -56,6 +73,7 @@ export const DzForm: FC<DzFormProps> = ({
   onSubmit,
   showStepsCount = true,
   containerClassName,
+  successContent,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const stepsLength = useMemo(() => steps.length, [steps]);
@@ -80,7 +98,7 @@ export const DzForm: FC<DzFormProps> = ({
       setFieldValidityStates({});
       setCurrentStep(step => step + 1);
     }
-  }, []);
+  }, [currentStep, onSubmit, stepsLength]);
 
   const handlePrevAction = useCallback(() => {
     setFieldValidityStates({});
@@ -157,6 +175,9 @@ export const DzForm: FC<DzFormProps> = ({
           </form>
         ) : null}
       </div>
+      {successContent && (
+        <div className={cn(styles.successContainer)}>{successContent}</div>
+      )}
     </div>
   );
 };
