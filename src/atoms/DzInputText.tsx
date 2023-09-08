@@ -115,10 +115,11 @@ export const DzInputText = forwardRef<HTMLInputElement, InputTextProps>(
   ) => {
     const [value, setValue] = useState<string>('');
     const [isValidValue, setIsValidValue] = useState<boolean>(!hasError);
+    const [isUntouched, setIsUntouched] = useState(true);
     const [classContent, setClassContent] = useState<string>('');
     const debouncedValue = useDebounce<string>(value, 100);
     const disabledClass = disabled ? styles.disabled : '';
-    const errorClass = !isValidValue ? styles.error : '';
+    const errorClass = !isUntouched && !isValidValue ? styles.error : '';
 
     useEffect(() => {
       const isValid = !required && !value ? true : !!validator(value);
@@ -150,10 +151,11 @@ export const DzInputText = forwardRef<HTMLInputElement, InputTextProps>(
       if (!disabled && onChange) {
         onChange(event);
       }
+      setIsUntouched(false);
     };
 
     const errorMessage =
-      errorMsg && !isValidValue ? (
+      !isUntouched && errorMsg && !isValidValue ? (
         <DzText
           className={cn(styles.error)}
           textSize={TEXT_SIZES.XS}
