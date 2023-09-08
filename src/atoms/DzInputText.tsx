@@ -121,16 +121,25 @@ export const DzInputText = forwardRef<HTMLInputElement, InputTextProps>(
     const errorClass = !isValidValue ? styles.error : '';
 
     useEffect(() => {
-      const isValid = !required && !value ? true : validator(value);
+      const isValid = !required && !value ? true : !!validator(value);
 
-      setIsValidValue(isValid);
-      onValidation?.(!!isValid);
+      if (isValid !== isValidValue) {
+        onValidation?.(isValid);
+      }
       if (value) {
         setClassContent(styles.content);
       } else {
         setClassContent('');
       }
-    }, [debouncedValue, onValidation, required, value, validator]);
+      setIsValidValue(isValid);
+    }, [
+      debouncedValue,
+      isValidValue,
+      onValidation,
+      required,
+      value,
+      validator,
+    ]);
 
     useEffect(() => {
       setIsValidValue(!hasError);
