@@ -1,5 +1,6 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { Close } from '../svgIcons';
+import { useKeyDownCallback } from '../hooks/useKeyDownCallback';
 
 interface DzModalContainerProps {
   children: ReactNode;
@@ -55,6 +56,8 @@ export const DzModalContainer = ({
   useEffect(() => {
     setIsModalOpen(isOpen);
   }, [isOpen]);
+
+  useKeyDownCallback('Escape', onClose ? onClose : () => {});
 
   return isModalOpen ? (
     <div

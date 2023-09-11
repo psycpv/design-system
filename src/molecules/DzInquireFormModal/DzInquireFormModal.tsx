@@ -31,7 +31,7 @@ export const DzInquireFormModal = ({
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<
     boolean | undefined
   >(false);
-  const [_, setIsBodyScrollLocked] = useLockedBodyScroll(false, 'root');
+  const [, setIsBodyScrollLocked] = useLockedBodyScroll(false, 'root');
   // TODO API sending
   const onSubmit = () => {
     setIsSubmitSuccessful(true);
@@ -41,7 +41,10 @@ export const DzInquireFormModal = ({
   inquireFormSteps[0].primarySubtitle = subtitle;
   inquireFormSteps[0].CTAProps.description = termsAndConditions;
 
-  useEffect(() => setIsBodyScrollLocked(isOpen), [isOpen]);
+  useEffect(() => setIsBodyScrollLocked(isOpen), [
+    isOpen,
+    setIsBodyScrollLocked,
+  ]);
 
   return (
     <DzModalContainer isOpen={isOpen} onClose={onClose}>
