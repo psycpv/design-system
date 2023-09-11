@@ -16,10 +16,6 @@ export interface DzTextBoxProps {
 }
 
 const styles = {
-  active: `
-    text-black-100
-    border-black-100
-  `,
   default: `
     border-black-40
     text-black-60
@@ -33,7 +29,9 @@ const styles = {
     w-full
     shadow-sm
     outline-transparent
+    outline-none
     border
+    focus:border-black-100
   `,
   wordCount: `
     text-xs
@@ -67,7 +65,6 @@ export const DzTextBox: FC<DzTextBoxProps> = ({
 }) => {
   const [formNameId] = useState<string>(formName || `${uuidv4()}-${title}`);
   const [words, setWords] = useState<string>(defaultValue);
-  const activeStyle = words.length ? styles.active : styles.default;
   const disabledStyle = disabled ? styles.disabled : '';
   const renderErrorMsg = hasError ? (
     <span className={cn(styles.error)}>{errorMsg}</span>
@@ -115,7 +112,6 @@ export const DzTextBox: FC<DzTextBoxProps> = ({
           name={formName}
           id={formNameId}
           className={cn(
-            activeStyle,
             styles.textbox,
             hasError ? 'border-red-100' : '',
             disabledStyle
