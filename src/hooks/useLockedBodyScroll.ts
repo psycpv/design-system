@@ -2,12 +2,10 @@ import { useEffect, useState } from 'react';
 
 import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
 
-type UseLockedBodyOutput = [boolean, (locked: boolean) => void];
-
-export function useLockedBodyScroll(
+export const useLockedBodyScroll = (
   initialLocked = false,
   rootId = '___gatsby' // Default to `___gatsby` to not introduce breaking change
-): UseLockedBodyOutput {
+): Array<any> => {
   const [locked, setLocked] = useState(initialLocked);
 
   // Do the side effect before render
@@ -50,6 +48,6 @@ export function useLockedBodyScroll(
   }, [initialLocked]);
 
   return [locked, setLocked];
-}
+};
 
 export default useLockedBodyScroll;
