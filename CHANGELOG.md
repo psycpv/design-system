@@ -1,3 +1,39 @@
+# v0.0.102 (Thu Sep 07 2023)
+
+#### ⚠️ Pushed to `main`
+
+- NWEB-116: add optional portable text to dzEditorial ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
+# v0.0.101 (Thu Sep 07 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-116: add editorial portable text [#158](https://github.com/Zwirner/design-system/pull/158) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
+# v0.0.100 (Thu Sep 07 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 53 inquire form [#156](https://github.com/Zwirner/design-system/pull/156) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.99 (Thu Sep 07 2023)
 
 #### 🐛 Bug Fix
