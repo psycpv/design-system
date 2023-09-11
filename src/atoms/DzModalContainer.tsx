@@ -9,7 +9,7 @@ interface DzModalContainerProps {
 
 const styles: any = {
   container: `
-    bg-neutral-100
+    bg-black-40
     fixed
     z-[999]
     w-screen
