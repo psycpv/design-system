@@ -11,6 +11,7 @@ import {
 import { inquireFormSteps } from './inquireFormSteps';
 import { TITLE_TYPES } from '../../atoms';
 import { InquireFormContextData } from './useDZInquireFormModalProps';
+import { termsAndConditions } from './termsAndConditions';
 
 interface InquireFormModalProps {
   contextData?: InquireFormContextData | null;
@@ -37,6 +38,7 @@ export const DzInquireFormModal = ({
 
   inquireFormSteps[0].title = title;
   inquireFormSteps[0].primarySubtitle = subtitle;
+  inquireFormSteps[0].CTAProps.description = termsAndConditions;
 
   return (
     <DzModalContainer isOpen={isOpen} onClose={onClose}>

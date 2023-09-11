@@ -1,7 +1,21 @@
 import { FORM_FIELD_TYPES } from '../DzForm/DzForm';
 import { hasStringValue, isEmail, isPhoneNumber } from '../../utils';
+import { ReactNode } from 'react';
 
-export const inquireFormSteps = [
+interface FormStep {
+  id: string;
+  formName: string;
+  title?: string;
+  primarySubtitle?: string;
+  secondarySubtitle?: string;
+  CTAProps: {
+    text: string;
+    type: string;
+    description?: ReactNode | string;
+  };
+  formSections: Array<Record<string, any>>;
+}
+export const inquireFormSteps: Array<FormStep> = [
   {
     id: '1',
     formName: 'inquiryForm',
@@ -66,8 +80,6 @@ export const inquireFormSteps = [
     CTAProps: {
       text: 'Inquire',
       type: 'submit',
-      description:
-        'By sharing your email you agree to our Privacy Policy and Terms and Conditions. This site is also protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.',
     },
   },
 ];
