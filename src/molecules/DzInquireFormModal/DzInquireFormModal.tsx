@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DzForm from '../DzForm/DzForm';
 import {
   DzModalContainer,
@@ -12,6 +12,7 @@ import { inquireFormSteps } from './inquireFormSteps';
 import { TITLE_TYPES } from '../../atoms';
 import { InquireFormContextData } from './useDZInquireFormModalProps';
 import { termsAndConditions } from './termsAndConditions';
+import useLockedBodyScroll from '../../hooks/useLockedBodyScroll';
 
 interface InquireFormModalProps {
   contextData?: InquireFormContextData | null;
@@ -30,7 +31,7 @@ export const DzInquireFormModal = ({
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<
     boolean | undefined
   >(false);
-
+  const [_, setIsBodyScrollLocked] = useLockedBodyScroll(false, 'root');
   // TODO API sending
   const onSubmit = () => {
     setIsSubmitSuccessful(true);
@@ -39,6 +40,8 @@ export const DzInquireFormModal = ({
   inquireFormSteps[0].title = title;
   inquireFormSteps[0].primarySubtitle = subtitle;
   inquireFormSteps[0].CTAProps.description = termsAndConditions;
+
+  useEffect(() => setIsBodyScrollLocked(isOpen), [isOpen]);
 
   return (
     <DzModalContainer isOpen={isOpen} onClose={onClose}>

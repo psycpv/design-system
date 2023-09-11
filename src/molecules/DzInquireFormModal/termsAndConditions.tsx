@@ -7,6 +7,7 @@ export const termsAndConditions = (
       href="https://www.davidzwirner.com/privacy-policy"
       className="underline"
       target="_blank"
+      rel="noreferrer"
     >
       Privacy Policy
     </a>{' '}
@@ -15,6 +16,7 @@ export const termsAndConditions = (
       href="https://www.davidzwirner.com/terms-and-conditions"
       className="underline"
       target="_blank"
+      rel="noreferrer"
     >
       Terms and Conditions
     </a>
@@ -23,6 +25,7 @@ export const termsAndConditions = (
       href="https://policies.google.com/privacy"
       className="underline"
       target="_blank"
+      rel="noreferrer"
     >
       Privacy Policy
     </a>{' '}
@@ -31,6 +34,7 @@ export const termsAndConditions = (
       href="https://www.davidzwirner.com/privacy-policy"
       className="underline"
       target="_blank"
+      rel="noreferrer"
     >
       Terms of Service
     </a>{' '}

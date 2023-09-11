@@ -20,6 +20,7 @@ const styles: any = {
     flex
     items-center
     justify-center
+    overflow-y-scroll
   `,
   closeIcon: `
     absolute
@@ -30,6 +31,7 @@ const styles: any = {
   `,
   contentContainer: `
     relative
+    m-auto    
   `,
 };
 
