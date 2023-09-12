@@ -18,6 +18,8 @@ const styles: any = {
     top-0
     left-0
     px-[1.25rem]
+    py-[4.125rem]
+    md:py-0
     flex
     items-center
     justify-center
