@@ -27,7 +27,7 @@ export const inquireFormSteps: Array<FormStep> = [
         id: '1a',
         fields: [
           {
-            title: 'First Name',
+            placeholder: 'First Name',
             required: true,
             type: FORM_FIELD_TYPES.INPUT,
             span: 6,
@@ -37,7 +37,7 @@ export const inquireFormSteps: Array<FormStep> = [
             },
           },
           {
-            title: 'Last Name',
+            placeholder: 'Last Name',
             required: true,
             type: FORM_FIELD_TYPES.INPUT,
             span: 6,
@@ -47,7 +47,7 @@ export const inquireFormSteps: Array<FormStep> = [
             },
           },
           {
-            title: 'Email Address',
+            placeholder: 'Email Address',
             required: true,
             type: FORM_FIELD_TYPES.INPUT,
             span: 6,
@@ -58,7 +58,7 @@ export const inquireFormSteps: Array<FormStep> = [
             },
           },
           {
-            title: 'Phone Number',
+            placeholder: 'Phone Number',
             required: false,
             type: FORM_FIELD_TYPES.INPUT,
             span: 6,
@@ -69,7 +69,7 @@ export const inquireFormSteps: Array<FormStep> = [
             },
           },
           {
-            title: 'Comments & Additional Interests',
+            placeholder: 'Comments & Additional Interests',
             required: false,
             type: FORM_FIELD_TYPES.TEXTBOX,
             maxWordLength: 300,
