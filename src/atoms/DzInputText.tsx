@@ -151,6 +151,9 @@ export const DzInputText = forwardRef<HTMLInputElement, InputTextProps>(
       if (!disabled && onChange) {
         onChange(event);
       }
+    };
+
+    const handleBlur = () => {
       setIsUntouched(false);
     };
 
@@ -230,6 +233,7 @@ export const DzInputText = forwardRef<HTMLInputElement, InputTextProps>(
             disabled={disabled}
             placeholder={placeholder}
             onChange={handleChange}
+            onBlur={handleBlur}
             {...rest}
           />
           <div
