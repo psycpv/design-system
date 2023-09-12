@@ -36,6 +36,10 @@ export const DzInquireFormModal = ({
   const onSubmit = () => {
     setIsSubmitSuccessful(true);
   };
+  const onCloseModal = () => {
+    setIsSubmitSuccessful(false);
+    onClose();
+  };
 
   inquireFormSteps[0].title = title;
   inquireFormSteps[0].primarySubtitle = subtitle;
@@ -47,7 +51,7 @@ export const DzInquireFormModal = ({
   ]);
 
   return (
-    <DzModalContainer isOpen={isOpen} onClose={onClose}>
+    <DzModalContainer isOpen={isOpen} onClose={onCloseModal}>
       <DzForm
         steps={inquireFormSteps}
         onSubmit={onSubmit}
