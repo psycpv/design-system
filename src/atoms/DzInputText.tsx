@@ -30,6 +30,7 @@ export interface InputTextProps
 
 const styles = {
   inputContainer: `
+    relative
     flex
     flex-col
     justify-start
@@ -83,9 +84,11 @@ const styles = {
   extras: `
     text-black-100
   `,
-  error: `
+  error: `    
+    absolute
     border-red-100
     text-red-100
+    px-[0.625rem]    
   `,
 };
 
@@ -161,6 +164,7 @@ export const DzInputText = forwardRef<HTMLInputElement, InputTextProps>(
       !isUntouched && errorMsg && !isValidValue ? (
         <DzText
           className={cn(styles.error)}
+          style={{ bottom: '-1.4rem' }}
           textSize={TEXT_SIZES.XS}
           textType={TEXT_TYPES.SPAN}
           text={errorMsg}
