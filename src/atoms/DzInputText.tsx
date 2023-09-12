@@ -40,8 +40,8 @@ const styles = {
     relative
     appearance-none
     outline-0
-    pb-2
     border-b
+    p-[0.625rem]
     border-black-40
     bg-transparent
     placeholder:text-black-40
