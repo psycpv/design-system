@@ -11,6 +11,7 @@ import {
 } from '../../atoms';
 import { DzGridColumns, DzColumn } from '../../layout';
 import { cn } from '../../utils/classnames';
+import { FORM_FIELD_TYPES } from './DzForm';
 
 export interface DzFormBuilderProps {
   form: any;
@@ -130,6 +131,9 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
                       ...data,
                       onValidation: isValid => onFieldValidation(key, isValid),
                     };
+                    if (type === FORM_FIELD_TYPES.TEXTBOX) {
+                      componentProps.maxWordLength = field.maxWordLength;
+                    }
                     const Component = atomsPerType?.[type]?.(componentProps);
                     return Component ? (
                       <DzColumn

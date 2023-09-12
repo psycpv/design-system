@@ -72,6 +72,7 @@ export const inquireFormSteps: Array<FormStep> = [
             title: 'Comments & Additional Interests',
             required: false,
             type: FORM_FIELD_TYPES.TEXTBOX,
+            maxWordLength: 300,
             span: 12,
           },
         ],
