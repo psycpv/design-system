@@ -122,12 +122,19 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
               {fields?.length ? (
                 <DzGridColumns key={id}>
                   {fields?.map((field, key) => {
-                    const { title, required, type, data = {}, span } =
-                      field ?? {};
+                    const {
+                      placeholder,
+                      title,
+                      required,
+                      type,
+                      data = {},
+                      span,
+                    } = field ?? {};
                     const requiredTag = required ? '*' : '';
                     const componentProps = {
                       ...(title ? { title: `${title}${requiredTag}` } : {}),
                       ...(required ? { required } : {}),
+                      placeholder,
                       ...data,
                       onValidation: isValid => onFieldValidation(key, isValid),
                     };
