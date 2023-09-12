@@ -52,7 +52,7 @@ export const DzInquireFormModal = ({
         steps={inquireFormSteps}
         onSubmit={onSubmit}
         showStepsCount={false}
-        containerClassName="bg-white-100 max-w-[984px] p-[1.25rem]"
+        containerClassName="bg-white-100 max-w-[984px]"
         successContent={
           isSubmitSuccessful ? (
             <div className="bg-white-100 p-[1.25rem]">

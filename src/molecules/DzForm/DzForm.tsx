@@ -34,6 +34,7 @@ export interface DzFormProps {
 
 const styles: any = {
   formContainer: `
+    relative
     flex
     flex-col
     gap-5
@@ -174,10 +175,10 @@ export const DzForm: FC<DzFormProps> = ({
             />
           </form>
         ) : null}
+        {successContent && (
+          <div className={cn(styles.successContainer)}>{successContent}</div>
+        )}
       </div>
-      {successContent && (
-        <div className={cn(styles.successContainer)}>{successContent}</div>
-      )}
     </div>
   );
 };

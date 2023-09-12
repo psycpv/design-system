@@ -23,16 +23,22 @@ const styles: any = {
     justify-center
     overflow-y-scroll
   `,
-  closeIcon: `
-    absolute
-    right-[1.25rem]
-    top-[1.25rem]
-    cursor-pointer
-    z-[100]
-  `,
   contentContainer: `
+    bg-white-100
     relative
-    m-auto    
+    m-auto
+    p-[1.25rem]
+  `,
+  closeContainer: `
+    flex
+    flex-wrap
+    content-center
+    justify-end
+    h-[1.25rem]
+    w-full
+  `,
+  closeIcon: `        
+    cursor-pointer
   `,
 };
 
@@ -66,7 +72,9 @@ export const DzModalContainer = ({
       ref={containerRef}
     >
       <div className={styles.contentContainer}>
-        <Close onClick={onClickClose} className={styles.closeIcon} />
+        <div className={styles.closeContainer}>
+          <Close onClick={onClickClose} className={styles.closeIcon} />
+        </div>
         {children}
       </div>
     </div>
