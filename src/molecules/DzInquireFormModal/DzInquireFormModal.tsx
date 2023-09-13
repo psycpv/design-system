@@ -7,12 +7,16 @@ import {
   TEXT_SIZES,
   TITLE_SIZES,
   TEXT_TYPES,
+  DzButton,
+  BUTTON_SIZES,
 } from '../../atoms';
 import { inquireFormSteps } from './inquireFormSteps';
 import { TITLE_TYPES } from '../../atoms';
 import { InquireFormContextData } from './useDZInquireFormModalProps';
 import { termsAndConditions } from './termsAndConditions';
 import useLockedBodyScroll from '../../hooks/useLockedBodyScroll';
+import { DzColumn, DzGridColumns } from '../../layout';
+import { cn } from '../../utils/classnames';
 
 interface InquireFormModalProps {
   contextData?: InquireFormContextData | null;
@@ -71,6 +75,15 @@ export const DzInquireFormModal = ({
                 textSize={TEXT_SIZES.MEDIUM}
                 className="mt-[0.625rem]"
               />
+              <div className="absolute bottom-0 right-0 w-full md:w-[50%]">
+                <DzButton
+                  size={BUTTON_SIZES.LARGE}
+                  onClick={onCloseModal}
+                  className="w-full"
+                >
+                  Close
+                </DzButton>
+              </div>
             </div>
           ) : null
         }
