@@ -1,3 +1,15 @@
+# v0.0.103 (Tue Sep 12 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-82 EditorialSimple and DzTitlePage components style for screenwidth of 460px and smaller [#157](https://github.com/Zwirner/design-system/pull/157) ([@romulo114](https://github.com/romulo114))
+
+#### Authors: 1
+
+- Romulo Benjamim ([@romulo114](https://github.com/romulo114))
+
+---
+
 # v0.0.102 (Thu Sep 07 2023)
 
 #### ⚠️ Pushed to `main`
