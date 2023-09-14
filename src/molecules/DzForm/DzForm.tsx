@@ -77,6 +77,7 @@ export const DzForm: FC<DzFormProps> = ({
   successContent,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [formValues, setFormValues] = useState<Record<string, any>>({});
   const stepsLength = useMemo(() => steps.length, [steps]);
 
   const stepFormData = useMemo(() => {
@@ -92,14 +93,18 @@ export const DzForm: FC<DzFormProps> = ({
     setAreAllCurrentStepFieldsValid,
   ] = useState(false);
 
+  const doSubmit = useCallback(() => {
+    onSubmit?.(formValues);
+  }, [formValues, onSubmit]);
+
   const handleForwardAction = useCallback(() => {
     if (currentStep === stepsLength) {
-      onSubmit();
+      doSubmit();
     } else {
       setFieldValidityStates({});
       setCurrentStep(step => step + 1);
     }
-  }, [currentStep, onSubmit, stepsLength]);
+  }, [currentStep, doSubmit, stepsLength]);
 
   const handlePrevAction = useCallback(() => {
     setFieldValidityStates({});
@@ -109,15 +114,22 @@ export const DzForm: FC<DzFormProps> = ({
   const handleFormSubmit = useCallback(
     event => {
       event.preventDefault();
-      if (onSubmit) onSubmit();
+      doSubmit();
     },
-    [onSubmit]
+    [onSubmit, doSubmit]
   );
 
   const onFieldValidation = (fieldId: string | number, isValid: boolean) => {
     setFieldValidityStates(currentStates => ({
       ...currentStates,
       [fieldId]: isValid,
+    }));
+  };
+
+  const onChangeInput = (fieldName: string, value: any) => {
+    setFormValues(currentFormValues => ({
+      ...currentFormValues,
+      [fieldName]: value,
     }));
   };
 
@@ -169,6 +181,7 @@ export const DzForm: FC<DzFormProps> = ({
               formAction={handleForwardAction}
               onFieldValidation={onFieldValidation}
               isSubmitDisabled={!areAllCurrentStepFieldsValid}
+              onChangeInput={onChangeInput}
               submitAction={() => {
                 console.info('TODO submitAction');
               }}

@@ -19,6 +19,7 @@ export interface DzFormBuilderProps {
   isSubmitDisabled?: boolean;
   submitAction: Function;
   onFieldValidation: Function;
+  onChangeInput: Function;
 }
 const styles: any = {
   formLayout: `
@@ -75,6 +76,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
   formAction,
   isSubmitDisabled,
   onFieldValidation,
+  onChangeInput,
 }) => {
   const {
     formName,
@@ -123,6 +125,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
                 <DzGridColumns key={id}>
                   {fields?.map((field, key) => {
                     const {
+                      name,
                       placeholder,
                       title,
                       required,
@@ -136,6 +139,8 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
                       ...(required ? { required } : {}),
                       placeholder,
                       ...data,
+                      onChange: event =>
+                        onChangeInput?.(name, event.target.value),
                       onValidation: isValid => onFieldValidation(key, isValid),
                     };
                     if (type === FORM_FIELD_TYPES.TEXTBOX) {

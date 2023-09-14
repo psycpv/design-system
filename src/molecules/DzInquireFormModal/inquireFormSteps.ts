@@ -27,6 +27,7 @@ export const inquireFormSteps: Array<FormStep> = [
         id: '1a',
         fields: [
           {
+            name: 'firstName',
             placeholder: 'First Name',
             required: true,
             type: FORM_FIELD_TYPES.INPUT,
@@ -37,6 +38,7 @@ export const inquireFormSteps: Array<FormStep> = [
             },
           },
           {
+            name: 'lastName',
             placeholder: 'Last Name',
             required: true,
             type: FORM_FIELD_TYPES.INPUT,
@@ -47,6 +49,7 @@ export const inquireFormSteps: Array<FormStep> = [
             },
           },
           {
+            name: 'email',
             placeholder: 'Email Address',
             required: true,
             type: FORM_FIELD_TYPES.INPUT,
@@ -58,6 +61,7 @@ export const inquireFormSteps: Array<FormStep> = [
             },
           },
           {
+            name: 'phone',
             placeholder: 'Phone Number',
             required: false,
             type: FORM_FIELD_TYPES.INPUT,
@@ -69,6 +73,7 @@ export const inquireFormSteps: Array<FormStep> = [
             },
           },
           {
+            name: 'comments',
             placeholder: 'Comments & Additional Interests',
             required: false,
             type: FORM_FIELD_TYPES.TEXTBOX,

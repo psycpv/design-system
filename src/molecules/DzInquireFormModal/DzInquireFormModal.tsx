@@ -15,8 +15,6 @@ import { TITLE_TYPES } from '../../atoms';
 import { InquireFormContextData } from './useDZInquireFormModalProps';
 import { termsAndConditions } from './termsAndConditions';
 import useLockedBodyScroll from '../../hooks/useLockedBodyScroll';
-import { DzColumn, DzGridColumns } from '../../layout';
-import { cn } from '../../utils/classnames';
 
 interface InquireFormModalProps {
   contextData?: InquireFormContextData | null;
@@ -24,6 +22,7 @@ interface InquireFormModalProps {
   onClose: () => void;
   title: string;
   subtitle: string;
+  onSubmit: (formValues: Record<string, any>) => void;
 }
 
 export const DzInquireFormModal = ({
@@ -31,14 +30,15 @@ export const DzInquireFormModal = ({
   onClose,
   subtitle,
   title,
+  onSubmit,
 }: InquireFormModalProps) => {
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<
     boolean | undefined
   >(false);
   const [, setIsBodyScrollLocked] = useLockedBodyScroll(false, 'root');
-  // TODO API sending
-  const onSubmit = () => {
+  const onSubmitForm = (formValues: Record<string, any>) => {
     setIsSubmitSuccessful(true);
+    onSubmit(formValues);
   };
   const onCloseModal = () => {
     setIsSubmitSuccessful(false);
@@ -58,7 +58,7 @@ export const DzInquireFormModal = ({
     <DzModalContainer isOpen={isOpen} onClose={onCloseModal}>
       <DzForm
         steps={inquireFormSteps}
-        onSubmit={onSubmit}
+        onSubmit={onSubmitForm}
         showStepsCount={false}
         containerClassName="bg-white-100 max-w-[984px]"
         successContent={
