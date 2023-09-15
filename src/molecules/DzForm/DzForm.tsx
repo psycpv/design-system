@@ -30,6 +30,7 @@ export interface DzFormProps {
   showStepsCount?: boolean;
   containerClassName?: string;
   successContent?: ReactNode;
+  isSubmitDisabled?: boolean;
 }
 
 const styles: any = {
@@ -75,6 +76,7 @@ export const DzForm: FC<DzFormProps> = ({
   showStepsCount = true,
   containerClassName,
   successContent,
+  isSubmitDisabled = false,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formValues, setFormValues] = useState<Record<string, any>>({});
@@ -180,7 +182,9 @@ export const DzForm: FC<DzFormProps> = ({
               form={stepFormData}
               formAction={handleForwardAction}
               onFieldValidation={onFieldValidation}
-              isSubmitDisabled={!areAllCurrentStepFieldsValid}
+              isSubmitDisabled={
+                isSubmitDisabled || !areAllCurrentStepFieldsValid
+              }
               onChangeInput={onChangeInput}
               submitAction={() => {
                 console.info('TODO submitAction');
