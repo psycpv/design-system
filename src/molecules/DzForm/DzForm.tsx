@@ -118,7 +118,7 @@ export const DzForm: FC<DzFormProps> = ({
       event.preventDefault();
       doSubmit();
     },
-    [onSubmit, doSubmit]
+    [doSubmit]
   );
 
   const onFieldValidation = (fieldId: string | number, isValid: boolean) => {

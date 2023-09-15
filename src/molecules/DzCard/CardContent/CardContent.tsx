@@ -57,7 +57,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
 
   const isPodcast = useMemo(() => {
     return media?.type === MEDIA_TYPES.PODCAST;
-  }, [media?.type]);
+  }, [media]);
 
   const styles = useMemo(() => {
     const span = Array.isArray(size)
