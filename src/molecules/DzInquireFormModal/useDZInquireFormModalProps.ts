@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface InquireFormContextData {
   id?: string;
   title?: string;
+  artwork?: Record<string, any>;
 }
 
 export const useDZInquireFormModalProps = () => {
