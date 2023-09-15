@@ -22,7 +22,12 @@ interface InquireFormModalProps {
   onClose: () => void;
   title: string;
   subtitle: string;
-  onSubmit: (formValues: Record<string, any>) => void;
+  onSubmit: (formValues: Record<string, any>) => Promise<any>;
+}
+
+export interface SubmissionResult {
+  isSuccess: boolean;
+  error?: string;
 }
 
 export const DzInquireFormModal = ({
@@ -36,9 +41,18 @@ export const DzInquireFormModal = ({
     boolean | undefined
   >(false);
   const [, setIsBodyScrollLocked] = useLockedBodyScroll(false, 'root');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const onSubmitForm = (formValues: Record<string, any>) => {
-    setIsSubmitSuccessful(true);
-    onSubmit(formValues);
+    setIsSubmitting(true);
+    onSubmit(formValues)
+      .then((result: SubmissionResult) => {
+        if (result.isSuccess) {
+          setIsSubmitSuccessful(true);
+        } else {
+          alert('TODO error screen');
+        }
+      })
+      .finally(() => setIsSubmitting(false));
   };
   const onCloseModal = () => {
     setIsSubmitSuccessful(false);
@@ -61,6 +75,7 @@ export const DzInquireFormModal = ({
         onSubmit={onSubmitForm}
         showStepsCount={false}
         containerClassName="bg-white-100 max-w-[984px]"
+        isSubmitDisabled={isSubmitting}
         successContent={
           isSubmitSuccessful ? (
             <div className="bg-white-100 p-[1.25rem]">
