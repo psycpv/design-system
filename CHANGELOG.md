@@ -1,3 +1,15 @@
+# v0.0.104 (Mon Sep 18 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-159 Available Works Page should default to 2-Up Grid on Page Load [#163](https://github.com/Zwirner/design-system/pull/163) ([@romulo114](https://github.com/romulo114))
+
+#### Authors: 1
+
+- Romulo Benjamim ([@romulo114](https://github.com/romulo114))
+
+---
+
 # v0.0.103 (Tue Sep 12 2023)
 
 #### 🐛 Bug Fix
