@@ -1,11 +1,13 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { Close } from '../svgIcons';
 import { useKeyDownCallback } from '../hooks/useKeyDownCallback';
+import { cn } from '../utils/classnames';
 
 interface DzModalContainerProps {
   children: ReactNode;
   isOpen: boolean;
   onClose?: () => void;
+  className?: string;
 }
 
 const styles: any = {
@@ -48,6 +50,7 @@ export const DzModalContainer = ({
   children,
   isOpen,
   onClose,
+  className,
 }: DzModalContainerProps) => {
   const [isModalOpen, setIsModalOpen] = useState(isOpen);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -73,7 +76,7 @@ export const DzModalContainer = ({
       onClick={onClickContainer}
       ref={containerRef}
     >
-      <div className={styles.contentContainer}>
+      <div className={cn(styles.contentContainer, className || '')}>
         <div className={styles.closeContainer}>
           <Close onClick={onClickClose} className={styles.closeIcon} />
         </div>

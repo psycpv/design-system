@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import DzForm from '../DzForm/DzForm';
-import {
-  DzModalContainer,
-  DzTitle,
-  DzText,
-  TEXT_SIZES,
-  TITLE_SIZES,
-  TEXT_TYPES,
-  DzButton,
-  BUTTON_SIZES,
-} from '../../atoms';
+import { DzModalContainer } from '../../atoms';
 import { inquireFormSteps } from './inquireFormSteps';
-import { TITLE_TYPES } from '../../atoms';
 import { InquireFormContextData } from './useDZInquireFormModalProps';
 import { termsAndConditions } from './termsAndConditions';
 import useLockedBodyScroll from '../../hooks/useLockedBodyScroll';
+import ResultOverlay from './ResultOverlay';
 
 interface InquireFormModalProps {
   contextData?: InquireFormContextData | null;
@@ -37,26 +28,41 @@ export const DzInquireFormModal = ({
   title,
   onSubmit,
 }: InquireFormModalProps) => {
+  const [submittedFormValues, setSubmittedFormValues] = useState<
+    Record<string, any>
+  >();
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState<
     boolean | undefined
-  >(false);
+  >(undefined);
   const [, setIsBodyScrollLocked] = useLockedBodyScroll(false, 'root');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const onSubmitForm = (formValues: Record<string, any>) => {
+    setSubmittedFormValues(formValues);
+    doSubmit(formValues);
+  };
+  const onCloseModal = () => {
+    setIsSubmitSuccessful(undefined);
+    setSubmittedFormValues(undefined);
+    onClose();
+  };
+  const onClickRetry = () => {
+    if (submittedFormValues) {
+      doSubmit(submittedFormValues);
+    }
+  };
+  const doSubmit = (formValues: Record<string, any>) => {
     setIsSubmitting(true);
+    setIsSubmitSuccessful(undefined);
     onSubmit(formValues)
       .then((result: SubmissionResult) => {
+        setIsSubmitSuccessful(true);
         if (result.isSuccess) {
           setIsSubmitSuccessful(true);
         } else {
-          alert('TODO error screen');
+          setIsSubmitSuccessful(false);
         }
       })
       .finally(() => setIsSubmitting(false));
-  };
-  const onCloseModal = () => {
-    setIsSubmitSuccessful(false);
-    onClose();
   };
 
   inquireFormSteps[0].title = title;
@@ -69,7 +75,13 @@ export const DzInquireFormModal = ({
   ]);
 
   return (
-    <DzModalContainer isOpen={isOpen} onClose={onCloseModal}>
+    <DzModalContainer
+      isOpen={isOpen}
+      onClose={onCloseModal}
+      className={
+        isSubmitSuccessful === false ? 'border-[1px] border-red-100' : ''
+      }
+    >
       <DzForm
         steps={inquireFormSteps}
         onSubmit={onSubmitForm}
@@ -77,29 +89,12 @@ export const DzInquireFormModal = ({
         containerClassName="bg-white-100 max-w-[984px]"
         isSubmitDisabled={isSubmitting}
         overlayContent={
-          isSubmitSuccessful ? (
-            <div className="bg-white-100 p-[1.25rem]">
-              <DzTitle
-                title="Thank you for your inquiry."
-                titleType={TITLE_TYPES.H1}
-                titleSize={TITLE_SIZES.XXL}
-              />
-              <DzText
-                text="Your message has been received and a member of our team will be in touch shortly."
-                textType={TEXT_TYPES.P}
-                textSize={TEXT_SIZES.MEDIUM}
-                className="mt-[0.625rem]"
-              />
-              <div className="absolute bottom-0 right-0 w-full md:w-[50%]">
-                <DzButton
-                  size={BUTTON_SIZES.LARGE}
-                  onClick={onCloseModal}
-                  className="w-full"
-                >
-                  Close
-                </DzButton>
-              </div>
-            </div>
+          isSubmitSuccessful !== undefined ? (
+            <ResultOverlay
+              isSuccess={isSubmitSuccessful}
+              onClickClose={onCloseModal}
+              onClickRetry={onClickRetry}
+            />
           ) : null
         }
       />
