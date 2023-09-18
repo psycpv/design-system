@@ -76,7 +76,7 @@ export const DzInquireFormModal = ({
         showStepsCount={false}
         containerClassName="bg-white-100 max-w-[984px]"
         isSubmitDisabled={isSubmitting}
-        successContent={
+        overlayContent={
           isSubmitSuccessful ? (
             <div className="bg-white-100 p-[1.25rem]">
               <DzTitle

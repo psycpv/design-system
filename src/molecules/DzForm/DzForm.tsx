@@ -29,7 +29,7 @@ export interface DzFormProps {
   onSubmit: any;
   showStepsCount?: boolean;
   containerClassName?: string;
-  successContent?: ReactNode;
+  overlayContent?: ReactNode;
   isSubmitDisabled?: boolean;
 }
 
@@ -59,7 +59,7 @@ const styles: any = {
   prevChevron: `
     cursor-pointer
   `,
-  successContainer: `
+  overlayContainer: `
     top-0
     left-0
     absolute
@@ -75,7 +75,7 @@ export const DzForm: FC<DzFormProps> = ({
   onSubmit,
   showStepsCount = true,
   containerClassName,
-  successContent,
+  overlayContent,
   isSubmitDisabled = false,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -192,8 +192,8 @@ export const DzForm: FC<DzFormProps> = ({
             />
           </form>
         ) : null}
-        {successContent && (
-          <div className={cn(styles.successContainer)}>{successContent}</div>
+        {overlayContent && (
+          <div className={cn(styles.overlayContainer)}>{overlayContent}</div>
         )}
       </div>
     </div>
