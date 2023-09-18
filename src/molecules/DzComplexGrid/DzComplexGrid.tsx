@@ -61,7 +61,7 @@ export interface DzComplexGridProps {
 }
 
 const MINIMUM_VALUE = 1;
-const INITIAL_VALUE = 3;
+const INITIAL_VALUE = 2;
 const STEPS_SPAN = 1;
 const STEP_TO_HIDE_CTA = 3;
 
