@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState } from 'react';
+import React, { FC, Fragment } from 'react';
 import {
   DzText,
   DzTextBox,
@@ -11,6 +11,7 @@ import {
 } from '../../atoms';
 import { DzGridColumns, DzColumn } from '../../layout';
 import { cn } from '../../utils/classnames';
+import { FORM_FIELD_TYPES } from './DzForm';
 
 export interface DzFormBuilderProps {
   form: any;
@@ -18,6 +19,7 @@ export interface DzFormBuilderProps {
   isSubmitDisabled?: boolean;
   submitAction: Function;
   onFieldValidation: Function;
+  onChangeInput: Function;
 }
 const styles: any = {
   formLayout: `
@@ -74,6 +76,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
   formAction,
   isSubmitDisabled,
   onFieldValidation,
+  onChangeInput,
 }) => {
   const {
     formName,
@@ -121,17 +124,28 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
               {fields?.length ? (
                 <DzGridColumns key={id}>
                   {fields?.map((field, key) => {
-                    const { title, required, type, data = {}, span } =
-                      field ?? {};
+                    const {
+                      name,
+                      placeholder,
+                      title,
+                      required,
+                      type,
+                      data = {},
+                      span,
+                    } = field ?? {};
                     const requiredTag = required ? '*' : '';
                     const componentProps = {
                       ...(title ? { title: `${title}${requiredTag}` } : {}),
                       ...(required ? { required } : {}),
+                      placeholder,
                       ...data,
-                      onValidation: (isValid: boolean) => {
-                        onFieldValidation(key, isValid);
-                      },
+                      onChange: event =>
+                        onChangeInput?.(name, event.target.value),
+                      onValidation: isValid => onFieldValidation(key, isValid),
                     };
+                    if (type === FORM_FIELD_TYPES.TEXTBOX) {
+                      componentProps.maxWordLength = field.maxWordLength;
+                    }
                     const Component = atomsPerType?.[type]?.(componentProps);
                     return Component ? (
                       <DzColumn

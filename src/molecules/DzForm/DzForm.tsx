@@ -1,4 +1,11 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  FC,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import {
   DzMedia,
   DzMediaProps,
@@ -22,9 +29,13 @@ export interface DzFormProps {
   onSubmit: any;
   showStepsCount?: boolean;
   containerClassName?: string;
+  overlayContent?: ReactNode;
+  isSubmitDisabled?: boolean;
 }
+
 const styles: any = {
   formContainer: `
+    relative
     flex
     flex-col
     gap-5
@@ -48,6 +59,14 @@ const styles: any = {
   prevChevron: `
     cursor-pointer
   `,
+  overlayContainer: `
+    top-0
+    left-0
+    absolute
+    bg-white-100
+    w-full
+    h-full
+  `,
 };
 
 export const DzForm: FC<DzFormProps> = ({
@@ -56,8 +75,11 @@ export const DzForm: FC<DzFormProps> = ({
   onSubmit,
   showStepsCount = true,
   containerClassName,
+  overlayContent,
+  isSubmitDisabled = false,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [formValues, setFormValues] = useState<Record<string, any>>({});
   const stepsLength = useMemo(() => steps.length, [steps]);
 
   const stepFormData = useMemo(() => {
@@ -73,14 +95,18 @@ export const DzForm: FC<DzFormProps> = ({
     setAreAllCurrentStepFieldsValid,
   ] = useState(false);
 
+  const doSubmit = useCallback(() => {
+    onSubmit?.(formValues);
+  }, [formValues, onSubmit]);
+
   const handleForwardAction = useCallback(() => {
     if (currentStep === stepsLength) {
-      onSubmit();
+      doSubmit();
     } else {
       setFieldValidityStates({});
       setCurrentStep(step => step + 1);
     }
-  }, []);
+  }, [currentStep, doSubmit, stepsLength]);
 
   const handlePrevAction = useCallback(() => {
     setFieldValidityStates({});
@@ -90,15 +116,22 @@ export const DzForm: FC<DzFormProps> = ({
   const handleFormSubmit = useCallback(
     event => {
       event.preventDefault();
-      if (onSubmit) onSubmit();
+      doSubmit();
     },
-    [onSubmit]
+    [doSubmit]
   );
 
   const onFieldValidation = (fieldId: string | number, isValid: boolean) => {
     setFieldValidityStates(currentStates => ({
       ...currentStates,
       [fieldId]: isValid,
+    }));
+  };
+
+  const onChangeInput = (fieldName: string, value: any) => {
+    setFormValues(currentFormValues => ({
+      ...currentFormValues,
+      [fieldName]: value,
     }));
   };
 
@@ -149,13 +182,19 @@ export const DzForm: FC<DzFormProps> = ({
               form={stepFormData}
               formAction={handleForwardAction}
               onFieldValidation={onFieldValidation}
-              isSubmitDisabled={!areAllCurrentStepFieldsValid}
+              isSubmitDisabled={
+                isSubmitDisabled || !areAllCurrentStepFieldsValid
+              }
+              onChangeInput={onChangeInput}
               submitAction={() => {
                 console.info('TODO submitAction');
               }}
             />
           </form>
         ) : null}
+        {overlayContent && (
+          <div className={cn(styles.overlayContainer)}>{overlayContent}</div>
+        )}
       </div>
     </div>
   );

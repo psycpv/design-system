@@ -30,6 +30,7 @@ export interface InputTextProps
 
 const styles = {
   inputContainer: `
+    relative
     flex
     flex-col
     justify-start
@@ -40,8 +41,8 @@ const styles = {
     relative
     appearance-none
     outline-0
-    pb-2
     border-b
+    p-[0.625rem]
     border-black-40
     bg-transparent
     placeholder:text-black-40
@@ -83,9 +84,11 @@ const styles = {
   extras: `
     text-black-100
   `,
-  error: `
+  error: `    
+    absolute
     border-red-100
     text-red-100
+    px-[0.625rem]    
   `,
 };
 
@@ -115,22 +118,32 @@ export const DzInputText = forwardRef<HTMLInputElement, InputTextProps>(
   ) => {
     const [value, setValue] = useState<string>('');
     const [isValidValue, setIsValidValue] = useState<boolean>(!hasError);
+    const [isUntouched, setIsUntouched] = useState(true);
     const [classContent, setClassContent] = useState<string>('');
     const debouncedValue = useDebounce<string>(value, 100);
     const disabledClass = disabled ? styles.disabled : '';
-    const errorClass = !isValidValue ? styles.error : '';
+    const errorClass = !isUntouched && !isValidValue ? styles.error : '';
 
     useEffect(() => {
-      const isValid = !required && !value ? true : validator(value);
+      const isValid = !required && !value ? true : !!validator(value);
 
-      setIsValidValue(isValid);
-      onValidation?.(!!isValid);
+      if (isValid !== isValidValue) {
+        onValidation?.(isValid);
+      }
       if (value) {
         setClassContent(styles.content);
       } else {
         setClassContent('');
       }
-    }, [debouncedValue, value, validator]);
+      setIsValidValue(isValid);
+    }, [
+      debouncedValue,
+      isValidValue,
+      onValidation,
+      required,
+      value,
+      validator,
+    ]);
 
     useEffect(() => {
       setIsValidValue(!hasError);
@@ -143,10 +156,15 @@ export const DzInputText = forwardRef<HTMLInputElement, InputTextProps>(
       }
     };
 
+    const handleBlur = () => {
+      setIsUntouched(false);
+    };
+
     const errorMessage =
-      errorMsg && !isValidValue ? (
+      !isUntouched && errorMsg && !isValidValue ? (
         <DzText
           className={cn(styles.error)}
+          style={{ bottom: '-1.4rem' }}
           textSize={TEXT_SIZES.XS}
           textType={TEXT_TYPES.SPAN}
           text={errorMsg}
@@ -219,6 +237,7 @@ export const DzInputText = forwardRef<HTMLInputElement, InputTextProps>(
             disabled={disabled}
             placeholder={placeholder}
             onChange={handleChange}
+            onBlur={handleBlur}
             {...rest}
           />
           <div

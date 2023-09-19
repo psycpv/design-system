@@ -1,19 +1,34 @@
 import { FORM_FIELD_TYPES } from '../DzForm/DzForm';
 import { hasStringValue, isEmail, isPhoneNumber } from '../../utils';
+import { ReactNode } from 'react';
 
-export const inquireFormSteps = [
+interface FormStep {
+  id: string;
+  formName: string;
+  title?: string;
+  primarySubtitle?: string;
+  secondarySubtitle?: string;
+  CTAProps: {
+    text: string;
+    type: string;
+    description?: ReactNode | string;
+  };
+  formSections: Array<Record<string, any>>;
+}
+export const inquireFormSteps: Array<FormStep> = [
   {
     id: '1',
     formName: 'inquiryForm',
-    title: 'Title',
-    primarySubtitle: 'Primary Subtitle',
-    secondarySubtitle: 'Secondary Subtitle',
+    title: '',
+    primarySubtitle: '',
+    secondarySubtitle: '',
     formSections: [
       {
         id: '1a',
         fields: [
           {
-            title: 'First Name',
+            name: 'firstName',
+            placeholder: 'First Name',
             required: true,
             type: FORM_FIELD_TYPES.INPUT,
             span: 6,
@@ -23,7 +38,8 @@ export const inquireFormSteps = [
             },
           },
           {
-            title: 'Last Name',
+            name: 'lastName',
+            placeholder: 'Last Name',
             required: true,
             type: FORM_FIELD_TYPES.INPUT,
             span: 6,
@@ -33,7 +49,8 @@ export const inquireFormSteps = [
             },
           },
           {
-            title: 'Email Address',
+            name: 'email',
+            placeholder: 'Email Address',
             required: true,
             type: FORM_FIELD_TYPES.INPUT,
             span: 6,
@@ -44,7 +61,8 @@ export const inquireFormSteps = [
             },
           },
           {
-            title: 'Phone Number',
+            name: 'phone',
+            placeholder: 'Phone Number',
             required: false,
             type: FORM_FIELD_TYPES.INPUT,
             span: 6,
@@ -55,9 +73,11 @@ export const inquireFormSteps = [
             },
           },
           {
-            title: 'Comments & Additional Interests',
+            name: 'comments',
+            placeholder: 'Comments & Additional Interests',
             required: false,
             type: FORM_FIELD_TYPES.TEXTBOX,
+            maxWordLength: 300,
             span: 12,
           },
         ],
@@ -66,8 +86,6 @@ export const inquireFormSteps = [
     CTAProps: {
       text: 'Inquire',
       type: 'submit',
-      description:
-        'By sharing your email you agree to our Privacy Policy and Terms and Conditions. This site is also protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.',
     },
   },
 ];
