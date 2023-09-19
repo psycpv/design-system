@@ -1,3 +1,15 @@
+# v0.0.106 (Tue Sep 19 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-119: support portable text on card media caption, and dzEditoria… [#161](https://github.com/Zwirner/design-system/pull/161) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
 # v0.0.105 (Tue Sep 19 2023)
 
 #### 🐛 Bug Fix
