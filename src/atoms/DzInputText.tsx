@@ -88,7 +88,10 @@ const styles = {
     absolute
     border-red-100
     text-red-100
-    px-[0.625rem]    
+    px-[0.625rem]   
+    whitespace-nowrap
+    w-full
+    overflow-x-hidden
   `,
 };
 
