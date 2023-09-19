@@ -4,7 +4,7 @@ import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
 
 export const useLockedBodyScroll = (
   initialLocked = false,
-  rootId = '___gatsby' // Default to `___gatsby` to not introduce breaking change
+  rootId = 'root'
 ): Array<any> => {
   const [locked, setLocked] = useState(initialLocked);
 
