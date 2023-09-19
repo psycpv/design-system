@@ -1,10 +1,12 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { cn } from '../../utils/classnames';
 import { DzTitle, TITLE_TYPES } from '../../atoms';
 
 export interface EditorialQuoteProps {
   quote?: string;
   quoteDetail?: string;
+  portableTextQuote?: ReactNode;
+  portableTextQuoteDetail?: ReactNode;
 }
 
 const styles: any = {
@@ -37,20 +39,36 @@ const styles: any = {
 export const EditorialQuote: FC<EditorialQuoteProps> = ({
   quote,
   quoteDetail,
+  portableTextQuote,
+  portableTextQuoteDetail,
 }) => {
+  if (
+    !quote &&
+    !quoteDetail &&
+    !portableTextQuote &&
+    !portableTextQuoteDetail
+  ) {
+    return null;
+  }
   return (
     <div className={cn(styles.editorialContainer)}>
       <div className={cn(styles.singleQuoteContainer)}>
-        <DzTitle
-          classNameTitle={cn(styles.singleQuote)}
-          titleType={TITLE_TYPES.P}
-          title={`”${quote}”`}
-        />
-        <DzTitle
-          classNameTitle={cn(styles.quoteDetail)}
-          titleType={TITLE_TYPES.P}
-          title={`— ${quoteDetail}`}
-        />
+        {quote ? (
+          <DzTitle
+            classNameTitle={cn(styles.singleQuote)}
+            titleType={TITLE_TYPES.P}
+            title={quote}
+          />
+        ) : null}
+        {portableTextQuote ? portableTextQuote : null}
+        {quoteDetail ? (
+          <DzTitle
+            classNameTitle={cn(styles.quoteDetail)}
+            titleType={TITLE_TYPES.P}
+            title={quoteDetail}
+          />
+        ) : null}
+        {portableTextQuoteDetail ? portableTextQuoteDetail : null}
       </div>
     </div>
   );

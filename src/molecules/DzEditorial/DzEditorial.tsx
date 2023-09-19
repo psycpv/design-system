@@ -49,9 +49,7 @@ export const DzEditorial: FC<DzEditorialProps> = ({ type, data }) => {
     );
   }
 
-  const { quote, quoteDetail } = (data as EditorialQuoteProps) ?? {};
-
-  return <EditorialQuote quote={quote} quoteDetail={quoteDetail} />;
+  return <EditorialQuote {...(data as EditorialQuoteProps)} />;
 };
 
 export default DzEditorial;

@@ -91,6 +91,6 @@ export const complex: EditorialComplexProps = {
 
 export const quote: EditorialQuoteProps = {
   quote:
-    'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu',
-  quoteDetail: 'Lorem ipsum dolor sit amet, consectetuer adipiscin',
+    '”Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu”',
+  quoteDetail: '— Lorem ipsum dolor sit amet, consectetuer adipiscin',
 };

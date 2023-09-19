@@ -14,7 +14,12 @@ import { cn } from '../../../utils/classnames';
 import { slugify } from '../../../utils';
 
 export const CardMedia: FC<CardMediaProps> = ({ data, onClickImage }) => {
-  const { id, media, description } = data as CardMediaData;
+  const {
+    id,
+    media,
+    description,
+    portableTextDescription,
+  } = data as CardMediaData;
   return (
     <div id={id} className={cn(styles.cardContainer)}>
       <DzMedia
@@ -29,12 +34,15 @@ export const CardMedia: FC<CardMediaProps> = ({ data, onClickImage }) => {
           onClick: () => onClickImage?.(data),
         }}
       />
-      <DzText
-        className={cn(styles.media.descriptionText)}
-        textType={TEXT_TYPES.P}
-        textSize={TEXT_SIZES.XS}
-        text={description}
-      />
+      {description ? (
+        <DzText
+          className={cn(styles.media.descriptionText)}
+          textType={TEXT_TYPES.P}
+          textSize={TEXT_SIZES.XS}
+          text={description}
+        />
+      ) : null}
+      {portableTextDescription ? portableTextDescription : null}
     </div>
   );
 };
