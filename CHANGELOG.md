@@ -1,3 +1,15 @@
+# v0.0.108 (Wed Sep 20 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 372 recaptcha v2 [#166](https://github.com/Zwirner/design-system/pull/166) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.107 (Wed Sep 20 2023)
 
 #### 🐛 Bug Fix
