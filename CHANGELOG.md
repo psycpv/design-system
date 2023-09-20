@@ -1,3 +1,15 @@
+# v0.0.107 (Wed Sep 20 2023)
+
+#### 🐛 Bug Fix
+
+- modal form layout and input styles to spec [#165](https://github.com/Zwirner/design-system/pull/165) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.106 (Tue Sep 19 2023)
 
 #### 🐛 Bug Fix
