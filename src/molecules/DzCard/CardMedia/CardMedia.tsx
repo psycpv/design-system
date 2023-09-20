@@ -23,6 +23,7 @@ export const CardMedia: FC<CardMediaProps> = ({ data, onClickImage }) => {
   return (
     <div id={id} className={cn(styles.cardContainer)}>
       <DzMedia
+        className="overflow-hidden"
         imgClass={cn(styles.mediaImg)}
         objectFit={MEDIA_OBJECT_FIT.COVER}
         objectPosition={ObjectPositionType.CENTER}

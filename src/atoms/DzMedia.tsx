@@ -166,6 +166,7 @@ export const DzMedia: FC<DzMediaProps> = ({
 }) => {
   const renderImage = useMemo(() => {
     const mediaClasses = cn(
+      className,
       'w-full',
       imgClass,
       styles[aspectRatio],
