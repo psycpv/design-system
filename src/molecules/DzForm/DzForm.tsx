@@ -31,6 +31,7 @@ export interface DzFormProps {
   containerClassName?: string;
   overlayContent?: ReactNode;
   isSubmitDisabled?: boolean;
+  recaptchaNode?: ReactNode;
 }
 
 const styles: any = {
@@ -77,6 +78,7 @@ export const DzForm: FC<DzFormProps> = ({
   containerClassName,
   overlayContent,
   isSubmitDisabled = false,
+  recaptchaNode,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formValues, setFormValues] = useState<Record<string, any>>({});
@@ -178,6 +180,7 @@ export const DzForm: FC<DzFormProps> = ({
             autoComplete="off"
             onSubmit={handleFormSubmit}
           >
+            {recaptchaNode}
             <DzFormBuilder
               form={stepFormData}
               formAction={handleForwardAction}
