@@ -25,7 +25,8 @@ const styles: any = {
   formLayout: `
     flex
     flex-col
-    gap-10
+    gap-5
+    md:gap-10
   `,
   titleText: `
     text-lg

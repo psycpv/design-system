@@ -47,8 +47,8 @@ const styles = {
     bg-transparent
     placeholder:text-black-40
     hover:text-black-100
-    hover:border-black-100
-    focus:border-black-100
+    hover:border-black-60
+    focus:border-black-60
     focus:text-black-100
     active:text-black-100
   `,
