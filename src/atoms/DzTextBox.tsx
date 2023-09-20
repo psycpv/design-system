@@ -31,14 +31,19 @@ const styles = {
     outline-transparent
     outline-none
     border
-    focus:border-black-100
+    hover:border-black-60
+    focus:border-black-60
+    scroll-padding-bottom-[2rem]
+    pb-[2rem]
   `,
   wordCount: `
     text-xs
     text-black-60
     absolute
-    bottom-2.5
+    bottom-2
     left-2.5
+    w-[95%]
+    bg-white-100
   `,
   error: `
     text-red-100

@@ -13,6 +13,8 @@ interface DzModalContainerProps {
 const styles: any = {
   container: `
     bg-black-40
+    bg-opacity-50
+    backdrop-blur-[6px]
     fixed
     z-[999]
     w-screen

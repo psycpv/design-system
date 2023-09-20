@@ -50,7 +50,7 @@ export const ResultOverlay = ({
         title={title}
         classNameTitle={!isSuccess && 'text-red-100'}
         titleType={TITLE_TYPES.H1}
-        titleSize={TITLE_SIZES.XXL}
+        titleSize={TITLE_SIZES.XL}
       />
       <DzText
         text={message}

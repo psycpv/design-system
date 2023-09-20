@@ -79,7 +79,9 @@ export const DzInquireFormModal = ({
       isOpen={isOpen}
       onClose={onCloseModal}
       className={
-        isSubmitSuccessful === false ? 'border-[1px] border-red-100' : ''
+        isSubmitSuccessful === false
+          ? 'border-[1px] border-red-100 border-opacity-25'
+          : ''
       }
     >
       <DzForm
