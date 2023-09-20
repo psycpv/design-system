@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import DzForm from '../DzForm/DzForm';
 import { DzModalContainer } from '../../atoms';
 import { inquireFormSteps } from './inquireFormSteps';
@@ -7,13 +7,14 @@ import { termsAndConditions } from './termsAndConditions';
 import useLockedBodyScroll from '../../hooks/useLockedBodyScroll';
 import ResultOverlay from './ResultOverlay';
 
-interface InquireFormModalProps {
+export interface InquireFormModalProps {
   contextData?: InquireFormContextData | null;
   isOpen: boolean;
   onClose: () => void;
   title: string;
   subtitle: string;
   onSubmit: (formValues: Record<string, any>) => Promise<any>;
+  recaptchaNode?: ReactNode;
 }
 
 export interface SubmissionResult {
@@ -27,6 +28,7 @@ export const DzInquireFormModal = ({
   subtitle,
   title,
   onSubmit,
+  recaptchaNode,
 }: InquireFormModalProps) => {
   const [submittedFormValues, setSubmittedFormValues] = useState<
     Record<string, any>
@@ -88,6 +90,7 @@ export const DzInquireFormModal = ({
         steps={inquireFormSteps}
         onSubmit={onSubmitForm}
         showStepsCount={false}
+        recaptchaNode={recaptchaNode}
         containerClassName="bg-white-100 max-w-[984px]"
         isSubmitDisabled={isSubmitting}
         overlayContent={
