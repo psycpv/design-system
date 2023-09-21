@@ -9,6 +9,7 @@ export interface DzSectionMenuProps {
   sticky?: boolean;
   useLinks?: boolean;
   linksProps?: Partial<DzLinkProps>;
+  className?: string;
 }
 
 interface SectionMenuCTA {
