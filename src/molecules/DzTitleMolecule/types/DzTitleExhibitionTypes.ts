@@ -1,9 +1,10 @@
 export interface AddressData {
   addressLine: string;
-  addressLine2: string;
+  addressLine2?: string;
   city: string;
   country: string;
   state: string;
+  reverseZipAndCity?: boolean;
   zipCode: string;
 }
 export interface AvailableTimeData {
