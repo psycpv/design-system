@@ -1,3 +1,15 @@
+# v0.0.110 (Thu Sep 21 2023)
+
+#### 🐛 Bug Fix
+
+- Form modal improvements [#169](https://github.com/Zwirner/design-system/pull/169) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.109 (Wed Sep 20 2023)
 
 #### 🐛 Bug Fix
