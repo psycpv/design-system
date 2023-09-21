@@ -1,3 +1,15 @@
+# v0.0.113 (Thu Sep 21 2023)
+
+#### 🐛 Bug Fix
+
+- provide optional className prop for container styling [#150](https://github.com/Zwirner/design-system/pull/150) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.112 (Thu Sep 21 2023)
 
 #### 🐛 Bug Fix
