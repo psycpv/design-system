@@ -12,7 +12,7 @@ interface DzModalContainerProps {
 
 const styles: any = {
   container: `
-    bg-black-40
+    bg-black-100
     bg-opacity-50
     backdrop-blur-[6px]
     fixed
@@ -36,15 +36,21 @@ const styles: any = {
     p-[1.25rem]
   `,
   closeContainer: `
-    flex
-    flex-wrap
-    content-center
-    justify-end
-    h-[1.25rem]
-    w-full
-  `,
-  closeIcon: `        
     cursor-pointer
+    flex
+    items-center
+    absolute
+    z-[1]
+    right-0
+    top-[-1.8rem]
+    text-xs
+    text-white-100
+  `,
+  closeIcon: `
+    mr-[0.875rem]  
+  `,
+  closeText: `
+    pt-[2px]
   `,
 };
 
@@ -79,8 +85,9 @@ export const DzModalContainer = ({
       ref={containerRef}
     >
       <div className={cn(styles.contentContainer, className || '')}>
-        <div className={styles.closeContainer}>
-          <Close onClick={onClickClose} className={styles.closeIcon} />
+        <div className={styles.closeContainer} onClick={onClickClose}>
+          <Close fill="white" className={styles.closeIcon} />
+          <span className={styles.closeText}>Close</span>
         </div>
         {children}
       </div>

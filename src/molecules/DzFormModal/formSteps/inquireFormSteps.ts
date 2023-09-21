@@ -1,20 +1,7 @@
-import { FORM_FIELD_TYPES } from '../DzForm/DzForm';
-import { hasStringValue, isEmail, isPhoneNumber } from '../../utils';
-import { ReactNode } from 'react';
+import { FORM_FIELD_TYPES } from '../../DzForm/DzForm';
+import { hasStringValue, isEmail, isPhoneNumber } from '../../../utils';
+import { FormStep } from './types/formStep';
 
-interface FormStep {
-  id: string;
-  formName: string;
-  title?: string;
-  primarySubtitle?: string;
-  secondarySubtitle?: string;
-  CTAProps: {
-    text: string;
-    type: string;
-    description?: ReactNode | string;
-  };
-  formSections: Array<Record<string, any>>;
-}
 export const inquireFormSteps: Array<FormStep> = [
   {
     id: '1',
