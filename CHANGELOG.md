@@ -1,3 +1,15 @@
+# v0.0.112 (Thu Sep 21 2023)
+
+#### 🐛 Bug Fix
+
+- add location address formatting [#149](https://github.com/Zwirner/design-system/pull/149) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.111 (Thu Sep 21 2023)
 
 #### 🐛 Bug Fix
