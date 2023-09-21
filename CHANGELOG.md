@@ -1,3 +1,15 @@
+# v0.0.111 (Thu Sep 21 2023)
+
+#### 🐛 Bug Fix
+
+- export form hook [#170](https://github.com/Zwirner/design-system/pull/170) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.110 (Thu Sep 21 2023)
 
 #### 🐛 Bug Fix
