@@ -40,6 +40,8 @@ export const CardArtwork: FC<CardArtworkProps> = ({
     edition,
     price,
     framed,
+    portableTextFramedDimensions,
+    portableTextAdditionalInformation,
     primaryCTA,
     secondaryCTA,
     enableZoom = true,
@@ -138,6 +140,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({
               />
             ) : null}
             {portableTextDimensions ? portableTextDimensions : null}
+            {portableTextFramedDimensions ? portableTextFramedDimensions : null}
             {edition ? (
               <DzText
                 className={cn(styles.artwork.tombstoneText)}
@@ -145,6 +148,9 @@ export const CardArtwork: FC<CardArtworkProps> = ({
                 textType={TEXT_TYPES.P}
               />
             ) : null}
+            {portableTextAdditionalInformation
+              ? portableTextAdditionalInformation
+              : null}
           </div>
 
           {price ? (

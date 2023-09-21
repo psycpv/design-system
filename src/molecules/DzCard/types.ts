@@ -11,7 +11,7 @@ export interface BaseCard {
   //    12col or 12  or [Mobile Size, Desktop Size]
   size: CardSizeType | CardSizeType[];
   viewport?: CardViewport;
-  containerClassName?: string;
+  isDisabled?: boolean;
 }
 
 export enum CardViewport {

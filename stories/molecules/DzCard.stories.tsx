@@ -11,6 +11,7 @@ import {
   mediaData,
   artWorkData,
   contentData,
+  podcastCard,
 } from '../../constants/mocks/DzCard';
 import { DzColumn, DzGridColumns, ColumnSpan } from '../../src/layout/DzGrid';
 import { cn } from '../../src/utils/classnames';
@@ -94,6 +95,13 @@ const contentProps = {
   viewport: CardViewport.Desktop,
 };
 
+const podcastProps = {
+  data: podcastCard,
+  type: CARD_TYPES.CONTENT,
+  showGrid: false,
+  viewport: CardViewport.Desktop,
+};
+
 export const MediaDzCardCol12 = Template.bind({});
 MediaDzCardCol12.args = { span: 12, ...mediaProps };
 
@@ -147,3 +155,18 @@ ContentDzCardCol3.args = { span: 3, ...contentProps };
 
 export const ContentDzCardCol2 = Template.bind({});
 ContentDzCardCol2.args = { span: 2, ...contentProps };
+
+export const PodcastCardCol12 = Template.bind({});
+PodcastCardCol12.args = { span: 12, ...podcastProps };
+
+export const PodcastCardCol10 = Template.bind({});
+PodcastCardCol10.args = { span: 10, ...podcastProps };
+
+export const PodcastCardCol6 = Template.bind({});
+PodcastCardCol6.args = { span: [6, 6], ...podcastProps };
+
+export const PodcastCardCol4 = Template.bind({});
+PodcastCardCol4.args = { span: 4, ...podcastProps };
+
+export const PodcastCardCol3 = Template.bind({});
+PodcastCardCol3.args = { span: 3, ...podcastProps };

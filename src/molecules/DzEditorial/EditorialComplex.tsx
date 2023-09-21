@@ -13,6 +13,8 @@ const styles: any = {
     flex
     flex-col
     md:flex-row
+    gap-10
+    md:gap-5
     w-full
     relative
     scroll-smooth
@@ -24,7 +26,6 @@ const styles: any = {
     md:sticky
     top-0
     h-fit
-    pt-10
   `,
   rightPane: `
     flex

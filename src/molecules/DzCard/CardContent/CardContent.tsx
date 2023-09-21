@@ -9,6 +9,7 @@ import {
   LINK_VARIANTS,
   DzLink,
   DzButton,
+  MEDIA_TYPES,
   MEDIA_ASPECT_RATIOS,
   TEXT_LINK_SIZES,
 } from '../../../atoms';
@@ -34,6 +35,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
     secondarySubtitle,
     description,
     portableTextDescription,
+    portableTextAdditionalInformation,
     linkCTA,
     primaryCTA,
     hideImage = false,
@@ -42,15 +44,20 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
     enableZoom = false,
     cardLink,
     viewport = CardViewport.Desktop,
-    containerClassName = ' ',
+    isDisabled = false,
     ...rest
   } = data as CardContentData;
+
   const restProps = camelCaseItemProps(rest);
   const [isHoverLink, setIsHover] = useState<boolean>(false);
   const { width } = useWindowSize();
   const isSmall = useMemo(() => {
     return width <= BREAKPOINTS.MD;
   }, [width]);
+
+  const isPodcast = useMemo(() => {
+    return media?.type === MEDIA_TYPES.PODCAST;
+  }, [media]);
 
   const styles = useMemo(() => {
     const span = Array.isArray(size)
@@ -61,6 +68,11 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
 
     return mergeStyles(globalStyles, stylesSizes[viewport][span]);
   }, [size, isSmall, viewport]);
+
+  const mediaStyles = useMemo(() => {
+    const zoomStyles = enableZoom ? 'overflow-hidden' : '';
+    return isPodcast ? styles.podcast : zoomStyles;
+  }, [styles, isPodcast, enableZoom]);
 
   const imageHoverStyle = useMemo(
     () => (isHoverLink ? styles.mediaLinkZoom : ''),
@@ -92,28 +104,31 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
     <div
       {...restProps}
       id={id}
-      className={cn(styles.cardContainer, containerClassName)}
+      className={cn(
+        styles.cardContainer,
+        isDisabled ? 'transition-opacity duration-200 opacity-20' : ''
+      )}
     >
       {!hideImage && media ? (
         <DzMedia
-          className={enableZoom ? 'overflow-hidden' : ''}
+          className={mediaStyles}
           imgClass={cn(
             styles.mediaImg,
             enableZoom ? styles.mediaZoom : '',
             imageHoverStyle
           )}
           aspectRatio={MEDIA_ASPECT_RATIOS['4:3']}
-          {...media}
           linkProps={cardLink ? undefined : media.linkProps}
           url={cardLink ? undefined : media.url}
           imgProps={{
             id: `CardMedia-${slugify(media?.imgProps?.alt) || ''}`,
             ...(media?.imgProps || {}),
           }}
+          {...media}
         />
       ) : null}
 
-      <div className={cn(styles.infoContainer)}>
+      <div className={cn(styles.infoContainer, 'basis-1/2')}>
         {category ? (
           <DzText
             className={cn(styles.slugText)}
@@ -159,6 +174,9 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
             />
           ) : null}
           {portableTextDescription ? portableTextDescription : null}
+          {portableTextAdditionalInformation
+            ? portableTextAdditionalInformation
+            : null}
         </div>
 
         {linkCTA ? (

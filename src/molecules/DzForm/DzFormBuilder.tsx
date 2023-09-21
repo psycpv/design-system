@@ -1,6 +1,7 @@
 import React, { FC, Fragment } from 'react';
 import {
   DzText,
+  DzTextBox,
   DzButton,
   DzInputText,
   DzSelect,
@@ -10,17 +11,22 @@ import {
 } from '../../atoms';
 import { DzGridColumns, DzColumn } from '../../layout';
 import { cn } from '../../utils/classnames';
+import { FORM_FIELD_TYPES } from './DzForm';
 
 export interface DzFormBuilderProps {
   form: any;
   formAction: Function;
+  isSubmitDisabled?: boolean;
   submitAction: Function;
+  onFieldValidation: Function;
+  onChangeInput: Function;
 }
 const styles: any = {
   formLayout: `
     flex
     flex-col
-    gap-10
+    gap-5
+    md:gap-10
   `,
   titleText: `
     text-lg
@@ -41,7 +47,10 @@ const styles: any = {
     mb-10
     md:mb-0
     md:ml-auto
-    w-[20.9375rem]  
+    w-full        
+  `,
+  ctaContainer: `
+    flex
   `,
 };
 
@@ -55,9 +64,21 @@ const atomsPerType = {
   uploader: data => {
     return <DzFileUploader {...data} />;
   },
+  text: text => {
+    return <DzText text={text} />;
+  },
+  textbox: data => {
+    return <DzTextBox {...data} />;
+  },
 };
 
-export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
+export const DzFormBuilder: FC<DzFormBuilderProps> = ({
+  form,
+  formAction,
+  isSubmitDisabled,
+  onFieldValidation,
+  onChangeInput,
+}) => {
   const {
     formName,
     title,
@@ -67,6 +88,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
     CTAProps,
   } = form ?? {};
   const { text: CTAText, onClick } = CTAProps ?? {};
+
   return (
     <div className={cn(styles.formLayout)}>
       <div className={cn(styles.headInformation)}>
@@ -103,14 +125,28 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
               {fields?.length ? (
                 <DzGridColumns key={id}>
                   {fields?.map((field, key) => {
-                    const { title, required, type, data = {}, span } =
-                      field ?? {};
+                    const {
+                      name,
+                      placeholder,
+                      title,
+                      required,
+                      type,
+                      data = {},
+                      span,
+                    } = field ?? {};
                     const requiredTag = required ? '*' : '';
                     const componentProps = {
                       ...(title ? { title: `${title}${requiredTag}` } : {}),
                       ...(required ? { required } : {}),
+                      placeholder,
                       ...data,
+                      onChange: event =>
+                        onChangeInput?.(name, event.target.value),
+                      onValidation: isValid => onFieldValidation(key, isValid),
                     };
+                    if (type === FORM_FIELD_TYPES.TEXTBOX) {
+                      componentProps.maxWordLength = field.maxWordLength;
+                    }
                     const Component = atomsPerType?.[type]?.(componentProps);
                     return Component ? (
                       <DzColumn
@@ -128,15 +164,25 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({ form, formAction }) => {
           );
         })}
       </div>
-      <DzButton
-        {...CTAProps}
-        className={cn(styles.ctaButton)}
-        size={BUTTON_SIZES.LARGE}
-        onClick={onClick ?? formAction}
-        form={formName}
-      >
-        {CTAText}
-      </DzButton>
+      <DzGridColumns className={CTAProps.description ? '' : 'gap-y-0'}>
+        <DzColumn span={[12, 6]}>
+          {CTAProps.description && (
+            <DzText text={CTAProps.description} className="flex-1" />
+          )}
+        </DzColumn>
+        <DzColumn span={[12, CTAProps.description ? 6 : 12]}>
+          <DzButton
+            {...CTAProps}
+            className={cn(styles.ctaButton)}
+            disabled={isSubmitDisabled}
+            size={BUTTON_SIZES.LARGE}
+            onClick={onClick ?? formAction}
+            form={formName}
+          >
+            {CTAText}
+          </DzButton>
+        </DzColumn>
+      </DzGridColumns>
     </div>
   );
 };

@@ -75,3 +75,28 @@ export const contentData: Partial<CardContentData> = {
     text: 'Button',
   },
 };
+
+export const podcastCard = {
+  id: '1',
+  size: CardSizes['12col'],
+  media: {
+    type: MEDIA_TYPES.PODCAST,
+    url:
+      'https://open.spotify.com/episode/618kRM3BuUvG6E8ZuuUGeB?si=IIIeKA0PRxOUoAOUatSCvw',
+  },
+  category: 'Category Slug',
+  title: 'Lorem ipsum dolor sit amet, consectetuer adipiscin',
+  subtitle: 'Lorem ipsum dolor sit amet, consectetuer adipiscin',
+  secondaryTitle: 'Lorem ipsum dolor sit amet, consectetuer adipiscin',
+  secondarySubtitle: 'Lorem ipsum dolor sit amet, consectetuer adipiscin',
+  description:
+    'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu',
+  linkCTA: {
+    text: 'Learn More',
+    linkElement: 'a',
+    url: '/',
+  },
+  primaryCTA: {
+    text: 'Button',
+  },
+};

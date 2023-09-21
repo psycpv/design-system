@@ -8,6 +8,7 @@ import { ArtistData } from './types/DzTitleExhibitionTypes';
 import { collectHours } from './utils/collectHours';
 import DzContainerTitle from './DzContainerTitle';
 import { splitLocationAddressLines } from './utils/formatAddress';
+import { InquireFormContextData } from '../DzFormModal';
 
 export interface DzTitleExhibitionProps {
   artists: Array<ArtistData>;
@@ -16,6 +17,7 @@ export interface DzTitleExhibitionProps {
   exhibitionState: EXHIBITION_STATES;
   exhibitionDateRangeText: string;
   location?: LocationData;
+  onClickCTA?: (contextData: InquireFormContextData) => void;
   reception?: string;
   showCoordinates?: boolean;
   pressReleasePDFURL?: string;
@@ -92,6 +94,7 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   exhibitionState,
   exhibitionDateRangeText,
   location,
+  onClickCTA,
   reception,
   pressReleasePDFURL,
   showCoordinates = false,
@@ -112,7 +115,10 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
         category="Exhibition"
         primaryCTA={{
           title: 'Inquire',
-          description: 'Interested in this exhibition?',
+          description: 'Want to know more?',
+          ctaProps: {
+            onClick: () => onClickCTA?.({ title: titleText }),
+          },
         }}
         title={titleText}
         customCTAContainerProps={{

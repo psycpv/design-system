@@ -43,7 +43,7 @@ interface DataSplit {
   description?: string;
   linkCTA?: LinkCTA;
   buttonCTA?: ButtonCTA;
-  portableTextDescription?: string | ReactNode;
+  portableTextDescription?: ReactNode;
 }
 
 interface LinkCTA {

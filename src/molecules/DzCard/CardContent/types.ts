@@ -31,10 +31,11 @@ export interface CardContentData extends BaseCard {
   titleType?: TitleType;
   subtitle?: string;
   subtitleType?: SubTitleType;
-  secondaryTitle?: string | ReactNode;
+  secondaryTitle?: ReactNode;
   secondarySubtitle?: string;
   description?: string;
-  portableTextDescription?: string | ReactNode;
+  portableTextDescription?: ReactNode;
+  portableTextAdditionalInformation?: ReactNode;
   linkCTA?: LinkCTA;
   primaryCTA?: PrimaryCTA;
   hideImage?: boolean;

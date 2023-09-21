@@ -14,3 +14,5 @@ export * from './DzImageZoom/DzImageZoom';
 export * from './DzTitleMolecule/DzTitleExhibition';
 export * from './DzTitleMolecule/DzContainerTitle';
 export * from './DzPortableText';
+export * from './DzFormModal';
+export * from './DzFormModal/DzFormModal';

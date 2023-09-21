@@ -38,6 +38,10 @@ export const globalStyles = {
     text-black-100
     underline
   `,
+  podcast: `
+    !rounded-none
+    bg-blue-80
+  `,
 };
 
 export const stylesSizes: any = {
@@ -217,6 +221,10 @@ export const stylesSizes: any = {
       mediaZoom: `
         md:hover:scale-100
       `,
+      podcast: `
+        min-h-[18.75rem]
+        rounded-none
+      `,
     },
     '10col': {
       title: `
@@ -247,6 +255,9 @@ export const stylesSizes: any = {
           mt-2.5
           md:mt-[1.875rem]
         `,
+      podcast: `
+        min-h-[18.75rem]
+      `,
     },
     '6col': {
       title: `
@@ -277,6 +288,9 @@ export const stylesSizes: any = {
           mt-2.5
           md:mt-[1.875rem]
         `,
+      podcast: `
+        min-h-[18.75rem]
+      `,
     },
     '4col': {
       title: `
@@ -305,6 +319,9 @@ export const stylesSizes: any = {
       linkCta: `
           mt-2.5
         `,
+      podcast: `
+        min-h-[15.9375rem]
+      `,
     },
     '3col': {
       title: `
@@ -330,6 +347,9 @@ export const stylesSizes: any = {
       linkCta: `
           mt-2.5
         `,
+      podcast: `
+        min-h-[12.5rem]
+      `,
     },
     '2col': {
       title: `
@@ -353,6 +373,9 @@ export const stylesSizes: any = {
       linkCta: `
           mt-2.5
         `,
+      podcast: `
+        min-h-[12.5rem]
+      `,
     },
   },
 };
