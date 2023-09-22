@@ -1,3 +1,15 @@
+# v0.0.114 (Fri Sep 22 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-300 Design System & Web: Grid on hover behavior [#168](https://github.com/Zwirner/design-system/pull/168) ([@romulo114](https://github.com/romulo114))
+
+#### Authors: 1
+
+- Romulo Benjamim ([@romulo114](https://github.com/romulo114))
+
+---
+
 # v0.0.113 (Thu Sep 21 2023)
 
 #### 🐛 Bug Fix
