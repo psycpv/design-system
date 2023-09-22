@@ -166,6 +166,7 @@ export const DzMedia: FC<DzMediaProps> = ({
 }) => {
   const renderImage = useMemo(() => {
     const mediaClasses = cn(
+      className,
       'w-full',
       imgClass,
       styles[aspectRatio],
@@ -187,7 +188,15 @@ export const DzMedia: FC<DzMediaProps> = ({
     return (
       <ImgElement className={cn(mediaClasses, '!relative')} {...imgProps} />
     );
-  }, [ImgElement, imgProps, imgClass, aspectRatio, objectFit, objectPosition]);
+  }, [
+    ImgElement,
+    imgProps,
+    imgClass,
+    aspectRatio,
+    objectFit,
+    objectPosition,
+    className,
+  ]);
 
   const LinkElem = useMemo(() => {
     if (url) {
