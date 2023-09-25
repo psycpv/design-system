@@ -1,3 +1,15 @@
+# v0.0.115 (Mon Sep 25 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-XYZ: fix split [#173](https://github.com/Zwirner/design-system/pull/173) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
 # v0.0.114 (Fri Sep 22 2023)
 
 #### 🐛 Bug Fix
