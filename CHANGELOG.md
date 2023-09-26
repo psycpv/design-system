@@ -1,3 +1,15 @@
+# v0.0.116 (Tue Sep 26 2023)
+
+#### 🐛 Bug Fix
+
+- disable Plyr video; replace with placeholder [#175](https://github.com/Zwirner/design-system/pull/175) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.115 (Mon Sep 25 2023)
 
 #### 🐛 Bug Fix
