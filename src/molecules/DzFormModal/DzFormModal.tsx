@@ -9,6 +9,7 @@ import {
   FORM_MODAL_TYPES,
 } from './types/DzFormModalTypes';
 import { inquireFormSteps } from './formSteps/inquireFormSteps';
+import { newsletterFormSteps } from './formSteps/newsletterFormSteps';
 
 export interface DzFormModalProps {
   isOpen: boolean;
@@ -27,6 +28,7 @@ export interface SubmissionResult {
 
 const FORM_TYPES_TO_STEPS = {
   [FORM_MODAL_TYPES.INQUIRE]: inquireFormSteps,
+  [FORM_MODAL_TYPES.NEWSLETTER]: newsletterFormSteps,
 };
 
 export const DzFormModal = ({

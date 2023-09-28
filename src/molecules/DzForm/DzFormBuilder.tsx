@@ -6,6 +6,7 @@ import {
   DzInputText,
   DzSelect,
   DzFileUploader,
+  DzCheckbox,
   BUTTON_SIZES,
   TEXT_SIZES,
 } from '../../atoms';
@@ -70,6 +71,9 @@ const atomsPerType = {
   textbox: data => {
     return <DzTextBox {...data} />;
   },
+  checkbox: data => {
+    return <DzCheckbox {...data} />;
+  },
 };
 
 export const DzFormBuilder: FC<DzFormBuilderProps> = ({
@@ -133,6 +137,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
                       type,
                       data = {},
                       span,
+                      className,
                     } = field ?? {};
                     const requiredTag = required ? '*' : '';
                     const componentProps = {
@@ -141,7 +146,9 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
                       placeholder,
                       ...data,
                       onChange: event =>
-                        onChangeInput?.(name, event.target.value),
+                        type === FORM_FIELD_TYPES.CHECKBOX
+                          ? onChangeInput?.(name, event.target.checked)
+                          : onChangeInput?.(name, event.target.value),
                       onValidation: isValid => onFieldValidation(key, isValid),
                     };
                     if (type === FORM_FIELD_TYPES.TEXTBOX) {
@@ -151,7 +158,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
                     return Component ? (
                       <DzColumn
                         key={`${sectionTitle}-${title}-${key}`}
-                        className="mt-auto"
+                        className={`mt-auto ${className || ''}`}
                         span={span ?? 12}
                       >
                         {Component}

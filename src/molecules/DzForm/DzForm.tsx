@@ -21,6 +21,7 @@ export const FORM_FIELD_TYPES = {
   SELECT: 'select',
   UPLOADER: 'uploader',
   TEXTBOX: 'textbox',
+  CHECKBOX: 'checkbox',
 };
 
 export interface DzFormProps {
