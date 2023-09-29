@@ -21,6 +21,7 @@ export interface DzFormBuilderProps {
   submitAction: Function;
   onFieldValidation: Function;
   onChangeInput: Function;
+  formValues: Record<string, any>;
 }
 const styles: any = {
   formLayout: `
@@ -82,6 +83,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
   isSubmitDisabled,
   onFieldValidation,
   onChangeInput,
+  formValues,
 }) => {
   const {
     formName,
@@ -140,6 +142,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
                       className,
                     } = field ?? {};
                     const requiredTag = required ? '*' : '';
+                    const value = formValues[name];
                     const componentProps = {
                       ...(title ? { title: `${title}${requiredTag}` } : {}),
                       ...(required ? { required } : {}),
@@ -155,9 +158,12 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
                       componentProps.maxWordLength = field.maxWordLength;
                     }
                     if (type === FORM_FIELD_TYPES.CHECKBOX) {
+                      componentProps.checked = value || '';
                       delete componentProps.onValidation;
                       delete componentProps.errorMsg;
                       delete componentProps.validator;
+                    } else {
+                      componentProps.value = value || '';
                     }
                     const Component = atomsPerType?.[type]?.(componentProps);
                     return Component ? (

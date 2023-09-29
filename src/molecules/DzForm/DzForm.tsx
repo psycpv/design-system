@@ -190,6 +190,7 @@ export const DzForm: FC<DzFormProps> = ({
                 isSubmitDisabled || !areAllCurrentStepFieldsValid
               }
               onChangeInput={onChangeInput}
+              formValues={formValues}
               submitAction={() => {
                 console.info('TODO submitAction');
               }}
