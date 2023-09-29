@@ -56,8 +56,6 @@ export const DzFormModal = ({
     doSubmit(formValues);
   };
   const onCloseModal = () => {
-    setIsSubmitSuccessful(undefined);
-    setSubmittedFormValues(undefined);
     onClose();
   };
   const onClickRetry = () => {
@@ -85,6 +83,13 @@ export const DzFormModal = ({
     setIsBodyScrollLocked,
   ]);
 
+  useEffect(() => {
+    if (!isOpen) {
+      setIsSubmitSuccessful(undefined);
+      setSubmittedFormValues(undefined);
+    }
+  }, [isOpen]);
+
   // TODO set title/subtitle/description for all steps
   formSteps[0].title = title;
   formSteps[0].primarySubtitle = subtitle;
@@ -105,9 +110,9 @@ export const DzFormModal = ({
         steps={formSteps}
         onSubmit={onSubmitForm}
         showStepsCount={false}
+        recaptchaNode={recaptchaNode}
         containerClassName="bg-white-100 max-w-[984px]"
         isSubmitDisabled={isSubmitting}
-        recaptchaNode={recaptchaNode}
         overlayContent={
           isSubmitSuccessful !== undefined ? (
             <ResultOverlay
