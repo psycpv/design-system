@@ -32,6 +32,7 @@ export interface InterstitialFullWidthProps
   classNameContent?: string;
   mode?: InterstitialMode;
   fullWidth?: boolean;
+  onClickCTA?: (action?: string) => void;
 }
 
 const styles: any = {
@@ -130,6 +131,7 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
   classNameContent = '',
   mode = InterstitialMode.LIGHT,
   fullWidth = false,
+  onClickCTA,
   ...rest
 }) => {
   const textClassColor = `text-${textColor || MODE_TEXT_COLORS[mode]}`;
@@ -198,6 +200,9 @@ export const InterstitialFullWidth: FC<InterstitialFullWidthProps> = ({
                 : ButtonModes.DARK
             }
             {...(primaryCta?.ctaProps ?? {})}
+            onClick={() => {
+              onClickCTA?.(primaryCta?.action);
+            }}
           >
             {primaryCta.text}
           </DzButton>
