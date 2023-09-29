@@ -8,13 +8,11 @@ interface DzModalContainerProps {
   isOpen: boolean;
   onClose?: () => void;
   className?: string;
+  disableBackdrop?: boolean;
 }
 
 const styles: any = {
   container: `
-    bg-black-100
-    bg-opacity-50
-    backdrop-blur-[6px]
     fixed
     z-[999]
     w-screen
@@ -28,6 +26,11 @@ const styles: any = {
     items-center
     justify-center
     overflow-y-scroll
+  `,
+  containerBackdrop: `
+    bg-black-100
+    bg-opacity-50
+    backdrop-blur-[6px]  
   `,
   contentContainer: `
     bg-white-100
@@ -59,10 +62,14 @@ export const DzModalContainer = ({
   isOpen,
   onClose,
   className,
+  disableBackdrop = false,
 }: DzModalContainerProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(isOpen);
+  const [isModalOpen, setIsModalOpen] = useState(disableBackdrop || isOpen);
   const containerRef = useRef<HTMLDivElement>(null);
   const onClickClose = () => {
+    if (disableBackdrop) {
+      return;
+    }
     setIsModalOpen(false);
     onClose?.();
   };
@@ -80,15 +87,20 @@ export const DzModalContainer = ({
 
   return isModalOpen ? (
     <div
-      className={styles.container}
+      className={cn(
+        styles.container,
+        disableBackdrop ? '' : styles.containerBackdrop
+      )}
       onClick={onClickContainer}
       ref={containerRef}
     >
       <div className={cn(styles.contentContainer, className || '')}>
-        <div className={styles.closeContainer} onClick={onClickClose}>
-          <Close fill="white" className={styles.closeIcon} />
-          <span className={styles.closeText}>Close</span>
-        </div>
+        {!disableBackdrop && (
+          <div className={styles.closeContainer} onClick={onClickClose}>
+            <Close fill="white" className={styles.closeIcon} />
+            <span className={styles.closeText}>Close</span>
+          </div>
+        )}
         {children}
       </div>
     </div>

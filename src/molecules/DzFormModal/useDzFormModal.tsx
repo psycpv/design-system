@@ -8,13 +8,15 @@ export const useDzFormModal = ({
   onSubmit,
   title,
   subtitle,
+  disableBackdrop,
 }: {
   formType: typeof FORM_MODAL_TYPE_NAMES[number];
   onSubmit: (formValues: any) => Promise<any>;
   title: string;
   subtitle: string;
+  disableBackdrop?: boolean;
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const openClickHandler = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
 
@@ -26,6 +28,7 @@ export const useDzFormModal = ({
       onClose={onClose}
       type={formType}
       onSubmit={onSubmit}
+      disableBackdrop={disableBackdrop}
     />
   );
 

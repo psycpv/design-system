@@ -19,6 +19,7 @@ export interface DzFormModalProps {
   onSubmit: (formValues: Record<string, any>) => Promise<any>;
   type: typeof FORM_MODAL_TYPE_NAMES[number];
   recaptchaNode?: ReactNode;
+  disableBackdrop?: boolean;
 }
 
 export interface SubmissionResult {
@@ -39,6 +40,7 @@ export const DzFormModal = ({
   onSubmit,
   recaptchaNode,
   type,
+  disableBackdrop = false,
 }: DzFormModalProps) => {
   const formSteps = FORM_TYPES_TO_STEPS[type];
   const [submittedFormValues, setSubmittedFormValues] = useState<
@@ -92,6 +94,7 @@ export const DzFormModal = ({
     <DzModalContainer
       isOpen={isOpen}
       onClose={onCloseModal}
+      disableBackdrop={disableBackdrop}
       className={
         isSubmitSuccessful === false
           ? 'border-[1px] border-red-100 border-opacity-25'
