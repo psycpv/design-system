@@ -96,7 +96,7 @@ export const DzFormModal = ({
       onClose={onCloseModal}
       disableBackdrop={disableBackdrop}
       className={
-        isSubmitSuccessful === false
+        isSubmitSuccessful === false && !disableBackdrop
           ? 'border-[1px] border-red-100 border-opacity-25'
           : ''
       }
@@ -114,6 +114,7 @@ export const DzFormModal = ({
               isSuccess={isSubmitSuccessful}
               onClickClose={onCloseModal}
               onClickRetry={onClickRetry}
+              hideCloseButton={disableBackdrop}
             />
           ) : null
         }

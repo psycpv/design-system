@@ -8,6 +8,7 @@ interface ResultOverlayProps {
   isSuccess: boolean;
   onClickClose: () => void;
   onClickRetry: () => void;
+  hideCloseButton?: boolean;
 }
 
 const YOUR_MESSAGE_HAS_BEEN_RECEIVED =
@@ -38,6 +39,7 @@ export const ResultOverlay = ({
   isSuccess,
   onClickClose,
   onClickRetry,
+  hideCloseButton,
 }: ResultOverlayProps) => {
   const title = isSuccess
     ? THANK_YOU_FOR_YOUR_INQUIRY
@@ -59,7 +61,7 @@ export const ResultOverlay = ({
         className={cn('mt-[0.625rem]', !isSuccess ? 'text-red-100' : '')}
       />
       <div className={styles.buttonsContainer}>
-        {!isSuccess && (
+        {!isSuccess && !hideCloseButton && (
           <DzButton
             className={styles.button}
             variant={BUTTON_VARIANTS.TERTIARY}
