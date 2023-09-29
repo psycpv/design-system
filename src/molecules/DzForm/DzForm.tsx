@@ -15,6 +15,7 @@ import {
 import { DzFormBuilder } from './DzFormBuilder';
 import { cn } from '../../utils/classnames';
 import { ChevronLeft } from '../../svgIcons';
+import { FormStep } from '../DzFormModal/formSteps/types/formStep';
 
 export const FORM_FIELD_TYPES = {
   INPUT: 'input',
@@ -25,7 +26,7 @@ export const FORM_FIELD_TYPES = {
 };
 
 export interface DzFormProps {
-  steps: any[];
+  steps: Array<FormStep>;
   mediaProps?: DzMediaProps;
   onSubmit: any;
   showStepsCount?: boolean;
@@ -82,7 +83,19 @@ export const DzForm: FC<DzFormProps> = ({
   recaptchaNode,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [formValues, setFormValues] = useState<Record<string, any>>({});
+  const [formValues, setFormValues] = useState<Record<string, any>>(() => {
+    // TODO initial values for all steps, currently only supported for first step
+    const initialValues = steps?.[0]?.formSections?.[0]?.fields?.reduce(
+      (values, { name, initialValue }) => {
+        if (initialValue) {
+          values[name] = initialValue;
+        }
+        return values;
+      },
+      {}
+    );
+    return initialValues || {};
+  });
   const stepsLength = useMemo(() => steps.length, [steps]);
 
   const stepFormData = useMemo(() => {
