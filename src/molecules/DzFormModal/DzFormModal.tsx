@@ -15,7 +15,7 @@ export interface DzFormModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
-  subtitle: string;
+  subtitle?: string;
   onSubmit: (formValues: Record<string, any>) => Promise<any>;
   type: typeof FORM_MODAL_TYPE_NAMES[number];
   recaptchaNode?: ReactNode;
@@ -83,6 +83,7 @@ export const DzFormModal = ({
     setIsBodyScrollLocked,
   ]);
 
+  // TODO set title/subtitle/description for all steps
   formSteps[0].title = title;
   formSteps[0].primarySubtitle = subtitle;
   formSteps[0].CTAProps.description = termsAndConditions;
