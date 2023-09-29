@@ -55,7 +55,6 @@ export const newsletterFormSteps: Array<FormStep> = [
             data: {
               title: 'David Zwirner Books Releases and Events',
               type: FORM_FIELD_TYPES.CHECKBOX,
-              validator: isEmail,
               errorMsg: 'Please enter a valid email address.',
             },
           },
