@@ -19,6 +19,7 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
   sticky = false,
   useLinks = false,
   linksProps = {},
+  className,
 }) => {
   const [direction] = useScrollDirection();
   const [isHover, setIsHover] = useState(false);
@@ -70,7 +71,8 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
     <div
       className={cn(
         styles.sectionsContainer,
-        sticky ? cn(styles.sticky, scrollStickyTopStyle) : ''
+        sticky ? cn(styles.sticky, scrollStickyTopStyle) : '',
+        className || ''
       )}
     >
       <div className={cn(styles.listWrapper)}>

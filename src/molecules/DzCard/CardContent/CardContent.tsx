@@ -70,9 +70,8 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
   }, [size, isSmall, viewport]);
 
   const mediaStyles = useMemo(() => {
-    const zoomStyles = enableZoom ? 'overflow-hidden' : '';
-    return isPodcast ? styles.podcast : zoomStyles;
-  }, [styles, isPodcast, enableZoom]);
+    return isPodcast ? styles.podcast : '';
+  }, [styles, isPodcast]);
 
   const imageHoverStyle = useMemo(
     () => (isHoverLink ? styles.mediaLinkZoom : ''),
@@ -111,7 +110,7 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
     >
       {!hideImage && media ? (
         <DzMedia
-          className={mediaStyles}
+          className={cn(mediaStyles, 'overflow-hidden')}
           imgClass={cn(
             styles.mediaImg,
             enableZoom ? styles.mediaZoom : '',

@@ -1,3 +1,99 @@
+# v0.0.116 (Tue Sep 26 2023)
+
+#### 🐛 Bug Fix
+
+- disable Plyr video; replace with placeholder [#175](https://github.com/Zwirner/design-system/pull/175) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.115 (Mon Sep 25 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-XYZ: fix split [#173](https://github.com/Zwirner/design-system/pull/173) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
+# v0.0.114 (Fri Sep 22 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-300 Design System & Web: Grid on hover behavior [#168](https://github.com/Zwirner/design-system/pull/168) ([@romulo114](https://github.com/romulo114))
+
+#### Authors: 1
+
+- Romulo Benjamim ([@romulo114](https://github.com/romulo114))
+
+---
+
+# v0.0.113 (Thu Sep 21 2023)
+
+#### 🐛 Bug Fix
+
+- provide optional className prop for container styling [#150](https://github.com/Zwirner/design-system/pull/150) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.112 (Thu Sep 21 2023)
+
+#### 🐛 Bug Fix
+
+- add location address formatting [#149](https://github.com/Zwirner/design-system/pull/149) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.111 (Thu Sep 21 2023)
+
+#### 🐛 Bug Fix
+
+- export form hook [#170](https://github.com/Zwirner/design-system/pull/170) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.110 (Thu Sep 21 2023)
+
+#### 🐛 Bug Fix
+
+- Form modal improvements [#169](https://github.com/Zwirner/design-system/pull/169) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.109 (Wed Sep 20 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-156 Explore is not showing active by default or when going back to that page [#167](https://github.com/Zwirner/design-system/pull/167) ([@romulo114](https://github.com/romulo114))
+
+#### Authors: 1
+
+- Romulo Benjamim ([@romulo114](https://github.com/romulo114))
+
+---
+
 # v0.0.108 (Wed Sep 20 2023)
 
 #### 🐛 Bug Fix

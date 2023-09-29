@@ -2,7 +2,7 @@ import React, { FC, useMemo, ImgHTMLAttributes, ReactNode } from 'react';
 import { cn } from '../utils/classnames';
 import { DzLink, DzLinkProps } from './DzLink';
 import { DzSpotify, DzSpotifyProps } from './DzSpotify';
-import Plyr from 'plyr-react';
+//import Plyr from 'plyr-react';
 
 export enum ObjectPositionType {
   TOP = 'objPosTop',
@@ -129,19 +129,13 @@ const styles: any = {
 const videoNode = {
   // https://developers.google.com/youtube/player_parameters#Parameters
   youtube: data => {
-    return (
-      <div>
-        <Plyr {...data} />
-      </div>
-    );
+    const placeholderText = `${data?.source?.sources?.[0]?.src} : ${data?.source?.sources?.[0]?.provider}`;
+    return <div>VIDEO PLACEHOLDER: {placeholderText}</div>;
   },
   // https://developer.vimeo.com/player/sdk/embed
   vimeo: data => {
-    return (
-      <div>
-        <Plyr {...data} />
-      </div>
-    );
+    const placeholderText = `${data?.source?.sources?.[0]?.src} : ${data?.source?.sources?.[0]?.provider}`;
+    return <div>VIDEO PLACEHOLDER: {placeholderText}</div>;
   },
   url: (data, sourceSet) => {
     return <video {...data}>{sourceSet}</video>;
@@ -166,6 +160,7 @@ export const DzMedia: FC<DzMediaProps> = ({
 }) => {
   const renderImage = useMemo(() => {
     const mediaClasses = cn(
+      className,
       'w-full',
       imgClass,
       styles[aspectRatio],
@@ -187,7 +182,15 @@ export const DzMedia: FC<DzMediaProps> = ({
     return (
       <ImgElement className={cn(mediaClasses, '!relative')} {...imgProps} />
     );
-  }, [ImgElement, imgProps, imgClass, aspectRatio, objectFit, objectPosition]);
+  }, [
+    ImgElement,
+    imgProps,
+    imgClass,
+    aspectRatio,
+    objectFit,
+    objectPosition,
+    className,
+  ]);
 
   const LinkElem = useMemo(() => {
     if (url) {

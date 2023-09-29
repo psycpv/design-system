@@ -6,7 +6,7 @@ export interface InquireFormContextData {
   artwork?: Record<string, any>;
 }
 
-export const useDZInquireFormModalProps = () => {
+export const useDZFormModalProps = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [contextData, setContextData] = useState<
     InquireFormContextData | undefined | null

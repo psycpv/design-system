@@ -97,7 +97,7 @@ export const styles: any = {
   mblElem: `
     text-sm
   `,
-  actveLink: `
+  activeLink: `
     text-black-100
   `,
   grayLink: `

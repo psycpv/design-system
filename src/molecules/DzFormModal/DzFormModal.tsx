@@ -1,19 +1,22 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import DzForm from '../DzForm/DzForm';
 import { DzModalContainer } from '../../atoms';
-import { inquireFormSteps } from './inquireFormSteps';
-import { InquireFormContextData } from './useDZInquireFormModalProps';
 import { termsAndConditions } from './termsAndConditions';
 import useLockedBodyScroll from '../../hooks/useLockedBodyScroll';
 import ResultOverlay from './ResultOverlay';
+import {
+  FORM_MODAL_TYPE_NAMES,
+  FORM_MODAL_TYPES,
+} from './types/DzFormModalTypes';
+import { inquireFormSteps } from './formSteps/inquireFormSteps';
 
-export interface InquireFormModalProps {
-  contextData?: InquireFormContextData | null;
+export interface DzFormModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
   subtitle: string;
   onSubmit: (formValues: Record<string, any>) => Promise<any>;
+  type: typeof FORM_MODAL_TYPE_NAMES[number];
   recaptchaNode?: ReactNode;
 }
 
@@ -22,14 +25,20 @@ export interface SubmissionResult {
   error?: string;
 }
 
-export const DzInquireFormModal = ({
+const FORM_TYPES_TO_STEPS = {
+  [FORM_MODAL_TYPES.INQUIRE]: inquireFormSteps,
+};
+
+export const DzFormModal = ({
   isOpen,
   onClose,
   subtitle,
   title,
   onSubmit,
   recaptchaNode,
-}: InquireFormModalProps) => {
+  type,
+}: DzFormModalProps) => {
+  const formSteps = FORM_TYPES_TO_STEPS[type];
   const [submittedFormValues, setSubmittedFormValues] = useState<
     Record<string, any>
   >();
@@ -67,14 +76,14 @@ export const DzInquireFormModal = ({
       .finally(() => setIsSubmitting(false));
   };
 
-  inquireFormSteps[0].title = title;
-  inquireFormSteps[0].primarySubtitle = subtitle;
-  inquireFormSteps[0].CTAProps.description = termsAndConditions;
-
   useEffect(() => setIsBodyScrollLocked(isOpen), [
     isOpen,
     setIsBodyScrollLocked,
   ]);
+
+  formSteps[0].title = title;
+  formSteps[0].primarySubtitle = subtitle;
+  formSteps[0].CTAProps.description = termsAndConditions;
 
   return (
     <DzModalContainer
@@ -87,7 +96,7 @@ export const DzInquireFormModal = ({
       }
     >
       <DzForm
-        steps={inquireFormSteps}
+        steps={formSteps}
         onSubmit={onSubmitForm}
         showStepsCount={false}
         recaptchaNode={recaptchaNode}
@@ -107,4 +116,4 @@ export const DzInquireFormModal = ({
   );
 };
 
-export default DzInquireFormModal;
+export default DzFormModal;

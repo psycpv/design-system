@@ -7,7 +7,8 @@ import { LocationData } from './types/DzTitleExhibitionTypes';
 import { ArtistData } from './types/DzTitleExhibitionTypes';
 import { collectHours } from './utils/collectHours';
 import DzContainerTitle from './DzContainerTitle';
-import { InquireFormContextData } from '../DzInquireFormModal/useDZInquireFormModalProps';
+import { splitLocationAddressLines } from './utils/formatAddress';
+import { InquireFormContextData } from '../DzFormModal';
 
 export interface DzTitleExhibitionProps {
   artists: Array<ArtistData>;
@@ -71,9 +72,6 @@ const styles: any = {
     mb-[2.5rem]
     md:mb-0
   `,
-  addressLine: `
-    inline-block    
-  `,
 };
 
 export enum EXHIBITION_STATES {
@@ -105,6 +103,7 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
   subpageTitle,
 }) => {
   const locationHours = location ? collectHours(location) : '';
+  const locationLines = splitLocationAddressLines(location?.address);
   const isSmall = useIsSmallWindowSize();
   const titleText = `${title}${subtitle ? `: ${subtitle}` : ''}${
     subpageTitle ? ` — ${subpageTitle}` : ''
@@ -131,7 +130,7 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
       />
       {showCoordinates && (
         <DzGridColumns className={styles.container}>
-          <DzColumn span={[12, 3]}>
+          <DzColumn span={[12, 4]}>
             <div className={styles.infoColumnContainer}>
               <DzText
                 className={styles.infoColumnTitle}
@@ -171,45 +170,20 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
               </div>
             </DzColumn>
           )}
-          <DzColumn span={[12, 3]}>
+          <DzColumn span={[12, 4]}>
             {location?.address && (
               <div className={styles.infoColumnContainer}>
                 <DzText className={styles.infoColumnTitle} text={'Location'} />
                 <div className={styles.infoColumnBody}>
-                  <DzText
-                    text={location.address.city}
-                    className={styles.addressCity}
-                  />
                   <DzLink href={location.url} target="_blank">
-                    <DzText
-                      text={location.address.addressLine}
-                      className={cn(
-                        styles.mdText,
-                        styles.black60Text,
-                        styles.addressLine
-                      )}
-                      style={{ textDecoration: 'inherit' }}
-                    />
-                    {location.address.addressLine2 && (
+                    {locationLines.map(locationLine => (
                       <DzText
-                        text={location.address.addressLine2}
-                        className={cn(
-                          styles.mdText,
-                          styles.black60Text,
-                          styles.addressLine
-                        )}
+                        key={locationLine}
+                        text={locationLine}
+                        className={cn(styles.mdText, styles.black60Text)}
                         style={{ textDecoration: 'inherit' }}
                       />
-                    )}
-                    <DzText
-                      text={`${location.address.country}, ${location.address.zipCode}`}
-                      className={cn(
-                        styles.mdText,
-                        styles.black60Text,
-                        styles.addressLine
-                      )}
-                      style={{ textDecoration: 'inherit' }}
-                    />
+                    ))}
                   </DzLink>
                   <DzText
                     className={cn(
@@ -223,12 +197,14 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
               </div>
             )}
           </DzColumn>
-          <DzColumn span={[12, 3]}>
+          {/*
+          <DzColumn span={[12, 4]}>
             <div className={styles.infoColumnContainer}>
-              {/* TODO secondary gallery location here */}
+              TODO: second gallery location here
             </div>
           </DzColumn>
-          <DzColumn span={[12, 3]}>
+          */}
+          <DzColumn span={[12, 4]}>
             <div className={styles.infoColumnContainer}>
               <DzText className={styles.infoColumnTitle} text="Artists" />
               <div className={styles.infoColumnBody}>
