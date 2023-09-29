@@ -154,6 +154,11 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
                     if (type === FORM_FIELD_TYPES.TEXTBOX) {
                       componentProps.maxWordLength = field.maxWordLength;
                     }
+                    if (type === FORM_FIELD_TYPES.CHECKBOX) {
+                      delete componentProps.onValidation;
+                      delete componentProps.errorMsg;
+                      delete componentProps.validator;
+                    }
                     const Component = atomsPerType?.[type]?.(componentProps);
                     return Component ? (
                       <DzColumn
