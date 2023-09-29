@@ -52,8 +52,6 @@ export const DzFormModal = ({
     doSubmit(formValues);
   };
   const onCloseModal = () => {
-    setIsSubmitSuccessful(undefined);
-    setSubmittedFormValues(undefined);
     onClose();
   };
   const onClickRetry = () => {
@@ -80,6 +78,13 @@ export const DzFormModal = ({
     isOpen,
     setIsBodyScrollLocked,
   ]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setIsSubmitSuccessful(undefined);
+      setSubmittedFormValues(undefined);
+    }
+  }, [isOpen]);
 
   formSteps[0].title = title;
   formSteps[0].primarySubtitle = subtitle;
