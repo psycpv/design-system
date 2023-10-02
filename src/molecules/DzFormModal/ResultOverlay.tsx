@@ -31,8 +31,7 @@ const styles = {
     flex
     bottom-0 
     right-0 
-    w-full 
-    md:w-[50%]  
+    w-full       
   `,
   button: `
     flex-auto
@@ -70,7 +69,12 @@ export const ResultOverlay = ({
         textSize={TEXT_SIZES.MEDIUM}
         className={cn('mt-[0.625rem]', !isSuccess ? 'text-red-100' : '')}
       />
-      <div className={styles.buttonsContainer}>
+      <div
+        className={cn(
+          styles.buttonsContainer,
+          hideCloseButton ? '' : 'md:w-[50%]'
+        )}
+      >
         {!isSuccess && !hideCloseButton && (
           <DzButton
             className={styles.button}
