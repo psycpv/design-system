@@ -24,7 +24,6 @@ export interface InterstitialSplitProps {
   textColor?: TextColors;
   customClass?: string;
   customDescriptionClass?: string;
-  onClickCTA?: (action?: string) => void;
 }
 
 const styles: any = {
@@ -80,7 +79,6 @@ export const InterstitialSplit: FC<InterstitialSplitProps> = ({
   media,
   customClass = '',
   customDescriptionClass = '',
-  onClickCTA,
 }) => {
   const textClassColor = `text-${textColor}`;
   const { width } = useWindowSize();
@@ -131,7 +129,6 @@ export const InterstitialSplit: FC<InterstitialSplitProps> = ({
             <DzButton
               className={cn(styles.btnCTA, textClassColor)}
               {...(primaryCta?.ctaProps ?? {})}
-              onClick={() => onClickCTA?.(primaryCta?.action)}
               size={BUTTON_SIZES.LARGE}
             >
               {primaryCta.text}

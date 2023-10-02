@@ -27,29 +27,19 @@ export interface DzInterstitialProps {
   data: (InterstitialSplitProps | InterstitialFullWidthProps) & {
     split: boolean;
   };
-  onClickCTA?: (action?: string) => void;
 }
 export interface PrimaryCTAInterstitial {
   text: string;
   ctaProps?: DzButtonProps;
-  action?: string;
 }
 
 export const DzInterstitial: FC<DzInterstitialProps> = ({
   data: { split = false, ...rest },
-  onClickCTA,
-}) => {
-  return split ? (
-    <InterstitialSplit
-      {...(rest as InterstitialSplitProps)}
-      onClickCTA={onClickCTA}
-    />
+}) =>
+  split ? (
+    <InterstitialSplit {...(rest as InterstitialSplitProps)} />
   ) : (
-    <InterstitialFullWidth
-      {...(rest as InterstitialFullWidthProps)}
-      onClickCTA={onClickCTA}
-    />
+    <InterstitialFullWidth {...(rest as InterstitialFullWidthProps)} />
   );
-};
 
 export default DzInterstitial;
