@@ -25,7 +25,7 @@ export const useDzFormModal = ({
   errorSubtitle,
   disableBackdrop,
 }: UseDzFormModalProps) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(disableBackdrop || false);
   const openClickHandler = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
 
