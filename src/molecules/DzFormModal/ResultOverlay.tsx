@@ -5,6 +5,10 @@ import React from 'react';
 import { cn } from '../../utils/classnames';
 
 interface ResultOverlayProps {
+  successTitle?: string;
+  successSubtitle?: string;
+  errorTitle?: string;
+  errorSubtitle?: string;
   isSuccess: boolean;
   onClickClose: () => void;
   onClickRetry: () => void;
@@ -40,11 +44,17 @@ export const ResultOverlay = ({
   onClickClose,
   onClickRetry,
   hideCloseButton,
+  successTitle,
+  successSubtitle,
+  errorTitle,
+  errorSubtitle,
 }: ResultOverlayProps) => {
   const title = isSuccess
-    ? THANK_YOU_FOR_YOUR_INQUIRY
-    : FAILED_TO_SEND_YOUR_INQUIRY;
-  const message = isSuccess ? YOUR_MESSAGE_HAS_BEEN_RECEIVED : WE_ARE_SORRY;
+    ? successTitle || THANK_YOU_FOR_YOUR_INQUIRY
+    : errorTitle || FAILED_TO_SEND_YOUR_INQUIRY;
+  const subtitle = isSuccess
+    ? successSubtitle || YOUR_MESSAGE_HAS_BEEN_RECEIVED
+    : errorSubtitle || WE_ARE_SORRY;
 
   return (
     <div className={styles.container}>
@@ -55,7 +65,7 @@ export const ResultOverlay = ({
         titleSize={TITLE_SIZES.XL}
       />
       <DzText
-        text={message}
+        text={subtitle}
         textType={TEXT_TYPES.P}
         textSize={TEXT_SIZES.MEDIUM}
         className={cn('mt-[0.625rem]', !isSuccess ? 'text-red-100' : '')}

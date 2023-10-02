@@ -3,19 +3,28 @@ import { useState } from 'react';
 import DzFormModal from './DzFormModal';
 import { FORM_MODAL_TYPE_NAMES } from './types/DzFormModalTypes';
 
+interface UseDzFormModalProps {
+  formType: typeof FORM_MODAL_TYPE_NAMES[number];
+  onSubmit: (formValues: any) => Promise<any>;
+  title: string;
+  subtitle: string;
+  successTitle?: string;
+  successSubtitle?: string;
+  errorTitle?: string;
+  errorSubtitle?: string;
+  disableBackdrop?: boolean;
+}
 export const useDzFormModal = ({
   formType,
   onSubmit,
   title,
   subtitle,
+  successTitle,
+  successSubtitle,
+  errorTitle,
+  errorSubtitle,
   disableBackdrop,
-}: {
-  formType: typeof FORM_MODAL_TYPE_NAMES[number];
-  onSubmit: (formValues: any) => Promise<any>;
-  title: string;
-  subtitle: string;
-  disableBackdrop?: boolean;
-}) => {
+}: UseDzFormModalProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const openClickHandler = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
@@ -24,6 +33,10 @@ export const useDzFormModal = ({
     <DzFormModal
       title={title}
       subtitle={subtitle}
+      successTitle={successTitle}
+      successSubtitle={successSubtitle}
+      errorTitle={errorTitle}
+      errorSubtitle={errorSubtitle}
       isOpen={isOpen}
       onClose={onClose}
       type={formType}

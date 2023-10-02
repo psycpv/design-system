@@ -16,6 +16,10 @@ export interface DzFormModalProps {
   onClose: () => void;
   title: string;
   subtitle?: string;
+  successTitle?: string;
+  successSubtitle?: string;
+  errorTitle?: string;
+  errorSubtitle?: string;
   onSubmit: (formValues: Record<string, any>) => Promise<any>;
   type: typeof FORM_MODAL_TYPE_NAMES[number];
   recaptchaNode?: ReactNode;
@@ -37,6 +41,10 @@ export const DzFormModal = ({
   onClose,
   subtitle,
   title,
+  successTitle,
+  successSubtitle,
+  errorTitle,
+  errorSubtitle,
   onSubmit,
   recaptchaNode,
   type,
@@ -117,6 +125,10 @@ export const DzFormModal = ({
           isSubmitSuccessful !== undefined ? (
             <ResultOverlay
               isSuccess={isSubmitSuccessful}
+              successTitle={successTitle}
+              successSubtitle={successSubtitle}
+              errorTitle={errorTitle}
+              errorSubtitle={errorSubtitle}
               onClickClose={onCloseModal}
               onClickRetry={onClickRetry}
               hideCloseButton={disableBackdrop}
