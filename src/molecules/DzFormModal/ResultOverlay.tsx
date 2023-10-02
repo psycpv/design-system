@@ -86,13 +86,15 @@ export const ResultOverlay = ({
           </DzButton>
         )}
 
-        <DzButton
-          className={styles.button}
-          size={BUTTON_SIZES.LARGE}
-          onClick={isSuccess ? onClickClose : onClickRetry}
-        >
-          {isSuccess ? 'Close' : 'Retry'}
-        </DzButton>
+        {isSuccess && !hideCloseButton && (
+          <DzButton
+            className={styles.button}
+            size={BUTTON_SIZES.LARGE}
+            onClick={isSuccess ? onClickClose : onClickRetry}
+          >
+            {isSuccess ? 'Close' : 'Retry'}
+          </DzButton>
+        )}
       </div>
     </div>
   );
