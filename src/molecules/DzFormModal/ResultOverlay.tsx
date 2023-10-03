@@ -23,8 +23,7 @@ const WE_ARE_SORRY = 'We are sorry, but something went wrong.';
 
 const styles = {
   container: `
-    bg-white-100 
-    p-[1.25rem]    
+    bg-white-100     
   `,
   buttonsContainer: `
     absolute 
@@ -66,7 +65,7 @@ export const ResultOverlay = ({
       <DzText
         text={subtitle}
         textType={TEXT_TYPES.P}
-        textSize={TEXT_SIZES.MEDIUM}
+        textSize={TEXT_SIZES.SMALL}
         className={cn('mt-[0.625rem]', !isSuccess ? 'text-red-100' : '')}
       />
       <div

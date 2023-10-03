@@ -31,6 +31,8 @@ export interface DzFormProps {
   onSubmit: any;
   showStepsCount?: boolean;
   containerClassName?: string;
+  titleTextClassName?: string;
+  subtitleTextClassName?: string;
   overlayContent?: ReactNode;
   isSubmitDisabled?: boolean;
   recaptchaNode?: ReactNode;
@@ -80,6 +82,8 @@ export const DzForm: FC<DzFormProps> = ({
   containerClassName,
   overlayContent,
   isSubmitDisabled = false,
+  titleTextClassName,
+  subtitleTextClassName,
   recaptchaNode,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -207,6 +211,8 @@ export const DzForm: FC<DzFormProps> = ({
               submitAction={() => {
                 console.info('TODO submitAction');
               }}
+              titleTextClassName={titleTextClassName}
+              subtitleTextClassName={subtitleTextClassName}
             />
           </form>
         ) : null}

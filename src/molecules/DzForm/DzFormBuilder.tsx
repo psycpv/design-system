@@ -22,6 +22,8 @@ export interface DzFormBuilderProps {
   onFieldValidation: Function;
   onChangeInput: Function;
   formValues: Record<string, any>;
+  titleTextClassName?: string;
+  subtitleTextClassName?: string;
 }
 const styles: any = {
   formLayout: `
@@ -37,7 +39,7 @@ const styles: any = {
   headInformation: `
     flex
     flex-col
-    gap-[0.3125rem]
+    gap-[0.625rem]
   `,
   sectionTitle: `
     my-5
@@ -46,8 +48,6 @@ const styles: any = {
     text-black-60
   `,
   ctaButton: `
-    mb-10
-    md:mb-0
     md:ml-auto
     w-full        
   `,
@@ -84,6 +84,8 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
   onFieldValidation,
   onChangeInput,
   formValues,
+  titleTextClassName,
+  subtitleTextClassName,
 }) => {
   const {
     formName,
@@ -100,17 +102,24 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
       <div className={cn(styles.headInformation)}>
         {title ? (
           <DzText
-            className={cn(styles.titleText)}
+            className={cn(titleTextClassName || styles.titleText)}
             textSize={TEXT_SIZES.LARGE}
             text={title}
           />
         ) : null}
         {primarySubtitle || secondarySubtitle ? (
           <div>
-            {primarySubtitle ? <DzText text={primarySubtitle} /> : null}
+            {primarySubtitle ? (
+              <DzText
+                text={primarySubtitle}
+                className={subtitleTextClassName || styles.secondarySubtitle}
+              />
+            ) : null}
             {secondarySubtitle ? (
               <DzText
-                className={cn(styles.secondarySubtitle)}
+                className={cn(
+                  subtitleTextClassName || styles.secondarySubtitle
+                )}
                 text={secondarySubtitle}
               />
             ) : null}
@@ -159,6 +168,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
                     }
                     if (type === FORM_FIELD_TYPES.CHECKBOX) {
                       componentProps.checked = value || '';
+                      componentProps.titleClassName = 'text-xs';
                       delete componentProps.onValidation;
                       delete componentProps.errorMsg;
                       delete componentProps.validator;
@@ -182,8 +192,13 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
           );
         })}
       </div>
-      <DzGridColumns className={CTAProps.description ? '' : 'gap-y-0'}>
-        <DzColumn span={[12, 6]}>
+      <DzGridColumns
+        className={cn(
+          'mb-0 md:mb-[1.25rem] mt-[1rem]',
+          CTAProps.description ? '' : 'gap-y-0'
+        )}
+      >
+        <DzColumn span={[12, 6]} className="md:row-start-1 row-start-2">
           {CTAProps.description && (
             <DzText text={CTAProps.description} className="flex-1" />
           )}
