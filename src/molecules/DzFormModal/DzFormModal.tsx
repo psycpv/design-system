@@ -40,7 +40,6 @@ export const DzFormModal = ({
   type,
   onFocus,
 }: DzFormModalProps) => {
-
   const formSteps = FORM_TYPES_TO_STEPS[type];
   const [submittedFormValues, setSubmittedFormValues] = useState<
     Record<string, any>

@@ -140,8 +140,8 @@ export const DzForm: FC<DzFormProps> = ({
   };
 
   const onFocusInput = (fieldName: string) => {
-    onFocus?.(fieldName)
-  }
+    onFocus?.(fieldName);
+  };
 
   useEffect(() => {
     setAreAllCurrentStepFieldsValid(
