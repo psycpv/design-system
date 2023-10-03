@@ -6,6 +6,7 @@ import {
   DzInputText,
   DzSelect,
   DzFileUploader,
+  DzCheckbox,
   BUTTON_SIZES,
   TEXT_SIZES,
 } from '../../atoms';
@@ -20,6 +21,9 @@ export interface DzFormBuilderProps {
   submitAction: Function;
   onFieldValidation: Function;
   onChangeInput: Function;
+  formValues: Record<string, any>;
+  titleTextClassName?: string;
+  subtitleTextClassName?: string;
   onFocusInput?: Function;
 }
 const styles: any = {
@@ -36,7 +40,7 @@ const styles: any = {
   headInformation: `
     flex
     flex-col
-    gap-[0.3125rem]
+    gap-[0.625rem]
   `,
   sectionTitle: `
     my-5
@@ -45,8 +49,6 @@ const styles: any = {
     text-black-60
   `,
   ctaButton: `
-    mb-10
-    md:mb-0
     md:ml-auto
     w-full        
   `,
@@ -71,6 +73,9 @@ const atomsPerType = {
   textbox: data => {
     return <DzTextBox {...data} />;
   },
+  checkbox: data => {
+    return <DzCheckbox {...data} />;
+  },
 };
 
 export const DzFormBuilder: FC<DzFormBuilderProps> = ({
@@ -79,6 +84,9 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
   isSubmitDisabled,
   onFieldValidation,
   onChangeInput,
+  formValues,
+  titleTextClassName,
+  subtitleTextClassName,
   onFocusInput,
 }) => {
   const {
@@ -96,17 +104,24 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
       <div className={cn(styles.headInformation)}>
         {title ? (
           <DzText
-            className={cn(styles.titleText)}
+            className={cn(titleTextClassName || styles.titleText)}
             textSize={TEXT_SIZES.LARGE}
             text={title}
           />
         ) : null}
         {primarySubtitle || secondarySubtitle ? (
           <div>
-            {primarySubtitle ? <DzText text={primarySubtitle} /> : null}
+            {primarySubtitle ? (
+              <DzText
+                text={primarySubtitle}
+                className={subtitleTextClassName || styles.secondarySubtitle}
+              />
+            ) : null}
             {secondarySubtitle ? (
               <DzText
-                className={cn(styles.secondarySubtitle)}
+                className={cn(
+                  subtitleTextClassName || styles.secondarySubtitle
+                )}
                 text={secondarySubtitle}
               />
             ) : null}
@@ -135,26 +150,39 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
                       type,
                       data = {},
                       span,
+                      className,
                     } = field ?? {};
                     const requiredTag = required ? '*' : '';
+                    const value = formValues[name];
                     const componentProps = {
                       ...(title ? { title: `${title}${requiredTag}` } : {}),
                       ...(required ? { required } : {}),
                       placeholder,
                       ...data,
                       onChange: event =>
-                        onChangeInput?.(name, event.target.value),
+                        type === FORM_FIELD_TYPES.CHECKBOX
+                          ? onChangeInput?.(name, event.target.checked)
+                          : onChangeInput?.(name, event.target.value),
                       onValidation: isValid => onFieldValidation(key, isValid),
                       onFocus: () => onFocusInput?.(name),
                     };
                     if (type === FORM_FIELD_TYPES.TEXTBOX) {
                       componentProps.maxWordLength = field.maxWordLength;
                     }
+                    if (type === FORM_FIELD_TYPES.CHECKBOX) {
+                      componentProps.checked = value || '';
+                      componentProps.titleClassName = 'text-xs';
+                      delete componentProps.onValidation;
+                      delete componentProps.errorMsg;
+                      delete componentProps.validator;
+                    } else {
+                      componentProps.value = value || '';
+                    }
                     const Component = atomsPerType?.[type]?.(componentProps);
                     return Component ? (
                       <DzColumn
                         key={`${sectionTitle}-${title}-${key}`}
-                        className="mt-auto"
+                        className={`mt-auto ${className || ''}`}
                         span={span ?? 12}
                       >
                         {Component}
@@ -167,8 +195,13 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
           );
         })}
       </div>
-      <DzGridColumns className={CTAProps.description ? '' : 'gap-y-0'}>
-        <DzColumn span={[12, 6]}>
+      <DzGridColumns
+        className={cn(
+          'mb-0 md:mb-[1.25rem] mt-[1rem]',
+          CTAProps.description ? '' : 'gap-y-0'
+        )}
+      >
+        <DzColumn span={[12, 6]} className="md:row-start-1 row-start-2">
           {CTAProps.description && (
             <DzText text={CTAProps.description} className="flex-1" />
           )}

@@ -15,20 +15,24 @@ import {
 import { DzFormBuilder } from './DzFormBuilder';
 import { cn } from '../../utils/classnames';
 import { ChevronLeft } from '../../svgIcons';
+import { FormStep } from '../DzFormModal/formSteps/types/formStep';
 
 export const FORM_FIELD_TYPES = {
   INPUT: 'input',
   SELECT: 'select',
   UPLOADER: 'uploader',
   TEXTBOX: 'textbox',
+  CHECKBOX: 'checkbox',
 };
 
 export interface DzFormProps {
-  steps: any[];
+  steps: Array<FormStep>;
   mediaProps?: DzMediaProps;
   onSubmit: any;
   showStepsCount?: boolean;
   containerClassName?: string;
+  titleTextClassName?: string;
+  subtitleTextClassName?: string;
   overlayContent?: ReactNode;
   isSubmitDisabled?: boolean;
   recaptchaNode?: ReactNode;
@@ -79,11 +83,25 @@ export const DzForm: FC<DzFormProps> = ({
   containerClassName,
   overlayContent,
   isSubmitDisabled = false,
+  titleTextClassName,
+  subtitleTextClassName,
   recaptchaNode,
   onFocus,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [formValues, setFormValues] = useState<Record<string, any>>({});
+  const [formValues, setFormValues] = useState<Record<string, any>>(() => {
+    // TODO initial values for all steps, currently only supported for first step
+    const initialValues = steps?.[0]?.formSections?.[0]?.fields?.reduce(
+      (values, { name, initialValue }) => {
+        if (initialValue) {
+          values[name] = initialValue;
+        }
+        return values;
+      },
+      {}
+    );
+    return initialValues || {};
+  });
   const stepsLength = useMemo(() => steps.length, [steps]);
 
   const stepFormData = useMemo(() => {
@@ -195,10 +213,13 @@ export const DzForm: FC<DzFormProps> = ({
                 isSubmitDisabled || !areAllCurrentStepFieldsValid
               }
               onChangeInput={onChangeInput}
+              formValues={formValues}
               onFocusInput={onFocusInput}
               submitAction={() => {
                 console.info('TODO submitAction');
               }}
+              titleTextClassName={titleTextClassName}
+              subtitleTextClassName={subtitleTextClassName}
             />
           </form>
         ) : null}

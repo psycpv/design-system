@@ -8,7 +8,7 @@ export interface FormStep {
   secondarySubtitle?: string;
   CTAProps: {
     text: string;
-    type: string;
+    type?: string;
     description?: ReactNode | string;
   };
   formSections: Array<Record<string, any>>;
