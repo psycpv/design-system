@@ -8,7 +8,8 @@ export interface FormStep {
   secondarySubtitle?: string;
   formValidator?: {
     validator: Function;
-    args: [Array<string>, any];
+    // args should be an Array tuple: [[field names], value]
+    args: Array<any>;
     errorMessage?: string;
   };
   CTAProps: {
