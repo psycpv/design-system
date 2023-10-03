@@ -18,6 +18,7 @@ export interface DzFormModalProps {
   onSubmit: (formValues: Record<string, any>) => Promise<any>;
   type: typeof FORM_MODAL_TYPE_NAMES[number];
   recaptchaNode?: ReactNode;
+  onFocus: Function;
 }
 
 export interface SubmissionResult {
@@ -37,6 +38,7 @@ export const DzFormModal = ({
   onSubmit,
   recaptchaNode,
   type,
+  onFocus,
 }: DzFormModalProps) => {
   const formSteps = FORM_TYPES_TO_STEPS[type];
   const [submittedFormValues, setSubmittedFormValues] = useState<
@@ -103,6 +105,7 @@ export const DzFormModal = ({
       <DzForm
         steps={formSteps}
         onSubmit={onSubmitForm}
+        onFocus={onFocus}
         showStepsCount={false}
         recaptchaNode={recaptchaNode}
         containerClassName="bg-white-100 max-w-[984px]"
