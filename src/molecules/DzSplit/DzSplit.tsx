@@ -165,9 +165,10 @@ export const DzSplit: FC<DzSplitProps> = ({
       : styles.largePodcast;
   }, [type]);
 
+  const mediaType = media?.type;
   const isPodcast = useMemo(() => {
-    return media?.type === MEDIA_TYPES.PODCAST;
-  }, [media?.type]);
+    return mediaType === MEDIA_TYPES.PODCAST;
+  }, [mediaType]);
 
   const mediaContainerStyles = useMemo(() => {
     return isPodcast ? containerTypeStylePodcast : containerTypeStyle;

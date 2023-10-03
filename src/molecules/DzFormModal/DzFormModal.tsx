@@ -9,16 +9,22 @@ import {
   FORM_MODAL_TYPES,
 } from './types/DzFormModalTypes';
 import { inquireFormSteps } from './formSteps/inquireFormSteps';
+import { newsletterFormSteps } from './formSteps/newsletterFormSteps';
 
 export interface DzFormModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
-  subtitle: string;
+  subtitle?: string;
+  successTitle?: string;
+  successSubtitle?: string;
+  errorTitle?: string;
+  errorSubtitle?: string;
   onSubmit: (formValues: Record<string, any>) => Promise<any>;
   type: typeof FORM_MODAL_TYPE_NAMES[number];
   recaptchaNode?: ReactNode;
-  onFocus: Function;
+  disableBackdrop?: boolean;
+  onFocus?: Function;
 }
 
 export interface SubmissionResult {
@@ -28,6 +34,7 @@ export interface SubmissionResult {
 
 const FORM_TYPES_TO_STEPS = {
   [FORM_MODAL_TYPES.INQUIRE]: inquireFormSteps,
+  [FORM_MODAL_TYPES.NEWSLETTER]: newsletterFormSteps,
 };
 
 export const DzFormModal = ({
@@ -35,9 +42,14 @@ export const DzFormModal = ({
   onClose,
   subtitle,
   title,
+  successTitle,
+  successSubtitle,
+  errorTitle,
+  errorSubtitle,
   onSubmit,
   recaptchaNode,
   type,
+  disableBackdrop = false,
   onFocus,
 }: DzFormModalProps) => {
   const formSteps = FORM_TYPES_TO_STEPS[type];
@@ -54,8 +66,6 @@ export const DzFormModal = ({
     doSubmit(formValues);
   };
   const onCloseModal = () => {
-    setIsSubmitSuccessful(undefined);
-    setSubmittedFormValues(undefined);
     onClose();
   };
   const onClickRetry = () => {
@@ -83,6 +93,14 @@ export const DzFormModal = ({
     setIsBodyScrollLocked,
   ]);
 
+  useEffect(() => {
+    if (!isOpen) {
+      setIsSubmitSuccessful(undefined);
+      setSubmittedFormValues(undefined);
+    }
+  }, [isOpen]);
+
+  // TODO set title/subtitle/description for all steps
   formSteps[0].title = title;
   formSteps[0].primarySubtitle = subtitle;
   formSteps[0].CTAProps.description = termsAndConditions;
@@ -91,8 +109,9 @@ export const DzFormModal = ({
     <DzModalContainer
       isOpen={isOpen}
       onClose={onCloseModal}
+      disableBackdrop={disableBackdrop}
       className={
-        isSubmitSuccessful === false
+        isSubmitSuccessful === false && !disableBackdrop
           ? 'border-[1px] border-red-100 border-opacity-25'
           : ''
       }
@@ -102,15 +121,22 @@ export const DzFormModal = ({
         onSubmit={onSubmitForm}
         onFocus={onFocus}
         showStepsCount={false}
-        containerClassName="bg-white-100 max-w-[984px]"
-        isSubmitDisabled={isSubmitting}
         recaptchaNode={recaptchaNode}
+        containerClassName="bg-white-100 max-w-[984px]"
+        titleTextClassName="text-xl md:text-xxl"
+        subtitleTextClassName="text-sm md:text-md"
+        isSubmitDisabled={isSubmitting}
         overlayContent={
           isSubmitSuccessful !== undefined ? (
             <ResultOverlay
               isSuccess={isSubmitSuccessful}
+              successTitle={successTitle}
+              successSubtitle={successSubtitle}
+              errorTitle={errorTitle}
+              errorSubtitle={errorSubtitle}
               onClickClose={onCloseModal}
               onClickRetry={onClickRetry}
+              hideCloseButton={disableBackdrop}
             />
           ) : null
         }

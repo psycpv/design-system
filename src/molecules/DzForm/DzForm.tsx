@@ -15,20 +15,24 @@ import {
 import { DzFormBuilder } from './DzFormBuilder';
 import { cn } from '../../utils/classnames';
 import { ChevronLeft } from '../../svgIcons';
+import { FormStep } from '../DzFormModal/formSteps/types/formStep';
 
 export const FORM_FIELD_TYPES = {
   INPUT: 'input',
   SELECT: 'select',
   UPLOADER: 'uploader',
   TEXTBOX: 'textbox',
+  CHECKBOX: 'checkbox',
 };
 
 export interface DzFormProps {
-  steps: any[];
+  steps: Array<FormStep>;
   mediaProps?: DzMediaProps;
   onSubmit: any;
   showStepsCount?: boolean;
   containerClassName?: string;
+  titleTextClassName?: string;
+  subtitleTextClassName?: string;
   overlayContent?: ReactNode;
   isSubmitDisabled?: boolean;
   recaptchaNode?: ReactNode;
@@ -79,11 +83,25 @@ export const DzForm: FC<DzFormProps> = ({
   containerClassName,
   overlayContent,
   isSubmitDisabled = false,
+  titleTextClassName,
+  subtitleTextClassName,
   recaptchaNode,
   onFocus,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [formValues, setFormValues] = useState<Record<string, any>>({});
+  const [formValues, setFormValues] = useState<Record<string, any>>(() => {
+    // TODO initial values for all steps, currently only supported for first step
+    const initialValues = steps?.[0]?.formSections?.[0]?.fields?.reduce(
+      (values, { name, initialValue }) => {
+        if (initialValue) {
+          values[name] = initialValue;
+        }
+        return values;
+      },
+      {}
+    );
+    return initialValues || {};
+  });
   const stepsLength = useMemo(() => steps.length, [steps]);
 
   const stepFormData = useMemo(() => {
@@ -99,6 +117,10 @@ export const DzForm: FC<DzFormProps> = ({
     setAreAllCurrentStepFieldsValid,
   ] = useState(false);
 
+  // see separate validator function (optional) in FormStep.formValidator
+  // e.g. validate that at least one checkbox of a group of checkboxes is selected
+  const [isFormStepValid, setIsFormStepValid] = useState(true);
+
   const doSubmit = useCallback(() => {
     onSubmit?.(formValues);
   }, [formValues, onSubmit]);
@@ -108,12 +130,14 @@ export const DzForm: FC<DzFormProps> = ({
       doSubmit();
     } else {
       setFieldValidityStates({});
+      setIsFormStepValid(true);
       setCurrentStep(step => step + 1);
     }
   }, [currentStep, doSubmit, stepsLength]);
 
   const handlePrevAction = useCallback(() => {
     setFieldValidityStates({});
+    setIsFormStepValid(true);
     setCurrentStep(step => step - 1);
   }, []);
 
@@ -133,11 +157,25 @@ export const DzForm: FC<DzFormProps> = ({
   };
 
   const onChangeInput = (fieldName: string, value: any) => {
-    setFormValues(currentFormValues => ({
-      ...currentFormValues,
-      [fieldName]: value,
-    }));
+    const formValidator = stepFormData.formValidator;
+
+    setFormValues(currentFormValues => {
+      const newFormValues = {
+        ...currentFormValues,
+        [fieldName]: value,
+      };
+
+      if (formValidator) {
+        const { validator, args } = formValidator;
+        const isValid = validator?.(newFormValues, args[0], args[1]);
+
+        setIsFormStepValid(isValid);
+      }
+      return newFormValues;
+    });
   };
+
+  console.info('isFormStepValid: ', isFormStepValid);
 
   const onFocusInput = (fieldName: string) => {
     onFocus?.(fieldName);
@@ -192,13 +230,21 @@ export const DzForm: FC<DzFormProps> = ({
               formAction={handleForwardAction}
               onFieldValidation={onFieldValidation}
               isSubmitDisabled={
-                isSubmitDisabled || !areAllCurrentStepFieldsValid
+                isSubmitDisabled ||
+                !areAllCurrentStepFieldsValid ||
+                !isFormStepValid
               }
               onChangeInput={onChangeInput}
+              formValues={formValues}
               onFocusInput={onFocusInput}
               submitAction={() => {
                 console.info('TODO submitAction');
               }}
+              titleTextClassName={titleTextClassName}
+              subtitleTextClassName={subtitleTextClassName}
+              formStepErrorMessage={
+                isFormStepValid ? '' : stepFormData.formValidator?.errorMessage
+              }
             />
           </form>
         ) : null}
