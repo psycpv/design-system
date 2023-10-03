@@ -24,6 +24,7 @@ export interface DzFormBuilderProps {
   formValues: Record<string, any>;
   titleTextClassName?: string;
   subtitleTextClassName?: string;
+  onFocusInput?: Function;
 }
 const styles: any = {
   formLayout: `
@@ -86,6 +87,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
   formValues,
   titleTextClassName,
   subtitleTextClassName,
+  onFocusInput,
 }) => {
   const {
     formName,
@@ -162,6 +164,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
                           ? onChangeInput?.(name, event.target.checked)
                           : onChangeInput?.(name, event.target.value),
                       onValidation: isValid => onFieldValidation(key, isValid),
+                      onFocus: () => onFocusInput?.(name),
                     };
                     if (type === FORM_FIELD_TYPES.TEXTBOX) {
                       componentProps.maxWordLength = field.maxWordLength;
