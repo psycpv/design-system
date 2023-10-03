@@ -25,6 +25,7 @@ export interface DzFormBuilderProps {
   titleTextClassName?: string;
   subtitleTextClassName?: string;
   onFocusInput?: Function;
+  formStepErrorMessage?: string;
 }
 const styles: any = {
   formLayout: `
@@ -54,6 +55,11 @@ const styles: any = {
   `,
   ctaContainer: `
     flex
+  `,
+  formStepErrorMessage: `
+    absolute
+    mt-[1rem]
+    text-red-100
   `,
 };
 
@@ -88,6 +94,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
   titleTextClassName,
   subtitleTextClassName,
   onFocusInput,
+  formStepErrorMessage,
 }) => {
   const {
     formName,
@@ -194,6 +201,12 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
             </Fragment>
           );
         })}
+        {formStepErrorMessage && (
+          <DzText
+            text={formStepErrorMessage}
+            className={styles.formStepErrorMessage}
+          />
+        )}
       </div>
       <DzGridColumns
         className={cn(

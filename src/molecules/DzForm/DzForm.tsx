@@ -117,6 +117,10 @@ export const DzForm: FC<DzFormProps> = ({
     setAreAllCurrentStepFieldsValid,
   ] = useState(false);
 
+  // see separate validator function (optional) in FormStep.formValidator
+  // e.g. validate that at least one checkbox of a group of checkboxes is selected
+  const [isFormStepValid, setIsFormStepValid] = useState(true);
+
   const doSubmit = useCallback(() => {
     onSubmit?.(formValues);
   }, [formValues, onSubmit]);
@@ -126,12 +130,14 @@ export const DzForm: FC<DzFormProps> = ({
       doSubmit();
     } else {
       setFieldValidityStates({});
+      setIsFormStepValid(true);
       setCurrentStep(step => step + 1);
     }
   }, [currentStep, doSubmit, stepsLength]);
 
   const handlePrevAction = useCallback(() => {
     setFieldValidityStates({});
+    setIsFormStepValid(true);
     setCurrentStep(step => step - 1);
   }, []);
 
@@ -151,11 +157,25 @@ export const DzForm: FC<DzFormProps> = ({
   };
 
   const onChangeInput = (fieldName: string, value: any) => {
-    setFormValues(currentFormValues => ({
-      ...currentFormValues,
-      [fieldName]: value,
-    }));
+    const formValidator = stepFormData.formValidator;
+
+    setFormValues(currentFormValues => {
+      const newFormValues = {
+        ...currentFormValues,
+        [fieldName]: value,
+      };
+
+      if (formValidator) {
+        const { validator, args } = formValidator;
+        const isValid = validator?.(newFormValues, args[0], args[1]);
+
+        setIsFormStepValid(isValid);
+      }
+      return newFormValues;
+    });
   };
+
+  console.info('isFormStepValid: ', isFormStepValid);
 
   const onFocusInput = (fieldName: string) => {
     onFocus?.(fieldName);
@@ -210,7 +230,9 @@ export const DzForm: FC<DzFormProps> = ({
               formAction={handleForwardAction}
               onFieldValidation={onFieldValidation}
               isSubmitDisabled={
-                isSubmitDisabled || !areAllCurrentStepFieldsValid
+                isSubmitDisabled ||
+                !areAllCurrentStepFieldsValid ||
+                !isFormStepValid
               }
               onChangeInput={onChangeInput}
               formValues={formValues}
@@ -220,6 +242,9 @@ export const DzForm: FC<DzFormProps> = ({
               }}
               titleTextClassName={titleTextClassName}
               subtitleTextClassName={subtitleTextClassName}
+              formStepErrorMessage={
+                isFormStepValid ? '' : stepFormData.formValidator?.errorMessage
+              }
             />
           </form>
         ) : null}

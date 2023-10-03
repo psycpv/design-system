@@ -6,6 +6,11 @@ export interface FormStep {
   title?: string;
   primarySubtitle?: string;
   secondarySubtitle?: string;
+  formValidator?: {
+    validator: Function;
+    args: [Array<string>, any];
+    errorMessage?: string;
+  };
   CTAProps: {
     text: string;
     type?: string;
