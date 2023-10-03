@@ -189,7 +189,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
                     return Component ? (
                       <DzColumn
                         key={`${sectionTitle}-${title}-${key}`}
-                        className={`mt-auto ${className || ''}`}
+                        className={cn('mt-auto', className)}
                         span={span ?? 12}
                       >
                         {Component}
