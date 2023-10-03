@@ -20,6 +20,7 @@ export interface DzFormBuilderProps {
   submitAction: Function;
   onFieldValidation: Function;
   onChangeInput: Function;
+  onFocusInput?: Function;
 }
 const styles: any = {
   formLayout: `
@@ -78,6 +79,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
   isSubmitDisabled,
   onFieldValidation,
   onChangeInput,
+  onFocusInput,
 }) => {
   const {
     formName,
@@ -143,6 +145,7 @@ export const DzFormBuilder: FC<DzFormBuilderProps> = ({
                       onChange: event =>
                         onChangeInput?.(name, event.target.value),
                       onValidation: isValid => onFieldValidation(key, isValid),
+                      onFocus: () => onFocusInput?.(name),
                     };
                     if (type === FORM_FIELD_TYPES.TEXTBOX) {
                       componentProps.maxWordLength = field.maxWordLength;

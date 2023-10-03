@@ -32,6 +32,7 @@ export interface DzFormProps {
   overlayContent?: ReactNode;
   isSubmitDisabled?: boolean;
   recaptchaNode?: ReactNode;
+  onFocus?: Function;
 }
 
 const styles: any = {
@@ -79,6 +80,7 @@ export const DzForm: FC<DzFormProps> = ({
   overlayContent,
   isSubmitDisabled = false,
   recaptchaNode,
+  onFocus,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formValues, setFormValues] = useState<Record<string, any>>({});
@@ -137,6 +139,10 @@ export const DzForm: FC<DzFormProps> = ({
     }));
   };
 
+  const onFocusInput = (fieldName: string) => {
+    onFocus?.(fieldName);
+  };
+
   useEffect(() => {
     setAreAllCurrentStepFieldsValid(
       Object.values(fieldValidityStates).reduce(
@@ -189,6 +195,7 @@ export const DzForm: FC<DzFormProps> = ({
                 isSubmitDisabled || !areAllCurrentStepFieldsValid
               }
               onChangeInput={onChangeInput}
+              onFocusInput={onFocusInput}
               submitAction={() => {
                 console.info('TODO submitAction');
               }}
