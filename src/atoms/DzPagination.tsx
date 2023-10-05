@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { cn } from '../utils/classnames';
 import ChevronLeft from '../svgIcons/chevronLeft';
 import ChevronRight from '../svgIcons/chevronRight';
@@ -9,9 +9,9 @@ export interface DzPaginationProps {
   nextText: string;
   currentPage: number;
   totalCount: number;
-  siblingCount: number;
   pageSize: number;
-  onPageChange: Function;
+  onPageChange?: Function;
+  renderPageNumber: (pageNumber: number) => ReactNode;
 }
 
 const styles = {
@@ -93,23 +93,13 @@ export const DzPagination: FC<DzPaginationProps> = ({
   nextText,
   currentPage,
   totalCount,
-  siblingCount,
   pageSize,
   onPageChange,
+  renderPageNumber,
 }) => {
-  const onNext = () => {
-    onPageChange(currentPage + 1);
-  };
-
-  const onPrevious = () => {
-    onPageChange(currentPage - 1);
-  };
-  const paginationRange = usePagination({
-    currentPage,
-    totalCount,
-    siblingCount,
-    pageSize,
-  });
+  const paginationRange = usePagination(totalCount, currentPage, pageSize);
+  const onNext = () => onPageChange?.(currentPage + 1);
+  const onPrevious = () => onPageChange?.(currentPage - 1);
 
   return (
     <div className={cn(styles.paginationContainer)}>
@@ -122,11 +112,15 @@ export const DzPagination: FC<DzPaginationProps> = ({
           {prevText}
         </div>
       </div>
-      <div className="hidden md:-mt-px md:flex">
+      <div className="md:-mt-px md:flex">
         {paginationRange.map(page => {
           const selected = page === currentPage;
           if (page === DOTS) {
-            return <span className={cn(styles.dots)}>...</span>;
+            return (
+              <span key={page} className={cn(styles.dots)}>
+                ...
+              </span>
+            );
           }
           return (
             <div
@@ -134,10 +128,9 @@ export const DzPagination: FC<DzPaginationProps> = ({
                 selected ? styles.selectedPage : styles.pageNumber,
                 styles.underline
               )}
-              onClick={() => onPageChange(page)}
               key={page}
             >
-              {page}
+              {renderPageNumber ? renderPageNumber(page as number) : page}
             </div>
           );
         })}
