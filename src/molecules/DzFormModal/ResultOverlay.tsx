@@ -71,7 +71,7 @@ export const ResultOverlay = ({
       <div
         className={cn(
           styles.buttonsContainer,
-          hideCloseButton ? '' : 'md:w-[50%]'
+          hideCloseButton ? '' : 'md:w-6/12'
         )}
       >
         {!isSuccess && !hideCloseButton && (

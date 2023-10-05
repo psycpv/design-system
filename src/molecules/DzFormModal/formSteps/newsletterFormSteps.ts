@@ -1,7 +1,7 @@
 import { isEmail } from '../../../utils';
 import { FORM_FIELD_TYPES } from '../../DzForm/DzForm';
 import { FormStep } from './types/formStep';
-
+import { atLeastOneFieldValue } from '../../DzForm/validators/atLeastOneFieldValue';
 export const newsletterFormSteps: Array<FormStep> = [
   {
     id: '2',
@@ -11,6 +11,11 @@ export const newsletterFormSteps: Array<FormStep> = [
     CTAProps: {
       text: 'Sign Up',
       type: 'submit',
+    },
+    formValidator: {
+      validator: atLeastOneFieldValue,
+      args: [['news', 'access', 'events'], true],
+      errorMessage: 'Please select at least one preference',
     },
     formSections: [
       {

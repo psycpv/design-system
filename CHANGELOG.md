@@ -1,3 +1,15 @@
+# v0.0.118 (Tue Oct 03 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 308 newsletter [#178](https://github.com/Zwirner/design-system/pull/178) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.117 (Tue Oct 03 2023)
 
 #### 🐛 Bug Fix
