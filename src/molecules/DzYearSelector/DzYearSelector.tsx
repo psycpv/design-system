@@ -10,7 +10,8 @@ import CheckmarkIcon from '../../svgIcons/checkmark';
 export interface DzYearSelectorProps {
   startYear?: number;
   endYear?: number;
-  onChange?: (selectedYears: Array<number>) => void;
+  onChange?: (selectedYears: Array<number> | number | null) => void;
+  isMultiSelect?: boolean;
 }
 
 const DEFAULT_YEARS_RANGE = 30;
@@ -57,6 +58,7 @@ export const DzYearSelector = ({
   startYear,
   endYear,
   onChange,
+  isMultiSelect = false,
 }: DzYearSelectorProps) => {
   const [selectedYears, setSelectedYears] = useState<Array<number>>([]);
   const isSmallWindowSize = useIsSmallWindowSize();
@@ -81,14 +83,21 @@ export const DzYearSelector = ({
     });
 
   const onClickYear = year => {
-    setSelectedYears(selectedYears => {
-      const newSelectedYears = selectedYears.includes(year)
-        ? selectedYears.filter(selectedYear => selectedYear !== year)
-        : selectedYears.concat(year);
+    const isYearSelected = selectedYears.includes(year);
 
-      onChange?.(newSelectedYears);
-      return newSelectedYears;
-    });
+    if (!isMultiSelect) {
+      setSelectedYears(isYearSelected ? [] : [year]);
+      onChange?.(isYearSelected ? null : year);
+    } else {
+      setSelectedYears(selectedYears => {
+        const newSelectedYears = isYearSelected
+          ? selectedYears.filter(selectedYear => selectedYear !== year)
+          : selectedYears.concat(year);
+
+        onChange?.(newSelectedYears);
+        return newSelectedYears;
+      });
+    }
   };
 
   return (
