@@ -1,3 +1,27 @@
+# v0.0.118 (Tue Oct 03 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 308 newsletter [#178](https://github.com/Zwirner/design-system/pull/178) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.117 (Tue Oct 03 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-388 GA4 Inquiry Form Events [#177](https://github.com/Zwirner/design-system/pull/177) ([@romulo114](https://github.com/romulo114))
+
+#### Authors: 1
+
+- Romulo Benjamim ([@romulo114](https://github.com/romulo114))
+
+---
+
 # v0.0.116 (Tue Sep 26 2023)
 
 #### 🐛 Bug Fix

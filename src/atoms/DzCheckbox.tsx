@@ -14,6 +14,7 @@ export interface CheckProps
   selected?: boolean;
   ariaDescribedBy?: string;
   className?: string;
+  titleClassName?: string;
 }
 
 const styles = {
@@ -41,6 +42,7 @@ const styles = {
     checked:text-white-100
     checked:disabled:bg-black-40
     disabled:pointer-events-none
+    min-w-[20px]
   `,
   checked: `
     text-black-100
@@ -97,6 +99,7 @@ export const DzCheckbox = React.forwardRef<HTMLInputElement, CheckProps>(
       ariaDescribedBy = '',
       onChange,
       className = '',
+      titleClassName = '',
       ...rest
     },
     ref
@@ -141,7 +144,7 @@ export const DzCheckbox = React.forwardRef<HTMLInputElement, CheckProps>(
           <span
             id={`${id ?? ''}-${title}-description`}
             className={cn(
-              styles.title,
+              titleClassName || styles.title,
               weightStyle(),
               disabledStyle,
               errorClass
