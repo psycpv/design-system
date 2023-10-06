@@ -89,6 +89,12 @@ const styles = {
     cursor-pointer
     hover:text-black-100
   `,
+  disabledArrow: `
+    text-black-20
+  `,
+  defaultCursor: `
+    !cursor-default
+  `,
 };
 
 export const DzPagination: FC<DzPaginationProps> = ({
@@ -101,17 +107,37 @@ export const DzPagination: FC<DzPaginationProps> = ({
   renderPageNumber,
 }) => {
   const paginationRange = usePagination(totalCount, currentPage, pageSize);
-  const onNext = () => onPageChange?.(currentPage + 1);
-  const onPrevious = () => onPageChange?.(currentPage - 1);
+  const isPreviousDisabled = currentPage === 1;
+  const isNextDisabled = currentPage === paginationRange.length;
+  const onNext = () => {
+    if (!isNextDisabled) {
+      onPageChange?.(currentPage + 1);
+    }
+  };
+  const onPrevious = () => {
+    if (!isPreviousDisabled) {
+      onPageChange?.(currentPage - 1);
+    }
+  };
 
   return (
     <div className={cn(styles.paginationContainer)}>
       <div className="-mt-px flex w-0 flex-1">
         <div
-          className={cn(styles.previousContainer, styles.underline)}
+          className={cn(
+            styles.previousContainer,
+            styles.underline,
+            isPreviousDisabled ? styles.defaultCursor : ''
+          )}
           onClick={onPrevious}
         >
-          <ArrowLeft className="mr-3 h-5 w-5" aria-hidden="true" />
+          <ArrowLeft
+            className={cn(
+              'mr-3 h-5 w-5',
+              isPreviousDisabled ? styles.disabledArrow : ''
+            )}
+            aria-hidden="true"
+          />
           {prevText}
         </div>
       </div>
@@ -140,11 +166,21 @@ export const DzPagination: FC<DzPaginationProps> = ({
       </div>
       <div className="-mt-px flex w-0 flex-1 justify-end">
         <div
-          className={cn(styles.nextContainer, styles.underline)}
+          className={cn(
+            styles.nextContainer,
+            styles.underline,
+            isNextDisabled ? styles.defaultCursor : ''
+          )}
           onClick={onNext}
         >
           {nextText}
-          <ArrowRight className="ml-3 h-5 w-5" aria-hidden="true" />
+          <ArrowRight
+            className={cn(
+              'ml-3 h-5 w-5',
+              isNextDisabled ? styles.disabledArrow : ''
+            )}
+            aria-hidden="true"
+          />
         </div>
       </div>
     </div>
