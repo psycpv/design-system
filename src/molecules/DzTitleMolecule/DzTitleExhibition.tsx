@@ -8,7 +8,7 @@ import { ArtistData } from './types/DzTitleExhibitionTypes';
 import { collectHours } from './utils/collectHours';
 import DzContainerTitle from './DzContainerTitle';
 import { splitLocationAddressLines } from './utils/formatAddress';
-import { InquireFormContextData } from '../DzFormModal';
+import { InquireFormContextData, INQUIRY_TYPES } from '../DzFormModal';
 
 export interface DzTitleExhibitionProps {
   artists: Array<ArtistData>;
@@ -118,7 +118,11 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
           description: 'Want to know more?',
           ctaProps: {
             onClick: () =>
-              onClickCTA?.({ title: titleText, ctaText: 'Inquire' }),
+              onClickCTA?.({
+                title: titleText,
+                ctaText: 'Inquire',
+                inquiryType: INQUIRY_TYPES.EXHIBITION,
+              }),
           },
         }}
         title={titleText}
