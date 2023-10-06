@@ -5,7 +5,7 @@ export const styles: any = {
     md:text-xxl
   `,
   singleParagraph: `
-    @apply mx-auto
+    @apply
     my-0
     text-sm
     md:text-md
