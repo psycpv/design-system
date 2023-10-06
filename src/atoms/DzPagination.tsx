@@ -4,6 +4,9 @@ import ChevronLeft from '../svgIcons/chevronLeft';
 import ChevronRight from '../svgIcons/chevronRight';
 import { usePagination, DOTS } from '../hooks/usePagination';
 
+import { ArrowLeft } from '../svgIcons/arrowLeft';
+import { ArrowRight } from '../svgIcons/arrowRight';
+
 export interface DzPaginationProps {
   prevText: string;
   nextText: string;
@@ -108,7 +111,7 @@ export const DzPagination: FC<DzPaginationProps> = ({
           className={cn(styles.previousContainer, styles.underline)}
           onClick={onPrevious}
         >
-          <ChevronLeft className="mr-3 h-3 w-3" aria-hidden="true" />
+          <ArrowLeft className="mr-3 h-5 w-5" aria-hidden="true" />
           {prevText}
         </div>
       </div>
@@ -141,7 +144,7 @@ export const DzPagination: FC<DzPaginationProps> = ({
           onClick={onNext}
         >
           {nextText}
-          <ChevronRight className="ml-3 h-3 w-3" aria-hidden="true" />
+          <ArrowRight className="ml-3 h-5 w-5" aria-hidden="true" />
         </div>
       </div>
     </div>
