@@ -175,8 +175,6 @@ export const DzForm: FC<DzFormProps> = ({
     });
   };
 
-  console.info('isFormStepValid: ', isFormStepValid);
-
   const onFocusInput = (fieldName: string) => {
     onFocus?.(fieldName);
   };
