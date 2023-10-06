@@ -4,6 +4,7 @@ export interface InquireFormContextData {
   id?: string;
   title?: string;
   artwork?: Record<string, any>;
+  ctaText?: string;
 }
 
 export const useDZFormModalProps = () => {

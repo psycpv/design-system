@@ -117,7 +117,8 @@ export const DzTitleExhibition: FC<DzTitleExhibitionProps> = ({
           title: 'Inquire',
           description: 'Want to know more?',
           ctaProps: {
-            onClick: () => onClickCTA?.({ title: titleText }),
+            onClick: () =>
+              onClickCTA?.({ title: titleText, ctaText: 'Inquire' }),
           },
         }}
         title={titleText}
