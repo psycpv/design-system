@@ -111,6 +111,13 @@ export const DzPortableText: FC<DzPortableTextProps> = ({
             </>
           ) : null;
         },
+        strikethrough: ({ children }: PortableTextMarkComponentProps) => {
+          return children ? (
+            <>
+              <s>{children}</s>
+            </>
+          ) : null;
+        },
         link: ({ value, children }: PortableTextMarkComponentProps) => {
           const target = (value?.href || '').startsWith('http');
           return (
