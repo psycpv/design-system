@@ -112,7 +112,7 @@ export const DzYearSelector = ({
   };
 
   return (
-    <Disclosure defaultOpen={true}>
+    <Disclosure defaultOpen={false}>
       {({ open }) => (
         <>
           <Disclosure.Button className={cn(styles.openButton)}>
