@@ -1,3 +1,15 @@
+# v0.0.121 (Mon Oct 09 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 456 inquire form artwork [#183](https://github.com/Zwirner/design-system/pull/183) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.120 (Fri Oct 06 2023)
 
 #### 🐛 Bug Fix
