@@ -140,9 +140,10 @@ export const DzYearSelector = ({
               {yearCols.map((years, index) => (
                 <DzColumn span={2} key={`col-${index}`}>
                   {years.map(year => {
-                    const isDisabled = enabledYears
-                      ? !enabledYears.includes(year)
-                      : false;
+                    const isDisabled =
+                      year !== ALL_YEARS_ID && enabledYears
+                        ? !enabledYears.includes(year)
+                        : false;
 
                     return (
                       <div
