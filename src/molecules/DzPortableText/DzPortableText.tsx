@@ -97,6 +97,27 @@ export const DzPortableText: FC<DzPortableTextProps> = ({
             </>
           ) : null;
         },
+        sup: ({ children }: PortableTextMarkComponentProps) => {
+          return children ? (
+            <>
+              <sup>{children}</sup>
+            </>
+          ) : null;
+        },
+        sub: ({ children }: PortableTextMarkComponentProps) => {
+          return children ? (
+            <>
+              <sub>{children}</sub>
+            </>
+          ) : null;
+        },
+        strikethrough: ({ children }: PortableTextMarkComponentProps) => {
+          return children ? (
+            <>
+              <s>{children}</s>
+            </>
+          ) : null;
+        },
         link: ({ value, children }: PortableTextMarkComponentProps) => {
           const target = (value?.href || '').startsWith('http');
           return (
