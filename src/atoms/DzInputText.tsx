@@ -118,7 +118,7 @@ export const DzInputText = forwardRef<HTMLInputElement, InputTextProps>(
     },
     ref
   ) => {
-    const [value, setValue] = useState<string>('');
+    const [value, setValue] = useState<string>(rest?.value as string);
     const [isValidValue, setIsValidValue] = useState<boolean>(!hasError);
     const [isUntouched, setIsUntouched] = useState(true);
     const [classContent, setClassContent] = useState<string>('');
