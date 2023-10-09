@@ -1,3 +1,39 @@
+# v0.0.121 (Mon Oct 09 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 456 inquire form artwork [#183](https://github.com/Zwirner/design-system/pull/183) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.120 (Fri Oct 06 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-624: support strikethrough [#180](https://github.com/Zwirner/design-system/pull/180) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
+# v0.0.119 (Fri Oct 06 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-624: support sub and sub marks on dzPortableText [#179](https://github.com/Zwirner/design-system/pull/179) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
 # v0.0.118 (Tue Oct 03 2023)
 
 #### 🐛 Bug Fix
