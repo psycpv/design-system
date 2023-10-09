@@ -7,7 +7,9 @@ import ArrowDown from '../../svgIcons/arrowDown';
 import { DzText, TEXT_SIZES } from '../../atoms';
 import CheckmarkIcon from '../../svgIcons/checkmark';
 
-export type YearWrapperComponent = FC<PropsWithChildren & { year: number }>;
+export type YearWrapperComponent = FC<
+  PropsWithChildren & { year: number; isDisabled?: boolean }
+>;
 
 export interface DzYearSelectorProps {
   startYear?: number;
@@ -16,6 +18,7 @@ export interface DzYearSelectorProps {
   isMultiSelect?: boolean;
   selectedYear?: number;
   YearWrapperComponent?: YearWrapperComponent;
+  enabledYears?: Array<number>; // if undefined, all years are enabled
 }
 
 const DEFAULT_YEARS_RANGE = 30;
@@ -35,6 +38,7 @@ const styles: any = {
     justify-center
     items-center   
     h-[2.5rem]
+    mb-[1.25rem]
   `,
   year: `
     flex
@@ -44,14 +48,14 @@ const styles: any = {
     cursor-pointer
     select-none
   `,
-  gridColumnsContainer: `    
-    p-[1.25rem]
-  `,
   smallGap: `
     gap-[0.8rem]
   `,
   mediumGap: `
     gap[1.25rem]
+  `,
+  defaultCursor: `
+    !cursor-default
   `,
 };
 
@@ -68,6 +72,7 @@ export const DzYearSelector = ({
   selectedYear = ALL_YEARS_ID,
   isMultiSelect = false,
   YearWrapperComponent = DefaultYearWrapper,
+  enabledYears,
 }: DzYearSelectorProps) => {
   const [selectedYears, setSelectedYears] = useState<Array<number>>([
     selectedYear,
@@ -129,32 +134,45 @@ export const DzYearSelector = ({
           <Disclosure.Panel>
             <DzGridColumns
               className={cn(
-                styles.gridColumnsContainer,
                 isSmallWindowSize ? styles.smallGap : styles.mediumGap
               )}
             >
               {yearCols.map((years, index) => (
                 <DzColumn span={2} key={`col-${index}`}>
-                  {years.map(year => (
-                    <div
-                      key={year}
-                      className={styles.year}
-                      onClick={() => onClickYear(year)}
-                    >
-                      <YearWrapperComponent year={year}>
-                        <DzText
-                          text={year === ALL_YEARS_ID ? 'All Years' : year}
-                          textSize={TEXT_SIZES.SMALL}
-                          className={
-                            selectedYears.includes(year)
-                              ? 'text-black-100'
-                              : 'text-black-60'
-                          }
-                        />
-                      </YearWrapperComponent>
-                      {selectedYears.includes(year) && <CheckmarkIcon />}
-                    </div>
-                  ))}
+                  {years.map(year => {
+                    const isDisabled = enabledYears
+                      ? !enabledYears.includes(year)
+                      : false;
+
+                    return (
+                      <div
+                        key={year}
+                        className={cn(
+                          styles.year,
+                          isDisabled ? styles.defaultCursor : ''
+                        )}
+                        onClick={() => (isDisabled ? null : onClickYear(year))}
+                      >
+                        <YearWrapperComponent
+                          year={year}
+                          isDisabled={isDisabled}
+                        >
+                          <DzText
+                            text={year === ALL_YEARS_ID ? 'All Years' : year}
+                            textSize={TEXT_SIZES.SMALL}
+                            className={
+                              isDisabled
+                                ? 'text-black-40'
+                                : selectedYears.includes(year)
+                                ? 'text-black-100'
+                                : 'text-black-60'
+                            }
+                          />
+                        </YearWrapperComponent>
+                        {selectedYears.includes(year) && <CheckmarkIcon />}
+                      </div>
+                    );
+                  })}
                 </DzColumn>
               ))}
             </DzGridColumns>
