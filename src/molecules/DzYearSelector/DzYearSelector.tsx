@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, PropsWithChildren, useState } from 'react';
 import { DzColumn, DzGridColumns } from '../../layout';
 import { useIsSmallWindowSize } from '../../hooks/useIsSmallWindowSize';
 import { Disclosure } from '@headlessui/react';
@@ -7,15 +7,19 @@ import ArrowDown from '../../svgIcons/arrowDown';
 import { DzText, TEXT_SIZES } from '../../atoms';
 import CheckmarkIcon from '../../svgIcons/checkmark';
 
+export type YearWrapperComponent = FC<PropsWithChildren & { year: number }>;
+
 export interface DzYearSelectorProps {
   startYear?: number;
   endYear?: number;
   onChange?: (selectedYears: Array<number> | number | null) => void;
   isMultiSelect?: boolean;
+  selectedYear?: number;
+  YearWrapperComponent?: YearWrapperComponent;
 }
 
 const DEFAULT_YEARS_RANGE = 30;
-const ALL_YEARS_ID = Number.POSITIVE_INFINITY;
+export const ALL_YEARS_ID = Number.POSITIVE_INFINITY;
 
 const styles: any = {
   caretIcon: `
@@ -30,8 +34,7 @@ const styles: any = {
     flex    
     justify-center
     items-center   
-    h-[2.5rem
-    px-[1.25rem]
+    h-[2.5rem]
   `,
   year: `
     flex
@@ -54,13 +57,21 @@ const styles: any = {
 
 const FILTER_BY_YEAR = 'Filter by Year';
 
+const DefaultYearWrapper: FC<PropsWithChildren> = ({ children }) => (
+  <>{children}</>
+);
+
 export const DzYearSelector = ({
   startYear,
   endYear,
   onChange,
+  selectedYear = ALL_YEARS_ID,
   isMultiSelect = false,
+  YearWrapperComponent = DefaultYearWrapper,
 }: DzYearSelectorProps) => {
-  const [selectedYears, setSelectedYears] = useState<Array<number>>([]);
+  const [selectedYears, setSelectedYears] = useState<Array<number>>([
+    selectedYear,
+  ]);
   const isSmallWindowSize = useIsSmallWindowSize();
   const startingYear = startYear || new Date().getFullYear();
   const endingYear = endYear || startingYear - DEFAULT_YEARS_RANGE;
@@ -130,15 +141,17 @@ export const DzYearSelector = ({
                       className={styles.year}
                       onClick={() => onClickYear(year)}
                     >
-                      <DzText
-                        text={year === ALL_YEARS_ID ? 'All Years' : year}
-                        textSize={TEXT_SIZES.SMALL}
-                        className={
-                          selectedYears.includes(year)
-                            ? 'text-black-100'
-                            : 'text-black-60'
-                        }
-                      />
+                      <YearWrapperComponent year={year}>
+                        <DzText
+                          text={year === ALL_YEARS_ID ? 'All Years' : year}
+                          textSize={TEXT_SIZES.SMALL}
+                          className={
+                            selectedYears.includes(year)
+                              ? 'text-black-100'
+                              : 'text-black-60'
+                          }
+                        />
+                      </YearWrapperComponent>
                       {selectedYears.includes(year) && <CheckmarkIcon />}
                     </div>
                   ))}
