@@ -1,3 +1,15 @@
+# v0.0.122 (Tue Oct 10 2023)
+
+#### 🐛 Bug Fix
+
+- reset submitting state on close [#184](https://github.com/Zwirner/design-system/pull/184) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.121 (Mon Oct 09 2023)
 
 #### 🐛 Bug Fix
