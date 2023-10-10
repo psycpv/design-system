@@ -46,7 +46,7 @@ const styles: any = {
     justify-between
     py-[0.625rem]
     cursor-pointer
-    select-none
+    select-none     
   `,
   smallGap: `
     gap-[0.8rem]
@@ -56,6 +56,13 @@ const styles: any = {
   `,
   defaultCursor: `
     !cursor-default
+  `,
+  yearsContainer: `
+    absolute
+    bg-white-100
+    w-full
+    pb-[1.25rem]
+    z-[100]
   `,
 };
 
@@ -131,7 +138,7 @@ export const DzYearSelector = ({
               className={cn(styles.caretIcon, open ? styles.upArrow : '')}
             />
           </Disclosure.Button>
-          <Disclosure.Panel>
+          <Disclosure.Panel className={styles.yearsContainer}>
             <DzGridColumns
               className={cn(
                 isSmallWindowSize ? styles.smallGap : styles.mediumGap
