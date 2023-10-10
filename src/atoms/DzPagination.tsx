@@ -89,8 +89,8 @@ const styles = {
     cursor-pointer
     hover:text-black-100
   `,
-  disabledArrow: `
-    text-black-20
+  disabledArrow: `    
+    opacity-50
   `,
   defaultCursor: `
     !cursor-default
