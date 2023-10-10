@@ -6,7 +6,8 @@ import { cn } from '../../utils/classnames';
 import ArrowDown from '../../svgIcons/arrowDown';
 import { DzText, TEXT_SIZES } from '../../atoms';
 import CheckmarkIcon from '../../svgIcons/checkmark';
-
+import useLockedBodyScroll from '../../hooks/useLockedBodyScroll';
+import { Close } from '../../svgIcons';
 export type YearWrapperComponent = FC<
   PropsWithChildren & { year: number; isDisabled?: boolean }
 >;
@@ -33,12 +34,11 @@ const styles: any = {
   upArrow: `
     rotate-180
   `,
-  openButton: `
+  toggleButton: `
     flex    
     justify-center
     items-center   
-    h-[2.5rem]
-    mb-[1.25rem]
+    h-[2.5rem]        
   `,
   year: `
     flex
@@ -58,11 +58,39 @@ const styles: any = {
     !cursor-default
   `,
   yearsContainer: `
-    absolute
+    static
+    md:absolute
+    pb-[1.25rem]
     bg-white-100
     w-full
-    pb-[1.25rem]
     z-[100]
+  `,
+  container: `
+    md:static
+    z-[100]
+    bg-white-100
+    w-full       
+  `,
+  openContainer: `
+    fixed
+    left-0
+    bottom-0
+    top-0
+    overflow-y-scroll
+    p-[1.25rem]
+    md:p-0
+  `,
+  buttonContainer: `
+    flex
+    justify-between
+    items-center    
+    mb-[1.25rem]
+    space-betwe
+  `,
+  closeButton: `
+    visible
+    md:invisible
+    cursor-pointer
   `,
 };
 
@@ -85,8 +113,12 @@ export const DzYearSelector = ({
     selectedYear,
   ]);
   const isSmallWindowSize = useIsSmallWindowSize();
+  const [isOpen, setIsOpen] = useState(false);
   const startingYear = startYear || new Date().getFullYear();
   const endingYear = endYear || startingYear - DEFAULT_YEARS_RANGE;
+  const onClickToggle = () => setIsOpen(open => !open);
+
+  useLockedBodyScroll(isOpen && isSmallWindowSize);
 
   if (endingYear > startingYear) {
     throw new Error('Start year must be greater than end year');
@@ -124,70 +156,95 @@ export const DzYearSelector = ({
   };
 
   return (
-    <Disclosure defaultOpen={false}>
-      {({ open }) => (
-        <>
-          <Disclosure.Button className={cn(styles.openButton)}>
-            <DzText
-              text={FILTER_BY_YEAR}
-              textSize={
-                isSmallWindowSize ? TEXT_SIZES.MEDIUM : TEXT_SIZES.SMALL
-              }
-            />
-            <ArrowDown
-              className={cn(styles.caretIcon, open ? styles.upArrow : '')}
-            />
-          </Disclosure.Button>
-          <Disclosure.Panel className={styles.yearsContainer}>
-            <DzGridColumns
-              className={cn(
-                isSmallWindowSize ? styles.smallGap : styles.mediumGap
-              )}
-            >
-              {yearCols.map((years, index) => (
-                <DzColumn span={2} key={`col-${index}`}>
-                  {years.map(year => {
-                    const isDisabled =
-                      year !== ALL_YEARS_ID && enabledYears
-                        ? !enabledYears.includes(year)
-                        : false;
+    <div className={cn(styles.container, isOpen ? styles.openContainer : '')}>
+      <Disclosure defaultOpen={isOpen}>
+        {({ open, close }) => (
+          <>
+            <div className={styles.buttonContainer}>
+              <Disclosure.Button
+                className={cn(styles.toggleButton)}
+                onClick={() => onClickToggle()}
+              >
+                <DzText
+                  text={FILTER_BY_YEAR}
+                  textSize={
+                    isSmallWindowSize && isOpen
+                      ? TEXT_SIZES.MEDIUM
+                      : TEXT_SIZES.SMALL
+                  }
+                />
+                <ArrowDown
+                  className={cn(
+                    styles.caretIcon,
+                    open ? styles.upArrow : '',
+                    isOpen && isSmallWindowSize ? 'invisible' : 'visible'
+                  )}
+                />
+              </Disclosure.Button>
+              <Close
+                className={cn(
+                  styles.closeButton,
+                  open ? 'visible' : 'invisible'
+                )}
+                onClick={() => {
+                  onClickToggle();
+                  close();
+                }}
+              />
+            </div>
+            <Disclosure.Panel className={styles.yearsContainer}>
+              <DzGridColumns
+                className={cn(
+                  isSmallWindowSize ? styles.smallGap : styles.mediumGap
+                )}
+              >
+                {yearCols.map((years, index) => (
+                  <DzColumn span={2} key={`col-${index}`}>
+                    {years.map(year => {
+                      const isDisabled =
+                        year !== ALL_YEARS_ID && enabledYears
+                          ? !enabledYears.includes(year)
+                          : false;
 
-                    return (
-                      <div
-                        key={year}
-                        className={cn(
-                          styles.year,
-                          isDisabled ? styles.defaultCursor : ''
-                        )}
-                        onClick={() => (isDisabled ? null : onClickYear(year))}
-                      >
-                        <YearWrapperComponent
-                          year={year}
-                          isDisabled={isDisabled}
+                      return (
+                        <div
+                          key={year}
+                          className={cn(
+                            styles.year,
+                            isDisabled ? styles.defaultCursor : ''
+                          )}
+                          onClick={() =>
+                            isDisabled ? null : onClickYear(year)
+                          }
                         >
-                          <DzText
-                            text={year === ALL_YEARS_ID ? 'All Years' : year}
-                            textSize={TEXT_SIZES.SMALL}
-                            className={
-                              isDisabled
-                                ? 'text-black-40'
-                                : selectedYears.includes(year)
-                                ? 'text-black-100'
-                                : 'text-black-60'
-                            }
-                          />
-                        </YearWrapperComponent>
-                        {selectedYears.includes(year) && <CheckmarkIcon />}
-                      </div>
-                    );
-                  })}
-                </DzColumn>
-              ))}
-            </DzGridColumns>
-          </Disclosure.Panel>
-        </>
-      )}
-    </Disclosure>
+                          <YearWrapperComponent
+                            year={year}
+                            isDisabled={isDisabled}
+                          >
+                            <DzText
+                              text={year === ALL_YEARS_ID ? 'All Years' : year}
+                              textSize={TEXT_SIZES.SMALL}
+                              className={
+                                isDisabled
+                                  ? 'text-black-40'
+                                  : selectedYears.includes(year)
+                                  ? 'text-black-100'
+                                  : 'text-black-60'
+                              }
+                            />
+                          </YearWrapperComponent>
+                          {selectedYears.includes(year) && <CheckmarkIcon />}
+                        </div>
+                      );
+                    })}
+                  </DzColumn>
+                ))}
+              </DzGridColumns>
+            </Disclosure.Panel>
+          </>
+        )}
+      </Disclosure>
+    </div>
   );
 };
 
