@@ -67,6 +67,7 @@ export const DzFormModal = ({
   };
   const onCloseModal = () => {
     onClose();
+    setIsSubmitting(false);
   };
   const onClickRetry = () => {
     if (submittedFormValues) {
