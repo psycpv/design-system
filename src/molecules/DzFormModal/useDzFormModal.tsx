@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { useState } from 'react';
 import DzFormModal from './DzFormModal';
 import { FORM_MODAL_TYPE_NAMES } from './types/DzFormModalTypes';
@@ -13,6 +13,7 @@ interface UseDzFormModalProps {
   errorTitle?: string;
   errorSubtitle?: string;
   disableBackdrop?: boolean;
+  recaptchaNode?: ReactNode;
 }
 export const useDzFormModal = ({
   formType,
@@ -24,6 +25,7 @@ export const useDzFormModal = ({
   errorTitle,
   errorSubtitle,
   disableBackdrop,
+  recaptchaNode,
 }: UseDzFormModalProps) => {
   const [isOpen, setIsOpen] = useState(disableBackdrop || false);
   const openClickHandler = () => setIsOpen(true);
@@ -42,6 +44,7 @@ export const useDzFormModal = ({
       type={formType}
       onSubmit={onSubmit}
       disableBackdrop={disableBackdrop}
+      recaptchaNode={recaptchaNode}
     />
   );
 
