@@ -14,6 +14,7 @@ export interface CardArtworkData extends BaseCard {
   artworkYear: string;
   medium: string;
   dimensions: string;
+  portableTextArtworkTitle?: ReactNode;
   portableTextDimensions?: ReactNode;
   portableTextFramedDimensions?: ReactNode;
   portableTextAdditionalInformation?: ReactNode;
