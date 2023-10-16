@@ -1,4 +1,10 @@
-import React, { FC, useMemo, useState, useCallback, useEffect } from 'react';
+import React, {
+  FC,
+  useMemo,
+  useState,
+  useCallback,
+  useLayoutEffect,
+} from 'react';
 import { cn } from '../../utils/classnames';
 import { DzSectionMenuProps, SectionNavItem } from './types';
 import { styles } from './styles';
@@ -52,7 +58,7 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
     return direction === ScrollDirection.UP ? styles.mblStickyUp : '';
   }, [direction]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!usePrefix || !prefix) return;
     const elements = document.querySelectorAll(`[id^='${prefix}']`);
     if (!elements?.length) return;
@@ -82,30 +88,32 @@ export const DzSectionMenu: FC<DzSectionMenuProps> = ({
           onMouseLeave={() => setIsHover(false)}
           onMouseUp={() => setIsHover(false)}
         >
-          {menuSections.map(section => {
-            const { text, id, url } = section;
-            return (
-              <li
-                key={`submenu-item-${id ?? slugify(text)}`}
-                className={cn(
-                  styles.listItem,
-                  isHover ? styles.grayLink : '',
-                  activeEl === id || activeEl === null
-                    ? styles.activeLink
-                    : styles.grayLink
-                )}
-                onClick={() => handleSelection(id, text)}
-              >
-                {useLinks && url ? (
-                  <DzLink {...linksProps} href={url}>
-                    {text}
-                  </DzLink>
-                ) : (
-                  text
-                )}
-              </li>
-            );
-          })}
+          {menuSections
+            ?.filter(i => !i.hidden)
+            ?.map(section => {
+              const { text, id, url } = section;
+              return (
+                <li
+                  key={`submenu-item-${id ?? slugify(text)}`}
+                  className={cn(
+                    styles.listItem,
+                    isHover ? styles.grayLink : '',
+                    activeEl === id || activeEl === null
+                      ? styles.activeLink
+                      : styles.grayLink
+                  )}
+                  onClick={() => handleSelection(id, text)}
+                >
+                  {useLinks && url ? (
+                    <DzLink {...linksProps} href={url}>
+                      {text}
+                    </DzLink>
+                  ) : (
+                    text
+                  )}
+                </li>
+              );
+            })}
         </ul>
       </div>
 
