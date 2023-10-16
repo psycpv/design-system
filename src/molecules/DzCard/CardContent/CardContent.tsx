@@ -23,7 +23,10 @@ import { cn } from '../../../utils/classnames';
 import { slugify } from '../../../utils';
 import { camelCaseItemProps } from '../../../utils/props';
 
-export const CardContent: FC<CardContentProps> = ({ data }) => {
+export const CardContent: FC<CardContentProps> = ({
+  data,
+  isLocation = false,
+}) => {
   const {
     size,
     id,
@@ -156,7 +159,10 @@ export const CardContent: FC<CardContentProps> = ({ data }) => {
             <DzTitle
               title={secondaryTitle}
               classNameTitle={cn(styles.secondaryTitle)}
-              classNameSubtitle={cn(styles.secondaryTitle)}
+              classNameSubtitle={cn(
+                styles.secondaryTitle,
+                isLocation ? styles.secondaryLocationTitle : ''
+              )}
               titleType={TITLE_TYPES.P}
               subtitle={secondarySubtitle}
               subtitleType={TITLE_TYPES.P}
