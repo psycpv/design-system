@@ -1,3 +1,15 @@
+# v0.0.124 (Mon Oct 16 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 465 fix article secondary title [#187](https://github.com/Zwirner/design-system/pull/187) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.123 (Fri Oct 13 2023)
 
 #### 🐛 Bug Fix
