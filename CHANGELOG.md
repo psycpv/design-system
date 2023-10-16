@@ -1,3 +1,15 @@
+# v0.0.123 (Fri Oct 13 2023)
+
+#### 🐛 Bug Fix
+
+- add optional recaptcha node prop [#186](https://github.com/Zwirner/design-system/pull/186) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.122 (Tue Oct 10 2023)
 
 #### 🐛 Bug Fix
