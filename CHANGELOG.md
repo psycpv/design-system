@@ -1,3 +1,16 @@
+# v0.0.125 (Mon Oct 16 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-525: add location styling for dzCards on DzTabsCards [#188](https://github.com/Zwirner/design-system/pull/188) ([@JoanCTO](https://github.com/JoanCTO))
+- NWEB-445: add ids to grid cells [#185](https://github.com/Zwirner/design-system/pull/185) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
 # v0.0.124 (Mon Oct 16 2023)
 
 #### 🐛 Bug Fix
