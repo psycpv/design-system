@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 import PlusIcon from '../../svgIcons/plus';
 import MinusIcon from '../../svgIcons/minus';
@@ -44,13 +44,12 @@ const styles: any = {
   `,
 };
 
-const MINIMUM_ZOOMABLE_IMAGE_SIZE = 2560;
-
 interface DzImageZoomModalProps {
   isOpen: boolean;
   onClose: () => void;
   imgUrl?: string;
   alt: string;
+  isZoomEnabled?: boolean;
 }
 
 export const DzImageZoomModal = ({
@@ -58,12 +57,12 @@ export const DzImageZoomModal = ({
   onClose,
   imgUrl,
   alt,
+  isZoomEnabled = true,
 }: DzImageZoomModalProps) => {
   const isSmall = useIsSmallWindowSize();
   const onClickClose = () => onClose();
   const { width } = useWindowSize();
   const [imageDimensions, { error }] = useImageSize(imgUrl);
-  const [isZoomEnabled, setIsZoomEnabled] = useState(true);
 
   const initialScale =
     imageDimensions && width
@@ -77,15 +76,6 @@ export const DzImageZoomModal = ({
       window.document.body.style.overflow = isOpen ? 'hidden' : 'unset';
     }
   }, [isOpen]);
-
-  useEffect(() => {
-    if (
-      imageDimensions?.width < MINIMUM_ZOOMABLE_IMAGE_SIZE &&
-      imageDimensions?.height < MINIMUM_ZOOMABLE_IMAGE_SIZE
-    ) {
-      setIsZoomEnabled(false);
-    }
-  }, [imageDimensions]);
 
   return isOpen && imageDimensions && !error ? (
     <div className={styles.imageZoomModalContainer}>
