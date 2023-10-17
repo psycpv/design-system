@@ -33,6 +33,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({
     media,
     artistName,
     artworkTitle,
+    portableTextArtworkTitle,
     artworkYear,
     medium,
     dimensions,
@@ -105,11 +106,19 @@ export const CardArtwork: FC<CardArtworkProps> = ({
               title={artistName}
             />
             <DzTitle
-              titleType={TITLE_TYPES.P}
+              titleType={
+                portableTextArtworkTitle ? TITLE_TYPES.D : TITLE_TYPES.P
+              }
               title={
                 <>
-                  <span className={cn(styles.artwork.artWorkTitle)}>
-                    {artworkTitle}
+                  <span
+                    className={cn(
+                      portableTextArtworkTitle
+                        ? ''
+                        : styles.artwork.artWorkTitle
+                    )}
+                  >
+                    {portableTextArtworkTitle || artworkTitle}
                   </span>
                   {artworkYear ? (
                     <>
