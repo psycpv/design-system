@@ -1,3 +1,15 @@
+# v0.0.126 (Tue Oct 17 2023)
+
+#### 🐛 Bug Fix
+
+- support portable text artwork title override in card [#189](https://github.com/Zwirner/design-system/pull/189) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.125 (Mon Oct 16 2023)
 
 #### 🐛 Bug Fix
