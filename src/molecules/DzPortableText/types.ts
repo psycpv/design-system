@@ -5,6 +5,7 @@ export interface DzPortableTextProps {
   customStyles?: CustomStyles;
   builder: any;
   ImgElement: any;
+  charLimit?: number;
 }
 
 interface CustomStyles {
