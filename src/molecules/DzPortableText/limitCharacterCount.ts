@@ -15,7 +15,7 @@ export const limitCharacterCount = (ptItems: any, charLimit: number) => {
 
           return {
             ...child,
-            text: (text || '').slice(0, -3).concat('...'),
+            text: (text || '').slice(0, -4).concat('...'),
           };
         }
         return {
