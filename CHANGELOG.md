@@ -1,3 +1,15 @@
+# v0.0.130 (Thu Oct 19 2023)
+
+#### 🐛 Bug Fix
+
+- don't spread unknown attrs on div [#197](https://github.com/Zwirner/design-system/pull/197) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.129 (Thu Oct 19 2023)
 
 #### 🐛 Bug Fix
