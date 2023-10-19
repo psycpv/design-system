@@ -3,6 +3,7 @@
   "license": "MIT",
   "main": "dist/design-system.esm.js",
   "typings": "dist/index.d.ts",
+  "packageManager": "yarn@1.22.19",
   "files": [
     "dist",
     "src"
