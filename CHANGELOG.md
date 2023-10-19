@@ -1,3 +1,22 @@
+# v0.0.127 (Thu Oct 19 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-541: add styles to dzMedia portable text [#195](https://github.com/Zwirner/design-system/pull/195) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### 🔩 Dependency Updates
+
+- Bump @testing-library/react from 13.4.0 to 14.0.0 [#54](https://github.com/Zwirner/design-system/pull/54) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump actions/checkout from 3 to 4 [#159](https://github.com/Zwirner/design-system/pull/159) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- NWEB-497 Bump @babel/traverse from 7.21.5 to 7.23.2 [#192](https://github.com/Zwirner/design-system/pull/192) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
 # v0.0.126 (Tue Oct 17 2023)
 
 #### 🐛 Bug Fix
