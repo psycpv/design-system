@@ -1,3 +1,15 @@
+# v0.0.129 (Thu Oct 19 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-77: filter media from number of items [#190](https://github.com/Zwirner/design-system/pull/190) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
 # v0.0.128 (Thu Oct 19 2023)
 
 #### 🐛 Bug Fix
