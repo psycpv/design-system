@@ -43,7 +43,11 @@ export const CardMedia: FC<CardMediaProps> = ({ data, onClickImage }) => {
           text={description}
         />
       ) : null}
-      {portableTextDescription ? portableTextDescription : null}
+      {portableTextDescription ? (
+        <div className={cn(styles.media.portableTextDescription)}>
+          {portableTextDescription}
+        </div>
+      ) : null}
     </div>
   );
 };
