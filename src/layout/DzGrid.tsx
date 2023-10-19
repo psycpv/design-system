@@ -146,6 +146,7 @@ export const DzColumn = ({ span, start, wrap, ...rest }: ColumnProps) => {
 };
 
 type CellProps = {
+  id?: string;
   className?: string;
   gridColumn?: ReturnType<typeof calculateGridColumn>;
   display?: Array<keyof typeof DisplayStyles>;
@@ -153,7 +154,7 @@ type CellProps = {
 };
 
 const Cell = (props: CellProps) => {
-  const { children, className = '', gridColumn = [], display = [] } = props;
+  const { children, className = '', gridColumn = [], display = [], id } = props;
   const { gridColStart, gridColEnd } = gridColumn[0];
   const { gridColStart: gridColStartMd, gridColEnd: gridColEndMd } =
     gridColumn[1] ?? gridColumn[0];
@@ -176,6 +177,7 @@ const Cell = (props: CellProps) => {
         gridColEndNormalized,
         gridColEndMdNormalized
       )}
+      {...(id ? { id } : {})}
     >
       {children}
     </div>

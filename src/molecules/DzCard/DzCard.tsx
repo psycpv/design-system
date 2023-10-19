@@ -27,6 +27,9 @@ export const DzCard: FC<DzCardProps> = ({
   if (type === CARD_TYPES.CONTENT) {
     return <CardContent data={data as CardContentData} />;
   }
+  if (type === CARD_TYPES.LOCATION) {
+    return <CardContent isLocation data={data as CardContentData} />;
+  }
   return <div>No supported type</div>;
 };
 

@@ -21,4 +21,5 @@ export interface SectionNavItem {
   text: string;
   id: string;
   url?: string;
+  hidden?: boolean;
 }

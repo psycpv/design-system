@@ -15,6 +15,10 @@ export const globalStyles = {
   secondaryTitle: `
       whitespace-pre-wrap
     `,
+  secondaryLocationTitle: `
+    !text-black-100
+    mt-2.5
+  `,
   description: `
       whitespace-pre-wrap
     `,
