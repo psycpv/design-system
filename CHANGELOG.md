@@ -1,3 +1,15 @@
+# v0.0.131 (Thu Oct 19 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 98 truncate artwork title [#194](https://github.com/Zwirner/design-system/pull/194) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.130 (Thu Oct 19 2023)
 
 #### 🐛 Bug Fix
