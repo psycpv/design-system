@@ -1,4 +1,4 @@
-import React, { FC, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { DesktopSubmenu } from './DesktopSubmenus';
 import { DzLink, DzLinkProps, RouterProps, TEXT_LINK_SIZES } from '../../atoms';
 import { cn } from '../../utils/classnames';

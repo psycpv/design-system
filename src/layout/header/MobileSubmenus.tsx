@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { cn } from '../../utils/classnames';
 import ArrowDown from '../../svgIcons/arrowDown';
 import { DzLink, DzLinkProps, RouterProps, TEXT_LINK_SIZES } from '../../atoms';
