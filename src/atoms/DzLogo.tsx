@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { cn } from '../utils/classnames';
 // import Link from 'next/link'
 import { DzSvg } from '../svgIcons/DzSvg';
@@ -9,6 +9,7 @@ export interface DzLogoProps {
   url: string;
   className?: any;
   svgProps?: IconProps;
+  LinkElement: any;
 }
 
 const styles = {
@@ -16,9 +17,9 @@ const styles = {
 };
 
 export const DzLogo = (props: DzLogoProps) => {
-  const { url = '/', className, svgProps = {} } = props;
+  const { url = '/', className, svgProps = {}, LinkElement = 'a' } = props;
   return (
-    <a href={url} className={cn(styles.logo, className)}>
+    <LinkElement href={url} className={cn(styles.logo, className)}>
       <DzSvg
         width="325"
         height="40"
@@ -30,7 +31,7 @@ export const DzLogo = (props: DzLogoProps) => {
         ariaTitle="David Zwirner Logo"
         {...svgProps}
       />
-    </a>
+    </LinkElement>
   );
 };
 

@@ -22,6 +22,7 @@ export interface MenuItemsMobileProps {
   handleSearch: MouseEventHandler<any>;
   footerData: FooterData;
   newsletterAction: Function;
+  LinkElement: any;
 }
 
 const styles: any = {
@@ -96,12 +97,13 @@ const styles: any = {
   `,
 };
 
-export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
+export const MenuItemsMobile = ({
   items = [],
   handleSearch = () => null,
   footerData,
   newsletterAction = () => null,
-}) => {
+  LinkElement,
+}: MenuItemsMobileProps) => {
   const [openMenu, setOpenMenu] = useState(false);
   const handleKeyDown = useCallback(
     (e: any) => {
@@ -180,7 +182,7 @@ export const MenuItemsMobile: FC<MenuItemsMobileProps> = ({
                   </button>
                 }
               />
-              <MenuItems items={items} isMobile />
+              <MenuItems items={items} isMobile LinkElement={LinkElement} />
               <button
                 className={cn(styles.other)}
                 onClick={() => newsletterAction()}
