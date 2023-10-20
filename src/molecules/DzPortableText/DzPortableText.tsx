@@ -20,6 +20,7 @@ import { DzGridColumns, DzColumn } from '../../layout';
 import { cn } from '../../utils/classnames';
 import { DzCard, CARD_TYPES, CardSizes } from '../DzCard';
 import { styles } from './styles';
+import { limitCharacterCount } from './limitCharacterCount';
 
 const generalSpacer = (children: any) => {
   if (
@@ -38,7 +39,14 @@ export const DzPortableText: FC<DzPortableTextProps> = ({
   customStyles,
   builder,
   ImgElement,
+  charLimit,
 }) => {
+  const portableTextProps = charLimit
+    ? {
+        value: limitCharacterCount(portableProps?.value, charLimit),
+      }
+    : portableProps;
+
   const CUSTOM_COMPONENTS = useMemo(() => {
     return {
       types: {
@@ -175,7 +183,7 @@ export const DzPortableText: FC<DzPortableTextProps> = ({
     };
   }, [customStyles, builder, ImgElement]);
 
-  return <PortableText components={CUSTOM_COMPONENTS} {...portableProps} />;
+  return <PortableText components={CUSTOM_COMPONENTS} {...portableTextProps} />;
 };
 
 export default DzPortableText;

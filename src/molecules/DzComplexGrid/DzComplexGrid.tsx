@@ -148,7 +148,9 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
     [defaultStart, maximumValue]
   );
   const [stepValue, setStepValue] = useState(initialValue);
-  const numberOfResults = useMemo(() => cards.length, [cards]);
+  const numberOfResults = cards?.filter(items => {
+    return items?.cardType !== CARD_TYPES.MEDIA;
+  })?.length;
   const columnsSpanPerRow = useMemo(() => {
     const { numberOfColumns } = steps.find(step => step.id === stepValue) ?? {};
     const stepToDivide = numberOfColumns ?? stepValue;

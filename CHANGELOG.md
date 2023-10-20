@@ -1,3 +1,63 @@
+# v0.0.132 (Fri Oct 20 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 477 past exhibitions landing [#182](https://github.com/Zwirner/design-system/pull/182) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.131 (Thu Oct 19 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 98 truncate artwork title [#194](https://github.com/Zwirner/design-system/pull/194) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.130 (Thu Oct 19 2023)
+
+#### 🐛 Bug Fix
+
+- don't spread unknown attrs on div [#197](https://github.com/Zwirner/design-system/pull/197) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.129 (Thu Oct 19 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-77: filter media from number of items [#190](https://github.com/Zwirner/design-system/pull/190) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
+# v0.0.128 (Thu Oct 19 2023)
+
+#### 🐛 Bug Fix
+
+- feat: specify yarn version in package.json [#196](https://github.com/Zwirner/design-system/pull/196) ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+#### Authors: 1
+
+- Sergei ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+---
+
 # v0.0.127 (Thu Oct 19 2023)
 
 #### 🐛 Bug Fix
