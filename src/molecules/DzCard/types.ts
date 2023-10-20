@@ -22,6 +22,7 @@ export enum CardViewport {
 export const CARD_TYPES = {
   CONTENT: 'content',
   ARTWORK: 'artwork',
+  LOCATION: 'location',
   BOOK: 'book',
   ARTIST: 'artist',
   GALLERY: 'gallery',

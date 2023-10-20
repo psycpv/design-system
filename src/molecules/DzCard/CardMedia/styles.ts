@@ -4,6 +4,9 @@ export const styles: any = {
       text-black-60
       mt-2.5
     `,
+    portableTextDescription: `
+      mt-2.5
+    `,
   },
   cardContainer: `
     w-full

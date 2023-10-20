@@ -111,7 +111,7 @@ const tabsPanels = ({ tabs, span, isSmall = false }) => {
                 className={cn(styles.cardCol)}
               >
                 <DzCard
-                  type={CARD_TYPES.CONTENT}
+                  type={CARD_TYPES.LOCATION}
                   data={{ ...card, hideImage: isSmall, size: span }}
                 />
               </DzColumn>

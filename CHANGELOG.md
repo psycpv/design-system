@@ -1,3 +1,107 @@
+# v0.0.131 (Thu Oct 19 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 98 truncate artwork title [#194](https://github.com/Zwirner/design-system/pull/194) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.130 (Thu Oct 19 2023)
+
+#### 🐛 Bug Fix
+
+- don't spread unknown attrs on div [#197](https://github.com/Zwirner/design-system/pull/197) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.129 (Thu Oct 19 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-77: filter media from number of items [#190](https://github.com/Zwirner/design-system/pull/190) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
+# v0.0.128 (Thu Oct 19 2023)
+
+#### 🐛 Bug Fix
+
+- feat: specify yarn version in package.json [#196](https://github.com/Zwirner/design-system/pull/196) ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+#### Authors: 1
+
+- Sergei ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+---
+
+# v0.0.127 (Thu Oct 19 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-541: add styles to dzMedia portable text [#195](https://github.com/Zwirner/design-system/pull/195) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### 🔩 Dependency Updates
+
+- Bump @testing-library/react from 13.4.0 to 14.0.0 [#54](https://github.com/Zwirner/design-system/pull/54) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- Bump actions/checkout from 3 to 4 [#159](https://github.com/Zwirner/design-system/pull/159) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+- NWEB-497 Bump @babel/traverse from 7.21.5 to 7.23.2 [#192](https://github.com/Zwirner/design-system/pull/192) ([@dependabot[bot]](https://github.com/dependabot[bot]))
+
+#### Authors: 2
+
+- [@dependabot[bot]](https://github.com/dependabot[bot])
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
+# v0.0.126 (Tue Oct 17 2023)
+
+#### 🐛 Bug Fix
+
+- support portable text artwork title override in card [#189](https://github.com/Zwirner/design-system/pull/189) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.125 (Mon Oct 16 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-525: add location styling for dzCards on DzTabsCards [#188](https://github.com/Zwirner/design-system/pull/188) ([@JoanCTO](https://github.com/JoanCTO))
+- NWEB-445: add ids to grid cells [#185](https://github.com/Zwirner/design-system/pull/185) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
+# v0.0.124 (Mon Oct 16 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 465 fix article secondary title [#187](https://github.com/Zwirner/design-system/pull/187) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.123 (Fri Oct 13 2023)
 
 #### 🐛 Bug Fix

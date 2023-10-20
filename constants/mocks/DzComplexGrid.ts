@@ -1,5 +1,6 @@
 import { BUTTON_VARIANTS } from '../../src/atoms/DzButton';
 import { MEDIA_TYPES } from '../../src/atoms/DzMedia';
+import { CARD_TYPES } from '../../src/molecules/DzCard';
 
 export const cards = [
   {
@@ -206,5 +207,19 @@ export const cards = [
         variant: BUTTON_VARIANTS.TERTIARY,
       },
     },
+  },
+  {
+    id: '8',
+    cardType: CARD_TYPES.MEDIA,
+    media: {
+      type: MEDIA_TYPES.IMAGE,
+      imgProps: {
+        src:
+          'https://images.davidzwirner.com/v7/_images_/davidzwirner/home/homepage-slider-and-news-images-2023/march/abhk_2023_install_v2_hp.jpg?w=1400&q=85&org_if_sml=1&force_format=webp',
+        alt: 'exhibition',
+      },
+    },
+    description:
+      'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu',
   },
 ];

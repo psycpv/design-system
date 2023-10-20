@@ -22,6 +22,7 @@ interface LinkCTA {
 
 export interface CardContentProps {
   data: CardContentData;
+  isLocation?: boolean;
 }
 
 export interface CardContentData extends BaseCard {

@@ -24,6 +24,7 @@ export const TITLE_TYPES = {
   H5: 'h5',
   H6: 'h6',
   P: 'p',
+  D: 'div',
 };
 export const TITLE_SIZE_NAMES = [
   TITLE_SIZES.SM,
