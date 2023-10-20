@@ -1,7 +1,5 @@
 import React, { FC, ReactNode } from 'react';
 import { cn } from '../utils/classnames';
-import ChevronLeft from '../svgIcons/chevronLeft';
-import ChevronRight from '../svgIcons/chevronRight';
 import { usePagination, DOTS } from '../hooks/usePagination';
 
 import { ArrowLeft } from '../svgIcons/arrowLeft';
