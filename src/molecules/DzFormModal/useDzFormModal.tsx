@@ -14,6 +14,7 @@ interface UseDzFormModalProps {
   errorSubtitle?: string;
   disableBackdrop?: boolean;
   recaptchaNode?: ReactNode;
+  onChange?: (fieldName: string, value: string) => void;
 }
 export const useDzFormModal = ({
   formType,
@@ -26,6 +27,7 @@ export const useDzFormModal = ({
   errorSubtitle,
   disableBackdrop,
   recaptchaNode,
+  onChange,
 }: UseDzFormModalProps) => {
   const [isOpen, setIsOpen] = useState(disableBackdrop || false);
   const openClickHandler = () => setIsOpen(true);
@@ -45,6 +47,7 @@ export const useDzFormModal = ({
       onSubmit={onSubmit}
       disableBackdrop={disableBackdrop}
       recaptchaNode={recaptchaNode}
+      onChange={onChange}
     />
   );
 
