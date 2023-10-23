@@ -38,6 +38,7 @@ export interface DzFormProps {
   recaptchaNode?: ReactNode;
   onFocus?: Function;
   onChange?: (fieldName: string, value: any) => void;
+  onDirty?: () => void;
 }
 
 const styles: any = {
@@ -89,6 +90,7 @@ export const DzForm: FC<DzFormProps> = ({
   recaptchaNode,
   onFocus,
   onChange,
+  onDirty,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formValues, setFormValues] = useState<Record<string, any>>(() => {
@@ -104,6 +106,7 @@ export const DzForm: FC<DzFormProps> = ({
     );
     return initialValues || {};
   });
+  const [hasFiredDirtyCallback, setHasFiredDirtyCallback] = useState(false);
   const stepsLength = useMemo(() => steps.length, [steps]);
 
   const stepFormData = useMemo(() => {
@@ -161,6 +164,10 @@ export const DzForm: FC<DzFormProps> = ({
   const onChangeInput = (fieldName: string, value: any) => {
     const formValidator = stepFormData.formValidator;
 
+    if (!hasFiredDirtyCallback) {
+      setHasFiredDirtyCallback(true);
+      onDirty?.();
+    }
     onChange?.(fieldName, value);
     setFormValues(currentFormValues => {
       const newFormValues = {
