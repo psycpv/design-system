@@ -37,6 +37,7 @@ export interface DzFormProps {
   isSubmitDisabled?: boolean;
   recaptchaNode?: ReactNode;
   onFocus?: Function;
+  onChange?: (fieldName: string, value: any) => void;
 }
 
 const styles: any = {
@@ -87,6 +88,7 @@ export const DzForm: FC<DzFormProps> = ({
   subtitleTextClassName,
   recaptchaNode,
   onFocus,
+  onChange,
 }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formValues, setFormValues] = useState<Record<string, any>>(() => {
@@ -159,6 +161,7 @@ export const DzForm: FC<DzFormProps> = ({
   const onChangeInput = (fieldName: string, value: any) => {
     const formValidator = stepFormData.formValidator;
 
+    onChange?.(fieldName, value);
     setFormValues(currentFormValues => {
       const newFormValues = {
         ...currentFormValues,
