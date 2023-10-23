@@ -110,7 +110,7 @@ export const DzLink: ForwardRefExoticComponent<DzLinkProps> = forwardRef(
   (
     {
       children,
-      href,
+      href: hrefFromProps,
       openNewTab = false,
       className = '',
       linkProps,
@@ -124,6 +124,7 @@ export const DzLink: ForwardRefExoticComponent<DzLinkProps> = forwardRef(
     },
     ref
   ) => {
+    const href = hrefFromProps || '/404';
     const isActive = router?.asPath === href;
     const inactiveStyle = !isActive ? styles.inactive : '';
     const localFlagThatHrefIncludes = internalLinkFlags.find(flag =>
