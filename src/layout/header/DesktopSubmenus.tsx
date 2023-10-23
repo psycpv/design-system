@@ -4,6 +4,10 @@ import React, {
   useMemo,
   useCallback,
   useEffect,
+  forwardRef,
+  ForwardRefExoticComponent,
+  PropsWithChildren,
+  LegacyRef,
 } from 'react';
 import { Popover } from '@headlessui/react';
 
@@ -50,7 +54,7 @@ const styles: any = {
     flex
     flex-col
     py-[0.875rem]
-    z-30
+    z-[51]
     min-w-[10.3164rem]
     absolute
   `,
@@ -74,6 +78,14 @@ const styles: any = {
     px-5
   `,
 };
+
+const linkHolderComponent: ForwardRefExoticComponent<PropsWithChildren> = forwardRef(
+  ({ children }, ref) => (
+    <div tabIndex={0} ref={ref as LegacyRef<HTMLDivElement>}>
+      {children}
+    </div>
+  )
+);
 
 export const DesktopSubmenu = ({
   title = '',
@@ -121,9 +133,11 @@ export const DesktopSubmenu = ({
   const handleUserKeyPress = useCallback(
     event => {
       const { key, keyCode } = event;
-      if (!(keyCode === 13 && key === 'Enter')) return false;
+      const isEnterPressed = keyCode === 13 && key === 'Enter';
+      if (!isEnterPressed) return false;
+
       if (isFocusRoot) {
-        setOpenSubMenu(true);
+        setOpenSubMenu(false);
       }
     },
     [isFocusRoot, openSubMenu]
@@ -131,12 +145,13 @@ export const DesktopSubmenu = ({
 
   return (
     <Popover as={Fragment}>
-      <Popover.Button>
+      <Popover.Button as={linkHolderComponent}>
         <DzLink
           {...linkProps}
           href={rootUrl}
           onKeyDown={handleUserKeyPress}
           onFocus={() => {
+            setOpenSubMenu(true);
             setIsFocusRoot(true);
             resetVisibleFocus();
           }}
@@ -147,6 +162,7 @@ export const DesktopSubmenu = ({
           }}
           onMouseLeave={() => {
             setIsHoverRoot(false);
+            setOpenSubMenu(false);
           }}
           className={cn(
             showElements ? '!text-black-100' : '',
@@ -166,7 +182,10 @@ export const DesktopSubmenu = ({
         focus
         className={cn(styles.childMenus, showClasses)}
         onMouseEnter={() => setHoverOverMenu(true)}
-        onMouseLeave={() => setHoverOverMenu(false)}
+        onMouseLeave={() => {
+          setOpenSubMenu(false);
+          setHoverOverMenu(false);
+        }}
         onBlur={() => setVisitedFocusElements(element => element + 1)}
       >
         {renderItems(items, false, linkPropsHover, true, LinkElement)}
