@@ -1,4 +1,4 @@
-import React, { FC, useMemo, MouseEventHandler, useState } from 'react';
+import React, { useMemo, MouseEventHandler, useState } from 'react';
 import { cn } from '../../utils/classnames';
 import { DzLogo, DzLinkProps, RouterProps } from '../../atoms';
 import { MenuItems } from './MenuItems';
@@ -7,11 +7,11 @@ import { BREAKPOINTS } from '../../layout/breakpoints';
 import useWindowSize from '../../hooks/useWindowSize';
 import { FooterData } from '../footer/DzFooter';
 
-interface Page {
+type Page = {
   url: string;
-}
+};
 
-interface HeaderItem {
+type HeaderItem = {
   title: string;
   newTab?: boolean;
   desktopEnabled: boolean;
@@ -21,20 +21,21 @@ interface HeaderItem {
   submenu?: any;
   anchor?: string;
   page?: Page;
-}
+};
 
-interface MenuShape {
+type MenuShape = {
   items: HeaderItem[];
-}
+};
 
-export interface DzHeaderProps {
+export type DzHeaderProps = {
   menu: MenuShape;
   handleSearch: MouseEventHandler<any>;
   newsletterAction: Function;
   headerClass?: string;
   linkProps?: DzLinkProps | RouterProps;
   footerData: FooterData;
-}
+  LinkElement: any;
+};
 
 const HEADER_CONTAINER_Z_INDEX = 50;
 
@@ -76,14 +77,15 @@ const styles: any = {
   `,
 };
 
-export const DzHeader: FC<DzHeaderProps> = ({
+export const DzHeader = ({
   menu,
   handleSearch = () => null,
   newsletterAction = () => null,
   headerClass = '',
   linkProps,
   footerData,
-}) => {
+  LinkElement = 'a',
+}: DzHeaderProps) => {
   const { items = [] } = menu ?? {};
   const { width } = useWindowSize();
   const isSmall = useMemo(() => {
@@ -104,6 +106,7 @@ export const DzHeader: FC<DzHeaderProps> = ({
     >
       <div className={cn(styles.leftSide)}>
         <DzLogo
+          LinkElement={LinkElement}
           className={cn(styles.logo)}
           svgProps={{ height: '20', width: '163', id: 'david-zwirner-logo' }}
         />
@@ -119,6 +122,7 @@ export const DzHeader: FC<DzHeaderProps> = ({
             handleSearch={handleSearch}
             footerData={footerData}
             newsletterAction={newsletterAction}
+            LinkElement={LinkElement}
           />
         </nav>
       ) : (
@@ -127,7 +131,11 @@ export const DzHeader: FC<DzHeaderProps> = ({
           aria-label="Navigation"
           role="navigation"
         >
-          <MenuItems items={items} linkProps={linkProps} />
+          <MenuItems
+            items={items}
+            linkProps={linkProps}
+            LinkElement={LinkElement}
+          />
         </nav>
       )}
     </header>
