@@ -40,8 +40,7 @@ export const vimeoProps = {
   type: 'video',
   sources: [
     {
-      src:
-        'https://player.vimeo.com/video/812862186?h=d3919b94c1&loop=true&autoplay=true&muted=false&gesture=media&playsinline=true&byline=false&portrait=false&title=false&speed=true&transparent=false&controls=false&background=true',
+      src: 'https://vimeo.com/64074037',
       provider: 'vimeo',
     },
   ],

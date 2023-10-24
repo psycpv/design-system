@@ -1,8 +1,15 @@
-import React, { FC, useMemo, ImgHTMLAttributes, ReactNode } from 'react';
+import React, {
+  FC,
+  useMemo,
+  ImgHTMLAttributes,
+  ReactNode,
+  useRef,
+  useEffect,
+} from 'react';
 import { cn } from '../utils/classnames';
 import { DzLink, DzLinkProps } from './DzLink';
 import { DzSpotify, DzSpotifyProps } from './DzSpotify';
-//import Plyr from 'plyr-react';
+import { Player, Youtube, DefaultUi, Vimeo } from '@vime/react';
 
 export enum ObjectPositionType {
   TOP = 'objPosTop',
@@ -62,10 +69,16 @@ export const MEDIA_TYPES_NAMES = [
   MEDIA_TYPES.PODCAST,
 ] as const;
 
+export const MEDIA_VIDEO_TYPES = {
+  MOVING_IMAGE: 'Moving Image',
+  INTERACTIVE_VIDEO: 'Interactive Video',
+};
+
 export type VideoSource = typeof MEDIA_TYPES_NAMES[number];
 export type MediaType = typeof MEDIA_TYPES_NAMES[number];
 export type ObjectFitType = typeof MEDIA_MEDIA_OBJECT_FIT_NAMES[number];
 export type AspectRatioType = typeof MEDIA_ASPECT_RATIOS_NAMES[number];
+export type VideoType = typeof MEDIA_VIDEO_TYPES[number];
 
 export interface DzMediaProps extends ImgHTMLAttributes<HTMLImageElement> {
   type: MediaType;
@@ -78,6 +91,7 @@ export interface DzMediaProps extends ImgHTMLAttributes<HTMLImageElement> {
   podcastProps?: Omit<DzSpotifyProps, 'link'>;
   videoProps?: any;
   videoSourceType?: VideoSource;
+  videoType?: VideoType;
   aspectRatio?: AspectRatioType;
   objectFit?: ObjectFitType;
   sourceSet?: ReactNode | null;
@@ -152,11 +166,12 @@ export const DzMedia: FC<DzMediaProps> = ({
   linkProps = {},
   className = '',
   videoProps = {},
-  videoSourceType = MEDIA_VIDEO_SOURCE_TYPES.VIMEO,
+  videoSourceType,
+  videoType,
   aspectRatio = MEDIA_ASPECT_RATIOS['16:9'],
   objectFit = MEDIA_OBJECT_FIT.COVER,
   objectPosition = ObjectPositionType.CENTER,
-  sourceSet = null,
+  //sourceSet = null,
 }) => {
   const renderImage = useMemo(() => {
     const mediaClasses = cn(
@@ -218,11 +233,57 @@ export const DzMedia: FC<DzMediaProps> = ({
   }
 
   if (type === MEDIA_TYPES.VIDEO) {
-    const videoRender = videoNode?.[videoSourceType]?.(videoProps, sourceSet);
-    return <div className={cn(className)}>{videoRender}</div>;
+    const playerRef = useRef<HTMLVmPlayerElement>(null);
+    const { src } = videoProps.source?.sources?.[0] ?? {};
+
+    if (!src) {
+      console.warn('null src for videoProps: ', videoProps);
+      return null;
+    }
+
+    const playerProps = {
+      [MEDIA_VIDEO_TYPES.INTERACTIVE_VIDEO]: {
+        autoplay: false,
+        loop: false,
+        mute: false,
+      },
+      [MEDIA_VIDEO_TYPES.MOVING_IMAGE]: {
+        autoplay: true,
+        loop: true,
+        mute: true,
+      },
+    };
+
+    return (
+      <Player ref={playerRef} autoplay={true} muted={true}>
+        <DefaultUi />
+        {videoSourceType === MEDIA_VIDEO_SOURCE_TYPES.VIMEO && (
+          <Vimeo videoId={getVimeoId(src)} />
+        )}
+        {videoSourceType === MEDIA_VIDEO_SOURCE_TYPES.YOUTUBE && (
+          <Youtube videoId={src} />
+        )}
+        {/* TODO MEDIA_VIDEO_SOURCE_TYPES.URL provider https://vimejs.com/components/providers/video */}
+      </Player>
+    );
   }
 
   return null;
 };
 
 export default DzMedia;
+
+// TODO remove this after ensuring CMS extracts videoId to record
+const getVimeoId = (url: string) => {
+  if (isNaN(parseInt(url))) {
+    return (
+      (url || '')
+        .match(
+          /(?:http:|https:|)\/\/(?:player.|www.)?vimeo\.com\/(?:video\/|embed\/|watch\?\S*v=|v\/)?(\d*)/
+        )?.[0]
+        .split('/')
+        .pop() || ''
+    );
+  }
+  return url;
+};

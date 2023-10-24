@@ -7,3 +7,5 @@ export * from './hooks';
 
 // eslint-disable-next-line
 import 'plyr-react/plyr.css';
+
+import '@vime/core/themes/default.css';
