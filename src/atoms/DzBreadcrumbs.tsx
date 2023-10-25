@@ -18,7 +18,7 @@ export type DzBreadcrumbsProps = {
 export const DzBreadcrumbs = (props: DzBreadcrumbsProps) => {
   const { pages = [], linkProps, LinkElement = 'a' } = props;
 
-  const linkPropsAsObject = linkProps ?? {};
+  const nonNullableLinkProps = linkProps ?? {};
   return (
     <nav className="flex" aria-label="Breadcrumb">
       <ol className="flex items-center space-x-4">
@@ -50,7 +50,7 @@ export const DzBreadcrumbs = (props: DzBreadcrumbsProps) => {
                   page.active ? 'text-black-100' : 'text-black-60'
                 )}
                 aria-current={page.current ? 'page' : undefined}
-                {...linkPropsAsObject}
+                {...nonNullableLinkProps}
                 href={page.href}
               >
                 {page.name}

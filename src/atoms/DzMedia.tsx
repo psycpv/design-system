@@ -1,4 +1,4 @@
-import React, { FC, useMemo, ImgHTMLAttributes, ReactNode } from 'react';
+import React, { useMemo, ImgHTMLAttributes, ReactNode } from 'react';
 import { cn } from '../utils/classnames';
 import { DzLink, DzLinkProps } from './DzLink';
 import { DzSpotify, DzSpotifyProps } from './DzSpotify';
@@ -82,6 +82,7 @@ export interface DzMediaProps extends ImgHTMLAttributes<HTMLImageElement> {
   objectFit?: ObjectFitType;
   sourceSet?: ReactNode | null;
   objectPosition?: ObjectPositionType;
+  LinkElement: any;
 }
 
 const styles: any = {
@@ -142,14 +143,14 @@ const videoNode = {
   },
 };
 
-export const DzMedia: FC<DzMediaProps> = ({
+export const DzMedia = ({
   type,
   ImgElement,
   imgClass,
   imgProps = {},
   url = '',
   podcastProps = {},
-  linkProps = {},
+  linkProps,
   className = '',
   videoProps = {},
   videoSourceType = MEDIA_VIDEO_SOURCE_TYPES.VIMEO,
@@ -157,7 +158,9 @@ export const DzMedia: FC<DzMediaProps> = ({
   objectFit = MEDIA_OBJECT_FIT.COVER,
   objectPosition = ObjectPositionType.CENTER,
   sourceSet = null,
-}) => {
+  LinkElement = 'a',
+}: DzMediaProps) => {
+  const nonNullableLinkProps = linkProps ?? {};
   const renderImage = useMemo(() => {
     const mediaClasses = cn(
       className,
@@ -196,7 +199,8 @@ export const DzMedia: FC<DzMediaProps> = ({
     if (url) {
       return (
         <DzLink
-          {...linkProps}
+          {...nonNullableLinkProps}
+          LinkElement={LinkElement}
           href={url}
           className={cn(styles.mediaContainer, className)}
         >

@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   DzText,
   DzMedia,
@@ -18,15 +18,22 @@ import { BREAKPOINTS } from '../../../layout/breakpoints';
 import { CardViewport, typeToSize } from '..';
 import { mergeStyles } from '../../../lib/styles';
 import { globalStyles, stylesSizes } from './styles';
-import { CardContentData, CardContentProps } from './types';
+import { CardContentData } from './types';
 import { cn } from '../../../utils/classnames';
 import { slugify } from '../../../utils';
 import { camelCaseItemProps } from '../../../utils/props';
 
-export const CardContent: FC<CardContentProps> = ({
+type CardContentProps = {
+  data: CardContentData;
+  isLocation?: boolean;
+  LinkElement: any;
+};
+
+export const CardContent = ({
   data,
   isLocation = false,
-}) => {
+  LinkElement = 'a',
+}: CardContentProps) => {
   const {
     size,
     id,
@@ -94,6 +101,7 @@ export const CardContent: FC<CardContentProps> = ({
           withoutStyle
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
+          LinkElement={LinkElement}
         >
           {children}
         </DzLink>
@@ -127,6 +135,7 @@ export const CardContent: FC<CardContentProps> = ({
             ...(media?.imgProps || {}),
           }}
           {...media}
+          LinkElement={LinkElement}
         />
       ) : null}
 

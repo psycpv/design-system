@@ -26,17 +26,17 @@ import useWindowSize from '../../hooks/useWindowSize';
 import { CardMediaData } from '../DzCard/CardMedia';
 import { CardArtworkData } from '../DzCard/CardArtwork';
 
-interface StepInterface {
+type StepInterface = {
   id: number;
   numberOfColumns: number;
   icon: JSX.Element;
-}
-interface LinkCTA {
+};
+type LinkCTA = {
   text: string;
   url: string;
   linkElement: any;
   linkProps?: DzLinkProps;
-}
+};
 
 type ExtraData = {
   cardType?: CardTypes;
@@ -44,7 +44,7 @@ type ExtraData = {
 
 type RichCard = Omit<DataCardType, 'size'> & ExtraData;
 
-export interface DzComplexGridProps {
+export type DzComplexGridProps = {
   cards: RichCard[];
   steps?: StepInterface[];
   hideControls?: boolean;
@@ -60,7 +60,8 @@ export interface DzComplexGridProps {
   // allows for per-card container styling via card id -> style map
   cardStylesMap?: Record<string, string>;
   gridColumnsStyles?: any;
-}
+  LinkElement: any;
+};
 
 const MINIMUM_VALUE = 1;
 const INITIAL_VALUE = 2;
@@ -133,6 +134,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
   cardStyles,
   cardStylesMap,
   gridColumnsStyles,
+  LinkElement = 'a',
 }) => {
   const { width } = useWindowSize();
   const isMobile = useMemo(() => {
@@ -218,7 +220,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
             <DzLink
               {...(linkCTA.linkProps ?? {})}
               href={linkCTA.url}
-              LinkElement={linkCTA.linkElement}
+              LinkElement={LinkElement}
               variant={LINK_VARIANTS.TEXT}
             >
               {linkCTA.text}
@@ -275,6 +277,7 @@ export const DzComplexGrid: FC<DzComplexGridProps> = ({
                 }}
                 onClickImage={data => onClickImage?.(data)}
                 imageStyles={cn(cardStyles, cardStylesMap?.[cardData.id] || '')}
+                LinkElement={LinkElement}
               />
             </DzColumn>
           );

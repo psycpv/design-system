@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
   DzMedia,
   DzText,
@@ -22,11 +22,12 @@ import { BREAKPOINTS } from '../../../layout/breakpoints';
 import { slugify } from '../../../utils';
 import { CardViewport } from '../types';
 
-export const CardArtwork: FC<CardArtworkProps> = ({
+export const CardArtwork = ({
   data,
   onClickImage,
   imageStyles,
-}) => {
+  LinkElement = 'a',
+}: CardArtworkProps) => {
   const {
     id,
     size,
@@ -68,7 +69,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({
     children => {
       if (data?.slug) {
         return (
-          <DzLink href={data?.slug} withoutStyle>
+          <DzLink href={data?.slug} withoutStyle LinkElement={LinkElement}>
             {children}
           </DzLink>
         );
@@ -95,6 +96,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({
           ...(media?.imgProps || {}),
           onClick: () => onClickImage?.(data),
         }}
+        LinkElement={LinkElement}
       />
       <div className={cn(styles.artwork.infoContainer)}>
         <div className={cn(styles.artwork.leftPanel)}>

@@ -1,10 +1,10 @@
-import React, { FC, Fragment, useMemo } from 'react';
-import { DzPortableTextProps } from './types';
+import React, { Fragment, useMemo } from 'react';
 import {
   PortableTextTypeComponentProps,
   PortableTextMarkComponentProps,
   PortableTextComponentProps,
   PortableText,
+  PortableTextProps,
 } from '@portabletext/react';
 import {
   MEDIA_TYPES,
@@ -34,13 +34,25 @@ const generalSpacer = (children: any) => {
   return null;
 };
 
-export const DzPortableText: FC<DzPortableTextProps> = ({
+export type DzPortableTextProps = {
+  portableProps: PortableTextProps;
+  customStyles?: {
+    [key: string]: string;
+  };
+  builder: any;
+  ImgElement: any;
+  LinkElement: any;
+  charLimit?: number;
+};
+
+export const DzPortableText = ({
   portableProps,
   customStyles,
   builder,
   ImgElement,
   charLimit,
-}) => {
+  LinkElement = 'a',
+}: DzPortableTextProps) => {
   const portableTextProps = charLimit
     ? {
         value: limitCharacterCount(portableProps?.value, charLimit),
@@ -63,6 +75,7 @@ export const DzPortableText: FC<DzPortableTextProps> = ({
             >
               <DzColumn span={10} start={2}>
                 <DzCard
+                  LinkElement={LinkElement}
                   type={CARD_TYPES.MEDIA}
                   data={{
                     id: _key,
