@@ -38,6 +38,8 @@ export const videoProps = {
 
 export const vimeoProps = {
   type: 'video',
+  posterImage:
+    ' https://cdn.sanity.io/images/juzvn5an/test/063d52ef713f4f4aaca45a5a2955999d5ae26ef5-1280x853.jpg',
   sources: [
     {
       src: 'https://vimeo.com/64074037',

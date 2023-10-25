@@ -4,12 +4,13 @@ import React, {
   ImgHTMLAttributes,
   ReactNode,
   useRef,
-  useEffect,
+  useState,
 } from 'react';
 import { cn } from '../utils/classnames';
 import { DzLink, DzLinkProps } from './DzLink';
 import { DzSpotify, DzSpotifyProps } from './DzSpotify';
 import { Player, Youtube, DefaultUi, Vimeo } from '@vime/react';
+import DzVideoPoster from './DzVideoPoster';
 
 export enum ObjectPositionType {
   TOP = 'objPosTop',
@@ -74,11 +75,16 @@ export const MEDIA_VIDEO_TYPES = {
   INTERACTIVE_VIDEO: 'Interactive Video',
 };
 
+export const MEDIA_VIDEO_TYPES_NAMES = [
+  MEDIA_VIDEO_TYPES.MOVING_IMAGE,
+  MEDIA_VIDEO_TYPES.INTERACTIVE_VIDEO,
+] as const;
+
 export type VideoSource = typeof MEDIA_TYPES_NAMES[number];
 export type MediaType = typeof MEDIA_TYPES_NAMES[number];
 export type ObjectFitType = typeof MEDIA_MEDIA_OBJECT_FIT_NAMES[number];
 export type AspectRatioType = typeof MEDIA_ASPECT_RATIOS_NAMES[number];
-export type VideoType = typeof MEDIA_VIDEO_TYPES[number];
+export type VideoType = typeof MEDIA_VIDEO_TYPES_NAMES[number];
 
 export interface DzMediaProps extends ImgHTMLAttributes<HTMLImageElement> {
   type: MediaType;
@@ -167,12 +173,14 @@ export const DzMedia: FC<DzMediaProps> = ({
   className = '',
   videoProps = {},
   videoSourceType,
-  videoType,
   aspectRatio = MEDIA_ASPECT_RATIOS['16:9'],
   objectFit = MEDIA_OBJECT_FIT.COVER,
   objectPosition = ObjectPositionType.CENTER,
   //sourceSet = null,
 }) => {
+  const [isShowingPoster, setIsShowingPoster] = useState(
+    type === MEDIA_TYPES.VIDEO && videoProps?.source?.posterImage
+  );
   const renderImage = useMemo(() => {
     const mediaClasses = cn(
       className,
@@ -235,36 +243,28 @@ export const DzMedia: FC<DzMediaProps> = ({
   if (type === MEDIA_TYPES.VIDEO) {
     const playerRef = useRef<HTMLVmPlayerElement>(null);
     const { src } = videoProps.source?.sources?.[0] ?? {};
-
-    if (!src) {
-      console.warn('null src for videoProps: ', videoProps);
-      return null;
-    }
-
-    const playerProps = {
-      [MEDIA_VIDEO_TYPES.INTERACTIVE_VIDEO]: {
-        autoplay: false,
-        loop: false,
-        mute: false,
-      },
-      [MEDIA_VIDEO_TYPES.MOVING_IMAGE]: {
-        autoplay: true,
-        loop: true,
-        mute: true,
-      },
+    const posterImage = videoProps?.source?.posterImage;
+    const onClickPoster = () => {
+      setIsShowingPoster(false);
+      playerRef.current?.play();
     };
 
     return (
-      <Player ref={playerRef} autoplay={true} muted={true}>
-        <DefaultUi />
-        {videoSourceType === MEDIA_VIDEO_SOURCE_TYPES.VIMEO && (
-          <Vimeo videoId={getVimeoId(src)} />
+      <div className="relative">
+        <Player ref={playerRef}>
+          <DefaultUi />
+          {videoSourceType === MEDIA_VIDEO_SOURCE_TYPES.VIMEO && (
+            <Vimeo videoId={getVimeoId(src)} />
+          )}
+          {videoSourceType === MEDIA_VIDEO_SOURCE_TYPES.YOUTUBE && (
+            <Youtube videoId={src} />
+          )}
+          {/* TODO MEDIA_VIDEO_SOURCE_TYPES.URL provider https://vimejs.com/components/providers/video */}
+        </Player>
+        {isShowingPoster && (
+          <DzVideoPoster imgSrc={posterImage} onClick={onClickPoster} />
         )}
-        {videoSourceType === MEDIA_VIDEO_SOURCE_TYPES.YOUTUBE && (
-          <Youtube videoId={src} />
-        )}
-        {/* TODO MEDIA_VIDEO_SOURCE_TYPES.URL provider https://vimejs.com/components/providers/video */}
-      </Player>
+      </div>
     );
   }
 
