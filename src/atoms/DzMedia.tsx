@@ -11,6 +11,7 @@ import { DzLink, DzLinkProps } from './DzLink';
 import { DzSpotify, DzSpotifyProps } from './DzSpotify';
 import { Player, Youtube, DefaultUi, Vimeo } from '@vime/react';
 import DzVideoPoster from './DzVideoPoster';
+import { useIsSmallWindowSize } from '../hooks';
 
 export enum ObjectPositionType {
   TOP = 'objPosTop',
@@ -106,6 +107,7 @@ export interface DzMediaProps extends ImgHTMLAttributes<HTMLImageElement> {
   className?: any;
   podcastProps?: Omit<DzSpotifyProps, 'link'>;
   videoProps?: any;
+  mobileVideoProps?: any;
   videoSourceType?: VideoSource;
   videoType?: VideoType;
   videoPlayIconSize?: VideoPlayIconType;
@@ -183,6 +185,7 @@ export const DzMedia: FC<DzMediaProps> = ({
   linkProps = {},
   className = '',
   videoProps = {},
+  mobileVideoProps = {},
   videoSourceType,
   aspectRatio = MEDIA_ASPECT_RATIOS['16:9'],
   objectFit = MEDIA_OBJECT_FIT.COVER,
@@ -190,6 +193,7 @@ export const DzMedia: FC<DzMediaProps> = ({
   videoPlayIconSize = MEDIA_VIDEO_PLAY_ICON_TYPES.SMALL,
   //sourceSet = null,
 }) => {
+  const isSmall = useIsSmallWindowSize();
   const [isShowingPoster, setIsShowingPoster] = useState(
     type === MEDIA_TYPES.VIDEO && videoProps?.source?.posterImage
   );
@@ -255,6 +259,8 @@ export const DzMedia: FC<DzMediaProps> = ({
   if (type === MEDIA_TYPES.VIDEO) {
     const playerRef = useRef<HTMLVmPlayerElement>(null);
     const { src } = videoProps.source?.sources?.[0] ?? {};
+    const mobileSrc = mobileVideoProps.source?.sources?.[0]?.src;
+    const videoId = isSmall && mobileSrc ? mobileSrc : src;
     const posterImage = videoProps?.source?.posterImage;
     const onClickPoster = () => {
       setIsShowingPoster(false);
@@ -266,10 +272,10 @@ export const DzMedia: FC<DzMediaProps> = ({
         <Player ref={playerRef}>
           <DefaultUi />
           {videoSourceType === MEDIA_VIDEO_SOURCE_TYPES.VIMEO && (
-            <Vimeo videoId={getVimeoId(src)} />
+            <Vimeo videoId={videoId} />
           )}
           {videoSourceType === MEDIA_VIDEO_SOURCE_TYPES.YOUTUBE && (
-            <Youtube videoId={src} />
+            <Youtube videoId={videoId} />
           )}
           {/* TODO MEDIA_VIDEO_SOURCE_TYPES.URL provider https://vimejs.com/components/providers/video */}
         </Player>
@@ -290,18 +296,3 @@ export const DzMedia: FC<DzMediaProps> = ({
 };
 
 export default DzMedia;
-
-// TODO remove this after ensuring CMS extracts videoId to record
-const getVimeoId = (url: string) => {
-  if (isNaN(parseInt(url))) {
-    return (
-      (url || '')
-        .match(
-          /(?:http:|https:|)\/\/(?:player.|www.)?vimeo\.com\/(?:video\/|embed\/|watch\?\S*v=|v\/)?(\d*)/
-        )?.[0]
-        .split('/')
-        .pop() || ''
-    );
-  }
-  return url;
-};

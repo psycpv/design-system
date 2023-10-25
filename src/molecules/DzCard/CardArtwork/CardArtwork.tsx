@@ -49,7 +49,6 @@ export const CardArtwork: FC<CardArtworkProps> = ({
     enableZoom = true,
     viewport = CardViewport.Desktop,
   } = data as CardArtworkData;
-  console.info('CardArtwork data: ', data);
   const { width } = useWindowSize();
   const isSmall = useMemo(() => {
     return width <= BREAKPOINTS.MD;
