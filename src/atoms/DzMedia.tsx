@@ -80,12 +80,22 @@ export const MEDIA_VIDEO_TYPES_NAMES = [
   MEDIA_VIDEO_TYPES.INTERACTIVE_VIDEO,
 ] as const;
 
+export const MEDIA_VIDEO_PLAY_ICON_TYPES = {
+  SMALL: 'small',
+  LARGE: 'large',
+};
+
+export const MEDIA_VIDEO_PLAY_ICON_TYPES_NAMES = [
+  MEDIA_VIDEO_PLAY_ICON_TYPES.SMALL,
+  MEDIA_VIDEO_PLAY_ICON_TYPES.LARGE,
+];
+
 export type VideoSource = typeof MEDIA_TYPES_NAMES[number];
 export type MediaType = typeof MEDIA_TYPES_NAMES[number];
 export type ObjectFitType = typeof MEDIA_MEDIA_OBJECT_FIT_NAMES[number];
 export type AspectRatioType = typeof MEDIA_ASPECT_RATIOS_NAMES[number];
 export type VideoType = typeof MEDIA_VIDEO_TYPES_NAMES[number];
-
+export type VideoPlayIconType = typeof MEDIA_VIDEO_PLAY_ICON_TYPES_NAMES[number];
 export interface DzMediaProps extends ImgHTMLAttributes<HTMLImageElement> {
   type: MediaType;
   url?: string;
@@ -98,6 +108,7 @@ export interface DzMediaProps extends ImgHTMLAttributes<HTMLImageElement> {
   videoProps?: any;
   videoSourceType?: VideoSource;
   videoType?: VideoType;
+  videoPlayIconSize?: VideoPlayIconType;
   aspectRatio?: AspectRatioType;
   objectFit?: ObjectFitType;
   sourceSet?: ReactNode | null;
@@ -176,6 +187,7 @@ export const DzMedia: FC<DzMediaProps> = ({
   aspectRatio = MEDIA_ASPECT_RATIOS['16:9'],
   objectFit = MEDIA_OBJECT_FIT.COVER,
   objectPosition = ObjectPositionType.CENTER,
+  videoPlayIconSize = MEDIA_VIDEO_PLAY_ICON_TYPES.SMALL,
   //sourceSet = null,
 }) => {
   const [isShowingPoster, setIsShowingPoster] = useState(
@@ -262,7 +274,13 @@ export const DzMedia: FC<DzMediaProps> = ({
           {/* TODO MEDIA_VIDEO_SOURCE_TYPES.URL provider https://vimejs.com/components/providers/video */}
         </Player>
         {isShowingPoster && (
-          <DzVideoPoster imgSrc={posterImage} onClick={onClickPoster} />
+          <DzVideoPoster
+            imgSrc={posterImage}
+            onClick={onClickPoster}
+            useSmallPlayIcon={
+              videoPlayIconSize === MEDIA_VIDEO_PLAY_ICON_TYPES.SMALL
+            }
+          />
         )}
       </div>
     );

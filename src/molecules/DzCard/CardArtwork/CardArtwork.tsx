@@ -10,6 +10,7 @@ import {
   MEDIA_ASPECT_RATIOS,
   BUTTON_SIZES,
   DzLink,
+  MEDIA_VIDEO_PLAY_ICON_TYPES,
 } from '../../../atoms';
 import { cn } from '../../../utils/classnames';
 import { priceFormatter } from '../../../utils/formatters';
@@ -48,11 +49,15 @@ export const CardArtwork: FC<CardArtworkProps> = ({
     enableZoom = true,
     viewport = CardViewport.Desktop,
   } = data as CardArtworkData;
-
+  console.info('CardArtwork data: ', data);
   const { width } = useWindowSize();
   const isSmall = useMemo(() => {
     return width <= BREAKPOINTS.MD;
   }, [width]);
+  const videoPlayIconSize =
+    size?.[1] >= 6
+      ? MEDIA_VIDEO_PLAY_ICON_TYPES.LARGE
+      : MEDIA_VIDEO_PLAY_ICON_TYPES.SMALL;
 
   const styles = useMemo(() => {
     const span = Array.isArray(size)
@@ -95,6 +100,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({
           ...(media?.imgProps || {}),
           onClick: () => onClickImage?.(data),
         }}
+        videoPlayIconSize={videoPlayIconSize}
       />
       <div className={cn(styles.artwork.infoContainer)}>
         <div className={cn(styles.artwork.leftPanel)}>

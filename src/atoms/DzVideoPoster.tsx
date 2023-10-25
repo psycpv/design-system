@@ -36,7 +36,10 @@ export const VideoPoster = ({
   onClick?: () => void;
 }) => {
   return (
-    <div className={styles.posterContainer} onClick={onClick}>
+    <div
+      className={cn(styles.posterContainer, onClick ? 'cursor-pointer' : '')}
+      onClick={onClick}
+    >
       {imgSrc && (
         <img
           src={imgSrc}

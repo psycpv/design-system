@@ -20,6 +20,7 @@ import {
   DzButton,
   BUTTON_SIZES,
   ButtonModes,
+  MEDIA_VIDEO_PLAY_ICON_TYPES,
 } from '../../atoms';
 import useWindowSize from '../../hooks/useWindowSize';
 import { BREAKPOINTS } from '../../layout/breakpoints';
@@ -198,6 +199,7 @@ export const DzSplit: FC<DzSplitProps> = ({
             objectFit={MEDIA_OBJECT_FIT.COVER}
             objectPosition={ObjectPositionType.TOP}
             aspectRatio={MEDIA_ASPECT_RATIOS['4:3']}
+            videoPlayIconSize={MEDIA_VIDEO_PLAY_ICON_TYPES.LARGE}
             {...media}
           />
         </div>
