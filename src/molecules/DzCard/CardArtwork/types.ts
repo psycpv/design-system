@@ -26,10 +26,3 @@ export interface CardArtworkData extends BaseCard {
   secondaryCTA?: CardCTA;
   slug?: string;
 }
-
-export type CardArtworkProps = {
-  LinkElement: any;
-  data: CardArtworkData;
-  onClickImage?: (data: CardArtworkData) => void;
-  imageStyles?: any;
-};

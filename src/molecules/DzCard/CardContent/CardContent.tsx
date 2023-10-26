@@ -93,22 +93,25 @@ export const CardContent = ({
     [isHoverLink, styles]
   );
 
-  const renderWithLink = useCallback((children, linkProps) => {
-    if (linkProps) {
-      return (
-        <DzLink
-          {...linkProps}
-          withoutStyle
-          onMouseEnter={() => setIsHover(true)}
-          onMouseLeave={() => setIsHover(false)}
-          LinkElement={LinkElement}
-        >
-          {children}
-        </DzLink>
-      );
-    }
-    return children;
-  }, []);
+  const renderWithLink = useCallback(
+    (children, linkProps) => {
+      if (linkProps) {
+        return (
+          <DzLink
+            {...linkProps}
+            withoutStyle
+            onMouseEnter={() => setIsHover(true)}
+            onMouseLeave={() => setIsHover(false)}
+            LinkElement={LinkElement}
+          >
+            {children}
+          </DzLink>
+        );
+      }
+      return children;
+    },
+    [LinkElement]
+  );
 
   return renderWithLink(
     <div

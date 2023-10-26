@@ -13,7 +13,7 @@ import {
 } from '../../../atoms';
 import { cn } from '../../../utils/classnames';
 import { priceFormatter } from '../../../utils/formatters';
-import { CardArtworkData, CardArtworkProps } from './types';
+import { CardArtworkData } from './types';
 import { globalStyles, stylesSizes } from './styles';
 import { mergeStyles } from '../../../lib/styles';
 import { typeToSize } from '../sizes';
@@ -21,6 +21,13 @@ import useWindowSize from '../../../hooks/useWindowSize';
 import { BREAKPOINTS } from '../../../layout/breakpoints';
 import { slugify } from '../../../utils';
 import { CardViewport } from '../types';
+
+export type CardArtworkProps = {
+  LinkElement: any;
+  data: CardArtworkData;
+  onClickImage?: (data: CardArtworkData) => void;
+  imageStyles?: any;
+};
 
 export const CardArtwork = ({
   data,
@@ -76,7 +83,7 @@ export const CardArtwork = ({
       }
       return children;
     },
-    [data]
+    [data, LinkElement]
   );
 
   return renderWithLink(

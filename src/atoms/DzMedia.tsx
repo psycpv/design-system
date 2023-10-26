@@ -195,23 +195,18 @@ export const DzMedia = ({
     className,
   ]);
 
-  const LinkElem = useMemo(() => {
-    if (url) {
-      return (
-        <DzLink
-          {...nonNullableLinkProps}
-          LinkElement={LinkElement}
-          href={url}
-          className={cn(styles.mediaContainer, className)}
-        >
-          {renderImage}
-        </DzLink>
-      );
-    }
-    return (
-      <div className={cn(styles.mediaContainer, className)}>{renderImage}</div>
-    );
-  }, [url, renderImage, className, linkProps]);
+  const LinkElem = url ? (
+    <DzLink
+      {...nonNullableLinkProps}
+      LinkElement={LinkElement}
+      href={url}
+      className={cn(styles.mediaContainer, className)}
+    >
+      {renderImage}
+    </DzLink>
+  ) : (
+    <div className={cn(styles.mediaContainer, className)}>{renderImage}</div>
+  );
 
   if (type === MEDIA_TYPES.IMAGE) {
     return LinkElem;
