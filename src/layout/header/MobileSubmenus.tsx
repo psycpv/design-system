@@ -73,9 +73,7 @@ export const MobileSubmenus = ({
             </Disclosure.Button>
           </div>
           <Disclosure.Panel className={cn(styles.panelItems)}>
-            <ul>
-              {renderItems(items, true, undefined, undefined, LinkElement)}
-            </ul>
+            <ul>{renderItems({ items, isMobile: true, LinkElement })}</ul>
           </Disclosure.Panel>
         </>
       )}
