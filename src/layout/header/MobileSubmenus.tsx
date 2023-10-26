@@ -1,16 +1,17 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { cn } from '../../utils/classnames';
 import ArrowDown from '../../svgIcons/arrowDown';
 import { DzLink, DzLinkProps, RouterProps, TEXT_LINK_SIZES } from '../../atoms';
 import { Disclosure } from '@headlessui/react';
 import { renderItems } from './MenuItems';
 
-interface MobileSubmenuProps {
+type MobileSubmenuProps = {
   title: string;
   items: any[];
   rootUrl?: string;
   linkProps?: DzLinkProps | RouterProps;
-}
+  LinkElement: any;
+};
 
 const styles: any = {
   panelItems: `
@@ -43,12 +44,13 @@ const styles: any = {
   `,
 };
 
-export const MobileSubmenus: FC<MobileSubmenuProps> = ({
+export const MobileSubmenus = ({
   title = '',
   rootUrl = '',
   items = [],
   linkProps = {},
-}) => {
+  LinkElement,
+}: MobileSubmenuProps) => {
   return (
     <Disclosure>
       {({ open }) => (
@@ -59,6 +61,7 @@ export const MobileSubmenus: FC<MobileSubmenuProps> = ({
               className={cn(styles.rootLink)}
               textLinkSize={TEXT_LINK_SIZES.MD}
               href={rootUrl}
+              LinkElement={LinkElement}
             >
               {title}
             </DzLink>
@@ -70,7 +73,9 @@ export const MobileSubmenus: FC<MobileSubmenuProps> = ({
             </Disclosure.Button>
           </div>
           <Disclosure.Panel className={cn(styles.panelItems)}>
-            <ul>{renderItems(items, true)}</ul>
+            <ul>
+              {renderItems(items, true, undefined, undefined, LinkElement)}
+            </ul>
           </Disclosure.Panel>
         </>
       )}

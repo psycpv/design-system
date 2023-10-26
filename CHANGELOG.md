@@ -1,3 +1,27 @@
+# v0.0.138 (Wed Oct 25 2023)
+
+#### 🐛 Bug Fix
+
+- rm unintended line [#206](https://github.com/Zwirner/design-system/pull/206) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.137 (Tue Oct 24 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-135: DZLink component update. DzHeader support for Link element [#199](https://github.com/Zwirner/design-system/pull/199) ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+#### Authors: 1
+
+- Sergei ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+---
+
 # v0.0.136 (Mon Oct 23 2023)
 
 #### 🐛 Bug Fix

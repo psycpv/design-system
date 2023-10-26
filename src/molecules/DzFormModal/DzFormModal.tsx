@@ -83,7 +83,6 @@ export const DzFormModal = ({
     setIsSubmitSuccessful(undefined);
     onSubmit(formValues)
       .then((result: SubmissionResult) => {
-        setIsSubmitSuccessful(true);
         if (result.isSuccess) {
           setIsSubmitSuccessful(true);
         } else {
