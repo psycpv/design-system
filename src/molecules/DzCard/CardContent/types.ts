@@ -8,25 +8,20 @@ import {
 } from '../../../atoms';
 import { BaseCard } from '../types';
 
-interface PrimaryCTA {
+type PrimaryCTA = {
   text: string;
   ctaProps?: DzButtonProps;
-}
+};
 
-interface LinkCTA {
+type LinkCTA = {
   text: string;
   url: string;
   linkElement: any;
   linkProps?: DzLinkProps;
-}
-
-export interface CardContentProps {
-  data: CardContentData;
-  isLocation?: boolean;
-}
+};
 
 export interface CardContentData extends BaseCard {
-  media: DzMediaProps;
+  media: Omit<DzMediaProps, 'LinkElement'>;
   category?: string;
   title: string;
   titleType?: TitleType;
