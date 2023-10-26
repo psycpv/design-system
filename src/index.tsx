@@ -6,8 +6,6 @@ export * from './constants';
 export * from './hooks';
 
 // eslint-disable-next-line
-export { Audio } from '@vime/react';
-
 import 'plyr-react/plyr.css';
 
 import '@vime/core/themes/default.css';
