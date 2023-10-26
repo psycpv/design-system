@@ -9,7 +9,7 @@ import React, {
 import { cn } from '../utils/classnames';
 import { DzLink, DzLinkProps } from './DzLink';
 import { DzSpotify, DzSpotifyProps } from './DzSpotify';
-import { Player, Youtube, DefaultUi, Vimeo } from '@vime/react';
+import { Player, Youtube, DefaultUi, Vimeo, Video } from '@vime/react';
 import DzVideoPoster from './DzVideoPoster';
 import { useIsSmallWindowSize } from '../hooks';
 
@@ -191,7 +191,7 @@ export const DzMedia: FC<DzMediaProps> = ({
   objectFit = MEDIA_OBJECT_FIT.COVER,
   objectPosition = ObjectPositionType.CENTER,
   videoPlayIconSize = MEDIA_VIDEO_PLAY_ICON_TYPES.SMALL,
-  //sourceSet = null,
+  sourceSet = null,
 }) => {
   const isSmall = useIsSmallWindowSize();
   const [isShowingPoster, setIsShowingPoster] = useState(
@@ -277,7 +277,9 @@ export const DzMedia: FC<DzMediaProps> = ({
           {videoSourceType === MEDIA_VIDEO_SOURCE_TYPES.YOUTUBE && (
             <Youtube videoId={videoId} />
           )}
-          {/* TODO MEDIA_VIDEO_SOURCE_TYPES.URL provider https://vimejs.com/components/providers/video */}
+          {videoSourceType === MEDIA_VIDEO_SOURCE_TYPES.URL && sourceSet && (
+            <Video>{sourceSet}</Video>
+          )}
         </Player>
         {isShowingPoster && (
           <DzVideoPoster
