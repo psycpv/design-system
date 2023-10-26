@@ -49,7 +49,7 @@ export interface DzMoleculeLinkCTA {
   text: string;
   url: string;
   linkElement: any;
-  linkProps?: DzLinkProps;
+  linkProps?: Omit<DzLinkProps, 'LinkElement'>;
 }
 
 export interface DzTitleMoleculeProps {

@@ -51,7 +51,7 @@ type LinkCTA = {
   text: string;
   url: string;
   linkElement: any;
-  linkProps?: Partial<DzLinkProps>;
+  linkProps?: Partial<Omit<DzLinkProps, 'LinkElement'>>;
 };
 
 type ButtonCTA = {

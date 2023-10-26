@@ -73,7 +73,7 @@ export interface DzMediaProps extends ImgHTMLAttributes<HTMLImageElement> {
   ImgElement?: any;
   imgProps?: any;
   imgClass?: any;
-  linkProps?: DzLinkProps;
+  linkProps?: Omit<DzLinkProps, 'LinkElement'>;
   className?: any;
   podcastProps?: Omit<DzSpotifyProps, 'link'>;
   videoProps?: any;

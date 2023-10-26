@@ -61,7 +61,7 @@ type LinkCTA = {
   text: string;
   url: string;
   linkElement: any;
-  linkProps?: DzLinkProps;
+  linkProps?: Omit<DzLinkProps, 'LinkElement'>;
 };
 
 const styles: any = {
@@ -97,10 +97,10 @@ const styles: any = {
     md:text-xxl
   `,
   linkCta: `
-   mt-2.5
-   mb-[2.219rem]
-   md:mt-[1.875rem]
-   md:mb-0
+    mt-2.5
+    mb-[2.219rem]
+    md:mt-[1.875rem]
+    md:mb-0
   `,
   mediaImage: `
     w-full

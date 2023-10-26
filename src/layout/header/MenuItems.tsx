@@ -10,7 +10,7 @@ import useWindowSize from '../../hooks/useWindowSize';
 export type MenuItemsProps = {
   items: any[];
   isMobile?: boolean;
-  linkProps?: DzLinkProps | RouterProps;
+  linkProps?: Omit<DzLinkProps, 'LinkElement'> | RouterProps;
   LinkElement: any;
 };
 
@@ -84,7 +84,7 @@ const styles: any = {
 type RenderPerTypeCbArgs<T> = {
   data: T;
   isMobile: boolean;
-  linkProps: DzLinkProps | RouterProps;
+  linkProps: Omit<DzLinkProps, 'LinkElement'> | RouterProps;
   className: string;
   LinkElement: any;
 };

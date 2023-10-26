@@ -50,7 +50,7 @@ export type DzLinkProps = {
   router?: any;
   className?: string;
   // TODO: remove ? after end of migration
-  LinkElement?: any;
+  LinkElement: any;
   linkProps?: any;
   textLinkSize?: TextLinkSize;
   withoutStyle?: boolean;

@@ -93,6 +93,10 @@ export const CardContent = ({
     [isHoverLink, styles]
   );
 
+  const disabledLinkStyle = cardLink
+    ? 'pointer-events-none'
+    : 'pointer-events-auto';
+
   const renderWithLink = useCallback(
     (children, linkProps) => {
       if (linkProps) {
@@ -201,9 +205,10 @@ export const CardContent = ({
             <DzLink
               {...(linkCTA.linkProps ?? {})}
               href={linkCTA.url}
-              LinkElement={cardLink ? 'span' : linkCTA.linkElement}
+              // LinkElement={cardLink ? 'span' : LinkElement}
+              LinkElement={LinkElement}
               variant={LINK_VARIANTS.TEXT}
-              className={cn(linkHoverStyle)}
+              className={cn(linkHoverStyle, disabledLinkStyle)}
               textLinkSize={isSmall ? TEXT_LINK_SIZES.XS : TEXT_LINK_SIZES.SM}
             >
               {linkCTA.text}

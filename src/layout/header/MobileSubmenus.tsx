@@ -9,7 +9,7 @@ type MobileSubmenuProps = {
   title: string;
   items: any[];
   rootUrl?: string;
-  linkProps?: DzLinkProps | RouterProps;
+  linkProps?: Omit<DzLinkProps, 'LinkElement'> | RouterProps;
   LinkElement: any;
 };
 

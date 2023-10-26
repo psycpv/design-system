@@ -21,7 +21,7 @@ type DesktopSubmenuProps = {
   title: string;
   items: any[];
   rootUrl?: string;
-  linkProps?: DzLinkProps | RouterProps;
+  linkProps?: Omit<DzLinkProps, 'LinkElement'> | RouterProps;
   linkClass?: string;
   LinkElement: any;
 };
