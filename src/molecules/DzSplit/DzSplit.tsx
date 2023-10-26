@@ -36,6 +36,7 @@ export type SplitTypes = typeof SPLIT_TYPES_NAMES[number];
 type DataSplit = {
   title: string;
   media: Omit<DzMediaProps, 'LinkElement'>;
+  hideMedia?: boolean;
   category?: string;
   subtitle?: string;
   secondaryTitle?: string;
@@ -147,6 +148,7 @@ export const DzSplit = ({
     media,
     title,
     subtitle,
+    hideMedia,
     secondaryTitle,
     secondarySubtitle,
     category,
@@ -195,15 +197,17 @@ export const DzSplit = ({
         <div
           className={cn(mediaContainerStyles, 'w-full', mediaContainerClass)}
         >
-          <DzMedia
-            className={isPodcast ? styles.podcast : ''}
-            imgClass={animate ? styles.animateImg : ''}
-            objectFit={MEDIA_OBJECT_FIT.COVER}
-            objectPosition={ObjectPositionType.TOP}
-            aspectRatio={MEDIA_ASPECT_RATIOS['4:3']}
-            {...media}
-            LinkElement={LinkElement}
-          />
+          {!hideMedia ? (
+            <DzMedia
+              className={isPodcast ? styles.podcast : ''}
+              imgClass={animate ? styles.animateImg : ''}
+              objectFit={MEDIA_OBJECT_FIT.COVER}
+              objectPosition={ObjectPositionType.TOP}
+              aspectRatio={MEDIA_ASPECT_RATIOS['4:3']}
+              {...media}
+              LinkElement={LinkElement}
+            />
+          ) : null}
         </div>
       </div>
 
