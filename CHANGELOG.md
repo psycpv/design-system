@@ -1,3 +1,15 @@
+# v0.0.140 (Thu Oct 26 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-705: add split hide media option [#207](https://github.com/Zwirner/design-system/pull/207) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
 # v0.0.139 (Thu Oct 26 2023)
 
 #### 🐛 Bug Fix
