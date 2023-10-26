@@ -20,6 +20,7 @@ import {
   DzButton,
   BUTTON_SIZES,
   ButtonModes,
+  MEDIA_VIDEO_PLAY_ICON_TYPES,
 } from '../../atoms';
 import useWindowSize from '../../hooks/useWindowSize';
 import { BREAKPOINTS } from '../../layout/breakpoints';
