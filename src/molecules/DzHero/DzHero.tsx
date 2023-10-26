@@ -36,6 +36,13 @@ import { BREAKPOINTS } from '../../layout/breakpoints';
 
 register();
 
+type LinkCTA = {
+  text: string;
+  url: string;
+  linkElement: any;
+  linkProps?: Omit<DzLinkProps, 'LinkElement'>;
+};
+
 export type DzHeroItem = {
   media: Omit<DzMediaProps, 'LinkElement'>;
   hideMedia?: boolean;
@@ -55,13 +62,6 @@ export type DzHeroProps = {
   className?: string;
   primaryTitleProps?: Omit<DzTitleProps, 'title' | 'subtitle'>;
   LinkElement: any;
-};
-
-type LinkCTA = {
-  text: string;
-  url: string;
-  linkElement: any;
-  linkProps?: Omit<DzLinkProps, 'LinkElement'>;
 };
 
 const styles: any = {
@@ -282,11 +282,11 @@ export const DzHero = forwardRef<HTMLDivElement, DzHeroProps>(
                     <DzLink
                       {...(item.linkCTA.linkProps ?? {})}
                       href={item.linkCTA.url}
-                      LinkElement={LinkElement}
                       textLinkSize={
                         isSmall ? TEXT_LINK_SIZES.XS : TEXT_LINK_SIZES.SM
                       }
                       variant={LINK_VARIANTS.TEXT}
+                      LinkElement={LinkElement}
                     >
                       {item.linkCTA.text}
                     </DzLink>

@@ -257,9 +257,9 @@ export const DzSplit = ({
             className={cn(styles.linkCta)}
             {...(linkCTA.linkProps ?? {})}
             href={linkCTA.url}
-            LinkElement={LinkElement}
             variant={LINK_VARIANTS.TEXT}
             textLinkSize={isSmall ? TEXT_LINK_SIZES.XS : TEXT_LINK_SIZES.SM}
+            LinkElement={LinkElement}
           >
             {linkCTA.text}
           </DzLink>
