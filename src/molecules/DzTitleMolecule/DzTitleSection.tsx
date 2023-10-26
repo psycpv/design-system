@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import {
   DzTitle,
   TITLE_SIZES,
@@ -39,13 +39,13 @@ const DEFAULT_TITLE_PROPS = {
 
 const CHARACTER_LIMIT_TITLE = 50;
 
-export const DzTitleSection: FC<DzTitleSectionProps> = ({
+export const DzTitleSection = ({
   title,
   subtitle,
   titleProps = DEFAULT_TITLE_PROPS,
   linkCTA,
   customClass = '',
-}) => {
+}: DzTitleSectionProps) => {
   return (
     <div className={cn(styles.titleContainer, customClass)}>
       <DzTitle

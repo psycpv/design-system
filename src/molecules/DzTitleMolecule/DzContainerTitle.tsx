@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 import DzTitleMolecule, {
   DzMoleculeLinkCTA,
@@ -8,7 +8,7 @@ import DzTitleMolecule, {
 import { TITLE_SIZES, TITLE_TYPES, TitleType } from '../../atoms';
 import { ColumnProps } from '../../layout';
 
-interface ContainerTitleProps {
+type ContainerTitleProps = {
   type?: DzTitleMoleculeTypes;
   titleType?: TitleType;
   title: string;
@@ -20,7 +20,7 @@ interface ContainerTitleProps {
   fullLeftContainer?: boolean;
   customCTAContainerProps?: ColumnProps;
   disableMaxTitleLength?: boolean;
-}
+};
 
 const styles: any = {
   pageTitleContainer: `
@@ -36,7 +36,7 @@ const stylesPerType: any = {
   [DzTitleMoleculeTypes.MOLECULE]: styles.moleculeTitleContainer,
 };
 
-export const DzContainerTitle: FC<ContainerTitleProps> = ({
+export const DzContainerTitle = ({
   type = DzTitleMoleculeTypes.PAGE,
   title,
   titleType = TITLE_TYPES.H1,
@@ -48,7 +48,7 @@ export const DzContainerTitle: FC<ContainerTitleProps> = ({
   primaryCTA,
   customCTAContainerProps,
   disableMaxTitleLength,
-}) => {
+}: ContainerTitleProps) => {
   return (
     <DzTitleMolecule
       type={type}

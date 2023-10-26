@@ -8,7 +8,7 @@ export interface DzSectionMenuProps {
   usePrefix?: boolean;
   sticky?: boolean;
   useLinks?: boolean;
-  linksProps?: Partial<DzLinkProps>;
+  linksProps?: Partial<Omit<DzLinkProps, 'LinkElement'>>;
   className?: string;
 }
 
