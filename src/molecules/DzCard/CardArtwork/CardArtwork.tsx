@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
   DzMedia,
   DzText,
@@ -14,7 +14,7 @@ import {
 } from '../../../atoms';
 import { cn } from '../../../utils/classnames';
 import { priceFormatter } from '../../../utils/formatters';
-import { CardArtworkData, CardArtworkProps } from './types';
+import { CardArtworkData } from './types';
 import { globalStyles, stylesSizes } from './styles';
 import { mergeStyles } from '../../../lib/styles';
 import { typeToSize } from '../sizes';
@@ -23,11 +23,19 @@ import { BREAKPOINTS } from '../../../layout/breakpoints';
 import { slugify } from '../../../utils';
 import { CardViewport } from '../types';
 
-export const CardArtwork: FC<CardArtworkProps> = ({
+export type CardArtworkProps = {
+  LinkElement: any;
+  data: CardArtworkData;
+  onClickImage?: (data: CardArtworkData) => void;
+  imageStyles?: any;
+};
+
+export const CardArtwork = ({
   data,
   onClickImage,
   imageStyles,
-}) => {
+  LinkElement = 'a',
+}: CardArtworkProps) => {
   const {
     id,
     size,
@@ -72,14 +80,14 @@ export const CardArtwork: FC<CardArtworkProps> = ({
     children => {
       if (data?.slug) {
         return (
-          <DzLink href={data?.slug} withoutStyle>
+          <DzLink href={data?.slug} withoutStyle LinkElement={LinkElement}>
             {children}
           </DzLink>
         );
       }
       return children;
     },
-    [data]
+    [data, LinkElement]
   );
 
   return renderWithLink(
@@ -100,6 +108,7 @@ export const CardArtwork: FC<CardArtworkProps> = ({
           onClick: () => onClickImage?.(data),
         }}
         videoPlayIconSize={videoPlayIconSize}
+        LinkElement={LinkElement}
       />
       <div className={cn(styles.artwork.infoContainer)}>
         <div className={cn(styles.artwork.leftPanel)}>

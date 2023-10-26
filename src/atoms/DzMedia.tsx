@@ -115,6 +115,7 @@ export interface DzMediaProps extends ImgHTMLAttributes<HTMLImageElement> {
   objectFit?: ObjectFitType;
   sourceSet?: ReactNode | null;
   objectPosition?: ObjectPositionType;
+  LinkElement: any;
 }
 
 const styles: any = {
@@ -159,30 +160,14 @@ const styles: any = {
   `,
 };
 
-const videoNode = {
-  // https://developers.google.com/youtube/player_parameters#Parameters
-  youtube: data => {
-    const placeholderText = `${data?.source?.sources?.[0]?.src} : ${data?.source?.sources?.[0]?.provider}`;
-    return <div>VIDEO PLACEHOLDER: {placeholderText}</div>;
-  },
-  // https://developer.vimeo.com/player/sdk/embed
-  vimeo: data => {
-    const placeholderText = `${data?.source?.sources?.[0]?.src} : ${data?.source?.sources?.[0]?.provider}`;
-    return <div>VIDEO PLACEHOLDER: {placeholderText}</div>;
-  },
-  url: (data, sourceSet) => {
-    return <video {...data}>{sourceSet}</video>;
-  },
-};
-
-export const DzMedia: FC<DzMediaProps> = ({
+export const DzMedia = ({
   type,
   ImgElement,
   imgClass,
   imgProps = {},
   url = '',
   podcastProps = {},
-  linkProps = {},
+  linkProps,
   className = '',
   videoProps = {},
   mobileVideoProps = {},
@@ -192,11 +177,13 @@ export const DzMedia: FC<DzMediaProps> = ({
   objectPosition = ObjectPositionType.CENTER,
   videoPlayIconSize = MEDIA_VIDEO_PLAY_ICON_TYPES.SMALL,
   sourceSet = null,
-}) => {
+  LinkElement = 'a',
+}: DzMediaProps) => {
   const isSmall = useIsSmallWindowSize();
   const [isShowingPoster, setIsShowingPoster] = useState(
     type === MEDIA_TYPES.VIDEO && videoProps?.source?.posterImage
   );
+  const nonNullableLinkProps = linkProps ?? {};
   const renderImage = useMemo(() => {
     const mediaClasses = cn(
       className,
@@ -231,22 +218,18 @@ export const DzMedia: FC<DzMediaProps> = ({
     className,
   ]);
 
-  const LinkElem = useMemo(() => {
-    if (url) {
-      return (
-        <DzLink
-          {...linkProps}
-          href={url}
-          className={cn(styles.mediaContainer, className)}
-        >
-          {renderImage}
-        </DzLink>
-      );
-    }
-    return (
-      <div className={cn(styles.mediaContainer, className)}>{renderImage}</div>
-    );
-  }, [url, renderImage, className, linkProps]);
+  const LinkElem = url ? (
+    <DzLink
+      {...nonNullableLinkProps}
+      LinkElement={LinkElement}
+      href={url}
+      className={cn(styles.mediaContainer, className)}
+    >
+      {renderImage}
+    </DzLink>
+  ) : (
+    <div className={cn(styles.mediaContainer, className)}>{renderImage}</div>
+  );
 
   if (type === MEDIA_TYPES.IMAGE) {
     return LinkElem;
