@@ -1,5 +1,4 @@
 import React, {
-  FC,
   useMemo,
   ImgHTMLAttributes,
   ReactNode,
@@ -179,6 +178,7 @@ export const DzMedia = ({
   sourceSet = null,
   LinkElement = 'a',
 }: DzMediaProps) => {
+  const playerRef = useRef<HTMLVmPlayerElement>(null);
   const isSmall = useIsSmallWindowSize();
   const [isShowingPoster, setIsShowingPoster] = useState(
     type === MEDIA_TYPES.VIDEO && videoProps?.source?.posterImage
@@ -240,7 +240,6 @@ export const DzMedia = ({
   }
 
   if (type === MEDIA_TYPES.VIDEO) {
-    const playerRef = useRef<HTMLVmPlayerElement>(null);
     const { src } = videoProps.source?.sources?.[0] ?? {};
     const mobileSrc = mobileVideoProps.source?.sources?.[0]?.src;
     const videoId = isSmall && mobileSrc ? mobileSrc : src;
