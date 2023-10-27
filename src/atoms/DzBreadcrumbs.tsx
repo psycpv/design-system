@@ -10,7 +10,7 @@ type PageBreadcrumb = {
 };
 export type DzBreadcrumbsProps = {
   pages: PageBreadcrumb[];
-  linkProps?: DzLinkProps;
+  linkProps?: Omit<DzLinkProps, 'LinkElement'>;
   LinkElement: any;
 };
 
