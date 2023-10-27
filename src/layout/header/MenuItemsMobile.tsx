@@ -20,7 +20,7 @@ export type MenuItemsMobileProps = {
   items: any[];
   handleSearch: MouseEventHandler<any>;
   footerData: FooterData;
-  newsletterAction: () => void;
+  newsletterAction: Function;
   LinkElement: any;
 };
 
@@ -100,7 +100,7 @@ export const MenuItemsMobile = ({
   items = [],
   handleSearch = () => null,
   footerData,
-  newsletterAction = () => {},
+  newsletterAction = () => null,
   LinkElement = 'a',
 }: MenuItemsMobileProps) => {
   const [openMenu, setOpenMenu] = useState(false);
