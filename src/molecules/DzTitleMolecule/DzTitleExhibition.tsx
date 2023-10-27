@@ -183,7 +183,11 @@ export const DzTitleExhibition = ({
               <div className={styles.infoColumnContainer}>
                 <DzText className={styles.infoColumnTitle} text={'Location'} />
                 <div className={styles.infoColumnBody}>
-                  <DzLink href={location.url} target="_blank">
+                  <DzLink
+                    href={location.url}
+                    target="_blank"
+                    LinkElement={LinkElement}
+                  >
                     {locationLines.map(locationLine => (
                       <DzText
                         key={locationLine}
@@ -224,6 +228,7 @@ export const DzTitleExhibition = ({
                       variant={LINK_VARIANTS.TEXT}
                       className={styles.mdText}
                       key={fullName}
+                      LinkElement={LinkElement}
                     >
                       {fullName}
                     </DzLink>
@@ -247,6 +252,7 @@ export const DzTitleExhibition = ({
                     className={styles.smallText}
                     href={pressReleasePDFURL}
                     variant={LINK_VARIANTS.TEXT}
+                    LinkElement={LinkElement}
                   >
                     View Press Release
                   </DzLink>
@@ -263,6 +269,7 @@ export const DzTitleExhibition = ({
                     className={styles.smallText}
                     href={checklistPDFURL}
                     variant={LINK_VARIANTS.TEXT}
+                    LinkElement={LinkElement}
                   >
                     Download Checklist
                   </DzLink>
