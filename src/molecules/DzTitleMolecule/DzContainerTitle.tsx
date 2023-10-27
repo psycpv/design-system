@@ -1,12 +1,10 @@
 import React, { ReactNode } from 'react';
 
-import DzTitleMolecule, {
-  DzMoleculeLinkCTA,
-  DzMoleculeTitleCTA,
-  DzTitleMoleculeTypes,
-} from './DzTitleMolecule';
+import DzTitleMolecule, { DzTitleMoleculeTypes } from './DzTitleMolecule';
 import { TITLE_SIZES, TITLE_TYPES, TitleType } from '../../atoms';
 import { ColumnProps } from '../../layout';
+import { DzMoleculeLinkCTA } from './DzTitleSection';
+import { DzMoleculeTitleCTA } from './DzTitlePage';
 
 type ContainerTitleProps = {
   type?: DzTitleMoleculeTypes;
@@ -20,6 +18,7 @@ type ContainerTitleProps = {
   fullLeftContainer?: boolean;
   customCTAContainerProps?: ColumnProps;
   disableMaxTitleLength?: boolean;
+  LinkElement: any;
 };
 
 const styles: any = {
@@ -48,6 +47,7 @@ export const DzContainerTitle = ({
   primaryCTA,
   customCTAContainerProps,
   disableMaxTitleLength,
+  LinkElement = 'a',
 }: ContainerTitleProps) => {
   return (
     <DzTitleMolecule
@@ -67,6 +67,7 @@ export const DzContainerTitle = ({
         customCTAContainerProps,
         disableMaxTitleLength,
       }}
+      LinkElement={LinkElement}
     />
   );
 };

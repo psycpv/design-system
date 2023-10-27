@@ -5,10 +5,27 @@ import {
   DzLink,
   TITLE_TYPES,
   LINK_VARIANTS,
+  DzLinkProps,
+  DzTitleProps,
 } from '../../atoms';
 import { cn } from '../../utils/classnames';
 import { sliceMaxCharLength } from '../../utils/validators';
-import { DzTitleSectionProps } from './DzTitleMolecule';
+
+export type DzMoleculeLinkCTA = {
+  text: string;
+  url: string;
+  linkProps?: Omit<DzLinkProps, 'LinkElement'>;
+};
+
+type DzTitleSectionProps = {
+  title: string;
+  subtitle?: string;
+  titleProps?: Partial<DzTitleProps>;
+  linkCTA?: DzMoleculeLinkCTA;
+  customClass?: string;
+  fullLeftContainer?: boolean;
+  LinkElement: any;
+};
 
 const styles: any = {
   titleContainer: `
@@ -45,6 +62,7 @@ export const DzTitleSection = ({
   titleProps = DEFAULT_TITLE_PROPS,
   linkCTA,
   customClass = '',
+  LinkElement = 'a',
 }: DzTitleSectionProps) => {
   return (
     <div className={cn(styles.titleContainer, customClass)}>
@@ -62,7 +80,7 @@ export const DzTitleSection = ({
             variant={LINK_VARIANTS.TEXT}
             className={cn(styles.linkText)}
             href={linkCTA.url}
-            LinkElement={linkCTA.linkElement}
+            LinkElement={LinkElement}
           >
             {linkCTA.text}
           </DzLink>
