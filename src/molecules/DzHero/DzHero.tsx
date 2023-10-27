@@ -1,5 +1,4 @@
 import React, {
-  FC,
   Fragment,
   ReactNode,
   forwardRef,
@@ -37,8 +36,8 @@ import { BREAKPOINTS } from '../../layout/breakpoints';
 
 register();
 
-export interface DzHeroItem {
-  media: DzMediaProps;
+export type DzHeroItem = {
+  media: Omit<DzMediaProps, 'LinkElement'>;
   hideMedia?: boolean;
   category?: string;
   title: string;
@@ -48,21 +47,22 @@ export interface DzHeroItem {
   description?: ReactNode;
   portableTextDescription?: ReactNode;
   linkCTA?: LinkCTA;
-}
+};
 
-export interface DzHeroProps {
+export type DzHeroProps = {
   items: DzHeroItem[];
   onSlideChange?: Function;
   className?: string;
   primaryTitleProps?: Omit<DzTitleProps, 'title' | 'subtitle'>;
-}
+  LinkElement: any;
+};
 
-interface LinkCTA {
+type LinkCTA = {
   text: string;
   url: string;
   linkElement: any;
   linkProps?: DzLinkProps;
-}
+};
 
 const styles: any = {
   heroContainer: `
@@ -183,8 +183,8 @@ enum Actions {
   PREV = 'previous',
 }
 
-export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
-  ({ items, className = '', primaryTitleProps }, ref) => {
+export const DzHero = forwardRef<HTMLDivElement, DzHeroProps>(
+  ({ items, className = '', primaryTitleProps, LinkElement = 'a' }, ref) => {
     const [currentItemIndex, setCurrentItemIndex] = useState<number>(0);
     const [activeAnimation, setActiveAnimation] = useState(0);
     const { width } = useWindowSize();
@@ -219,6 +219,7 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
                   key={`${item?.media?.url}-${item.title}`}
                   imgClass={cn(styles.mediaImage)}
                   {...item.media}
+                  LinkElement={LinkElement}
                 />
               ))}
           </MediaWrapper>
@@ -281,7 +282,7 @@ export const DzHero: FC<DzHeroProps> = forwardRef<HTMLDivElement, DzHeroProps>(
                     <DzLink
                       {...(item.linkCTA.linkProps ?? {})}
                       href={item.linkCTA.url}
-                      LinkElement={item.linkCTA.linkElement}
+                      LinkElement={LinkElement}
                       textLinkSize={
                         isSmall ? TEXT_LINK_SIZES.XS : TEXT_LINK_SIZES.SM
                       }

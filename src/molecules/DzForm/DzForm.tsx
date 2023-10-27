@@ -1,5 +1,4 @@
 import React, {
-  FC,
   ReactNode,
   useCallback,
   useEffect,
@@ -25,7 +24,7 @@ export const FORM_FIELD_TYPES = {
   CHECKBOX: 'checkbox',
 };
 
-export interface DzFormProps {
+export type DzFormProps = {
   steps: Array<FormStep>;
   mediaProps?: DzMediaProps;
   onSubmit: any;
@@ -37,7 +36,10 @@ export interface DzFormProps {
   isSubmitDisabled?: boolean;
   recaptchaNode?: ReactNode;
   onFocus?: Function;
-}
+  onChange?: (fieldName: string, value: any) => void;
+  onDirty?: () => void;
+  LinkElement: any;
+};
 
 const styles: any = {
   formContainer: `
@@ -75,7 +77,7 @@ const styles: any = {
   `,
 };
 
-export const DzForm: FC<DzFormProps> = ({
+export const DzForm = ({
   steps,
   mediaProps,
   onSubmit,
@@ -87,7 +89,10 @@ export const DzForm: FC<DzFormProps> = ({
   subtitleTextClassName,
   recaptchaNode,
   onFocus,
-}) => {
+  onChange,
+  onDirty,
+  LinkElement = 'a',
+}: DzFormProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formValues, setFormValues] = useState<Record<string, any>>(() => {
     // TODO initial values for all steps, currently only supported for first step
@@ -102,6 +107,7 @@ export const DzForm: FC<DzFormProps> = ({
     );
     return initialValues || {};
   });
+  const [hasFiredDirtyCallback, setHasFiredDirtyCallback] = useState(false);
   const stepsLength = useMemo(() => steps.length, [steps]);
 
   const stepFormData = useMemo(() => {
@@ -159,6 +165,11 @@ export const DzForm: FC<DzFormProps> = ({
   const onChangeInput = (fieldName: string, value: any) => {
     const formValidator = stepFormData.formValidator;
 
+    if (!hasFiredDirtyCallback) {
+      setHasFiredDirtyCallback(true);
+      onDirty?.();
+    }
+    onChange?.(fieldName, value);
     setFormValues(currentFormValues => {
       const newFormValues = {
         ...currentFormValues,
@@ -192,7 +203,11 @@ export const DzForm: FC<DzFormProps> = ({
     <div className={cn(styles.formContainer, containerClassName || '')}>
       {mediaProps && (
         <div className={cn(styles.leftContainer)}>
-          <DzMedia {...mediaProps} aspectRatio={MEDIA_ASPECT_RATIOS['4:3']} />
+          <DzMedia
+            {...mediaProps}
+            aspectRatio={MEDIA_ASPECT_RATIOS['4:3']}
+            LinkElement={LinkElement}
+          />
         </div>
       )}
       <div
