@@ -39,7 +39,6 @@ register();
 type LinkCTA = {
   text: string;
   url: string;
-  linkElement: any;
   linkProps?: Omit<DzLinkProps, 'LinkElement'>;
 };
 
