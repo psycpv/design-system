@@ -17,7 +17,7 @@ type LinkCTA = {
   text: string;
   url: string;
   linkElement: any;
-  linkProps?: DzLinkProps;
+  linkProps?: Omit<DzLinkProps, 'LinkElement'>;
 };
 
 export interface CardContentData extends BaseCard {
@@ -36,5 +36,5 @@ export interface CardContentData extends BaseCard {
   primaryCTA?: PrimaryCTA;
   hideImage?: boolean;
   enableZoom?: boolean;
-  cardLink?: DzLinkProps;
+  cardLink?: Omit<DzLinkProps, 'LinkElement'>;
 }

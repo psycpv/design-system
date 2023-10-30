@@ -1,3 +1,15 @@
+# v0.0.141 (Fri Oct 27 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-135 refactor: update functions, add types [#208](https://github.com/Zwirner/design-system/pull/208) ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+#### Authors: 1
+
+- Sergei ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+---
+
 # v0.0.140 (Thu Oct 26 2023)
 
 #### 🐛 Bug Fix
