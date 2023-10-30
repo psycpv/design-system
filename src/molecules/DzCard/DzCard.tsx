@@ -8,6 +8,7 @@ export type DzCardProps = {
   type: CardTypes;
   data: DataCardType;
   onClickImage?: (data: CardMediaData | CardArtworkData) => void;
+  onViewport?: (data: DataCardType) => void;
   imageStyles?: any;
   LinkElement: any;
 };
@@ -16,6 +17,7 @@ export const DzCard = ({
   type,
   data,
   onClickImage,
+  onViewport,
   imageStyles,
   LinkElement = 'a',
 }: DzCardProps) => {
@@ -35,6 +37,7 @@ export const DzCard = ({
         onClickImage={onClickImage}
         imageStyles={imageStyles}
         LinkElement={LinkElement}
+        onViewport={onViewport}
       />
     );
   }
