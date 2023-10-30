@@ -1,3 +1,17 @@
+# v0.0.142 (Mon Oct 30 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-135: remove linkElement from props as no more used [#210](https://github.com/Zwirner/design-system/pull/210) ([@MadaShindeInai](https://github.com/MadaShindeInai))
+- add onViewport callback to artwork card [#214](https://github.com/Zwirner/design-system/pull/214) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 2
+
+- adam ([@inconduit](https://github.com/inconduit))
+- Sergei ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+---
+
 # v0.0.141 (Fri Oct 27 2023)
 
 #### 🐛 Bug Fix
