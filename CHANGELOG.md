@@ -1,3 +1,15 @@
+# v0.0.143 (Mon Oct 30 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-770: Update design of nav arrows [#215](https://github.com/Zwirner/design-system/pull/215) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
 # v0.0.142 (Mon Oct 30 2023)
 
 #### 🐛 Bug Fix
