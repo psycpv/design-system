@@ -1,5 +1,5 @@
 {
-  "version": "0.0.141",
+  "version": "0.0.142",
   "license": "MIT",
   "main": "dist/design-system.esm.js",
   "typings": "dist/index.d.ts",
