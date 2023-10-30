@@ -10,10 +10,11 @@ const styles: any = {
     h-full
     top-0
     left-0
+    bg-black-20
     z-[100]
   `,
   fitFill: `
-    !object-fill
+    !object-contain
   `,
   posterImg: `
     w-full
