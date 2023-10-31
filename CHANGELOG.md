@@ -1,3 +1,15 @@
+# v0.0.145 (Tue Oct 31 2023)
+
+#### 🐛 Bug Fix
+
+- propagate onChange from DzTextBox [#218](https://github.com/Zwirner/design-system/pull/218) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.144 (Tue Oct 31 2023)
 
 #### 🐛 Bug Fix
