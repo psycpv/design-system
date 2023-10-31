@@ -50,7 +50,6 @@ type DataSplit = {
 type LinkCTA = {
   text: string;
   url: string;
-  linkElement: any;
   linkProps?: Partial<Omit<DzLinkProps, 'LinkElement'>>;
 };
 
