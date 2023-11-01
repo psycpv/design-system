@@ -1,3 +1,15 @@
+# v0.0.147 (Wed Nov 01 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-799: solve closing modal [#221](https://github.com/Zwirner/design-system/pull/221) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
 # v0.0.146 (Tue Oct 31 2023)
 
 #### 🐛 Bug Fix
