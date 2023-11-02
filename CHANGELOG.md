@@ -1,3 +1,15 @@
+# v0.0.149 (Thu Nov 02 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-178: Reduce spacing between cards [#222](https://github.com/Zwirner/design-system/pull/222) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
 # v0.0.148 (Thu Nov 02 2023)
 
 #### 🐛 Bug Fix
