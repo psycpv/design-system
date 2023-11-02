@@ -50,8 +50,7 @@ type DataSplit = {
 type LinkCTA = {
   text: string;
   url: string;
-  linkElement: any;
-  linkProps?: Partial<DzLinkProps>;
+  linkProps?: Partial<Omit<DzLinkProps, 'LinkElement'>>;
 };
 
 type ButtonCTA = {
@@ -257,9 +256,9 @@ export const DzSplit = ({
             className={cn(styles.linkCta)}
             {...(linkCTA.linkProps ?? {})}
             href={linkCTA.url}
-            LinkElement={LinkElement}
             variant={LINK_VARIANTS.TEXT}
             textLinkSize={isSmall ? TEXT_LINK_SIZES.XS : TEXT_LINK_SIZES.SM}
+            LinkElement={LinkElement}
           >
             {linkCTA.text}
           </DzLink>

@@ -49,8 +49,7 @@ export type DzLinkProps = {
   useRoute?: boolean;
   router?: any;
   className?: string;
-  // TODO: remove ? after end of migration
-  LinkElement?: any;
+  LinkElement: any;
   linkProps?: any;
   textLinkSize?: TextLinkSize;
   withoutStyle?: boolean;
@@ -147,52 +146,44 @@ export const DzLink: ForwardRefExoticComponent<DzLinkProps> = forwardRef(
         )
       : '';
 
-    // TEMP for parts of system where Link are not passed via props. Remove after end.
-    if (!isExternalLink && LinkElement === 'a') {
+    // Usage for links-in-cards
+    if (LinkElement === 'span') {
       return (
-        <LinkElement
-          href={href}
-          target={openNewTab ? '_blank' : '_self'}
-          rel="noopener noreferrer"
-          ref={ref}
-          className={linkStyle}
-          {...rest}
-          {...linkProps}
-        >
+        <span ref={ref} className={linkStyle}>
           {children}
-        </LinkElement>
-      );
-    }
-
-    // Usage for Next.js Link
-    if (!isExternalLink) {
-      return (
-        <LinkElement
-          href={parsedHref}
-          target={openNewTab ? '_blank' : '_self'}
-          rel="noopener noreferrer"
-          ref={ref}
-          className={linkStyle}
-          {...rest}
-          {...linkProps}
-        >
-          {children}
-        </LinkElement>
+        </span>
       );
     }
 
     // Usage for external links
+    if (isExternalLink || LinkElement === 'a') {
+      return (
+        <a
+          ref={ref}
+          target={openNewTab ? '_blank' : '_self'}
+          rel="noopener noreferrer"
+          href={href}
+          {...rest}
+          className={linkStyle}
+        >
+          {children}
+        </a>
+      );
+    }
+
+    // Usage for Next.js Link
     return (
-      <a
-        ref={ref}
-        target="_blank"
+      <LinkElement
+        href={parsedHref}
+        target={openNewTab ? '_blank' : '_self'}
         rel="noopener noreferrer"
-        href={href}
-        {...rest}
+        ref={ref}
         className={linkStyle}
+        {...rest}
+        {...linkProps}
       >
         {children}
-      </a>
+      </LinkElement>
     );
   }
 );

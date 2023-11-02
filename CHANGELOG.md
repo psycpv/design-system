@@ -1,3 +1,101 @@
+# v0.0.148 (Thu Nov 02 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 802 fix article title cutoff [#219](https://github.com/Zwirner/design-system/pull/219) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.147 (Wed Nov 01 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-799: solve closing modal [#221](https://github.com/Zwirner/design-system/pull/221) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
+# v0.0.146 (Tue Oct 31 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 353 video 2 [#209](https://github.com/Zwirner/design-system/pull/209) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.145 (Tue Oct 31 2023)
+
+#### 🐛 Bug Fix
+
+- propagate onChange from DzTextBox [#218](https://github.com/Zwirner/design-system/pull/218) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
+# v0.0.144 (Tue Oct 31 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-XYZ: replace Link with span [#217](https://github.com/Zwirner/design-system/pull/217) ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+#### Authors: 1
+
+- Sergei ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+---
+
+# v0.0.143 (Mon Oct 30 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-770: Update design of nav arrows [#215](https://github.com/Zwirner/design-system/pull/215) ([@JoanCTO](https://github.com/JoanCTO))
+
+#### Authors: 1
+
+- David T ([@JoanCTO](https://github.com/JoanCTO))
+
+---
+
+# v0.0.142 (Mon Oct 30 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-135: remove linkElement from props as no more used [#210](https://github.com/Zwirner/design-system/pull/210) ([@MadaShindeInai](https://github.com/MadaShindeInai))
+- add onViewport callback to artwork card [#214](https://github.com/Zwirner/design-system/pull/214) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 2
+
+- adam ([@inconduit](https://github.com/inconduit))
+- Sergei ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+---
+
+# v0.0.141 (Fri Oct 27 2023)
+
+#### 🐛 Bug Fix
+
+- NWEB-135 refactor: update functions, add types [#208](https://github.com/Zwirner/design-system/pull/208) ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+#### Authors: 1
+
+- Sergei ([@MadaShindeInai](https://github.com/MadaShindeInai))
+
+---
+
 # v0.0.140 (Thu Oct 26 2023)
 
 #### 🐛 Bug Fix

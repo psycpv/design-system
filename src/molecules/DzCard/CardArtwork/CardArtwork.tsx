@@ -10,6 +10,7 @@ import {
   MEDIA_ASPECT_RATIOS,
   BUTTON_SIZES,
   DzLink,
+  MEDIA_VIDEO_PLAY_ICON_TYPES,
 } from '../../../atoms';
 import { cn } from '../../../utils/classnames';
 import { priceFormatter } from '../../../utils/formatters';
@@ -21,17 +22,20 @@ import useWindowSize from '../../../hooks/useWindowSize';
 import { BREAKPOINTS } from '../../../layout/breakpoints';
 import { slugify } from '../../../utils';
 import { CardViewport } from '../types';
+import { useIsInViewportSingleCallback } from '../../../hooks/useIsInViewportSingleCallback';
 
 export type CardArtworkProps = {
   LinkElement: any;
   data: CardArtworkData;
   onClickImage?: (data: CardArtworkData) => void;
+  onViewport?: (data: CardArtworkData) => void;
   imageStyles?: any;
 };
 
 export const CardArtwork = ({
   data,
   onClickImage,
+  onViewport,
   imageStyles,
   LinkElement = 'a',
 }: CardArtworkProps) => {
@@ -56,11 +60,15 @@ export const CardArtwork = ({
     enableZoom = true,
     viewport = CardViewport.Desktop,
   } = data as CardArtworkData;
-
+  const targetRef = useIsInViewportSingleCallback(onViewport);
   const { width } = useWindowSize();
   const isSmall = useMemo(() => {
     return width <= BREAKPOINTS.MD;
   }, [width]);
+  const videoPlayIconSize =
+    size?.[1] >= 6
+      ? MEDIA_VIDEO_PLAY_ICON_TYPES.LARGE
+      : MEDIA_VIDEO_PLAY_ICON_TYPES.SMALL;
 
   const styles = useMemo(() => {
     const span = Array.isArray(size)
@@ -87,7 +95,7 @@ export const CardArtwork = ({
   );
 
   return renderWithLink(
-    <div id={id} className={cn(styles.cardContainer, 'group')}>
+    <div id={id} className={cn(styles.cardContainer, 'group')} ref={targetRef}>
       <DzMedia
         className="overflow-hidden"
         imgClass={cn(
@@ -103,6 +111,7 @@ export const CardArtwork = ({
           ...(media?.imgProps || {}),
           onClick: () => onClickImage?.(data),
         }}
+        videoPlayIconSize={videoPlayIconSize}
         LinkElement={LinkElement}
       />
       <div className={cn(styles.artwork.infoContainer)}>
@@ -121,6 +130,7 @@ export const CardArtwork = ({
                 <>
                   <span
                     className={cn(
+                      'inline-block',
                       portableTextArtworkTitle
                         ? ''
                         : styles.artwork.artWorkTitle

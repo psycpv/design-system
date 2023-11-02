@@ -34,8 +34,7 @@ type StepInterface = {
 type LinkCTA = {
   text: string;
   url: string;
-  linkElement: any;
-  linkProps?: DzLinkProps;
+  linkProps?: Omit<DzLinkProps, 'LinkElement'>;
 };
 
 type ExtraData = {

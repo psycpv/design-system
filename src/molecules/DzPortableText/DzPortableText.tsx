@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo } from 'react';
+import React, { Fragment } from 'react';
 import {
   PortableTextTypeComponentProps,
   PortableTextMarkComponentProps,
@@ -74,7 +74,6 @@ export const DzPortableText = ({
           >
             <DzColumn span={10} start={2}>
               <DzCard
-                LinkElement={LinkElement}
                 type={CARD_TYPES.MEDIA}
                 data={{
                   id: _key,
@@ -86,6 +85,7 @@ export const DzPortableText = ({
                   },
                   description: caption ?? '',
                 }}
+                LinkElement={LinkElement}
               />
             </DzColumn>
           </DzGridColumns>
@@ -139,14 +139,13 @@ export const DzPortableText = ({
         ) : null;
       },
       link: ({ value, children }: PortableTextMarkComponentProps) => {
-        const target = (value?.href || '').startsWith('http');
         return (
           <DzLink
             href={value?.href}
-            openNewTab={target}
             variant={LINK_VARIANTS.TEXT}
             className={styles.link}
             textLinkSize={TEXT_LINK_SIZES.MD}
+            LinkElement={LinkElement}
           >
             {children}
           </DzLink>
