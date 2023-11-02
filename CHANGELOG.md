@@ -1,3 +1,15 @@
+# v0.0.148 (Thu Nov 02 2023)
+
+#### 🐛 Bug Fix
+
+- Nweb 802 fix article title cutoff [#219](https://github.com/Zwirner/design-system/pull/219) ([@inconduit](https://github.com/inconduit))
+
+#### Authors: 1
+
+- adam ([@inconduit](https://github.com/inconduit))
+
+---
+
 # v0.0.147 (Wed Nov 01 2023)
 
 #### 🐛 Bug Fix
